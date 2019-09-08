@@ -5,9 +5,9 @@
   <subtitle>VK&#39;s blog</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https:///vkbiu.github.io/"/>
+  <link href="https://vkxss.top/"/>
   <updated>2019-09-08T16:30:10.744Z</updated>
-  <id>https:///vkbiu.github.io/</id>
+  <id>https://vkxss.top/</id>
   
   <author>
     <name>VK</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>Insecure Randomness</title>
-    <link href="https:///vkbiu.github.io/2019/08/22/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Insecure%20Randomness/"/>
-    <id>https:///vkbiu.github.io/2019/08/22/代码审计-Insecure Randomness/</id>
+    <link href="https://vkxss.top/2019/08/22/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Insecure%20Randomness/"/>
+    <id>https://vkxss.top/2019/08/22/代码审计-Insecure Randomness/</id>
     <published>2019-08-22T06:10:40.000Z</published>
     <updated>2019-09-08T16:30:10.744Z</updated>
     
@@ -35,17 +35,17 @@
     </summary>
     
     
-      <category term="代码审计" scheme="https:///vkbiu.github.io/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="代码审计" scheme="https://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
     
-      <category term="Java代码审计" scheme="https:///vkbiu.github.io/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="Java代码审计" scheme="https://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
   <entry>
     <title>敏感信息硬编码在程序中</title>
-    <link href="https:///vkbiu.github.io/2019/08/22/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E7%A1%AC%E7%BC%96%E7%A0%81%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD/"/>
-    <id>https:///vkbiu.github.io/2019/08/22/代码审计-敏感信息硬编码在程序中/</id>
+    <link href="https://vkxss.top/2019/08/22/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E7%A1%AC%E7%BC%96%E7%A0%81%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD/"/>
+    <id>https://vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/</id>
     <published>2019-08-22T04:25:40.000Z</published>
     <updated>2019-09-08T16:30:07.748Z</updated>
     
@@ -61,17 +61,17 @@
     </summary>
     
     
-      <category term="代码审计" scheme="https:///vkbiu.github.io/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="代码审计" scheme="https://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
     
-      <category term="Java代码审计" scheme="https:///vkbiu.github.io/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="Java代码审计" scheme="https://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
   <entry>
     <title>Null Dereference</title>
-    <link href="https:///vkbiu.github.io/2019/08/20/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Null%20Dereference/"/>
-    <id>https:///vkbiu.github.io/2019/08/20/代码审计-Null Dereference/</id>
+    <link href="https://vkxss.top/2019/08/20/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Null%20Dereference/"/>
+    <id>https://vkxss.top/2019/08/20/代码审计-Null Dereference/</id>
     <published>2019-08-20T07:23:43.000Z</published>
     <updated>2019-09-08T16:30:11.413Z</updated>
     
@@ -87,17 +87,17 @@
     </summary>
     
     
-      <category term="代码审计" scheme="https:///vkbiu.github.io/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="代码审计" scheme="https://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
     
-      <category term="Java代码审计" scheme="https:///vkbiu.github.io/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="Java代码审计" scheme="https://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
   <entry>
     <title>任意文件读取</title>
-    <link href="https:///vkbiu.github.io/2019/08/19/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/"/>
-    <id>https:///vkbiu.github.io/2019/08/19/代码审计-任意文件读取/</id>
+    <link href="https://vkxss.top/2019/08/19/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/"/>
+    <id>https://vkxss.top/2019/08/19/代码审计-任意文件读取/</id>
     <published>2019-08-19T06:13:12.000Z</published>
     <updated>2019-09-08T16:30:09.314Z</updated>
     
@@ -113,17 +113,17 @@
     </summary>
     
     
-      <category term="代码审计" scheme="https:///vkbiu.github.io/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="代码审计" scheme="https://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
     
-      <category term="Java代码审计" scheme="https:///vkbiu.github.io/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="Java代码审计" scheme="https://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
   <entry>
     <title>如何绕过URL限制</title>
-    <link href="https:///vkbiu.github.io/2019/07/20/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E5%A6%82%E4%BD%95%E7%BB%95%E8%BF%87URL%E9%99%90%E5%88%B6/"/>
-    <id>https:///vkbiu.github.io/2019/07/20/渗透测试-如何绕过URL限制/</id>
+    <link href="https://vkxss.top/2019/07/20/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E5%A6%82%E4%BD%95%E7%BB%95%E8%BF%87URL%E9%99%90%E5%88%B6/"/>
+    <id>https://vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/</id>
     <published>2019-07-20T04:25:40.000Z</published>
     <updated>2019-09-07T06:09:01.382Z</updated>
     
@@ -139,17 +139,17 @@
     </summary>
     
     
-      <category term="渗透测试" scheme="https:///vkbiu.github.io/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+      <category term="渗透测试" scheme="https://vkxss.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
     
-      <category term="WEB渗透测试" scheme="https:///vkbiu.github.io/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+      <category term="WEB渗透测试" scheme="https://vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
   <entry>
     <title>Mac下使用夜神模拟器调试</title>
-    <link href="https:///vkbiu.github.io/2018/12/19/APP%E6%B5%8B%E8%AF%95-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%A4%9C%E7%A5%9E%E6%A8%A1%E6%8B%9F%E5%99%A8%E8%B0%83%E8%AF%95/"/>
-    <id>https:///vkbiu.github.io/2018/12/19/APP测试-Mac下使用夜神模拟器调试/</id>
+    <link href="https://vkxss.top/2018/12/19/APP%E6%B5%8B%E8%AF%95-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%A4%9C%E7%A5%9E%E6%A8%A1%E6%8B%9F%E5%99%A8%E8%B0%83%E8%AF%95/"/>
+    <id>https://vkxss.top/2018/12/19/APP测试-Mac下使用夜神模拟器调试/</id>
     <published>2018-12-18T20:25:40.000Z</published>
     <updated>2019-09-07T06:33:01.187Z</updated>
     
@@ -165,10 +165,10 @@
     </summary>
     
     
-      <category term="APP" scheme="https:///vkbiu.github.io/categories/APP/"/>
+      <category term="APP" scheme="https://vkxss.top/categories/APP/"/>
     
     
-      <category term="APP渗透测试" scheme="https:///vkbiu.github.io/tags/APP%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+      <category term="APP渗透测试" scheme="https://vkxss.top/tags/APP%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
