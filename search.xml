@@ -67,6 +67,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[日志分析神器_Splunk]]></title>
+    <url>%2F2019%2F06%2F12%2F%E5%BA%94%E6%80%A5-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%A5%9E%E5%99%A8_Splunk%2F</url>
+    <content type="text"><![CDATA[0x01安装 搭建系统环境 16.04.1-Ubuntu-64 Splunk splunk-7.3.0-657388c7a488-Linux-x86_64 下载解压（想要安装包请留言），如下图所示： 解压完后，cd到splunk/bin目录下启动，然后需要输入web登录的账户和密码，成功如下图所示： 1运行命令:sudo ./splunk start 查看虚拟机IP，在本地浏览器访问，输入自己设置的账户和密码即可： 0x02日志分析 载入需要分析的日志，一直下一步即可，注意修改下主机字段值，方便查找，最后点击提交即可： 0x03分析案例0x03.1 Splunk 名词说明12345678910Data Input : 添加数据 （文件或文件目录、TCP、UDP、WMI、Script, Forwarder…）Source type ： 来源类型 （apache logs, security log、network log…）Host ：主机 （apache1、apche2, apcahe3…) Source：数据源 （/opt/apache/log/*.*）Index：索引（Splunk 索引）Field：字段： 正则表达式 (Regular Expression) 取出符合某个条件字段Search Language：搜索语句 （缩小范围 -&gt; 计算 -&gt; 呈现 ）Saved Search： 搜索语句储存，未来可以直接使用Report ： 報表，搜索结果 -&gt; 图形报表Alert：告警，搜索结果通报 0x03.2 案例案例一：统计-top 分析状态码为200、攻击者前10的IP地址，如下图所示：]]></content>
+      <categories>
+        <category>应急响应</category>
+      </categories>
+      <tags>
+        <tag>应急响应</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Mac下使用夜神模拟器调试]]></title>
     <url>%2F2018%2F12%2F19%2FAPP%E6%B5%8B%E8%AF%95-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%A4%9C%E7%A5%9E%E6%A8%A1%E6%8B%9F%E5%99%A8%E8%B0%83%E8%AF%95%2F</url>
     <content type="text"><![CDATA[1、遇到的问题：1.1、描述： 首先去夜神官网下载mac版最新app，吐槽一下，内置应用很不爽，那么Mac使用夜神模拟器调试，遇到adb无法连接夜神模拟器，怎么办？ 1.2、解决： 使用adb devices命令会发现，没有此设备，添加设备，网上有很多方法，主要是将usb文件号加入adb_usb.ini中，不赘述。再次运行adb devices，发现还是找不到设备，使用了一个取巧的办法，夜神模拟器的服务默认监听在62001端口，所以使用adb connect 127.0.0.1:62001 通过adb connect命令利用TCP/IP协议来连接。 进入设备]]></content>

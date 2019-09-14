@@ -5,9 +5,9 @@
   <subtitle>VK&#39;s blog</subtitle>
   <link href="/atom.xml" rel="self"/>
   
-  <link href="https://vkxss.top/"/>
+  <link href="http://vkxss.top/"/>
   <updated>2019-09-10T15:17:19.049Z</updated>
-  <id>https://vkxss.top/</id>
+  <id>http://vkxss.top/</id>
   
   <author>
     <name>VK</name>
@@ -18,8 +18,8 @@
   
   <entry>
     <title>CVE-2019-0708 远程桌面代码执行漏洞复现</title>
-    <link href="https://vkxss.top/2019/09/07/CVE-2019-0708/"/>
-    <id>https://vkxss.top/2019/09/07/CVE-2019-0708/</id>
+    <link href="http://vkxss.top/2019/09/07/CVE-2019-0708/"/>
+    <id>http://vkxss.top/2019/09/07/CVE-2019-0708/</id>
     <published>2019-09-07T07:30:08.000Z</published>
     <updated>2019-09-10T15:17:19.049Z</updated>
     
@@ -36,17 +36,17 @@
     </summary>
     
     
-      <category term="CVE-2019" scheme="https://vkxss.top/categories/CVE-2019/"/>
+      <category term="CVE-2019" scheme="http://vkxss.top/categories/CVE-2019/"/>
     
     
-      <category term="CVE-2019-0708" scheme="https://vkxss.top/tags/CVE-2019-0708/"/>
+      <category term="CVE-2019-0708" scheme="http://vkxss.top/tags/CVE-2019-0708/"/>
     
   </entry>
   
   <entry>
     <title>Insecure Randomness</title>
-    <link href="https://vkxss.top/2019/08/22/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Insecure%20Randomness/"/>
-    <id>https://vkxss.top/2019/08/22/代码审计-Insecure Randomness/</id>
+    <link href="http://vkxss.top/2019/08/22/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Insecure%20Randomness/"/>
+    <id>http://vkxss.top/2019/08/22/代码审计-Insecure Randomness/</id>
     <published>2019-08-22T06:10:40.000Z</published>
     <updated>2019-09-08T16:30:10.744Z</updated>
     
@@ -62,17 +62,17 @@
     </summary>
     
     
-      <category term="代码审计" scheme="https://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="代码审计" scheme="http://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
     
-      <category term="Java代码审计" scheme="https://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="Java代码审计" scheme="http://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
   <entry>
     <title>敏感信息硬编码在程序中</title>
-    <link href="https://vkxss.top/2019/08/22/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E7%A1%AC%E7%BC%96%E7%A0%81%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD/"/>
-    <id>https://vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/</id>
+    <link href="http://vkxss.top/2019/08/22/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E7%A1%AC%E7%BC%96%E7%A0%81%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD/"/>
+    <id>http://vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/</id>
     <published>2019-08-22T04:25:40.000Z</published>
     <updated>2019-09-08T16:30:07.748Z</updated>
     
@@ -88,17 +88,17 @@
     </summary>
     
     
-      <category term="代码审计" scheme="https://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="代码审计" scheme="http://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
     
-      <category term="Java代码审计" scheme="https://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="Java代码审计" scheme="http://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
   <entry>
     <title>Null Dereference</title>
-    <link href="https://vkxss.top/2019/08/20/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Null%20Dereference/"/>
-    <id>https://vkxss.top/2019/08/20/代码审计-Null Dereference/</id>
+    <link href="http://vkxss.top/2019/08/20/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Null%20Dereference/"/>
+    <id>http://vkxss.top/2019/08/20/代码审计-Null Dereference/</id>
     <published>2019-08-20T07:23:43.000Z</published>
     <updated>2019-09-09T14:22:41.789Z</updated>
     
@@ -114,17 +114,17 @@
     </summary>
     
     
-      <category term="代码审计" scheme="https://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="代码审计" scheme="http://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
     
-      <category term="Java代码审计" scheme="https://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="Java代码审计" scheme="http://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
   <entry>
     <title>任意文件读取</title>
-    <link href="https://vkxss.top/2019/08/19/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/"/>
-    <id>https://vkxss.top/2019/08/19/代码审计-任意文件读取/</id>
+    <link href="http://vkxss.top/2019/08/19/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/"/>
+    <id>http://vkxss.top/2019/08/19/代码审计-任意文件读取/</id>
     <published>2019-08-19T06:13:12.000Z</published>
     <updated>2019-09-08T16:30:09.314Z</updated>
     
@@ -140,17 +140,17 @@
     </summary>
     
     
-      <category term="代码审计" scheme="https://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="代码审计" scheme="http://vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
     
-      <category term="Java代码审计" scheme="https://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="Java代码审计" scheme="http://vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
   <entry>
     <title>如何绕过URL限制</title>
-    <link href="https://vkxss.top/2019/07/20/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E5%A6%82%E4%BD%95%E7%BB%95%E8%BF%87URL%E9%99%90%E5%88%B6/"/>
-    <id>https://vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/</id>
+    <link href="http://vkxss.top/2019/07/20/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E5%A6%82%E4%BD%95%E7%BB%95%E8%BF%87URL%E9%99%90%E5%88%B6/"/>
+    <id>http://vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/</id>
     <published>2019-07-20T04:25:40.000Z</published>
     <updated>2019-09-07T06:09:01.382Z</updated>
     
@@ -166,17 +166,46 @@
     </summary>
     
     
-      <category term="渗透测试" scheme="https://vkxss.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+      <category term="渗透测试" scheme="http://vkxss.top/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
     
-      <category term="WEB渗透测试" scheme="https://vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+      <category term="WEB渗透测试" scheme="http://vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>日志分析神器_Splunk</title>
+    <link href="http://vkxss.top/2019/06/12/%E5%BA%94%E6%80%A5-%E6%97%A5%E5%BF%97%E5%88%86%E6%9E%90%E7%A5%9E%E5%99%A8_Splunk/"/>
+    <id>http://vkxss.top/2019/06/12/应急-日志分析神器_Splunk/</id>
+    <published>2019-06-12T07:30:08.000Z</published>
+    <updated>2019-09-14T16:27:19.083Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="0x01安装"><a href="#0x01安装" class="headerlink" title="0x01安装"></a>0x01安装</h1><ul><li><p><font face="微软雅黑">搭建系统环境</font></p><ul><li>16.04.1-Ubuntu-64</li></ul></li><li><p><font face="微软雅黑">Splunk</font></p><ul><li>splunk-7.3.0-657388c7a488-Linux-x86_64</li></ul></li></ul><ul><li><p><font face="微软雅黑">下载解压（想要安装包请留言），如下图所示：<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H490ca17d147b4c189df7df43e9ee21ed0.jpg" style="zoom:50%"></center></font></font></p></li><li><p><font face="微软雅黑">解压完后，cd到splunk/bin目录下启动，然后需要输入web登录的账户和密码，成功如下图所示：</font></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">运行命令:sudo ./splunk start</span><br></pre></td></tr></table></figure><p>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H617d2cb20d63432288042458c2dc1c58O.jpg" style="zoom:50%"></center></font></p></li><li><p><font face="微软雅黑"> 查看虚拟机IP，在本地浏览器访问，输入自己设置的账户和密码即可：<br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H3eccc3d7cb534c1fbc6cacdfda9db044G.jpg" style="zoom:50%"></center></font></font></p></li></ul><h1 id="0x02日志分析"><a href="#0x02日志分析" class="headerlink" title="0x02日志分析"></a>0x02日志分析</h1><ul><li><p><font face="微软雅黑">载入需要分析的日志，一直下一步即可，注意修改下主机字段值，方便查找，最后点击提交即可：</font></p><p>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H20490399ef8d4a788eee64df7a2e3024C.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hd0e793841a064d4cbee514d3293daf8cP.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H083b8247b5be4b7cbdbf3c69352b46b6Q.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H083b8247b5be4b7cbdbf3c69352b46b6Q.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H28f37b403b0749e7983ae850a7f37d6c1.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H5c11e6ef5b7044c5831584f5e34eb188M.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H924370913bce4d7aa79fe75e993a4af1a.jpg" style="zoom:50%"></center></font></font></font></font></font></font></font></font></p></li></ul><h1 id="0x03分析案例"><a href="#0x03分析案例" class="headerlink" title="0x03分析案例"></a>0x03分析案例</h1><h2 id="0x03-1-Splunk-名词说明"><a href="#0x03-1-Splunk-名词说明" class="headerlink" title="0x03.1 Splunk 名词说明"></a>0x03.1 Splunk 名词说明</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Data Input :  添加数据 （文件或文件目录、TCP、UDP、WMI、Script, Forwarder…）</span><br><span class="line">Source type ： 来源类型 （apache logs, security log、network log…）</span><br><span class="line">Host ：主机 （apache1、apche2, apcahe3…)  </span><br><span class="line">Source：数据源 （/opt/apache/log/*.*）</span><br><span class="line">Index：索引（Splunk 索引）</span><br><span class="line">Field：字段： 正则表达式 (Regular Expression) 取出符合某个条件字段</span><br><span class="line">Search Language：搜索语句 （缩小范围 -&gt;  计算 -&gt; 呈现 ）</span><br><span class="line">Saved Search： 搜索语句储存，未来可以直接使用</span><br><span class="line">Report ： 報表，搜索结果 -&gt; 图形报表</span><br><span class="line">Alert：告警，搜索结果通报</span><br></pre></td></tr></table></figure><h2 id="0x03-2-案例"><a href="#0x03-2-案例" class="headerlink" title="0x03.2 案例"></a>0x03.2 案例</h2><h3 id="案例一：统计-top"><a href="#案例一：统计-top" class="headerlink" title="案例一：统计-top"></a>案例一：统计-top</h3><ul><li><font face="微软雅黑">分析状态码为200、攻击者前10的IP地址，如下图所示：<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H720770574f114404b4af89ebf88740f5H.jpg" style="zoom:50%"></center></font></font></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;0x01安装&quot;&gt;&lt;a href=&quot;#0x01安装&quot; class=&quot;headerlink&quot; title=&quot;0x01安装&quot;&gt;&lt;/a&gt;0x01安装&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;font face=&quot;微软雅黑&quot;&gt;搭建系统环境&lt;/font&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+      
+    
+    </summary>
+    
+    
+      <category term="应急响应" scheme="http://vkxss.top/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
+    
+    
+      <category term="应急响应" scheme="http://vkxss.top/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/"/>
     
   </entry>
   
   <entry>
     <title>Mac下使用夜神模拟器调试</title>
-    <link href="https://vkxss.top/2018/12/19/APP%E6%B5%8B%E8%AF%95-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%A4%9C%E7%A5%9E%E6%A8%A1%E6%8B%9F%E5%99%A8%E8%B0%83%E8%AF%95/"/>
-    <id>https://vkxss.top/2018/12/19/APP测试-Mac下使用夜神模拟器调试/</id>
+    <link href="http://vkxss.top/2018/12/19/APP%E6%B5%8B%E8%AF%95-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%A4%9C%E7%A5%9E%E6%A8%A1%E6%8B%9F%E5%99%A8%E8%B0%83%E8%AF%95/"/>
+    <id>http://vkxss.top/2018/12/19/APP测试-Mac下使用夜神模拟器调试/</id>
     <published>2018-12-18T20:25:40.000Z</published>
     <updated>2019-09-09T14:23:46.749Z</updated>
     
@@ -192,10 +221,10 @@
     </summary>
     
     
-      <category term="APP" scheme="https://vkxss.top/categories/APP/"/>
+      <category term="APP" scheme="http://vkxss.top/categories/APP/"/>
     
     
-      <category term="APP渗透测试" scheme="https://vkxss.top/tags/APP%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+      <category term="APP渗透测试" scheme="http://vkxss.top/tags/APP%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
     
   </entry>
   
