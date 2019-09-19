@@ -26,7 +26,7 @@
 <meta property="og:site_name" content="VK&#39;s blog">
 <meta property="og:description" content="一、 先了解下CSRF_TOKEN1. 什么是CSRF_TOKEN 就是防止跨站请求伪造（CSRF）的  2. 什么CSRF-Token可以写在COOKIE里 将csrf令牌写入Cookie，是因为：服务器进行csrf防御校验的时候，是拿用户http请求体中的token参数值和cookie中的csrftoken值进行比对。如果值一样了，操作才被允许执行。  因为同源策略的限制，当正常用户通过账号密">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-19T08:05:34.215Z">
+<meta property="og:updated_time" content="2019-09-19T08:14:42.098Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="绕过CSRF防御总结">
 <meta name="twitter:description" content="一、 先了解下CSRF_TOKEN1. 什么是CSRF_TOKEN 就是防止跨站请求伪造（CSRF）的  2. 什么CSRF-Token可以写在COOKIE里 将csrf令牌写入Cookie，是因为：服务器进行csrf防御校验的时候，是拿用户http请求体中的token参数值和cookie中的csrftoken值进行比对。如果值一样了，操作才被允许执行。  因为同源策略的限制，当正常用户通过账号密">
@@ -384,7 +384,7 @@
 <li><p>在此攻击过程中用户COOKIE对于攻击者来说是不可见的是未知的、不可见的，攻击者能做到仅仅是借用COOKIE，而COOKIE里面具体写了什么，攻击者是不知道的。又因为COOKIE里的信息对于攻击者来说是不可预知的，无法伪造的，所以将CSRF-TOKEN写在COOKIE中符合就CSRF防御思想中的不可预知原则。</p>
 </li>
 </ul>
-<h3 id="2-常见csrf-token使用方式有两种："><a href="#2-常见csrf-token使用方式有两种：" class="headerlink" title="2. 常见csrf_token使用方式有两种："></a>2. 常见csrf_token使用方式有两种：</h3><h4 id="2-1-Synchronizer-token-pattern-STP"><a href="#2-1-Synchronizer-token-pattern-STP" class="headerlink" title="2.1 Synchronizer token pattern(STP)"></a>2.1 Synchronizer token pattern(STP)</h4><ul>
+<h3 id="3-常见csrf-token使用方式有两种："><a href="#3-常见csrf-token使用方式有两种：" class="headerlink" title="3. 常见csrf_token使用方式有两种："></a>3. 常见csrf_token使用方式有两种：</h3><h4 id="3-1-Synchronizer-token-pattern-STP"><a href="#3-1-Synchronizer-token-pattern-STP" class="headerlink" title="3.1 Synchronizer token pattern(STP)"></a>3.1 Synchronizer token pattern(STP)</h4><ul>
 <li>对于每个request，在服务器端生成一个新的csrf_token，并将其返回在页面的表单中。在服务器端每次接收到请求时，都会验证表单中是否包含正确的csrf_token。由于第三方网站无法得知正确的csrf_token，所以无法进行csrf攻击。</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">get_token = get_random_token()</span><br><span class="line"> return &#123;</span><br><span class="line">   &lt;form&gt;</span><br><span class="line">     &lt;input name=field1&gt;&lt;/input&gt;</span><br><span class="line">     &lt;input type=&quot;hidden&quot; name=&quot;csrfmiddlewaretoken&quot; value=#&#123;get_token()&#125; /&gt;</span><br><span class="line">   &lt;/form&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -392,13 +392,12 @@
 <ul>
 <li>这个方法的好处是客户端不需要支持javascript，因此通用于所有的网站。坏处是由于服务器端对于每个请求都会更换csrf_token，因此他需要保证用户提交的表单是用户最近一次请求的表单。如果用户通过多个tab同时浏览该网站，那么往往会导致用户提交的表单不是最新的那一个。</li>
 </ul>
-<h3 id="2-2-Cookie-to-header-token"><a href="#2-2-Cookie-to-header-token" class="headerlink" title="2.2 Cookie-to-header token"></a>2.2 Cookie-to-header token</h3><ul>
+<h3 id="3-2-Cookie-to-header-token"><a href="#3-2-Cookie-to-header-token" class="headerlink" title="3.2 Cookie-to-header token"></a>3.2 Cookie-to-header token</h3><ul>
 <li>第二个方法是为每个session生成一个csrf_token，随后将csrf_token保存到cookie中，之后通过javascript在每次请求时将csrf_token设置到http header中的X-Csrf-Token属性中。再在服务器端比较Cookie的csrf_token与header中的token是否一致。</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//当用户登录时设置Cookie</span><br><span class="line">Set-Cookie: Csrf-token=i8XNjC4b8KVok4uw5RftR38Wgp2BFwql; expires=Thu, 23-Jul-2015 10:25:33 GMT; Max-Age=31449600; Path=/</span><br><span class="line"></span><br><span class="line">//当用户发送请求时设置Http Header中的X-Csrf-Token</span><br><span class="line">X-Csrf-Token: i8XNjC4b8KVok4uw5RftR38Wgp2BFwql</span><br></pre></td></tr></table></figure>
 
-<p>##二、绕过CSRF防御总结</p>
-<ul>
+<h2 id="二、绕过CSRF防御总结"><a href="#二、绕过CSRF防御总结" class="headerlink" title="二、绕过CSRF防御总结"></a>二、绕过CSRF防御总结</h2><ul>
 <li><p>注：原文链接：<a href="https://medium.com/swlh/bypassing-csrf-protection-c9b217175ee（需要科学上网）" target="_blank" rel="noopener">https://medium.com/swlh/bypassing-csrf-protection-c9b217175ee（需要科学上网）</a></p>
 </li>
 <li><p>CSRF漏洞很容易就可以被发现并利用。一眼看去很多站点好像在这方面都做得不错：当你检查针对敏感操作的请求时，他们往往会实施CSRF保护。有时候可能是一个在请求主体中的CSRF token，也有可能是一个referer字段检测，或者有时是一个特殊的HTTP头字段或者cookie字段。</p>
@@ -406,16 +405,13 @@
 <li><p>但是CSRF的防御不代表它就不可以被绕过。今天我们讨论一些我如何绕过CSRF防御措施的技术。</p>
 </li>
 </ul>
-<p>##2.1 所有的CSRF</p>
-<ul>
+<h2 id="2-1-所有的CSRF"><a href="#2-1-所有的CSRF" class="headerlink" title="2.1 所有的CSRF"></a>2.1 所有的CSRF</h2><ul>
 <li>不管哪种CSRF防御措施部署，你都可以先尝试如下两件事：点击劫持和更改请求方法。</li>
 </ul>
-<p>###2.1.1 点击劫持</p>
-<ul>
+<h3 id="2-1-1-点击劫持"><a href="#2-1-1-点击劫持" class="headerlink" title="2.1.1 点击劫持"></a>2.1.1 点击劫持</h3><ul>
 <li>在同一个功能端点利用点击劫持会绕过所有CSRF防御。因为从技术上讲，请求确实来自合法站点，如果易受攻击的端点所在页面容易遭受点击劫持攻击，那么所有的CSRF保护将变得没有效果，攻击者可以任意执行CSRF攻击。</li>
 </ul>
-<p>###2.1.2 更改请求方法</p>
-<ul>
+<h3 id="2-1-2-更改请求方法"><a href="#2-1-2-更改请求方法" class="headerlink" title="2.1.2 更改请求方法"></a>2.1.2 更改请求方法</h3><ul>
 <li>另外值得一试的方法就是更改请求的方法。如果要伪造的敏感请求是通过POST方法发送的，那么尝试将其转换为GET请求。如果操作时通过GET方法发送的，那么尝试转换为POST方法。应用程序可能仍然执行操作，且通常没有任何保护机制。</li>
 </ul>
 <ul>
@@ -423,12 +419,10 @@
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /change_password</span><br><span class="line">POST body:</span><br><span class="line">new_password=qwerty</span><br><span class="line">可以被改写成</span><br><span class="line"></span><br><span class="line">GET /change_password?new_password=qwerty</span><br></pre></td></tr></table></figure>
 
-<p>###三 、CSRF token的防御措施</p>
-<ul>
+<h3 id="三-、CSRF-token的防御措施"><a href="#三-、CSRF-token的防御措施" class="headerlink" title="三 、CSRF token的防御措施"></a>三 、CSRF token的防御措施</h3><ul>
 <li>因为一个站点使用了CSRF token不代表这个token是有效验证对应请求操作的，可以尝试如下方法绕过CSRF的token保护。</li>
 </ul>
-<p>###3.1 删除token参数或发送空token</p>
-<ul>
+<h3 id="3-1-删除token参数或发送空token"><a href="#3-1-删除token参数或发送空token" class="headerlink" title="3.1 删除token参数或发送空token"></a>3.1 删除token参数或发送空token</h3><ul>
 <li><p>不发送token也可以正常请求数据是因为这种逻辑错误在应用程序中非常常见：应用程序有时会在token存在的时候或者token参数不为空的时候检查token的有效性。这种情况下，如果一个请求不包含token或者token值为空，那么也是有可能绕过CSRF的防御的。</p>
 </li>
 <li><p>例如，合法请求如下</p>
