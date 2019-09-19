@@ -17,23 +17,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>如何绕过URL限制 | VK&#39;Blog</title>
-  <meta name="description" content="1、如何绕过URL限制1.1、描述： URL重定向漏洞（URL redirection vulnerability），是一种常见的Web安全漏洞，由于网站URL重定向功能设计不当，没有验证跳转的目标URL是否合法，用户可通过此漏洞跳转到任意网站，这会导致可通过该网站跳转到存在木马、病毒的网站或者钓鱼网站，损害网站用户权利、网站名誉。  1.2、正常思路： 就是直接替换后面的URL来检测是否存在任意">
-<meta name="keywords" content="WEB渗透测试">
+  <title>绕过CSRF防御总结 | VK&#39;Blog</title>
+  <meta name="description" content="一、 先了解下CSRF_TOKEN1. 什么是CSRF_TOKEN 就是防止跨站请求伪造（CSRF）的  2. 什么CSRF-Token可以写在COOKIE里 将csrf令牌写入Cookie，是因为：服务器进行csrf防御校验的时候，是拿用户http请求体中的token参数值和cookie中的csrftoken值进行比对。如果值一样了，操作才被允许执行。  因为同源策略的限制，当正常用户通过账号密">
+<meta name="keywords" content="前端安全">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何绕过URL限制">
-<meta property="og:url" content="http://vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/index.html">
+<meta property="og:title" content="绕过CSRF防御总结">
+<meta property="og:url" content="http://vkxss.top/2019/09/07/绕过CSRF防御总结/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
-<meta property="og:description" content="1、如何绕过URL限制1.1、描述： URL重定向漏洞（URL redirection vulnerability），是一种常见的Web安全漏洞，由于网站URL重定向功能设计不当，没有验证跳转的目标URL是否合法，用户可通过此漏洞跳转到任意网站，这会导致可通过该网站跳转到存在木马、病毒的网站或者钓鱼网站，损害网站用户权利、网站名誉。  1.2、正常思路： 就是直接替换后面的URL来检测是否存在任意">
+<meta property="og:description" content="一、 先了解下CSRF_TOKEN1. 什么是CSRF_TOKEN 就是防止跨站请求伪造（CSRF）的  2. 什么CSRF-Token可以写在COOKIE里 将csrf令牌写入Cookie，是因为：服务器进行csrf防御校验的时候，是拿用户http请求体中的token参数值和cookie中的csrftoken值进行比对。如果值一样了，操作才被允许执行。  因为同源策略的限制，当正常用户通过账号密">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ae01.alicdn.com/kf/H859abc96cb734526bc817af79bb78c37X.png">
-<meta property="og:updated_time" content="2019-09-19T07:46:05.806Z">
+<meta property="og:updated_time" content="2019-09-19T07:45:53.473Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何绕过URL限制">
-<meta name="twitter:description" content="1、如何绕过URL限制1.1、描述： URL重定向漏洞（URL redirection vulnerability），是一种常见的Web安全漏洞，由于网站URL重定向功能设计不当，没有验证跳转的目标URL是否合法，用户可通过此漏洞跳转到任意网站，这会导致可通过该网站跳转到存在木马、病毒的网站或者钓鱼网站，损害网站用户权利、网站名誉。  1.2、正常思路： 就是直接替换后面的URL来检测是否存在任意">
-<meta name="twitter:image" content="https://ae01.alicdn.com/kf/H859abc96cb734526bc817af79bb78c37X.png">
+<meta name="twitter:title" content="绕过CSRF防御总结">
+<meta name="twitter:description" content="一、 先了解下CSRF_TOKEN1. 什么是CSRF_TOKEN 就是防止跨站请求伪造（CSRF）的  2. 什么CSRF-Token可以写在COOKIE里 将csrf令牌写入Cookie，是因为：服务器进行csrf防御校验的时候，是拿用户http请求体中的token参数值和cookie中的csrftoken值进行比对。如果值一样了，操作才被允许执行。  因为同源策略的限制，当正常用户通过账号密">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/index.html">
+  <link rel="canonical" href="http://vkxss.top/2019/09/07/绕过CSRF防御总结/index.html">
   
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
@@ -242,13 +240,13 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/WEB安全/">WEB安全</a>
+                <a class="category-link" href="/categories/CVE-2019/">CVE-2019</a>
               </p>
               <p class="item-title">
-                <a href="/2019/09/19/绕过CSRF防御总结/" class="title">绕过CSRF防御总结</a>
+                <a href="/2019/09/07/CVE-2019-0708/" class="title">CVE-2019-0708 远程桌面代码执行漏洞复现</a>
               </p>
               <p class="item-date">
-                <time datetime="2019-09-19T07:30:08.000Z" itemprop="datePublished">2019-09-19</time>
+                <time datetime="2019-09-07T07:30:08.000Z" itemprop="datePublished">2019-09-07</time>
               </p>
             </div>
           </li>
@@ -257,10 +255,10 @@
             
             <div class="item-inner">
               <p class="item-category">
-                <a class="category-link" href="/categories/CVE-2019/">CVE-2019</a>
+                <a class="category-link" href="/categories/WEB安全/">WEB安全</a>
               </p>
               <p class="item-title">
-                <a href="/2019/09/07/CVE-2019-0708/" class="title">CVE-2019-0708 远程桌面代码执行漏洞复现</a>
+                <a href="/2019/09/07/绕过CSRF防御总结/" class="title">绕过CSRF防御总结</a>
               </p>
               <p class="item-date">
                 <time datetime="2019-09-07T07:30:08.000Z" itemprop="datePublished">2019-09-07</time>
@@ -326,14 +324,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-渗透测试-如何绕过URL限制" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-绕过CSRF防御总结" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      如何绕过URL限制
+      绕过CSRF防御总结
     </h1>
   
 
@@ -341,8 +339,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2019/07/20/渗透测试-如何绕过URL限制/" class="article-date">
-	  <time datetime="2019-07-20T04:25:40.000Z" itemprop="datePublished">2019-07-20</time>
+	<a href="/2019/09/07/绕过CSRF防御总结/" class="article-date">
+	  <time datetime="2019-09-07T07:30:08.000Z" itemprop="datePublished">2019-09-07</time>
 	</a>
 </span>
         
@@ -354,16 +352,16 @@
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/WEB渗透测试/">WEB渗透测试</a>
+	<a class="article-tag-link" href="/tags/前端安全/">前端安全</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/07/20/渗透测试-如何绕过URL限制/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/09/07/绕过CSRF防御总结/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.2k(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.1k(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8(分)</span>
@@ -373,56 +371,117 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="1、如何绕过URL限制"><a href="#1、如何绕过URL限制" class="headerlink" title="1、如何绕过URL限制"></a>1、如何绕过URL限制</h1><h2 id="1-1、描述："><a href="#1-1、描述：" class="headerlink" title="1.1、描述："></a>1.1、描述：</h2><ul>
-<li><font face="微软雅黑">URL重定向漏洞（URL redirection vulnerability），是一种常见的Web安全漏洞，由于网站URL重定向功能设计不当，没有验证跳转的目标URL是否合法，用户可通过此漏洞跳转到任意网站，这会导致可通过该网站跳转到存在木马、病毒的网站或者钓鱼网站，损害网站用户权利、网站名誉。</font></li>
+        <h2 id="一、-先了解下CSRF-TOKEN"><a href="#一、-先了解下CSRF-TOKEN" class="headerlink" title="一、 先了解下CSRF_TOKEN"></a>一、 先了解下CSRF_TOKEN</h2><h3 id="1-什么是CSRF-TOKEN"><a href="#1-什么是CSRF-TOKEN" class="headerlink" title="1. 什么是CSRF_TOKEN"></a>1. 什么是CSRF_TOKEN</h3><ul>
+<li>就是防止跨站请求伪造（CSRF）的</li>
 </ul>
-<h2 id="1-2、正常思路："><a href="#1-2、正常思路：" class="headerlink" title="1.2、正常思路："></a>1.2、正常思路：</h2><ul>
-<li><font face="微软雅黑">就是直接替换后面的URL来检测是否存在任意URL跳转，如果不存在，就直接返回到它自己的域名，如果存在，就跳转到你指定的URL</font></li>
+<h3 id="2-什么CSRF-Token可以写在COOKIE里"><a href="#2-什么CSRF-Token可以写在COOKIE里" class="headerlink" title="2. 什么CSRF-Token可以写在COOKIE里"></a>2. 什么CSRF-Token可以写在COOKIE里</h3><ul>
+<li><p>将csrf令牌写入Cookie，是因为：<br>服务器进行csrf防御校验的时候，是拿用户http请求体中的token参数值和cookie中的csrftoken值进行比对。<br>如果值一样了，操作才被允许执行。</p>
+</li>
+<li><p>因为同源策略的限制，当正常用户通过账号密码等方式登陆网站A后，在不注销账号或当前COOKIE失效之前，再次访问网站A时（协议、IP、端口号相同则属于同源）浏览器会自动在HTTP请求包中带上该网站用户登陆后的COOKIE信息。</p>
+</li>
+<li><p>也就是说我们对CSRF的理解应为：攻击者借用用户COOKIE执行非用户本意的操作。</p>
+</li>
+<li><p>在此攻击过程中用户COOKIE对于攻击者来说是不可见的是未知的、不可见的，攻击者能做到仅仅是借用COOKIE，而COOKIE里面具体写了什么，攻击者是不知道的。又因为COOKIE里的信息对于攻击者来说是不可预知的，无法伪造的，所以将CSRF-TOKEN写在COOKIE中符合就CSRF防御思想中的不可预知原则。</p>
+</li>
 </ul>
-<h2 id="1-3、payload："><a href="#1-3、payload：" class="headerlink" title="1.3、payload："></a>1.3、payload：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- ///www.baidu.com/%2f%2e%2e</span><br><span class="line">- /https://%5cbaidu.com/</span><br><span class="line">- //www.baidu.com</span><br><span class="line">- /www.baidu.com</span><br><span class="line">- https://www.google.com/www.baidu.com</span><br><span class="line">- /%2Fbaidu%252Ecom</span><br><span class="line">- http://www.google.com\.baidu.com</span><br><span class="line">- http://www.google.com\@baidu.com</span><br><span class="line">- http://www.google.com\#baidu.com</span><br><span class="line">- http://www.google.com\?baidu.com</span><br><span class="line">- http://www.google.com\\baidu.com</span><br><span class="line">- http://www.google.com\baidu.com:</span><br></pre></td></tr></table></figure>
+<h3 id="2-常见csrf-token使用方式有两种："><a href="#2-常见csrf-token使用方式有两种：" class="headerlink" title="2. 常见csrf_token使用方式有两种："></a>2. 常见csrf_token使用方式有两种：</h3><h4 id="2-1-Synchronizer-token-pattern-STP"><a href="#2-1-Synchronizer-token-pattern-STP" class="headerlink" title="2.1 Synchronizer token pattern(STP)"></a>2.1 Synchronizer token pattern(STP)</h4><ul>
+<li>对于每个request，在服务器端生成一个新的csrf_token，并将其返回在页面的表单中。在服务器端每次接收到请求时，都会验证表单中是否包含正确的csrf_token。由于第三方网站无法得知正确的csrf_token，所以无法进行csrf攻击。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">get_token = get_random_token()</span><br><span class="line"> return &#123;</span><br><span class="line">   &lt;form&gt;</span><br><span class="line">     &lt;input name=field1&gt;&lt;/input&gt;</span><br><span class="line">     &lt;input type=&quot;hidden&quot; name=&quot;csrfmiddlewaretoken&quot; value=#&#123;get_token()&#125; /&gt;</span><br><span class="line">   &lt;/form&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="1-4、Bypass"><a href="#1-4、Bypass" class="headerlink" title="1.4、Bypass"></a>1.4、Bypass</h2><h3 id="0x01-利用问号绕过限制"><a href="#0x01-利用问号绕过限制" class="headerlink" title="0x01 利用问号绕过限制"></a>0x01 利用问号绕过限制</h3><ul>
-<li><font face="微软雅黑">利用问号，这是一个特性，利用问号可以成功绕过URL限制<br>比如：<a href="http://www.aaa.com/acb?Url=http://login.aaa.com" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://login.aaa.com</a> 这是一个跳转链接，跳转到它的二级域名下，那么这个问号放哪里可以绕过呢？其实就是放到它自身的域名前面也就是你添加的想要跳转的域名的后面，如：<a href="http://www.aaa.com/acb?Url=http://test.com?login.aaa.com" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://test.com?login.aaa.com</a> 那么，它其实是会跳转到这个test.com域名下，这个域名是我想要跳转的任意域名，而后面的它自身域名一定要带上，不带上就无法辅助用问号?这个特性来跳转到指定域名了，而跳转后，问号和问号后面的内容会变为这样：<a href="http://www.test.com/?login.aaa.com" target="_blank" rel="noopener">http://www.test.com/?login.aaa.com</a></font></li>
+<ul>
+<li>这个方法的好处是客户端不需要支持javascript，因此通用于所有的网站。坏处是由于服务器端对于每个请求都会更换csrf_token，因此他需要保证用户提交的表单是用户最近一次请求的表单。如果用户通过多个tab同时浏览该网站，那么往往会导致用户提交的表单不是最新的那一个。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload：http://www.test.com/abc？url=http//payload.com?test1.com</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-Cookie-to-header-token"><a href="#2-2-Cookie-to-header-token" class="headerlink" title="2.2 Cookie-to-header token"></a>2.2 Cookie-to-header token</h3><ul>
+<li>第二个方法是为每个session生成一个csrf_token，随后将csrf_token保存到cookie中，之后通过javascript在每次请求时将csrf_token设置到http header中的X-Csrf-Token属性中。再在服务器端比较Cookie的csrf_token与header中的token是否一致。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//当用户登录时设置Cookie</span><br><span class="line">Set-Cookie: Csrf-token=i8XNjC4b8KVok4uw5RftR38Wgp2BFwql; expires=Thu, 23-Jul-2015 10:25:33 GMT; Max-Age=31449600; Path=/</span><br><span class="line"></span><br><span class="line">//当用户发送请求时设置Http Header中的X-Csrf-Token</span><br><span class="line">X-Csrf-Token: i8XNjC4b8KVok4uw5RftR38Wgp2BFwql</span><br></pre></td></tr></table></figure>
 
-<h3 id="0x02-利用反斜杠和正斜杠绕过限制"><a href="#0x02-利用反斜杠和正斜杠绕过限制" class="headerlink" title="0x02 利用反斜杠和正斜杠绕过限制"></a>0x02 利用反斜杠和正斜杠绕过限制</h3><ul>
-<li><font face="微软雅黑">比如：<a href="http://www.aaa.com/acb?Url=http://login.aaa.com/" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://login.aaa.com/</a> 同样是在它本身域名前加上正斜杠，然后正斜杠前面跟上你想跳转的域名地址。<br>如：<a href="http://www.aaa.com/acb?Url=http://test.com/login.aaa.com" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://test.com/login.aaa.com</a><br>反斜杠有三种思路<br>两个反斜杠绕过方法<br>比如：<a href="http://www.aaa.com/acb?Url=http://login.aaa.com/" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://login.aaa.com/</a> 同样是在它本身域名前加上两个反斜杠，然后两个反斜杠前面跟上你想跳转的域名地址。<br>如：<a href="http://www.aaa.com/acb?Url=http://test.com\login.aaa.com" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://test.com\login.aaa.com</a><br>一个反斜杠绕过方法<br>如：<a href="http://www.aaa.com/acb?Url=http://test.comlogin.aaa.com" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://test.comlogin.aaa.com</a><br>另一种思路，一个反斜杠一个点<br>利用.这样的格式，也就是一个反斜杠加一个点来跳过限制，<br>如：<a href="http://www.aaa.com/acb?Url=http://test.com.login.aaa.com" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://test.com.login.aaa.com</a></font></li>
+<p>##二、绕过CSRF防御总结</p>
+<ul>
+<li><p>注：原文链接：<a href="https://medium.com/swlh/bypassing-csrf-protection-c9b217175ee（需要科学上网）" target="_blank" rel="noopener">https://medium.com/swlh/bypassing-csrf-protection-c9b217175ee（需要科学上网）</a></p>
+</li>
+<li><p>CSRF漏洞很容易就可以被发现并利用。一眼看去很多站点好像在这方面都做得不错：当你检查针对敏感操作的请求时，他们往往会实施CSRF保护。有时候可能是一个在请求主体中的CSRF token，也有可能是一个referer字段检测，或者有时是一个特殊的HTTP头字段或者cookie字段。</p>
+</li>
+<li><p>但是CSRF的防御不代表它就不可以被绕过。今天我们讨论一些我如何绕过CSRF防御措施的技术。</p>
+</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload：/ \  .</span><br></pre></td></tr></table></figure>
+<p>##2.1 所有的CSRF</p>
+<ul>
+<li>不管哪种CSRF防御措施部署，你都可以先尝试如下两件事：点击劫持和更改请求方法。</li>
+</ul>
+<p>###2.1.1 点击劫持</p>
+<ul>
+<li>在同一个功能端点利用点击劫持会绕过所有CSRF防御。因为从技术上讲，请求确实来自合法站点，如果易受攻击的端点所在页面容易遭受点击劫持攻击，那么所有的CSRF保护将变得没有效果，攻击者可以任意执行CSRF攻击。</li>
+</ul>
+<p>###2.1.2 更改请求方法</p>
+<ul>
+<li>另外值得一试的方法就是更改请求的方法。如果要伪造的敏感请求是通过POST方法发送的，那么尝试将其转换为GET请求。如果操作时通过GET方法发送的，那么尝试转换为POST方法。应用程序可能仍然执行操作，且通常没有任何保护机制。</li>
+</ul>
+<ul>
+<li>例如，如下请求：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">POST /change_password</span><br><span class="line">POST body:</span><br><span class="line">new_password=qwerty</span><br><span class="line">可以被改写成</span><br><span class="line"></span><br><span class="line">GET /change_password?new_password=qwerty</span><br></pre></td></tr></table></figure>
 
-<h3 id="0x03-利用-绕过URL限制"><a href="#0x03-利用-绕过URL限制" class="headerlink" title="0x03 利用@绕过URL限制"></a>0x03 利用@绕过URL限制</h3><ul>
-<li><font face="微软雅黑">如果你用这方法在火狐里进行跳转，会有弹窗提示，在其它游览器则没有。<br>如：&lt;a href=”<a href="http://www.aaa.com/acb?Url=http://login.aaa.com@test.com“”&gt;http://www.aaa.com/acb?Url=http://login.aaa.com@test.com" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://login.aaa.com@test.com“”&gt;http://www.aaa.com/acb?Url=http://login.aaa.com@test.com</a> 后面的test.com就是要跳转到的域名，前面的域名都是用来辅助以绕过限制的。</font></li>
+<p>###三 、CSRF token的防御措施</p>
+<ul>
+<li>因为一个站点使用了CSRF token不代表这个token是有效验证对应请求操作的，可以尝试如下方法绕过CSRF的token保护。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">payload：@</span><br></pre></td></tr></table></figure>
+<p>###3.1 删除token参数或发送空token</p>
+<ul>
+<li><p>不发送token也可以正常请求数据是因为这种逻辑错误在应用程序中非常常见：应用程序有时会在token存在的时候或者token参数不为空的时候检查token的有效性。这种情况下，如果一个请求不包含token或者token值为空，那么也是有可能绕过CSRF的防御的。</p>
+</li>
+<li><p>例如，合法请求如下</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">POST /change_password</span><br><span class="line">POST body:</span><br><span class="line">new_password=qwerty &amp;csrf_tok=871caef0757a4ac9691aceb9aad8b65b</span><br><span class="line">那么实施这种请求：</span><br><span class="line"></span><br><span class="line">POST /change_password</span><br><span class="line">POST body:</span><br><span class="line">new_password=qwerty</span><br><span class="line">或这种：</span><br><span class="line"></span><br><span class="line">POST /change_password</span><br><span class="line">POST body:</span><br><span class="line">new_password=qwerty&amp;csrf_tok=</span><br></pre></td></tr></table></figure>
 
-<h3 id="0x04-利用白名单缺陷绕过限制"><a href="#0x04-利用白名单缺陷绕过限制" class="headerlink" title="0x04 利用白名单缺陷绕过限制"></a>0x04 利用白名单缺陷绕过限制</h3><ul>
-<li><font face="微软雅黑">有的域名白名单限制是不全的，比如如果想利用一个跳转，而这个跳转是通用，在这个公司网站很多子域名等都可以跳转，那么你买个域名也不算贵对吧。<br>为什么这么说呢，这个问题就是白名单限制不当，比如，当跳转的域名包含这个网站下的所有域名，比如：<a href="http://www.aaa.com/acb?Url=http://login.aaa.com" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://login.aaa.com</a><br>这个login.aaa.com也可以改成aaa.com同样可以跳转对吧，因为白名单里只要有包含这个域名就直接成功跳转。<br>那么当我在这个域名前面加上如testaaa.com，白名单里会检查是否包含aaa.com这个域名，如果包含，就直接跳转，而并没有检查这个域名的整个信息，然后可以利用这个问题，直接注册一个testaaa.com这个域名就可以利用这个跳转。</font></li>
+<h3 id="3-2-使用另一个session的CSRF-token"><a href="#3-2-使用另一个session的CSRF-token" class="headerlink" title="3.2 使用另一个session的CSRF token"></a>3.2 使用另一个session的CSRF token</h3><ul>
+<li><p>应用程序可能只是检查token是否合法，但是不检查token是否确实归属于当前用户。如果是这种情况的话，你可以在payload中硬编码一个合法有效的token即可。</p>
+</li>
+<li><p>如果一个受害者的token是871caef0757a4ac9691aceb9aad8b65b，你自己的token是YOUR_TOKEN，那么你可以很容易获取到自己的token但很难获取到受害者的token。尝试在payload中提供自己的token来绕过CSRF防御。</p>
+</li>
+<li><p>换句话说，原本应该发送如下请求：</p>
+</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Payload:testaaa.com</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST /change_password</span><br><span class="line">POST body:</span><br><span class="line">new_password=qwerty &amp;csrf_tok=871caef0757a4ac9691aceb9aad8b65b</span><br><span class="line">但是改成发送这个请求：</span><br><span class="line"></span><br><span class="line">POST /change_password</span><br><span class="line">POST body:</span><br><span class="line">new_password=qwerty &amp;csrf_tok=YOUR_TOKEN</span><br></pre></td></tr></table></figure>
 
-<h3 id="0x05-多重验证-amp-跳转绕过限制"><a href="#0x05-多重验证-amp-跳转绕过限制" class="headerlink" title="0x05 多重验证&amp;跳转绕过限制"></a>0x05 多重验证&amp;跳转绕过限制</h3><ul>
-<li><font face="微软雅黑">现在很多网站都有多重验证，比如你登陆账户后会出现另一个验证页面，输入手机验证码进行验证，此时这上面的URL很可能存在任意跳转的问题。<br>多重跳转的问题导致可绕过URL限制<br>比如<a href="http://www.aaa.com/acb?Url=http" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http</a>: … ttp://login.aaa.com<br>当然，还有多重的，这个结构的多重跳转你修改最后面的URL就可以达到任意URL跳转，中间的URL就没必要动了。</font></li>
+<h3 id="3-3-Session固定"><a href="#3-3-Session固定" class="headerlink" title="3.3 Session固定"></a>3.3 Session固定</h3><ul>
+<li><p>有时候站点使用一个双提交cookie作为一个CSRF的防御措施。这个表明这个请求需要包含一个cookie，其值为随机token值，且同时在请求参数中也有一个字段值为该随机token值。如果值相同，那么请求是合法的。这种防御形式是非常常见的。</p>
+</li>
+<li><p>如果一个双提交cookie用在了防御措施中，那么这个应用有可能没有将有效的token保存在服务器端。所以它没有办法指定token是否合法，并且也有可能很少检查cookie中的token值和参数中token值是不是一样的。这代表你可以发送一个假token，然后仍然可以有效实施CSRF攻击。</p>
+</li>
+<li><p>这种攻击包含两个步骤：第一步，你使用一个session固定技术去确认受害者的浏览器使用的是你提供的包含假token的session，然后第二步在参数中使用同一个token来执行这个CSRF攻击。</p>
+</li>
+<li><p>session固定。这是一个可以让你控制受害者的cookie存储的攻击；</p>
+</li>
 </ul>
-<h3 id="0x06-点击触发达到绕过URL跳转限制"><a href="#0x06-点击触发达到绕过URL跳转限制" class="headerlink" title="0x06 点击触发达到绕过URL跳转限制"></a>0x06 点击触发达到绕过URL跳转限制</h3><ul>
-<li><font face="微软雅黑">比如很多登陆页面的地方，其URL是一个跳转的URL<br>如：<a href="http://www.aaa.com/acb?Url=http://test.com" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://test.com</a><br>你直接修改了后面为任意URL，但是还是停留在原地，似乎没什么问题，但是，当你输入账号和密码后点击登陆按钮后，就会触发跳转。<br>当然，这个账户和密码不一定要对的，随便都可以，但得视系统而定吧。<br>这个我遇到了很多，比如你修改了域名，然后点击登陆，登陆成功后便可触发跳转，这也是一个比较隐蔽的绕过URL限制的跳转。</font></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">执行如下请求来实施CSRF攻击</span><br><span class="line"></span><br><span class="line">POST /change_password</span><br><span class="line">Cookie: CSRF_TOK=FAKE_TOKEN;</span><br><span class="line">POST body:</span><br><span class="line">new_password=qwerty &amp;csrf_tok=FAKE_TOKEN</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-4-通过XSS获取csrf-token"><a href="#3-4-通过XSS获取csrf-token" class="headerlink" title="3.4 通过XSS获取csrf_token"></a>3.4 通过XSS获取csrf_token</h3><ul>
+<li>前提是网站不存在XSS漏洞或者CSRF-Token具备httponly属性</li>
 </ul>
-<h3 id="0x07-利用xip-io绕过"><a href="#0x07-利用xip-io绕过" class="headerlink" title="0x07 利用xip.io绕过"></a>0x07 利用xip.io绕过</h3><ul>
-<li><font face="微软雅黑">这个我还没有在测试中应用过，其请求是<a href="http://www.127.0.0.1.xip.io" target="_blank" rel="noopener">http://www.127.0.0.1.xip.io</a> 这个绕过是在SSRF场景中的绕过，比如SSRF你要读取内网地址，一般都做了限制，可以尝试用这方法进行绕过限制，从而访问到内网。<br>另外一点，URL跳转涉及的安全问题大家常见的就是钓鱼，那么利用这个思路也可达成一个钓鱼问题，如，<a href="http://www.qq.com.127.0.0.1.xip.io" target="_blank" rel="noopener">http://www.qq.com.127.0.0.1.xip.io</a><br>当你访问qq这个域名时，其实这个链接已经被解析到后面这个ip地址上了，那么实际访问的就是后面这个IP地址。</font></li>
+<h3 id="3-5-Jsonp劫持获取csrf-token"><a href="#3-5-Jsonp劫持获取csrf-token" class="headerlink" title="3.5 Jsonp劫持获取csrf_token"></a>3.5 Jsonp劫持获取csrf_token</h3><ul>
+<li><a href="https://www.jianshu.com/p/1cda296cf7d2" target="_blank" rel="noopener">https://www.jianshu.com/p/1cda296cf7d2</a></li>
 </ul>
-<p><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H859abc96cb734526bc817af79bb78c37X.png" style="zoom:30%"></center></font></p>
-<h3 id="0x08-利用超链接绕过可信站点限制"><a href="#0x08-利用超链接绕过可信站点限制" class="headerlink" title="0x08 利用超链接绕过可信站点限制"></a>0x08 利用超链接绕过可信站点限制</h3><ul>
-<li><font face="微软雅黑">比如一个URL，它是可以直接跳转的，但是一般测试跳转时大家习惯用<a href="http://www.baidu.com或qq.com这样的可信站点进行测试，但是有些网站是可以跳转这些网站的。" target="_blank" rel="noopener">www.baidu.com或qq.com这样的可信站点进行测试，但是有些网站是可以跳转这些网站的。</a><br>只要是可信站点且常用，基本都可以跳转，那么这就属于正常的业务逻辑了，难度/Users/vk/Documents/Secure/Blog/content/post/代码审计-任意文件读取.md就这样错失一个URL跳转漏洞了？<br>其实不然，只要你的URL被百度收录过，那么直接搜索你的域名，site:xxx.xxx<br>因为你在百度里点击你的域名，它会先是一个302跳转，而这个302跳转就是百度下的302跳转，那么这样就可以绕过可信站点的限制，从而达到跳转到指定URL。<br>当然，百度这个302有点长，你给它进行加密就行。</font></li>
+<h2 id="四、-Referer字段的CSRF防御"><a href="#四、-Referer字段的CSRF防御" class="headerlink" title="四、 Referer字段的CSRF防御"></a>四、 Referer字段的CSRF防御</h2><ul>
+<li>如果attack.com是一个可控的域名，bank.com是一个要攻击的域名。这个站点没有使用CSRF token但是检查了referer字段。你应该怎么做？</li>
 </ul>
-<h3 id="0x09-POST参数中的URL跳转"><a href="#0x09-POST参数中的URL跳转" class="headerlink" title="0x09 POST参数中的URL跳转"></a>0x09 POST参数中的URL跳转</h3><ul>
-<li><font face="微软雅黑">当然，这个影响就很小了，比如当你填什么表格或者需要填写什么的，当你上传图片，点击下一步的时候，通常下一步就是预览你填写的信息，最后才是提交。<br>当你上传了图片后点击下一步抓包，如果过滤不严，你会看到图片的完整地址包含在POST参数里，你就可以直接修改这个地址为任意URL，然后到达下一步。<br>这时是确定信息也就是预览自己填写的信息的正确还是不正确，由于你刚刚修改了图片地址，这里是没有显示出来的，图像会是一个小XX。<br>当点击图片右键选择查看图像时，就会触发URL跳转问题，其实这个也可以利用来进行钓鱼，钓后台审核员的信息。<br>为什么呢，比如审核看到图片无法加载，一般都会点击查看图片，然后跳转，如果安全意识不知就会造成安全影响。<br>当然，如果POST参数里就只是URL跳转参数，那么你可以给它转成GET方式，然后进行跳转就可以了，只要网站支持这样的GET方式就行。<br>在Burp Suite里可以一键转换提交方式，右键选择Change request method就可以！</font></li>
+<h3 id="4-1-Referer值为空或移除referer字段"><a href="#4-1-Referer值为空或移除referer字段" class="headerlink" title="4.1 Referer值为空或移除referer字段"></a>4.1 Referer值为空或移除referer字段</h3><ul>
+<li>首先，我们对空Referer的定义为，Referer 头部的内容为空，或者，一个HTTP请求中根本不包含Referer头部</li>
+<li>和发送一个空token值相同，有时候你只需简单地移除referer字段就可以绕过CSRF防御。你可以添加如下meta标签到存在漏洞的页面。</li>
+<li>扩展测试面：例如jsonp劫持</li>
 </ul>
-<h3 id="0x10-利用-号绕过"><a href="#0x10-利用-号绕过" class="headerlink" title="0x10 利用#号绕过"></a>0x10 利用#号绕过</h3><ul>
-<li><font face="微软雅黑">如：<a href="http://www.aaa.com/acb?Url=http://test.com#login.aaa.com" target="_blank" rel="noopener">http://www.aaa.com/acb?Url=http://test.com#login.aaa.com</a></font></li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;referrer&quot; content=&quot;never&quot;&gt;</span><br><span class="line">或</span><br><span class="line">&lt;meta name =&quot;referrer&quot; content =&quot;no-referrer&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>应用程序可能只是在发送后才会验证，这种情况下你可以绕过其CSRF防御。</li>
 </ul>
-<h3 id="0x09-FUZZ"><a href="#0x09-FUZZ" class="headerlink" title="0x09 FUZZ"></a>0x09 FUZZ</h3><ul>
-<li><font face="微软雅黑">重定向Payloads by @cujanovic<br><a href="https://github.com/cujanovic/Open-Redirect-Payloads" target="_blank" rel="noopener">https://github.com/cujanovic/Open-Redirect-Payloads</a></font></li>
-<li><font face="微软雅黑">重定向参数 by @fuzzdb-project<br><a href="https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/redirect/redirect-urls-template.txt" target="_blank" rel="noopener">https://github.com/fuzzdb-project/fuzzdb/blob/master/attack/redirect/redirect-urls-template.txt</a></font></li>
+<h3 id="4-2-绕过正则表达式"><a href="#4-2-绕过正则表达式" class="headerlink" title="4.2 绕过正则表达式"></a>4.2 绕过正则表达式</h3><ul>
+<li><p>如果referer检查是基于白名单的，你可以尝试绕过验证URL的正则表达式。例如，你可以尝试在referer的URL中将受害者域名置于二级域名区域或者URL目录区域。</p>
+</li>
+<li><p>如果一个站点在referer字段检查“bank.com”字段，那么“bank.com.attacker.com”或”attakcer.com/bank.com”可能可以绕过这种检测。</p>
+</li>
 </ul>
 
       
@@ -433,7 +492,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/" title="如何绕过URL限制" target="_blank" rel="external">http://vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/</a>
+      <a href="http://vkxss.top/2019/09/07/绕过CSRF防御总结/" title="绕过CSRF防御总结" target="_blank" rel="external">http://vkxss.top/2019/09/07/绕过CSRF防御总结/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -480,12 +539,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2019/08/19/代码审计-任意文件读取/" title="任意文件读取"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2019/09/07/CVE-2019-0708/" title="CVE-2019-0708 远程桌面代码执行漏洞复现"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2019/07/19/渗透测试-SSRF绕过的方法/" title="SSRF绕过的方法"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/08/22/代码审计-Insecure Randomness/" title="Insecure Randomness"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
