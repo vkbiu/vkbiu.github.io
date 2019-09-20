@@ -18,21 +18,21 @@
   
   
   <title>任意文件读取 | VK&#39;Blog</title>
-  <meta name="description" content="1、Any File Read（任意文件读取）1.1、描述： 任意文件读取漏洞（Unrestricted File Upload），是一种常见的Web安全漏洞，因Web程序提供的文件查看下载、附件下载等功能存在安全缺陷，导致通过修改文件路径就能够查看和下载任意文件，这些文件包括：源代码文件、系统文件（/etc/passwd、C:/boot.ini等）、配置文件（config.php、/WEB-IN">
+  <meta name="description" content="1、Any File Read（任意文件读取） 1.1、描述： 1.2、审计方法： 1.3、漏洞示例: 1.3、漏洞危害: 1.4、修复方案：      1、Any File Read（任意文件读取）1.1、描述： 任意文件读取漏洞（Unrestricted File Upload），是一种常见的Web安全漏洞，因Web程序提供的文件查看下载、附件下载等功能存在安全缺陷，导致通过修改文件路径">
 <meta name="keywords" content="Java代码审计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="任意文件读取">
 <meta property="og:url" content="http://vkxss.top/2019/08/19/代码审计-任意文件读取/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
-<meta property="og:description" content="1、Any File Read（任意文件读取）1.1、描述： 任意文件读取漏洞（Unrestricted File Upload），是一种常见的Web安全漏洞，因Web程序提供的文件查看下载、附件下载等功能存在安全缺陷，导致通过修改文件路径就能够查看和下载任意文件，这些文件包括：源代码文件、系统文件（/etc/passwd、C:/boot.ini等）、配置文件（config.php、/WEB-IN">
+<meta property="og:description" content="1、Any File Read（任意文件读取） 1.1、描述： 1.2、审计方法： 1.3、漏洞示例: 1.3、漏洞危害: 1.4、修复方案：      1、Any File Read（任意文件读取）1.1、描述： 任意文件读取漏洞（Unrestricted File Upload），是一种常见的Web安全漏洞，因Web程序提供的文件查看下载、附件下载等功能存在安全缺陷，导致通过修改文件路径">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H9f9396106a6c41b39c4174b28d2a06a47.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/Hfe0e4a99a5ae474190c9cf983dd8385f8.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H17db51d7689144138769210fb9fcd6478.png">
-<meta property="og:updated_time" content="2019-09-08T16:30:09.314Z">
+<meta property="og:updated_time" content="2019-09-20T02:01:42.114Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="任意文件读取">
-<meta name="twitter:description" content="1、Any File Read（任意文件读取）1.1、描述： 任意文件读取漏洞（Unrestricted File Upload），是一种常见的Web安全漏洞，因Web程序提供的文件查看下载、附件下载等功能存在安全缺陷，导致通过修改文件路径就能够查看和下载任意文件，这些文件包括：源代码文件、系统文件（/etc/passwd、C:/boot.ini等）、配置文件（config.php、/WEB-IN">
+<meta name="twitter:description" content="1、Any File Read（任意文件读取） 1.1、描述： 1.2、审计方法： 1.3、漏洞示例: 1.3、漏洞危害: 1.4、修复方案：      1、Any File Read（任意文件读取）1.1、描述： 任意文件读取漏洞（Unrestricted File Upload），是一种常见的Web安全漏洞，因Web程序提供的文件查看下载、附件下载等功能存在安全缺陷，导致通过修改文件路径">
 <meta name="twitter:image" content="https://ae01.alicdn.com/kf/H9f9396106a6c41b39c4174b28d2a06a47.jpg">
   <!-- Canonical links -->
   <link rel="canonical" href="http://vkxss.top/2019/08/19/代码审计-任意文件读取/index.html">
@@ -199,7 +199,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码审计/">代码审计</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码审计/">代码审计</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -209,7 +209,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -228,7 +228,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -365,7 +365,7 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/19/代码审计-任意文件读取/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 425(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 463(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
@@ -375,15 +375,29 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="1、Any-File-Read（任意文件读取）"><a href="#1、Any-File-Read（任意文件读取）" class="headerlink" title="1、Any File Read（任意文件读取）"></a>1、Any File Read（任意文件读取）</h1><h2 id="1-1、描述："><a href="#1-1、描述：" class="headerlink" title="1.1、描述："></a>1.1、描述：</h2><ul>
+        <!-- toc -->
+
+<ul>
+<li><a href="#1-any-file-read任意文件读取">1、Any File Read（任意文件读取）</a><ul>
+<li><a href="#11-描述">1.1、描述：</a></li>
+<li><a href="#12-审计方法">1.2、审计方法：</a></li>
+<li><a href="#13-漏洞示例">1.3、漏洞示例:</a></li>
+<li><a href="#13-漏洞危害">1.3、漏洞危害:</a></li>
+<li><a href="#14-修复方案">1.4、修复方案：</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<h1><span id="1-any-file-read任意文件读取">1、Any File Read（任意文件读取）</span></h1><h2><span id="11-描述">1.1、描述：</span></h2><ul>
 <li><font face="微软雅黑">任意文件读取漏洞（Unrestricted File Upload），是一种常见的Web安全漏洞，因Web程序提供的文件查看下载、附件下载等功能存在安全缺陷，导致通过修改文件路径就能够查看和下载任意文件，这些文件包括：源代码文件、系统文件（/etc/passwd、C:/boot.ini等）、配置文件（config.php、/WEB-INF/web.xml、web.config等），造成网站敏感信息泄露，严重危害网站安全。</font></li>
 </ul>
-<h2 id="1-2、审计方法："><a href="#1-2、审计方法：" class="headerlink" title="1.2、审计方法："></a>1.2、审计方法：</h2><ul>
+<h2><span id="12-审计方法">1.2、审计方法：</span></h2><ul>
 <li><p><font face="微软雅黑">全局搜索以下关键词:</font></p>
 <p>  <font face="微软雅黑">“fileName”,<br>  <font face="微软雅黑">“filePath”,<br>  <font face="微软雅黑">“getFile”,<br>  <font face="微软雅黑">“getWriter”,<br>  <font face="微软雅黑">“MultipartFile”,<br>  <font face="微软雅黑">“createNewFile”,<br>  <font face="微软雅黑">“FileInputStream”</font></font></font></font></font></font></font></p>
 </li>
 </ul>
-<h2 id="1-3、漏洞示例"><a href="#1-3、漏洞示例" class="headerlink" title="1.3、漏洞示例:"></a>1.3、漏洞示例:</h2><ul>
+<h2><span id="13-漏洞示例">1.3、漏洞示例:</span></h2><ul>
 <li><font face="微软雅黑">代码在 downloadFile()函数中获取请求参数中的affixalName的值，然后赋值给 FileName 变量，接着在 196 行处通过拼接字符串赋值给downPath 变量，然后在 198 行处调用 download 函数并把 downPath 的值传进函数，download 函数的代码如下:<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H9f9396106a6c41b39c4174b28d2a06a47.jpg" style="zoom:30%"></center></font></font></li>
 </ul>
 <p><font face="微软雅黑"><center>图1：漏洞代码</center></font></p>
@@ -392,10 +406,10 @@
 </ul>
 <p><font face="微软雅黑"><center>图2：漏洞代码</center></font><br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H17db51d7689144138769210fb9fcd6478.png" style="zoom:30%"></center></font></p>
 <p><font face="微软雅黑"><center>图3：漏洞代码</center></font></p>
-<h2 id="1-3、漏洞危害"><a href="#1-3、漏洞危害" class="headerlink" title="1.3、漏洞危害:"></a>1.3、漏洞危害:</h2><ul>
+<h2><span id="13-漏洞危害">1.3、漏洞危害:</span></h2><ul>
 <li><font face="微软雅黑">任意文件读取是属于文件操作漏洞的一种，一般任意文件读取漏洞可以读取的配置信息甚至系统重要文件。严重的话，就可能导致SSRF，进而漫游至内网。</font></li>
 </ul>
-<h2 id="1-4、修复方案："><a href="#1-4、修复方案：" class="headerlink" title="1.4、修复方案："></a>1.4、修复方案：</h2><ul>
+<h2><span id="14-修复方案">1.4、修复方案：</span></h2><ul>
 <li><font face="微软雅黑">指定下载路径以防止用户读取和下载指定目录以外的文件。</font></li>
 </ul>
 

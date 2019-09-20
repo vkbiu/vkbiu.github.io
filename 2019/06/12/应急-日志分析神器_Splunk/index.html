@@ -18,13 +18,13 @@
   
   
   <title>日志分析神器_Splunk | VK&#39;Blog</title>
-  <meta name="description" content="0x01安装 搭建系统环境  16.04.1-Ubuntu-64   Splunk  splunk-7.3.0-657388c7a488-Linux-x86_64     下载解压（想要安装包请留言），如下图所示：  解压完后，cd到splunk/bin目录下启动，然后需要输入web登录的账户和密码，成功如下图所示： 1运行命令:sudo ./splunk start       查看虚拟机IP，">
+  <meta name="description" content="0x01安装 0x02日志分析 0x03分析案例 0x03.1 Splunk 名词说明 0x03.2 案例 案例一：统计-top        0x01安装 搭建系统环境  16.04.1-Ubuntu-64   Splunk  splunk-7.3.0-657388c7a488-Linux-x86_64     下载解压（想要安装包请留言），如下图所示：  解压完后，cd到splunk/b">
 <meta name="keywords" content="应急响应">
 <meta property="og:type" content="article">
 <meta property="og:title" content="日志分析神器_Splunk">
 <meta property="og:url" content="http://vkxss.top/2019/06/12/应急-日志分析神器_Splunk/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
-<meta property="og:description" content="0x01安装 搭建系统环境  16.04.1-Ubuntu-64   Splunk  splunk-7.3.0-657388c7a488-Linux-x86_64     下载解压（想要安装包请留言），如下图所示：  解压完后，cd到splunk/bin目录下启动，然后需要输入web登录的账户和密码，成功如下图所示： 1运行命令:sudo ./splunk start       查看虚拟机IP，">
+<meta property="og:description" content="0x01安装 0x02日志分析 0x03分析案例 0x03.1 Splunk 名词说明 0x03.2 案例 案例一：统计-top        0x01安装 搭建系统环境  16.04.1-Ubuntu-64   Splunk  splunk-7.3.0-657388c7a488-Linux-x86_64     下载解压（想要安装包请留言），如下图所示：  解压完后，cd到splunk/b">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H490ca17d147b4c189df7df43e9ee21ed0.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H617d2cb20d63432288042458c2dc1c58O.jpg">
@@ -37,10 +37,10 @@
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H5c11e6ef5b7044c5831584f5e34eb188M.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H924370913bce4d7aa79fe75e993a4af1a.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H720770574f114404b4af89ebf88740f5H.jpg">
-<meta property="og:updated_time" content="2019-09-14T16:27:19.083Z">
+<meta property="og:updated_time" content="2019-09-20T02:00:53.772Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="日志分析神器_Splunk">
-<meta name="twitter:description" content="0x01安装 搭建系统环境  16.04.1-Ubuntu-64   Splunk  splunk-7.3.0-657388c7a488-Linux-x86_64     下载解压（想要安装包请留言），如下图所示：  解压完后，cd到splunk/bin目录下启动，然后需要输入web登录的账户和密码，成功如下图所示： 1运行命令:sudo ./splunk start       查看虚拟机IP，">
+<meta name="twitter:description" content="0x01安装 0x02日志分析 0x03分析案例 0x03.1 Splunk 名词说明 0x03.2 案例 案例一：统计-top        0x01安装 搭建系统环境  16.04.1-Ubuntu-64   Splunk  splunk-7.3.0-657388c7a488-Linux-x86_64     下载解压（想要安装包请留言），如下图所示：  解压完后，cd到splunk/b">
 <meta name="twitter:image" content="https://ae01.alicdn.com/kf/H490ca17d147b4c189df7df43e9ee21ed0.jpg">
   <!-- Canonical links -->
   <link rel="canonical" href="http://vkxss.top/2019/06/12/应急-日志分析神器_Splunk/index.html">
@@ -207,7 +207,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码审计/">代码审计</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码审计/">代码审计</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -217,7 +217,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -236,7 +236,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -373,7 +373,7 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/06/12/应急-日志分析神器_Splunk/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 315(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 345(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
@@ -383,7 +383,23 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="0x01安装"><a href="#0x01安装" class="headerlink" title="0x01安装"></a>0x01安装</h1><ul>
+        <!-- toc -->
+
+<ul>
+<li><a href="#0x01安装">0x01安装</a></li>
+<li><a href="#0x02日志分析">0x02日志分析</a></li>
+<li><a href="#0x03分析案例">0x03分析案例</a><ul>
+<li><a href="#0x031-splunk-名词说明">0x03.1 Splunk 名词说明</a></li>
+<li><a href="#0x032-案例">0x03.2 案例</a><ul>
+<li><a href="#案例一统计-top">案例一：统计-top</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<h1><span id="0x01安装">0x01安装</span></h1><ul>
 <li><p><font face="微软雅黑">搭建系统环境</font></p>
 <ul>
 <li>16.04.1-Ubuntu-64</li>
@@ -406,14 +422,14 @@
 <li><p><font face="微软雅黑"> 查看虚拟机IP，在本地浏览器访问，输入自己设置的账户和密码即可：<br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H3eccc3d7cb534c1fbc6cacdfda9db044G.jpg" style="zoom:50%"></center></font></font></p>
 </li>
 </ul>
-<h1 id="0x02日志分析"><a href="#0x02日志分析" class="headerlink" title="0x02日志分析"></a>0x02日志分析</h1><ul>
+<h1><span id="0x02日志分析">0x02日志分析</span></h1><ul>
 <li><p><font face="微软雅黑">载入需要分析的日志，一直下一步即可，注意修改下主机字段值，方便查找，最后点击提交即可：</font></p>
 <p>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H20490399ef8d4a788eee64df7a2e3024C.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hd0e793841a064d4cbee514d3293daf8cP.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H083b8247b5be4b7cbdbf3c69352b46b6Q.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H083b8247b5be4b7cbdbf3c69352b46b6Q.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H28f37b403b0749e7983ae850a7f37d6c1.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H5c11e6ef5b7044c5831584f5e34eb188M.jpg" style="zoom:50%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H924370913bce4d7aa79fe75e993a4af1a.jpg" style="zoom:50%"></center></font></font></font></font></font></font></font></font></p>
 </li>
 </ul>
-<h1 id="0x03分析案例"><a href="#0x03分析案例" class="headerlink" title="0x03分析案例"></a>0x03分析案例</h1><h2 id="0x03-1-Splunk-名词说明"><a href="#0x03-1-Splunk-名词说明" class="headerlink" title="0x03.1 Splunk 名词说明"></a>0x03.1 Splunk 名词说明</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Data Input :  添加数据 （文件或文件目录、TCP、UDP、WMI、Script, Forwarder…）</span><br><span class="line">Source type ： 来源类型 （apache logs, security log、network log…）</span><br><span class="line">Host ：主机 （apache1、apche2, apcahe3…)  </span><br><span class="line">Source：数据源 （/opt/apache/log/*.*）</span><br><span class="line">Index：索引（Splunk 索引）</span><br><span class="line">Field：字段： 正则表达式 (Regular Expression) 取出符合某个条件字段</span><br><span class="line">Search Language：搜索语句 （缩小范围 -&gt;  计算 -&gt; 呈现 ）</span><br><span class="line">Saved Search： 搜索语句储存，未来可以直接使用</span><br><span class="line">Report ： 報表，搜索结果 -&gt; 图形报表</span><br><span class="line">Alert：告警，搜索结果通报</span><br></pre></td></tr></table></figure>
+<h1><span id="0x03分析案例">0x03分析案例</span></h1><h2><span id="0x031-splunk-名词说明">0x03.1 Splunk 名词说明</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Data Input :  添加数据 （文件或文件目录、TCP、UDP、WMI、Script, Forwarder…）</span><br><span class="line">Source type ： 来源类型 （apache logs, security log、network log…）</span><br><span class="line">Host ：主机 （apache1、apche2, apcahe3…)  </span><br><span class="line">Source：数据源 （/opt/apache/log/*.*）</span><br><span class="line">Index：索引（Splunk 索引）</span><br><span class="line">Field：字段： 正则表达式 (Regular Expression) 取出符合某个条件字段</span><br><span class="line">Search Language：搜索语句 （缩小范围 -&gt;  计算 -&gt; 呈现 ）</span><br><span class="line">Saved Search： 搜索语句储存，未来可以直接使用</span><br><span class="line">Report ： 報表，搜索结果 -&gt; 图形报表</span><br><span class="line">Alert：告警，搜索结果通报</span><br></pre></td></tr></table></figure>
 
-<h2 id="0x03-2-案例"><a href="#0x03-2-案例" class="headerlink" title="0x03.2 案例"></a>0x03.2 案例</h2><h3 id="案例一：统计-top"><a href="#案例一：统计-top" class="headerlink" title="案例一：统计-top"></a>案例一：统计-top</h3><ul>
+<h2><span id="0x032-案例">0x03.2 案例</span></h2><h3><span id="案例一统计-top">案例一：统计-top</span></h3><ul>
 <li><font face="微软雅黑">分析状态码为200、攻击者前10的IP地址，如下图所示：<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H720770574f114404b4af89ebf88740f5H.jpg" style="zoom:50%"></center></font></font></li>
 </ul>
 

@@ -18,20 +18,20 @@
   
   
   <title>Insecure Randomness | VK&#39;Blog</title>
-  <meta name="description" content="1、Insecure Randomness1.1、描述： 伪随机数生成器（PRNG）使用确定性数学算法来产生具有良好统计属性的数字序列。但是这种数字序列并不具有真正的随机特性。伪随机数生成器通常以一个算术种子值为起始。算法使用该种子值生成一个输出以及一个新的种子，这个种子又被用来生成下一个随机值，以此类推。Java API 提供了伪随机数生成器（PRNG）—— java.util.Random类。">
+  <meta name="description" content="1、Insecure Randomness 1.1、描述： 1.2、审计方法： 1.3、漏洞示例: 1.4、漏洞危害： 1.5、修复方案：      1、Insecure Randomness1.1、描述： 伪随机数生成器（PRNG）使用确定性数学算法来产生具有良好统计属性的数字序列。但是这种数字序列并不具有真正的随机特性。伪随机数生成器通常以一个算术种子值为起始。算法使用该种子值生成一个输">
 <meta name="keywords" content="Java代码审计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Insecure Randomness">
 <meta property="og:url" content="http://vkxss.top/2019/08/22/代码审计-Insecure Randomness/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
-<meta property="og:description" content="1、Insecure Randomness1.1、描述： 伪随机数生成器（PRNG）使用确定性数学算法来产生具有良好统计属性的数字序列。但是这种数字序列并不具有真正的随机特性。伪随机数生成器通常以一个算术种子值为起始。算法使用该种子值生成一个输出以及一个新的种子，这个种子又被用来生成下一个随机值，以此类推。Java API 提供了伪随机数生成器（PRNG）—— java.util.Random类。">
+<meta property="og:description" content="1、Insecure Randomness 1.1、描述： 1.2、审计方法： 1.3、漏洞示例: 1.4、漏洞危害： 1.5、修复方案：      1、Insecure Randomness1.1、描述： 伪随机数生成器（PRNG）使用确定性数学算法来产生具有良好统计属性的数字序列。但是这种数字序列并不具有真正的随机特性。伪随机数生成器通常以一个算术种子值为起始。算法使用该种子值生成一个输">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H0a6d84344a8a4831973a1a50706be5ecy.png">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H828ae4843a814538b5321ebcc13276f1N.png">
-<meta property="og:updated_time" content="2019-09-08T16:30:10.744Z">
+<meta property="og:updated_time" content="2019-09-20T02:01:37.919Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Insecure Randomness">
-<meta name="twitter:description" content="1、Insecure Randomness1.1、描述： 伪随机数生成器（PRNG）使用确定性数学算法来产生具有良好统计属性的数字序列。但是这种数字序列并不具有真正的随机特性。伪随机数生成器通常以一个算术种子值为起始。算法使用该种子值生成一个输出以及一个新的种子，这个种子又被用来生成下一个随机值，以此类推。Java API 提供了伪随机数生成器（PRNG）—— java.util.Random类。">
+<meta name="twitter:description" content="1、Insecure Randomness 1.1、描述： 1.2、审计方法： 1.3、漏洞示例: 1.4、漏洞危害： 1.5、修复方案：      1、Insecure Randomness1.1、描述： 伪随机数生成器（PRNG）使用确定性数学算法来产生具有良好统计属性的数字序列。但是这种数字序列并不具有真正的随机特性。伪随机数生成器通常以一个算术种子值为起始。算法使用该种子值生成一个输">
 <meta name="twitter:image" content="https://ae01.alicdn.com/kf/H0a6d84344a8a4831973a1a50706be5ecy.png">
   <!-- Canonical links -->
   <link rel="canonical" href="http://vkxss.top/2019/08/22/代码审计-Insecure Randomness/index.html">
@@ -198,7 +198,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码审计/">代码审计</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码审计/">代码审计</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -208,7 +208,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -227,7 +227,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -364,32 +364,46 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/22/代码审计-Insecure Randomness/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 538(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 569(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="1、Insecure-Randomness"><a href="#1、Insecure-Randomness" class="headerlink" title="1、Insecure Randomness"></a>1、Insecure Randomness</h1><h2 id="1-1、描述："><a href="#1-1、描述：" class="headerlink" title="1.1、描述："></a>1.1、描述：</h2><ul>
+        <!-- toc -->
+
+<ul>
+<li><a href="#1-insecure-randomness">1、Insecure Randomness</a><ul>
+<li><a href="#11-描述">1.1、描述：</a></li>
+<li><a href="#12-审计方法">1.2、审计方法：</a></li>
+<li><a href="#13-漏洞示例">1.3、漏洞示例:</a></li>
+<li><a href="#14-漏洞危害">1.4、漏洞危害：</a></li>
+<li><a href="#15-修复方案">1.5、修复方案：</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<h1><span id="1-insecure-randomness">1、Insecure Randomness</span></h1><h2><span id="11-描述">1.1、描述：</span></h2><ul>
 <li><font face="微软雅黑">伪随机数生成器（PRNG）使用确定性数学算法来产生具有良好统计属性的数字序列。但是这种数字序列并不具有真正的随机特性。伪随机数生成器通常以一个算术种子值为起始。算法使用该种子值生成一个输出以及一个新的种子，这个种子又被用来生成下一个随机值，以此类推。<br>Java API 提供了伪随机数生成器（PRNG）—— java.util.Random类。这个伪随机数生成器具有可移植性和可重复性。因此，如果两个java.util.Random类的实例创建时使用的是相同的种子值，那么对于所有的Java实现，它们将生成相同的数字序列。在系统重启或应用程序初始化时，Seed值总是被重复使用。在一些其他情况下，seed值来自系统时钟的当前时间。攻击者可以在系统的一些安全脆弱点上监听，并构建相应的查询表预测将要使用的seed值。</font></li>
 </ul>
-<h2 id="1-2、审计方法："><a href="#1-2、审计方法：" class="headerlink" title="1.2、审计方法："></a>1.2、审计方法：</h2><ul>
+<h2><span id="12-审计方法">1.2、审计方法：</span></h2><ul>
 <li><p><font face="微软雅黑">全局搜索以下关键词</font></p>
 <p>  <font face="微软雅黑">“random”</font></p>
 </li>
 </ul>
-<h2 id="1-3、漏洞示例"><a href="#1-3、漏洞示例" class="headerlink" title="1.3、漏洞示例:"></a>1.3、漏洞示例:</h2><ul>
+<h2><span id="13-漏洞示例">1.3、漏洞示例:</span></h2><ul>
 <li><font face="微软雅黑">例如在易于猜测的密码、可预测的加密密钥、验证码生成、抽奖活动、UUID生成、SessionID生成、Token生成、CSRF Token、找回密码Token、游戏（随机元素的生成）、密码应用场景、生成密钥：对称密码，消息认证、生成密钥对：公钥密码，数字签名、生成IV： 用于分组密码的CBC，CFB和OFB模式、生成nonce: 用于防御重放攻击; 分组密码的CTR模式、生成盐：用于基于口令的密码PBE等，可能会降低系统安全性。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H0a6d84344a8a4831973a1a50706be5ecy.png" style="zoom:30%"></center></font></font></li>
 </ul>
 <p><font face="微软雅黑"><center>图1：漏洞代码</center></font></p>
-<h2 id="1-4、漏洞危害："><a href="#1-4、漏洞危害：" class="headerlink" title="1.4、漏洞危害："></a>1.4、漏洞危害：</h2><ul>
+<h2><span id="14-漏洞危害">1.4、漏洞危害：</span></h2><ul>
 <li><font face="微软雅黑">生成的随机数很容易预测，可能会降低系统安全性。</font></li>
 </ul>
-<h2 id="1-5、修复方案："><a href="#1-5、修复方案：" class="headerlink" title="1.5、修复方案："></a>1.5、修复方案：</h2><ul>
+<h2><span id="15-修复方案">1.5、修复方案：</span></h2><ul>
 <li><font face="微软雅黑">因此，java.util.Random类不能用于安全敏感应用或者敏感数据保护。应使用更加安全的随机数生成器，例如java.security.SecureRandom类。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H828ae4843a814538b5321ebcc13276f1N.png" style="zoom:30%"></center></font></font></li>
 </ul>
 <p><font face="微软雅黑"><center>图2：修复代码</center></font></p>

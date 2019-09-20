@@ -18,22 +18,22 @@
   
   
   <title>SSRF绕过的方法 | VK&#39;Blog</title>
-  <meta name="description" content="1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标是从外网无法访问的内部系统。  1.2、漏洞寻找： 分享功能，通过 URL 地址分享网页内容   早期分享应用中，为了更好的提供用户体验，WEB应用在分享功能中，通常会获取目标URL地址网页内容中的标签或者">
+  <meta name="description" content="1、SSRF 1.1、描述： 1.2、漏洞寻找： 1.3 漏洞验证 1.4 利用方式 1.5、漏洞利用示例： 1.6、Bypass 1.7 SSRF危害 1.8 漏洞修复      1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标是从外网无法访问的">
 <meta name="keywords" content="WEB渗透测试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSRF绕过的方法">
 <meta property="og:url" content="http://vkxss.top/2019/07/19/渗透测试-SSRF绕过的方法/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
-<meta property="og:description" content="1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标是从外网无法访问的内部系统。  1.2、漏洞寻找： 分享功能，通过 URL 地址分享网页内容   早期分享应用中，为了更好的提供用户体验，WEB应用在分享功能中，通常会获取目标URL地址网页内容中的标签或者">
+<meta property="og:description" content="1、SSRF 1.1、描述： 1.2、漏洞寻找： 1.3 漏洞验证 1.4 利用方式 1.5、漏洞利用示例： 1.6、Bypass 1.7 SSRF危害 1.8 漏洞修复      1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标是从外网无法访问的">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/Hbf43dfb33cbc43939b24042c7530c24fR.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H8a618cf2914f452aa323c5c7e921d91c9.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H8595608792b545259736dcaa13594142U.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/Hb286c698c7a44e9fa59db20af8adfc82L.jpg">
-<meta property="og:updated_time" content="2019-09-19T07:46:00.287Z">
+<meta property="og:updated_time" content="2019-09-20T02:01:48.186Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSRF绕过的方法">
-<meta name="twitter:description" content="1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标是从外网无法访问的内部系统。  1.2、漏洞寻找： 分享功能，通过 URL 地址分享网页内容   早期分享应用中，为了更好的提供用户体验，WEB应用在分享功能中，通常会获取目标URL地址网页内容中的标签或者">
+<meta name="twitter:description" content="1、SSRF 1.1、描述： 1.2、漏洞寻找： 1.3 漏洞验证 1.4 利用方式 1.5、漏洞利用示例： 1.6、Bypass 1.7 SSRF危害 1.8 漏洞修复      1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标是从外网无法访问的">
 <meta name="twitter:image" content="https://ae01.alicdn.com/kf/Hbf43dfb33cbc43939b24042c7530c24fR.jpg">
   <!-- Canonical links -->
   <link rel="canonical" href="http://vkxss.top/2019/07/19/渗透测试-SSRF绕过的方法/index.html">
@@ -200,7 +200,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码审计/">代码审计</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/代码审计/">代码审计</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -210,7 +210,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -229,7 +229,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -366,7 +366,7 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/07/19/渗透测试-SSRF绕过的方法/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.8k(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.9k(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 11(分)</span>
@@ -376,10 +376,27 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <h1 id="1、SSRF"><a href="#1、SSRF" class="headerlink" title="1、SSRF"></a>1、SSRF</h1><h2 id="1-1、描述："><a href="#1-1、描述：" class="headerlink" title="1.1、描述："></a>1.1、描述：</h2><ul>
+        <!-- toc -->
+
+<ul>
+<li><a href="#1-ssrf">1、SSRF</a><ul>
+<li><a href="#11-描述">1.1、描述：</a></li>
+<li><a href="#12-漏洞寻找">1.2、漏洞寻找：</a></li>
+<li><a href="#13-漏洞验证">1.3 漏洞验证</a></li>
+<li><a href="#14-利用方式">1.4 利用方式</a></li>
+<li><a href="#15-漏洞利用示例">1.5、漏洞利用示例：</a></li>
+<li><a href="#16-bypass">1.6、Bypass</a></li>
+<li><a href="#17-ssrf危害">1.7 SSRF危害</a></li>
+<li><a href="#18-漏洞修复">1.8 漏洞修复</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<h1><span id="1-ssrf">1、SSRF</span></h1><h2><span id="11-描述">1.1、描述：</span></h2><ul>
 <li><font face="微软雅黑">SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标是从外网无法访问的内部系统。</font></li>
 </ul>
-<h2 id="1-2、漏洞寻找："><a href="#1-2、漏洞寻找：" class="headerlink" title="1.2、漏洞寻找："></a>1.2、漏洞寻找：</h2><ul>
+<h2><span id="12-漏洞寻找">1.2、漏洞寻找：</span></h2><ul>
 <li><p><font face="微软雅黑">分享功能，通过 URL 地址分享网页内容</font></p>
 <p>  <font face="微软雅黑">早期分享应用中，为了更好的提供用户体验，WEB应用在分享功能中，通常会获取目标URL地址网页内容中的<tilte>标签或者<meta name="description" content="“”/">标签中content的文本内容作为显示以提供更好的用户体验</tilte></font></p>
 </li>
@@ -420,7 +437,7 @@
 <li><p>PDF生成器：试着注入指向内部服务的<code>&lt;iframe&gt;&lt;img&gt;,&lt;base&gt;或者&lt;script&gt;</code>元素或者CSS的url()函数。</p>
 </li>
 </ul>
-<h2 id="1-3-漏洞验证"><a href="#1-3-漏洞验证" class="headerlink" title="1.3 漏洞验证"></a>1.3 漏洞验证</h2><ul>
+<h2><span id="13-漏洞验证">1.3 漏洞验证</span></h2><ul>
 <li>排除法：浏览器f12查看源代码看是否是在本地进行了请求</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">比如：该资源地址类型为 http://www.xxx.com/a.php?image=（地址）的就可能存在SSRF漏洞</span><br></pre></td></tr></table></figure>
@@ -441,7 +458,7 @@
 <li><p>留意bool型SSRF</p>
 </li>
 </ul>
-<h2 id="1-4-利用方式"><a href="#1-4-利用方式" class="headerlink" title="1.4  利用方式"></a>1.4  利用方式</h2><ul>
+<h2><span id="14-利用方式">1.4  利用方式</span></h2><ul>
 <li><p>让服务端去访问相应的网址</p>
 </li>
 <li><p>让服务端去访问自己所处内网的一些指纹文件来判断是否存在相应的cms</p>
@@ -466,14 +483,14 @@
 <li><p>提取EC2配置文件<br>  越来越多的公司将部分基础设施放到亚马逊的EC2服务器上。亚马逊公开内部服务，每台EC实例都能查询主机元数据。这是AWS文档。如果你在EC2上发现了SSRF漏洞，试着请求<a href="http://169.254.169.254/latest/meta-data。响应会提供许多有用的信息便于对基础设施有一定的了解，甚至可能会泄漏亚马逊S3的访问token，API" target="_blank" rel="noopener">http://169.254.169.254/latest/meta-data。响应会提供许多有用的信息便于对基础设施有一定的了解，甚至可能会泄漏亚马逊S3的访问token，API</a> token等等。你也可以下载_ <a href="http://169.254.169.254/latest/user-data_和解压数据。" target="_blank" rel="noopener">http://169.254.169.254/latest/user-data_和解压数据。</a></p>
 </li>
 </ul>
-<h2 id="1-5、漏洞利用示例："><a href="#1-5、漏洞利用示例：" class="headerlink" title="1.5、漏洞利用示例："></a>1.5、漏洞利用示例：</h2><ul>
+<h2><span id="15-漏洞利用示例">1.5、漏洞利用示例：</span></h2><ul>
 <li><p><font face="微软雅黑">某度翻译SSRF：<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hbf43dfb33cbc43939b24042c7530c24fR.jpg" style="zoom:50%"></center><br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H8a618cf2914f452aa323c5c7e921d91c9.jpg" style="zoom:50%"></center></font></font></font></p>
 </li>
 <li><p><font face="微软雅黑">某短网址SSRF：<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H8595608792b545259736dcaa13594142U.jpg" style="zoom:50%"></center></font></font></p>
 </li>
 </ul>
 <p><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hb286c698c7a44e9fa59db20af8adfc82L.jpg" style="zoom:50%"></center></font></p>
-<h2 id="1-6、Bypass"><a href="#1-6、Bypass" class="headerlink" title="1.6、Bypass"></a>1.6、Bypass</h2><ul>
+<h2><span id="16-bypass">1.6、Bypass</span></h2><ul>
 <li><font face="微软雅黑">1.4.1 攻击本地</font></li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:80</span><br><span class="line">http://localhost:22</span><br></pre></td></tr></table></figure>
@@ -543,14 +560,14 @@
 <p>参考链接：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">https://www.hackerone.com/blog-How-To-Server-Side-Request-Forgery-SSRF</span><br><span class="line">https://twitter.com/albinowax/status/890725759861403648</span><br><span class="line">http://blog.safebuff.com/2016/07/03/SSRF-Tips/</span><br><span class="line">https://hackerone.com/reports/115748</span><br><span class="line">https://www.dailysecurity.fr/server-side-request-forgery/</span><br><span class="line">https://twitter.com/EdOverflow</span><br><span class="line">https://github.com/swisskyrepo/PayloadsAllTheThings/tree/master/SSRF%20injection</span><br><span class="line">http://www.agarri.fr/docs/AppSecEU15-Server_side_browsing_considered_harmful.pdf</span><br><span class="line">http://byd.dropsec.xyz/2017/06/04/SSRF%E6%BC%8F%E6%B4%9E%E5%89%96%E6%9E%90%E4%B8%8E%E5%88%A9%E7%94%A8/</span><br><span class="line">http://blog.csdn.net/xinianbuxiu/article/details/53560417</span><br></pre></td></tr></table></figure>
 
-<h2 id="1-7-SSRF危害"><a href="#1-7-SSRF危害" class="headerlink" title="1.7 SSRF危害"></a>1.7 SSRF危害</h2><ul>
+<h2><span id="17-ssrf危害">1.7 SSRF危害</span></h2><ul>
 <li>主机本地敏感信息读取， 对外网、服务器所在内网、本地进行端口扫描，获取一些服务的Banner信息。</li>
 <li>攻击运行在内外网主机的应用程序。</li>
 <li>通过访问默认文件对内网 Web 应用进行指纹识别。</li>
 <li>攻击内外网的 Web 应用，主要是使用 GET参数就可以实现的攻击。</li>
 <li>利用file协议读取本地文件。</li>
 </ul>
-<h2 id="1-8-漏洞修复"><a href="#1-8-漏洞修复" class="headerlink" title="1.8 漏洞修复"></a>1.8 漏洞修复</h2><ul>
+<h2><span id="18-漏洞修复">1.8 漏洞修复</span></h2><ul>
 <li><p>禁止302跳转</p>
 </li>
 <li><p>过滤返回信息，验证远程服务器对请求的响应是比较容易的方法。如果web应用是去获取某一种类型的文件。那么在把返回结果展示给用户之前先验证返回的信息是否符合标准。</p>
