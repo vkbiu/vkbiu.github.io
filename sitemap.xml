@@ -2,16 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://vkxss.top/2018/12/19/APP%E6%B5%8B%E8%AF%95-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%A4%9C%E7%A5%9E%E6%A8%A1%E6%8B%9F%E5%99%A8%E8%B0%83%E8%AF%95/</loc>
+    <loc>http://vkxss.top/2018/10/12/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E7%9F%AD%E4%BF%A1%E8%BD%B0%E7%82%B8%E8%84%9A%E6%9C%AC/</loc>
     
-    <lastmod>2019-09-20T02:01:52.896Z</lastmod>
+    <lastmod>2019-09-20T02:24:42.167Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://vkxss.top/2019/09/19/%E7%BB%95%E8%BF%87CSRF%E9%98%B2%E5%BE%A1%E6%80%BB%E7%BB%93/</loc>
     
-    <lastmod>2019-09-20T02:01:50.230Z</lastmod>
+    <lastmod>2019-09-20T02:05:08.799Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://vkxss.top/2018/12/19/APP%E6%B5%8B%E8%AF%95-Mac%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%A4%9C%E7%A5%9E%E6%A8%A1%E6%8B%9F%E5%99%A8%E8%B0%83%E8%AF%95/</loc>
+    
+    <lastmod>2019-09-20T02:01:52.896Z</lastmod>
     
   </url>
   
@@ -72,13 +79,6 @@
   </url>
   
   <url>
-    <loc>http://vkxss.top/2018/10/20/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E7%9F%AD%E4%BF%A1%E8%BD%B0%E7%82%B8%E8%84%9A%E6%9C%AC/</loc>
-    
-    <lastmod>2019-09-19T16:47:02.322Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://vkxss.top//404.html</loc>
     
     <lastmod>2019-09-08T15:16:25.307Z</lastmod>
@@ -93,7 +93,7 @@
   </url>
   
   <url>
-    <loc>http://vkxss.top/about/index.html</loc>
+    <loc>http://vkxss.top/links/index.html</loc>
     
     <lastmod>2019-09-06T14:06:42.000Z</lastmod>
     
@@ -107,14 +107,14 @@
   </url>
   
   <url>
-    <loc>http://vkxss.top/links/index.html</loc>
+    <loc>http://vkxss.top/repository/index.html</loc>
     
     <lastmod>2019-09-06T14:06:42.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://vkxss.top/repository/index.html</loc>
+    <loc>http://vkxss.top/about/index.html</loc>
     
     <lastmod>2019-09-06T14:06:42.000Z</lastmod>
     
