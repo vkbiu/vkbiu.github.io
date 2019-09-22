@@ -17,17 +17,24 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>归档: 2019/7 | VK&#39;Blog</title>
-  <meta name="keywords" content="VK&#39;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="VK&#39;s blog">
-<meta property="og:url" content="http://vkxss.top/archives/2019/07/index.html">
+  <title>DOCX文件弹出XSS | VK&#39;Blog</title>
+  <meta name="description" content="背景：   如何使用Microsoft Word文档（docx格式）将跨站点脚本（XSS）漏洞上传到Web服务器  支持在线读取word文档 或者允许上传html文件，浏览器并成功解析(Content-Type为text/html)         构造XSS弹框word  方式一：  Microsoft Word文档的核心是一个包含XML和Word文件;  我们可以通过运行Linux命令str">
+<meta name="keywords" content="WEB渗透测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOCX文件弹出XSS">
+<meta property="og:url" content="http://vkxss.top/2018/07/28/DOCX文件弹出XSS/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
+<meta property="og:description" content="背景：   如何使用Microsoft Word文档（docx格式）将跨站点脚本（XSS）漏洞上传到Web服务器  支持在线读取word文档 或者允许上传html文件，浏览器并成功解析(Content-Type为text/html)         构造XSS弹框word  方式一：  Microsoft Word文档的核心是一个包含XML和Word文件;  我们可以通过运行Linux命令str">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/He107e7f9d9c946c1bdb76d36c1d501a3S.jpg">
+<meta property="og:image" content="https://ae01.alicdn.com/kf/H15a4f3bcfa7d49f9992a6a478e3b9acbt.jpg">
+<meta property="og:updated_time" content="2019-09-22T17:11:51.250Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VK&#39;s blog">
+<meta name="twitter:title" content="DOCX文件弹出XSS">
+<meta name="twitter:description" content="背景：   如何使用Microsoft Word文档（docx格式）将跨站点脚本（XSS）漏洞上传到Web服务器  支持在线读取word文档 或者允许上传html文件，浏览器并成功解析(Content-Type为text/html)         构造XSS弹框word  方式一：  Microsoft Word文档的核心是一个包含XML和Word文件;  我们可以通过运行Linux命令str">
+<meta name="twitter:image" content="https://ae01.alicdn.com/kf/He107e7f9d9c946c1bdb76d36c1d501a3S.jpg">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://vkxss.top/archives/2019/07/index.html">
+  <link rel="canonical" href="http://vkxss.top/2018/07/28/DOCX文件弹出XSS/index.html">
   
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
@@ -319,58 +326,231 @@
   
   
 <main class="main" role="main">
-  	<article class="content article article-archives article-type-list" itemscope="">
-	    <header class="article-header">
-	      <h1 itemprop="title">归档: 2019/7</h1>
-	      <p class="text-muted">共 2 篇文章</p>
-	    </header>
-	    <div class="article-body">
-	      
+  <div class="content">
+  <article id="post-DOCX文件弹出XSS" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
   
+    <h1 class="article-title" itemprop="name">
+      DOCX文件弹出XSS
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2018/07/28/DOCX文件弹出XSS/" class="article-date">
+	  <time datetime="2018-07-28T07:30:08.000Z" itemprop="datePublished">2018-07-28</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/WEB安全/">WEB安全</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/WEB渗透测试/">WEB渗透测试</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2018/07/28/DOCX文件弹出XSS/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 418(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <ul>
+<li><p><font face="微软雅黑">背景：</font></p>
+<ul>
+<li><ul>
+<li><p><font face="微软雅黑">如何使用Microsoft Word文档（docx格式）将跨站点脚本（XSS）漏洞上传到Web服务器</font></p>
+<ul>
+<li><font face="微软雅黑">支持在线读取word文档</font></li>
+<li><font face="微软雅黑">或者允许上传html文件，浏览器并成功解析(Content-Type为text/html)</font></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><font face="微软雅黑">构造XSS弹框word</font></p>
+<ul>
+<li><p><font face="微软雅黑">方式一：</font></p>
+<ul>
+<li><p><font face="微软雅黑">Microsoft Word文档的核心是一个包含XML和Word文件;</font></p>
+</li>
+<li><p><font face="微软雅黑">我们可以通过运行Linux命令strings file-sample.docx来查看文件中所有的ASCII字符，以查看可用的字符串;</font></p>
+</li>
+<li><p><font face="微软雅黑">将文件解压缩，方便我们在不损坏文件的情况下，修改它；</font></p>
+</li>
+<li><p><font face="微软雅黑">例如修改settings.xml为aaaaaaaaa.xml;</font></p>
+</li>
+<li><p><font face="微软雅黑">然后输入zip -r 重新打包，生成新文件;</font></p>
+</li>
+<li><p><font face="微软雅黑">利用ultraedit文本编辑器查看十六进制代码块找到A的字符串,并修改为js代码;</font></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># strings file-sample.docx</span><br><span class="line"># unzip file-sample.docx</span><br><span class="line"># cd word</span><br><span class="line"># mv settings.xml aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml</span><br><span class="line"># zip -r test.docx *</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><font face="微软雅黑">方式二：</font></p>
+<ul>
+<li><font face="微软雅黑">直接利用ultraedit文本编辑器找到word文档空白位置,在不破坏文档的情况下，修改为JS代码保存即可;<br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/He107e7f9d9c946c1bdb76d36c1d501a3S.jpg" style="zoom:40%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H15a4f3bcfa7d49f9992a6a478e3b9acbt.jpg" style="zoom:40%"></center></font></font></font></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><font face="微软雅黑">防护措施</font></p>
+<ul>
+<li><font face="微软雅黑">这样的效果对于开发者来说应该采取以下手段来进行限制。</font></li>
+<li><font face="微软雅黑">文件上传之前，在服务器端验证上传文件格式是否为.doc或.docx有效格式；</font></li>
+<li><font face="微软雅黑">严格限制Content-Type头，对Content-Type头或特定后缀格式更改过的上传文件须保持与上传文件相同的Content-Type头信息；</font></li>
+<li><font face="微软雅黑">控制文件下载时的其它操作情况，添加响应标头:“Content-Disposition: attachment”，以防止在浏览器中内嵌显示文件；</font></li>
+<li><font face="微软雅黑">过滤掉所有包含HTML标签的上传，因为docx可经压缩篡改其中包含的HTML文件。</font></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://vkxss.top/2018/07/28/DOCX文件弹出XSS/" title="DOCX文件弹出XSS" target="_blank" rel="external">http://vkxss.top/2018/07/28/DOCX文件弹出XSS/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark">VK</span><small class="ml-1x">VK&#39;Blog</small></a></h3>
+        <div>ddddhm</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
   
     
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
     
-      
-      
-      <section class="panel panel-default b-no">
-        <div class="panel-heading" role="tab">
-          <h3 class="panel-title">
-            <a data-toggle="collapse" href="#collapse2019" aria-expanded="true">
-              <i class="icon icon-calendar-plus text-active"></i><i class="icon icon-calendar-minus text"></i>
-              2019
-            </a>
-            <!-- <a href="/archives/2019" class="archive-year">2019</a> -->
-          </h3>
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2018/10/12/渗透测试-短信轰炸脚本/" title="绕过一分钟限制短信轰炸"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div id="collapse2019" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading2019">
-        <div class="panel-body">
-          <div class="collection">
-    
-    
-<a href="/2019/07/20/渗透测试-如何绕过URL限制/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2019-07-20T04:25:40.000Z" itemprop="datePublished">2019-07-20</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> 如何绕过URL限制
-</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 
-  
-    
-    
-    
-<a href="/2019/07/19/渗透测试-SSRF绕过的方法/" class="collection-item" target="_blank" itemprop="url">
-  <time datetime="2019-07-19T06:25:40.000Z" itemprop="datePublished">2019-07-19</time>
-  <span>&nbsp;&nbsp;&nbsp;</span> SSRF绕过的方法
-</a>
 
-
-  
-  
-    </div></div></div></section>
-  
-
-	    </div>
-  	</article>
-  	 	
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -429,6 +609,37 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'PUQvavgGf7Y3FXIB68W62St5-gzGzoHsz',
+    appKey: 'OxWOQ95mJtXnKAo9rlYodq2S',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 
