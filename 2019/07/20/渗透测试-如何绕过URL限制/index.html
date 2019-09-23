@@ -27,7 +27,7 @@
 <meta property="og:description" content="1、如何绕过URL限制 1.1、描述： 1.2、正常思路： 1.3、payload： 1.4、Bypass 0x01 利用问号绕过限制 0x02 利用反斜杠和正斜杠绕过限制 0x03 利用@绕过URL限制 0x04 利用白名单缺陷绕过限制 0x05 多重验证&amp;amp;跳转绕过限制 0x06 点击触发达到绕过URL跳转限制 0x07 利用xip.io绕过 0x08 利用超链接绕过可信站点限制">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H859abc96cb734526bc817af79bb78c37X.png">
-<meta property="og:updated_time" content="2019-09-20T02:01:34.910Z">
+<meta property="og:updated_time" content="2019-09-23T08:02:38.060Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何绕过URL限制">
 <meta name="twitter:description" content="1、如何绕过URL限制 1.1、描述： 1.2、正常思路： 1.3、payload： 1.4、Bypass 0x01 利用问号绕过限制 0x02 利用反斜杠和正斜杠绕过限制 0x03 利用@绕过URL限制 0x04 利用白名单缺陷绕过限制 0x05 多重验证&amp;amp;跳转绕过限制 0x06 点击触发达到绕过URL跳转限制 0x07 利用xip.io绕过 0x08 利用超链接绕过可信站点限制">
@@ -438,7 +438,7 @@
 </ul>
 <p><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H859abc96cb734526bc817af79bb78c37X.png" style="zoom:30%"></center></font></p>
 <h3><span id="0x08-利用超链接绕过可信站点限制">0x08 利用超链接绕过可信站点限制</span></h3><ul>
-<li><font face="微软雅黑">比如一个URL，它是可以直接跳转的，但是一般测试跳转时大家习惯用<a href="http://www.baidu.com或qq.com这样的可信站点进行测试，但是有些网站是可以跳转这些网站的。" target="_blank" rel="noopener">www.baidu.com或qq.com这样的可信站点进行测试，但是有些网站是可以跳转这些网站的。</a><br>只要是可信站点且常用，基本都可以跳转，那么这就属于正常的业务逻辑了，难度/Users/vk/Documents/Secure/Blog/content/post/代码审计-任意文件读取.md就这样错失一个URL跳转漏洞了？<br>其实不然，只要你的URL被百度收录过，那么直接搜索你的域名，site:xxx.xxx<br>因为你在百度里点击你的域名，它会先是一个302跳转，而这个302跳转就是百度下的302跳转，那么这样就可以绕过可信站点的限制，从而达到跳转到指定URL。<br>当然，百度这个302有点长，你给它进行加密就行。</font></li>
+<li><font face="微软雅黑">比如一个URL，它是可以直接跳转的，但是一般测试跳转时大家习惯用<a href="http://www.baidu.com或qq.com这样的可信站点进行测试，但是有些网站是可以跳转这些网站的。" target="_blank" rel="noopener">www.baidu.com或qq.com这样的可信站点进行测试，但是有些网站是可以跳转这些网站的。</a><br>只要是可信站点且常用，基本都可以跳转，那么这就属于正常的业务逻辑了，难道就这样错失一个URL跳转漏洞了？<br>其实不然，只要你的URL被百度收录过，那么直接搜索你的域名，site:xxx.xxx<br>因为你在百度里点击你的域名，它会先是一个302跳转，而这个302跳转就是百度下的302跳转，那么这样就可以绕过可信站点的限制，从而达到跳转到指定URL。<br>当然，百度这个302有点长，你给它进行加密就行。</font></li>
 </ul>
 <h3><span id="0x09-post参数中的url跳转">0x09 POST参数中的URL跳转</span></h3><ul>
 <li><font face="微软雅黑">当然，这个影响就很小了，比如当你填什么表格或者需要填写什么的，当你上传图片，点击下一步的时候，通常下一步就是预览你填写的信息，最后才是提交。<br>当你上传了图片后点击下一步抓包，如果过滤不严，你会看到图片的完整地址包含在POST参数里，你就可以直接修改这个地址为任意URL，然后到达下一步。<br>这时是确定信息也就是预览自己填写的信息的正确还是不正确，由于你刚刚修改了图片地址，这里是没有显示出来的，图像会是一个小XX。<br>当点击图片右键选择查看图像时，就会触发URL跳转问题，其实这个也可以利用来进行钓鱼，钓后台审核员的信息。<br>为什么呢，比如审核看到图片无法加载，一般都会点击查看图片，然后跳转，如果安全意识不知就会造成安全影响。<br>当然，如果POST参数里就只是URL跳转参数，那么你可以给它转成GET方式，然后进行跳转就可以了，只要网站支持这样的GET方式就行。<br>在Burp Suite里可以一键转换提交方式，右键选择Change request method就可以！</font></li>
