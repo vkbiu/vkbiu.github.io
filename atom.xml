@@ -161,6 +161,33 @@
   </entry>
   
   <entry>
+    <title>CTF中常见的加解密集合</title>
+    <link href="http://vkxss.top/2019/08/20/CTF-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8A%A0%E8%A7%A3%E5%AF%86%E9%9B%86%E5%90%88/"/>
+    <id>http://vkxss.top/2019/08/20/CTF-常见的加解密集合/</id>
+    <published>2019-08-20T15:23:43.854Z</published>
+    <updated>2019-09-25T08:38:52.513Z</updated>
+    
+    <content type="html"><![CDATA[<h1><span id="ctf中常见的加解密集合">CTF中常见的加解密集合</span></h1><ul><li><p>CTF（Capture The Flag）中文一般译作夺旗赛，在网络安全领域中指的是网络安全技术人员之间进行技术竞技的一种比赛形式。CTF起源于1996年DEFCON全球黑客大会，以代替之前黑客们通过互相发起真实攻击进行技术比拼的方式。发展至今，已经成为全球范围网络安全圈流行的竞赛形式，2013年全球举办了超过五十场国际性CTF赛事。而DEFCON作为CTF赛制的发源地，DEFCON CTF也成为了目前全球最高技术水平和影响力的CTF竞赛，类似于CTF赛场中的“世界杯”</p></li><li><p>今天我们来聊聊CTF中杂项遇到过的常见的加解密吧！</p></li><li><p><a href="https://mp.weixin.qq.com/s/WV6SV3tZqU64CntUczxynQ" target="_blank" rel="noopener">转载-原文链接</a></p></li><li><p>整理了几个免费的解密网站（长按跳转）</p><ul><li><p><a href="http://ctf.ssleye.com/" target="_blank" rel="noopener">http://ctf.ssleye.com/</a></p></li><li><p><a href="https://www.qqxiuzi.cn/" target="_blank" rel="noopener">https://www.qqxiuzi.cn/</a></p></li><li><p><a href="https://www.ctftools.com/down/" target="_blank" rel="noopener">https://www.ctftools.com/down/</a></p></li><li><p><a href="https://tool.bugku.com/?wafcloud=1" target="_blank" rel="noopener">https://tool.bugku.com/?wafcloud=1</a></p></li><li><p><a href="http://www.nicetool.net" target="_blank" rel="noopener">http://www.nicetool.net</a></p></li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1&gt;&lt;span id=&quot;ctf中常见的加解密集合&quot;&gt;CTF中常见的加解密集合&lt;/span&gt;&lt;/h1&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;CTF（Capture The Flag）中文一般译作夺旗赛，在网络安全领域中指的是网络安全技术人员之间进行技术竞技的一种比赛形式。CTF起源于1996
+      
+    
+    </summary>
+    
+    
+      <category term="CTF" scheme="http://vkxss.top/categories/CTF/"/>
+    
+    
+      <category term="加解密集合" scheme="http://vkxss.top/tags/%E5%8A%A0%E8%A7%A3%E5%AF%86%E9%9B%86%E5%90%88/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Null Dereference</title>
     <link href="http://vkxss.top/2019/08/20/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Null%20Dereference/"/>
     <id>http://vkxss.top/2019/08/20/代码审计-Null Dereference/</id>
