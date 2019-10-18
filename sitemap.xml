@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.vkxss.top/2019/07/19/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-SSRF%E7%BB%95%E8%BF%87%E7%9A%84%E6%96%B9%E6%B3%95/</loc>
+    
+    <lastmod>2019-10-17T14:57:40.371Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.vkxss.top/2019/10/17/CVE-2019-16278/</loc>
     
     <lastmod>2019-10-17T07:32:00.814Z</lastmod>
@@ -128,13 +135,6 @@
   </url>
   
   <url>
-    <loc>http://www.vkxss.top/2019/07/19/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-SSRF%E7%BB%95%E8%BF%87%E7%9A%84%E6%96%B9%E6%B3%95/</loc>
-    
-    <lastmod>2019-09-20T02:01:48.186Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://www.vkxss.top/2019/08/20/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Null%20Dereference/</loc>
     
     <lastmod>2019-09-20T02:01:46.172Z</lastmod>
@@ -184,14 +184,14 @@
   </url>
   
   <url>
-    <loc>http://www.vkxss.top/links/index.html</loc>
+    <loc>http://www.vkxss.top/categories/index.html</loc>
     
     <lastmod>2019-09-06T14:06:42.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.vkxss.top/categories/index.html</loc>
+    <loc>http://www.vkxss.top/links/index.html</loc>
     
     <lastmod>2019-09-06T14:06:42.000Z</lastmod>
     
