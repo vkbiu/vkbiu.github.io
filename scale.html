@@ -1,0 +1,262 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>进制转换</title>
+</head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<body style="background-color: rgba(30, 30, 30, .8); color: lightgreen;">
+  <div class="knr">
+    <div class="mobile_main">
+      <script type="text/javascript">
+        // 任意进制转换
+        function test() {
+          var num = document.getElementById("in").value;
+          var type = document.getElementById("title1");
+          var tynum, to;
+          for (var i = 0; i < type.length; i++) {
+            if (type[i].selected) tynum = parseInt(type[i].value);
+          }
+          switch (tynum) {
+            case (1):
+              to = parseInt(num).toString(2);
+              break;
+            case (2):
+              to = parseInt(num).toString(8);
+              break;
+            case (3):
+              to = parseInt(num).toString(16);
+              break;
+            case (4):
+              to = parseInt(num, 2);
+              break;
+            case (5):
+              to = parseInt(num, 8);
+              break;
+            case (6):
+              to = parseInt(num, 16);
+              break;
+            case (7):
+              to = parseInt(num, 2).toString(8);
+              break;
+            case (8):
+              to = parseInt(num, 8).toString(2);
+              break;
+            case (9):
+              to = parseInt(num, 2).toString(16);
+              break;
+            case (10):
+              to = parseInt(num, 16).toString(2);
+              break;
+            case (11):
+              to = parseInt(num, 8).toString(16);
+              break;
+            case (12):
+              to = parseInt(num, 16).toString(8);
+              break;
+          }
+          if (isNaN(to)) to = "输入非法字符了哦"
+          document.getElementById("out").innerHTML = to;
+        }
+
+        function ipcon() {
+          var ipv = document.getElementById("inp1").value;
+          if (ipv == '') {
+            document.getElementById("error1").innerHTML = '无效的IP地址';
+            return false;
+          } else {
+            var ar = ipv.split(".");
+            var decm = parseInt(ar[0]) * 256 * 256 * 256 + parseInt(ar[1]) * 256 * 256 + parseInt(ar[2]) * 256 +
+              parseInt(ar[3]);
+            var hex = parseInt(decm).toString(16).toUpperCase();
+            var binary = parseInt(decm).toString(2).toUpperCase();
+            document.getElementById('res_16').innerHTML = '十六进制 = ' + hex + "<br /> 十进制 = " + decm + '<br /> 二进制 = ' +
+            binary
+          }
+        }
+
+        function hex() {
+          var ipv = document.getElementById("inp2").value;
+          ipv = ipv.toUpperCase();
+          if (ishex(ipv)) {
+            ipv = parseInt(ipv, 16)
+            var b = new Array();
+            b[0] = 0;
+            b[1] = 0;
+            b[2] = 0;
+            b[3] = 0;
+            var c = 16777216.0;
+            for (var i = 0; i < 4; i++) {
+              var k = parseInt(ipv / c);
+              ipv -= c * k;
+              b[i] = k;
+              c = c / 256.0;
+            }
+            d = b[0] + '.' + b[1] + '.' + b[2] + '.' + b[3];
+            document.getElementById("res2").innerHTML = "IP = " + d;
+          } else {
+            document.getElementById("error2").innerHTML = '无效的十六进制值';
+            return false;
+          }
+        }
+
+        function decimal() {
+          var ipv = parseInt(document.getElementById("inp3").value);
+          if ((/[^0-9]/g.test(ipv)) == false || ipv != "") {
+            var b = new Array();
+            b[0] = 0;
+            b[1] = 0;
+            b[2] = 0;
+            b[3] = 0;
+            var c = 16777216.0;
+            for (var i = 0; i < 4; i++) {
+              var k = parseInt(ipv / c);
+              ipv -= c * k;
+              b[i] = k;
+              c = c / 256.0;
+            }
+            d = b[0] + '.' + b[1] + '.' + b[2] + '.' + b[3];
+            document.getElementById("res3").innerHTML = "IP = " + d;
+          } else {
+            document.getElementById("error3").innerHTML = '无效的十进制值';
+            return false;
+          }
+        }
+
+        function ishex(num) {
+          var validChar = '0123456789ABCDEF';
+          var flag = true;
+          var x = num.toUpperCase();
+          for (idx = 0; idx < x.length; idx++) {
+            if (validChar.indexOf(x.charAt(idx)) < 0) {
+              return false;
+            }
+          }
+          return true;
+        }
+      </script>
+      <TABLE height="471" width="403px" align="center">
+        <TBODY>
+            <TD>
+              <DIV id=input>
+                <TABLE style="MARGIN: 0px; WIDTH: 100%">
+                  <TBODY>
+                    <TR>
+                      <TD id=title vAlign=top colSpan=2 align=middle bgcolor="black">
+                        <H3>IP地址转换到十六进制，十进制，二进制地址</H3>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <TD vAlign=top width=70 bgcolor="black"><LABEL>IP地址</LABEL></TD>
+                      <TD bgcolor="black"><INPUT id=inp1 type=text> </TD>
+                    </TR>
+                    <TR>
+                      <TD vAlign=top width=70 bgcolor="black">结果</TD>
+                      <TD bgcolor="black" id=res_16></TD>
+                    </TR>
+                    <TR>
+                      <TD align=middle bgcolor="black"></TD>
+                      <TD bgcolor="black"><BUTTON onclick=ipcon() type=button>转换</BUTTON></TD>
+                    </TR>
+                  </TBODY>
+                </TABLE><BR>
+                <TABLE style="MARGIN: 0px; WIDTH: 396px">
+                  <TBODY>
+                    <TR>
+                      <TD id=title vAlign=top colSpan=2 align=middle bgcolor="black">
+                        <H3>十六进制转换为IP地址</H3>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <TD vAlign=top width=70 bgcolor="black">16进制</TD>
+                      <TD bgcolor="black"><INPUT id=inp2 type=text> </TD>
+                    </TR>
+                    <TR>
+                      <TD vAlign=top width=70 bgcolor="black">结果</TD>
+                      <TD bgcolor="black" id=res2></TD>
+                    </TR>
+                    <TR>
+                      <TD align=middle bgcolor="black">
+                      </TD>
+                      <TD bgcolor="black"><BUTTON onclick=hex() type=button>转换</BUTTON></TD>
+                    </TR>
+                  </TBODY>
+                </TABLE><BR>
+                <TABLE style="MARGIN: 0px; WIDTH: 100%">
+                  <TBODY>
+                    <TR>
+                      <TD id=title vAlign=top colSpan=2 align=middle bgcolor="black">
+                        <H3>十进制转成IP地址</H3>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <TD vAlign=top width=70 bgcolor="black">10进制</TD>
+                      <TD bgcolor="black"><INPUT id=inp3 type=text> </TD>
+                    </TR>
+                    <TR>
+                      <TD vAlign=top width=70 bgcolor="black">结果</TD>
+                      <TD bgcolor="black" id=res3></TD>
+                    </TR>
+                    <TR>
+                      <TD align=middle bgcolor="black"></TD>
+                      <TD bgcolor="black"><BUTTON onclick=decimal() type=button>转换</BUTTON></TD>
+                    </TR>
+                  </TBODY>
+                </TABLE>
+                <TABLE style="margin-top: 22px; WIDTH: 100%;">
+                  <TBODY>
+                    <TR>
+                      <TD id=title vAlign=top colSpan=2 align=middle bgcolor="black">
+                        <H3>任意进制转换</H3>
+                      </TD>
+                    </TR>
+                    <TR>
+                      <TD vAlign=top width=70 bgcolor="black">转换进制</TD>
+                      <TD bgcolor="black">
+                        <select name="title" id="title1" style="width:161px; height: 22px;">
+                          <option value="1">十进制转二进制</option>
+                          <option value="2">十进制转八进制</option>
+                          <option value="3">十进制转十六进制</option>
+                          <option value="4">二进制转十进制</option>
+                          <option value="5">八进制转十进制</option>
+                          <option value="6">十六进制转十进制</option>
+                          <option value="7">二进制转八进制</option>
+                          <option value="8">八进制转二进制</option>
+                          <option value="9">二进制转十六进制</option>
+                          <option value="10">十六进制转二进制</option>
+                          <option value="11">八进制转十六进制</option>
+                          <option value="12">十六进制转八进制</option>
+                        </select> </TD>
+                    </TR>
+                    <TR>
+                      <TD vAlign=top width=70 bgcolor="black">输入</TD>
+                      <TD bgcolor="black"><input type="text" id="in" /> </TD>
+                    </TR>
+                    <TR>
+                      <TD vAlign=top width=70 bgcolor="black">结果</TD>
+                      <TD bgcolor="black" id="out"> </TD>
+                    </TR>
+                    <TR>
+                      <TD align=middle bgcolor="black"></TD>
+                      <TD bgcolor="black"><input type="button" value="转换" onclick="test()" /></BUTTON></TD>
+                    </TR>
+                    <TR>
+                      <TD></TD>
+                      <TD id=res3></TD>
+                    </TR>
+                  </TBODY>
+                </TABLE>
+              </DIV>
+            </TD>
+        </TBODY>
+      </TABLE>
+      </TD>
+      </TBODY>
+      </TABLE>
+    </div>
+  </div>
+</body>
+
+</html>
