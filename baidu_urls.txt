@@ -3,8 +3,8 @@ http://www.vkxss.top/2019/10/25/CVE-2019-11043/
 http://www.vkxss.top/2019/10/24/google_hack语法/
 http://www.vkxss.top/2019/10/21/Mysql-Dnslog盲注/
 http://www.vkxss.top/2019/10/17/CVE-2019-16278/
-http://www.vkxss.top/2019/10/11/接口快速测试小技巧(Python)/
 http://www.vkxss.top/2019/10/11/渗透测试-SVG-XSS/
+http://www.vkxss.top/2019/10/11/接口快速测试小技巧(Python)/
 http://www.vkxss.top/2019/10/08/CVE-2019-13272/
 http://www.vkxss.top/2019/09/25/CVE-2019-16759/
 http://www.vkxss.top/2019/09/19/绕过CSRF防御总结/
@@ -13,6 +13,7 @@ http://www.vkxss.top/2019/08/22/代码审计-Insecure Randomness/
 http://www.vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/
 http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/
 http://www.vkxss.top/2019/08/19/代码审计-任意文件读取/
+http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/
 http://www.vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/
 http://www.vkxss.top/2019/07/19/渗透测试-SSRF绕过的方法/
 http://www.vkxss.top/2019/06/12/应急-日志分析神器_Splunk/

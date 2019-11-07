@@ -17,24 +17,26 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>敏感信息硬编码在程序中 | VK&#39;Blog|博客</title>
-  <meta name="description" content="1、敏感信息硬编码在程序中 1.1、描述： 1.2、审计方法： 1.3、漏洞示例: 1.4、漏洞危害： 1.5、修复方案：      1、敏感信息硬编码在程序中1.1、描述： 如果将敏感信息（包括口令和加密密钥）硬编码在程序中，可能会将敏感信息暴露给攻击者。任何能够访问到class文件的人都可以反编译class文件并发现这些敏感信息。因此，不能将信息硬编码在程序中。同时，硬编码敏感信息会增加">
+  <title>Mybatis检查SQL注入 | VK&#39;Blog|博客</title>
+  <meta name="description" content="Mybatis检查SQL注入总结 Mybatis的#{ }和${ }的由来# 如何排查 为什么#{ }就安全 什么情况下用不了#{} 如何解决： 总结：      Mybatis检查SQL注入总结Mybatis的#{ }和${ }的由来 Mybatis的Mapper.xml语句中parameterType向SQL语句传参有两种方式：#{ }和${ }。  使用#{ }来防止SQL注入，使用$">
 <meta name="keywords" content="Java代码审计">
 <meta property="og:type" content="article">
-<meta property="og:title" content="敏感信息硬编码在程序中">
-<meta property="og:url" content="http://www.vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/index.html">
+<meta property="og:title" content="Mybatis检查SQL注入">
+<meta property="og:url" content="http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
-<meta property="og:description" content="1、敏感信息硬编码在程序中 1.1、描述： 1.2、审计方法： 1.3、漏洞示例: 1.4、漏洞危害： 1.5、修复方案：      1、敏感信息硬编码在程序中1.1、描述： 如果将敏感信息（包括口令和加密密钥）硬编码在程序中，可能会将敏感信息暴露给攻击者。任何能够访问到class文件的人都可以反编译class文件并发现这些敏感信息。因此，不能将信息硬编码在程序中。同时，硬编码敏感信息会增加">
+<meta property="og:description" content="Mybatis检查SQL注入总结 Mybatis的#{ }和${ }的由来# 如何排查 为什么#{ }就安全 什么情况下用不了#{} 如何解决： 总结：      Mybatis检查SQL注入总结Mybatis的#{ }和${ }的由来 Mybatis的Mapper.xml语句中parameterType向SQL语句传参有两种方式：#{ }和${ }。  使用#{ }来防止SQL注入，使用$">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ae01.alicdn.com/kf/H275d6113fe3d434284c6321eb4f9bf92C.png">
-<meta property="og:image" content="https://ae01.alicdn.com/kf/H3ccd8617113b4a349c96030085c23212T.png">
-<meta property="og:updated_time" content="2019-09-20T02:01:39.853Z">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/07/MiODTe.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/07/MiOdOK.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/07/MiOBwD.jpg">
+<meta property="og:image" content="https://s2.ax1x.com/2019/11/07/MiO0eO.jpg">
+<meta property="og:updated_time" content="2019-11-06T16:15:44.696Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="敏感信息硬编码在程序中">
-<meta name="twitter:description" content="1、敏感信息硬编码在程序中 1.1、描述： 1.2、审计方法： 1.3、漏洞示例: 1.4、漏洞危害： 1.5、修复方案：      1、敏感信息硬编码在程序中1.1、描述： 如果将敏感信息（包括口令和加密密钥）硬编码在程序中，可能会将敏感信息暴露给攻击者。任何能够访问到class文件的人都可以反编译class文件并发现这些敏感信息。因此，不能将信息硬编码在程序中。同时，硬编码敏感信息会增加">
-<meta name="twitter:image" content="https://ae01.alicdn.com/kf/H275d6113fe3d434284c6321eb4f9bf92C.png">
+<meta name="twitter:title" content="Mybatis检查SQL注入">
+<meta name="twitter:description" content="Mybatis检查SQL注入总结 Mybatis的#{ }和${ }的由来# 如何排查 为什么#{ }就安全 什么情况下用不了#{} 如何解决： 总结：      Mybatis检查SQL注入总结Mybatis的#{ }和${ }的由来 Mybatis的Mapper.xml语句中parameterType向SQL语句传参有两种方式：#{ }和${ }。  使用#{ }来防止SQL注入，使用$">
+<meta name="twitter:image" content="https://s2.ax1x.com/2019/11/07/MiODTe.jpg">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://www.vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/index.html">
+  <link rel="canonical" href="http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/index.html">
   
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
@@ -327,14 +329,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-代码审计-敏感信息硬编码在程序中" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-代码审计-Mybatis检查SQL注入" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      敏感信息硬编码在程序中
+      Mybatis检查SQL注入
     </h1>
   
 
@@ -342,8 +344,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2019/08/22/代码审计-敏感信息硬编码在程序中/" class="article-date">
-	  <time datetime="2019-08-22T04:25:40.000Z" itemprop="datePublished">2019-08-22</time>
+	<a href="/2019/08/15/代码审计-Mybatis检查SQL注入/" class="article-date">
+	  <time datetime="2019-08-15T06:10:40.000Z" itemprop="datePublished">2019-08-15</time>
 	</a>
 </span>
         
@@ -361,13 +363,13 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/22/代码审计-敏感信息硬编码在程序中/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/15/代码审计-Mybatis检查SQL注入/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 367(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 742(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
       </div>
@@ -377,37 +379,62 @@
         <!-- toc -->
 
 <ul>
-<li><a href="#1-敏感信息硬编码在程序中">1、敏感信息硬编码在程序中</a><ul>
-<li><a href="#11-描述">1.1、描述：</a></li>
-<li><a href="#12-审计方法">1.2、审计方法：</a></li>
-<li><a href="#13-漏洞示例">1.3、漏洞示例:</a></li>
-<li><a href="#14-漏洞危害">1.4、漏洞危害：</a></li>
-<li><a href="#15-修复方案">1.5、修复方案：</a></li>
+<li><a href="#mybatis检查sql注入总结">Mybatis检查SQL注入总结</a><ul>
+<li><a href="#mybatis的-和-的由来">Mybatis的#{ }和${ }的由来#</a></li>
+<li><a href="#如何排查">如何排查</a></li>
+<li><a href="#为什么-就安全">为什么#{ }就安全</a></li>
+<li><a href="#什么情况下用不了">什么情况下用不了#{}</a></li>
+<li><a href="#如何解决">如何解决：</a></li>
+<li><a href="#总结">总结：</a></li>
 </ul>
 </li>
 </ul>
 <!-- tocstop -->
 
-<h1><span id="1-敏感信息硬编码在程序中">1、敏感信息硬编码在程序中</span></h1><h2><span id="11-描述">1.1、描述：</span></h2><ul>
-<li><font face="微软雅黑">如果将敏感信息（包括口令和加密密钥）硬编码在程序中，可能会将敏感信息暴露给攻击者。任何能够访问到class文件的人都可以反编译class文件并发现这些敏感信息。因此，不能将信息硬编码在程序中。同时，硬编码敏感信息会增加代码管理和维护的难度。</font></li>
-</ul>
-<h2><span id="12-审计方法">1.2、审计方法：</span></h2><ul>
-<li><p><font face="微软雅黑">全局搜索以下关键词</font></p>
-<p>  <font face="微软雅黑">“password”</font></p>
+<h2><span id="mybatis检查sql注入总结">Mybatis检查SQL注入总结</span></h2><h3><span id="mybatis的-和-的由来">Mybatis的#{ }和${ }的由来</span></h3><ul>
+<li><p>Mybatis的Mapper.xml语句中parameterType向SQL语句传参有两种方式：#{ }和${ }。</p>
+</li>
+<li><p>使用#{ }来防止SQL注入，使用${ }来动态拼接参数。</p>
 </li>
 </ul>
-<h2><span id="13-漏洞示例">1.3、漏洞示例:</span></h2><ul>
-<li><font face="微软雅黑">恶意用户可以使用javap -c IPaddress命令来反编译class来发现其中硬编码的服务器IP地址。反编译器的输出信息透露了服务器的明文IP地址：172.16.254.1。</font><br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H275d6113fe3d434284c6321eb4f9bf92C.png" style="zoom:30%"></center></font></li>
+<h3><span id="如何排查">如何排查</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1. 检查是否有$号</span><br><span class="line">如果你使用的是IDEA，那么通过快捷键Ctrl+Shift+R打开窗口，通过全局搜索$&#123; , 快速定位到使用$&#123; &#125;拼接SQL的语句，在去找到外部传入参数的入口，闭合sql证明即可。</span><br><span class="line"></span><br><span class="line">2. 检查是否有order by</span><br><span class="line"></span><br><span class="line">同样的在搜索是否使用order by 排序语句，如果有一步一步追踪是否有外部参数，未过滤就直接传递到order by语句里面来。</span><br></pre></td></tr></table></figure>
+
+<h3><span id="为什么-就安全">为什么#{ }就安全</span></h3><ul>
+<li><p>因为”#{}”采用JDBC预编译模式，这种写法可以很好地避免SQL注入漏洞的产生。类似如下SQL语句，</p>
+</li>
+<li><p>使用 ${ }效果是:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from testtable where id=&quot;1&quot; or true or id  </span><br><span class="line"># 1后面就是被攻击者恶意构造的字符</span><br></pre></td></tr></table></figure>
+
+<p>  <a href="https://imgchr.com/i/MiODTe" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiODTe.jpg" alt="MiODTe.jpg"></a></p>
+</li>
+<li><p>而使用 #{ } 的效果是:</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">select * from testtable where id=&quot;1\&quot; or true or id\&quot;&quot;         </span><br><span class="line"># 1后面就是被攻击者恶意构造的字符</span><br></pre></td></tr></table></figure>
+
+<p>  <a href="https://imgchr.com/i/MiOdOK" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiOdOK.jpg" alt="MiOdOK.jpg"></a></p>
+</li>
 </ul>
-<p><font face="微软雅黑"><center>图1：错误代码</center></font></p>
-<h2><span id="14-漏洞危害">1.4、漏洞危害：</span></h2><ul>
-<li><font face="微软雅黑">很容易被攻击者利用，导致系统敏感信息泄露。</font></li>
+<h3><span id="什么情况下用不了">什么情况下用不了#{}</span></h3><ul>
+<li><p>order by 排序情况不行。为什么？</p>
+</li>
+<li><p>先复习一下order by的用法：#<br>order by就是一个排序的工具，跟我读一遍：“order by就是一个排序的工具”。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 这个1就是指第一个列索引，也可以写id （列索引）</span><br><span class="line">select * from testtable ORDER BY 1 ASC #ASC表示按升序排序,DESC表示按降序排序</span><br><span class="line"># 两个代码是一样的</span><br><span class="line">select * from testtable ORDER BY id ASC #ASC表示按升序排序,DESC表示按降序排序</span><br></pre></td></tr></table></figure>
+
+<p>  <a href="https://imgchr.com/i/MiOBwD" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiOBwD.jpg" alt="MiOBwD.jpg"></a></p>
+</li>
+<li><p>对于order by 我们是用不了#{}的，因为用了这个就会被自动转换成字符串，自动加引号，这样语句就不生效了。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectStudentsByName&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">    select id,name,age,score from student order by #&#123;column&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;!--编译出来的结果如下：--&gt;</span><br><span class="line">select * from table order by &apos;column&apos;</span><br></pre></td></tr></table></figure>
+
+<p>  <a href="https://imgchr.com/i/MiO0eO" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiO0eO.jpg" alt="MiO0eO.jpg"></a></p>
+</li>
+<li><p>会发现加上“” 双引号符号后，就没法正常排序了。</p>
+</li>
 </ul>
-<h2><span id="15-修复方案">1.5、修复方案：</span></h2><ul>
-<li><font face="微软雅黑">敏感信息存放在配置文件或数据库中并加密存储。(金融行业安全系数更高)</font></li>
-<li><font face="微软雅黑">这个正确代码示例从一个安全目录下的外部文件获取服务器IP地址。并在其使用完后立即从内存中将其清除可以防止后续的信息泄露。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H3ccd8617113b4a349c96030085c23212T.png" style="zoom:30%"></center></font></font></li>
+<h3><span id="如何解决">如何解决：</span></h3><ul>
+<li>使用${}，MyBatis就不会修改或转义改字符串。但是这样又不安全，会导致潜在的SQL注入攻击。所以我们需要自己去限制，不允许用户输入一些非法字段，或者通常自行转义并检查。所以这必须过滤输入的内容。</li>
 </ul>
-<p><font face="微软雅黑"><center>图2：正确代码</center></font></p>
+<h3><span id="总结">总结：</span></h3><ul>
+<li>即使是安全的sql预编译技术，也是有适用范围的，一些应用场景也是不适用的。当我们在做黑盒或者审计的时候，碰到了预编译处理不了的场景，比如说排序功能的时候就得格外注意，因为这里不仔细审查，日后就是一个祸端。</li>
+</ul>
 
       
     </div>
@@ -417,7 +444,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://www.vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/" title="敏感信息硬编码在程序中" target="_blank" rel="external">http://www.vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/</a>
+      <a href="http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/" title="Mybatis检查SQL注入" target="_blank" rel="external">http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -464,12 +491,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2019/08/22/代码审计-Insecure Randomness/" title="Insecure Randomness"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2019/08/19/代码审计-任意文件读取/" title="任意文件读取"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2019/08/20/代码审计-Null Dereference/" title="Null Dereference"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/07/20/渗透测试-如何绕过URL限制/" title="如何绕过URL限制"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
