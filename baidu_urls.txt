@@ -1,3 +1,4 @@
+http://www.vkxss.top/2019/11/08/无回显代码执行利用方法总结/
 http://www.vkxss.top/2019/10/31/Apache_Solr_Velocity模板注入RCE漏洞/
 http://www.vkxss.top/2019/10/25/CVE-2019-11043/
 http://www.vkxss.top/2019/10/24/google_hack语法/
