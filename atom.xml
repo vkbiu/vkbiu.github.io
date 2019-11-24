@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.vkxss.top/"/>
-  <updated>2019-11-13T15:41:33.032Z</updated>
+  <updated>2019-11-19T06:39:00.683Z</updated>
   <id>http://www.vkxss.top/</id>
   
   <author>
@@ -17,13 +17,39 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>SpringCloud下微服务网关配置Cors跨域请求</title>
+    <link href="http://www.vkxss.top/2019/11/19/SpringCloud%E4%B8%8B%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E9%85%8D%E7%BD%AECors%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/"/>
+    <id>http://www.vkxss.top/2019/11/19/SpringCloud下微服务网关配置Cors跨域请求/</id>
+    <published>2019-11-19T06:37:28.718Z</published>
+    <updated>2019-11-19T06:39:00.683Z</updated>
+    
+    <content type="html"><![CDATA[<h2><span id="一-问题背景">一、 问题背景</span></h2><pre><code>公司的项目需要前后端分离，vue+java，这时候就需要支持Cors跨域请求了.</code></pre><h3><span id="11-什么是cors">1.1 什么是Cors?</span></h3><pre><code>CORS 全称是跨域资源共享（Cross-Origin Resource Sharing），是一种 AJAX 跨域请求资源的方式，支持现代浏览器，IE支持10以上。CORS与JSONP的使用目的相同，但是比JSONP更强大。JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。简单来说Cors就是用来解决跨域问题的。此外解决的方式还有：Nginx反向代理，Jsoup等方式。不过Nginx不符合Devops理念，不易维护，而Jsoup支持的请求类型只支持Get请求。Cors更为适合；</code></pre><h2><span id="12-什么是跨域">1.2 什么是跨域？</span></h2><pre><code>同源就是指：域名，协议，端口 均相同跨域就是指： 域名，协议，端口 其中至少有一个是不同的；当前端请求后端接口的时候，当端口号，ip地址等不一致的时候，为了安全性考量，请求所响应的数据不会被前端展示。等于请求的数据没有被标识为友军，没有被证明是敌是友；ajax请求才会出现跨域</code></pre><h3><span id="13-cors能解决什么问题">1.3 Cors能解决什么问题？</span></h3><pre><code>通过在服务端配置Cors相关的东西，能识别是否给予跨域权限，然后给予能跨域的标识，通过此标识，浏览器就可以渲染返回来的数据啦~~</code></pre><h2><span id="二-cors在springcloud微服务中的使用">二. Cors在SpringCloud微服务中的使用；</span></h2><h3><span id="21-环境">2.1 环境：</span></h3><pre><code>JDK1.8 IDEA SpringCloud微服务 网关使用Zuul</code></pre><h3><span id="22-代码">2.2 代码：</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package com.leyou.gateway.config;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.web.cors.CorsConfiguration;</span><br><span class="line">import org.springframework.web.cors.UrlBasedCorsConfigurationSource;</span><br><span class="line">import org.springframework.web.filter.CorsFilter;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class CorsConfiguration &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public CorsFilter corsFilter()&#123;</span><br><span class="line">        //配置初始化对象</span><br><span class="line">        CorsConfiguration configuration=new CorsConfiguration();</span><br><span class="line">        //允许跨域的域名，如果要携带cookie，不能写* 。  *：代表所有的域名都可以访问</span><br><span class="line">        configuration.addAllowedOrigin(&quot;http://localhost:9001&quot;);</span><br><span class="line">        configuration.setAllowCredentials(true);</span><br><span class="line">        configuration.addAllowedMethod(&quot;*&quot;);            //代表所有的请求方法</span><br><span class="line">        configuration.addAllowedHeader(&quot;*&quot;);        //允许携带任何头信息</span><br><span class="line"></span><br><span class="line">        //初始化cors配置源对象</span><br><span class="line">        UrlBasedCorsConfigurationSource configurationSource=new UrlBasedCorsConfigurationSource();</span><br><span class="line">        configurationSource.registerCorsConfiguration(&quot;/**&quot;,configuration);</span><br><span class="line"></span><br><span class="line">        //返回corsFilter实例，参数:cors配置源对象</span><br><span class="line">        return new CorsFilter(configurationSource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3><span id="23-什么是zuul微服务网关">2.3 什么是zuul微服务网关：</span></h3><ul><li><a href="https://www.jianshu.com/p/29e9c91e3f3e" target="_blank" rel="noopener">https://www.jianshu.com/p/29e9c91e3f3e</a></li><li><a href="https://www.jianshu.com/p/7bc06a64519b" target="_blank" rel="noopener">https://www.jianshu.com/p/7bc06a64519b</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2&gt;&lt;span id=&quot;一-问题背景&quot;&gt;一、 问题背景&lt;/span&gt;&lt;/h2&gt;&lt;pre&gt;&lt;code&gt;公司的项目需要前后端分离，vue+java，这时候就需要支持Cors跨域请求了.&lt;/code&gt;&lt;/pre&gt;&lt;h3&gt;&lt;span id=&quot;11-什么是cors&quot;&gt;1.1 什么是Co
+      
+    
+    </summary>
+    
+    
+      <category term="JAVA" scheme="http://www.vkxss.top/categories/JAVA/"/>
+    
+    
+      <category term="JAVA代码审计" scheme="http://www.vkxss.top/tags/JAVA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Python多线程测试并发漏洞测试</title>
     <link href="http://www.vkxss.top/2019/11/13/Python-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%B5%8B%E8%AF%95%E5%B9%B6%E5%8F%91%E6%BC%8F%E6%B4%9E%E6%B5%8B%E8%AF%95/"/>
     <id>http://www.vkxss.top/2019/11/13/Python-多线程测试并发漏洞测试/</id>
     <published>2019-11-13T07:30:08.000Z</published>
-    <updated>2019-11-13T15:41:33.032Z</updated>
+    <updated>2019-11-15T09:10:27.215Z</updated>
     
-    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#python多线程测试并发漏洞测试">Python多线程测试并发漏洞测试</a><ul><li><a href="#步骤记录">步骤记录</a></li></ul></li></ul><!-- tocstop --><h2><span id="python多线程测试并发漏洞测试">Python多线程测试并发漏洞测试</span></h2><ul><li>我们在使用黑盒，例如测试一些支付、兑换类的功能时，都需要进行多线程并发测试，来确保测试的应用在代码或者数据库层是否加锁。</li></ul><h3><span id="步骤记录">步骤记录</span></h3><ol><li>Burp Suite安装插件，方便生成python发包代码</li></ol><p><a href="https://imgchr.com/i/MYdT8H" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/13/MYdT8H.md.jpg" alt="MYdT8H.md.jpg"></a></p><ol start="2"><li>拦截包并生成代码,并打开一个文本编辑器，右键粘贴出来：</li></ol><p><a href="https://imgchr.com/i/MYdoPe" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/13/MYdoPe.md.jpg" alt="MYdoPe.md.jpg"></a></p><ol start="3"><li><p>运行Python多线程代码#<br>将生成的python代码粘贴到action()函数里面即可；</p> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">threads = []</span><br><span class="line"></span><br><span class="line">def action():</span><br><span class="line">    burp0_url = &quot;https://www.baidu.com:443/s?ie=utf-8&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=1&amp;tn=baidu&amp;wd=1&quot;</span><br><span class="line">    burp0_cookies = &#123;&quot;BAIDUID&quot;: &quot;E316F3DB8A100CF49C7840194D685130:FG=1&quot;, &quot;BIDUPSID&quot;: &quot;E316F3DB8A100CF4365A4179630696D4&quot;, &quot;PSTM&quot;: &quot;1571902876&quot;, &quot;BD_UPN&quot;: &quot;133252&quot;, &quot;H_PS_PSSID&quot;: &quot;1434_21105_29568_29220_22160&quot;, &quot;BDORZ&quot;: &quot;B490B5EBF6F3CD402E515D22BCDA1598&quot;, &quot;delPer&quot;: &quot;0&quot;, &quot;BD_CK_SAM&quot;: &quot;1&quot;, &quot;PSINO&quot;: &quot;2&quot;, &quot;BD_HOME&quot;: &quot;0&quot;, &quot;H_PS_645EC&quot;: &quot;6d50bLk7EAzhqdJENzPoKrR6B%2FRN9gavPDwdfFeqclmRNgzaMlT7KBxZaRg&quot;, &quot;COOKIE_SESSION&quot;: &quot;292444_5_6_2_4_26_0_2_2_5_0_0_243247_0_0_0_1573179527_1572936381_1573657905%7C6%23221_3_1572936369%7C2&quot;, &quot;BDSVRTM&quot;: &quot;130&quot;&#125;</span><br><span class="line">    burp0_headers = &#123;&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:69.0) Gecko/20100101 Firefox/69.0&quot;, &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;, &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, &quot;Connection&quot;: &quot;close&quot;, &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;&#125;</span><br><span class="line">    res=requests.get(burp0_url, headers=burp0_headers, cookies=burp0_cookies)</span><br><span class="line">    # print(res.status_code)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    </span><br><span class="line">    print(&quot;threading start!&quot;)</span><br><span class="line"></span><br><span class="line">    for i in range(50):</span><br><span class="line">        t = threading.Thread(target=action)</span><br><span class="line">        t.start()</span><br><span class="line">        </span><br><span class="line">    print(&quot;threading end!&quot;)</span><br></pre></td></tr></table></figure></li></ol><ol start="4"><li>确认结果即可</li></ol>]]></content>
+    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#python多线程测试并发漏洞测试">Python多线程测试并发漏洞测试</a><ul><li><a href="#步骤记录">步骤记录</a></li></ul></li></ul><!-- tocstop --><h2><span id="python多线程测试并发漏洞测试">Python多线程测试并发漏洞测试</span></h2><ul><li>我们在使用黑盒，例如测试一些支付、兑换类的功能时，都需要进行多线程并发测试，来确保测试的应用在代码或者数据库层是否加锁。</li></ul><h3><span id="步骤记录">步骤记录</span></h3><ol><li>Burp Suite安装插件，方便生成python发包代码</li></ol><p><a href="https://imgchr.com/i/MYdT8H" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/13/MYdT8H.jpg" alt="MYdT8H.jpg"></a></p><ol start="2"><li>拦截包并生成代码,并打开一个文本编辑器，右键粘贴出来：</li></ol><p><a href="https://imgchr.com/i/MYdoPe" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/13/MYdoPe.jpg" alt="MYdoPe.jpg"></a></p><ol start="3"><li>运行Python多线程代码</li></ol><p>将生成的python代码粘贴到action()函数里面即可；</p><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">import threading</span><br><span class="line">import requests</span><br><span class="line"></span><br><span class="line">threads = []</span><br><span class="line"></span><br><span class="line">def action():</span><br><span class="line">    burp0_url = &quot;https://www.baidu.com:443/s?ie=utf-8&amp;f=8&amp;rsv_bp=1&amp;rsv_idx=1&amp;tn=baidu&amp;wd=1&quot;</span><br><span class="line">    burp0_cookies = &#123;&quot;BAIDUID&quot;: &quot;E316F3DB8A100CF49C7840194D685130:FG=1&quot;, &quot;BIDUPSID&quot;: &quot;E316F3DB8A100CF4365A4179630696D4&quot;, &quot;PSTM&quot;: &quot;1571902876&quot;, &quot;BD_UPN&quot;: &quot;133252&quot;, &quot;H_PS_PSSID&quot;: &quot;1434_21105_29568_29220_22160&quot;, &quot;BDORZ&quot;: &quot;B490B5EBF6F3CD402E515D22BCDA1598&quot;, &quot;delPer&quot;: &quot;0&quot;, &quot;BD_CK_SAM&quot;: &quot;1&quot;, &quot;PSINO&quot;: &quot;2&quot;, &quot;BD_HOME&quot;: &quot;0&quot;, &quot;H_PS_645EC&quot;: &quot;6d50bLk7EAzhqdJENzPoKrR6B%2FRN9gavPDwdfFeqclmRNgzaMlT7KBxZaRg&quot;, &quot;COOKIE_SESSION&quot;: &quot;292444_5_6_2_4_26_0_2_2_5_0_0_243247_0_0_0_1573179527_1572936381_1573657905%7C6%23221_3_1572936369%7C2&quot;, &quot;BDSVRTM&quot;: &quot;130&quot;&#125;</span><br><span class="line">    burp0_headers = &#123;&quot;User-Agent&quot;: &quot;Mozilla/5.0 (Macintosh; Intel Mac OS X 10.14; rv:69.0) Gecko/20100101 Firefox/69.0&quot;, &quot;Accept&quot;: &quot;text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8&quot;, &quot;Accept-Language&quot;: &quot;zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2&quot;, &quot;Accept-Encoding&quot;: &quot;gzip, deflate&quot;, &quot;Connection&quot;: &quot;close&quot;, &quot;Upgrade-Insecure-Requests&quot;: &quot;1&quot;&#125;</span><br><span class="line">    res=requests.get(burp0_url, headers=burp0_headers, cookies=burp0_cookies)</span><br><span class="line">    # print(res.status_code)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">if __name__ == &apos;__main__&apos;:</span><br><span class="line">    </span><br><span class="line">    print(&quot;threading start!&quot;)</span><br><span class="line"></span><br><span class="line">    for i in range(50):</span><br><span class="line">        t = threading.Thread(target=action)</span><br><span class="line">        t.start()</span><br><span class="line">        </span><br><span class="line">    print(&quot;threading end!&quot;)</span><br></pre></td></tr></table></figure></code></pre><ol start="4"><li>确认结果即可</li></ol>]]></content>
     
     <summary type="html">
     
@@ -43,7 +69,7 @@
     </summary>
     
     
-      <category term="python" scheme="http://www.vkxss.top/categories/python/"/>
+      <category term="Python" scheme="http://www.vkxss.top/categories/Python/"/>
     
     
       <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
@@ -297,6 +323,33 @@
   </entry>
   
   <entry>
+    <title>接口快速测试小技巧(Python)</title>
+    <link href="http://www.vkxss.top/2019/10/11/Python-%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)/"/>
+    <id>http://www.vkxss.top/2019/10/11/Python-接口快速测试小技巧(Python)/</id>
+    <published>2019-10-11T07:30:08.000Z</published>
+    <updated>2019-11-15T09:10:30.260Z</updated>
+    
+    <content type="html"><![CDATA[<h2><span id="接口快速测试小技巧python">接口快速测试小技巧(Python)</span></h2><ul><li><p><font face="微软雅黑">终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺</font></p></li><li><p><font face="微软雅黑">网站：<a href="https://curl.trillworks.com" target="_blank" rel="noopener">https://curl.trillworks.com</a></font></p><p>  <a href="https://imgchr.com/i/KieFSA" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieFSA.png" alt="KieFSA.png"></a></p><p>  <a href="https://imgchr.com/i/KieEOP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieEOP.png" alt="KieEOP.png"></a></p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2&gt;&lt;span id=&quot;接口快速测试小技巧python&quot;&gt;接口快速测试小技巧(Python)&lt;/span&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;font face=&quot;微软雅黑&quot;&gt;终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，
+      
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://www.vkxss.top/categories/Python/"/>
+    
+    
+      <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SVG-XSS</title>
     <link href="http://www.vkxss.top/2019/10/11/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-SVG-XSS/"/>
     <id>http://www.vkxss.top/2019/10/11/渗透测试-SVG-XSS/</id>
@@ -322,33 +375,6 @@
     
     
       <category term="WEB安全" scheme="http://www.vkxss.top/categories/WEB%E5%AE%89%E5%85%A8/"/>
-    
-    
-      <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>接口快速测试小技巧(Python)</title>
-    <link href="http://www.vkxss.top/2019/10/11/Python-%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)/"/>
-    <id>http://www.vkxss.top/2019/10/11/Python-接口快速测试小技巧(Python)/</id>
-    <published>2019-10-11T07:30:08.000Z</published>
-    <updated>2019-11-13T15:36:21.643Z</updated>
-    
-    <content type="html"><![CDATA[<h2><span id="接口快速测试小技巧python">接口快速测试小技巧(Python)</span></h2><ul><li><p><font face="微软雅黑">终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺</font></p></li><li><p><font face="微软雅黑">网站：<a href="https://curl.trillworks.com" target="_blank" rel="noopener">https://curl.trillworks.com</a></font></p><p>  <a href="https://imgchr.com/i/KieFSA" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieFSA.png" alt="KieFSA.png"></a></p><p>  <a href="https://imgchr.com/i/KieEOP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieEOP.png" alt="KieEOP.png"></a></p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2&gt;&lt;span id=&quot;接口快速测试小技巧python&quot;&gt;接口快速测试小技巧(Python)&lt;/span&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;font face=&quot;微软雅黑&quot;&gt;终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，
-      
-    
-    </summary>
-    
-    
-      <category term="python" scheme="http://www.vkxss.top/categories/python/"/>
     
     
       <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
@@ -518,7 +544,7 @@
     <link href="http://www.vkxss.top/2019/08/22/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Insecure%20Randomness/"/>
     <id>http://www.vkxss.top/2019/08/22/代码审计-Insecure Randomness/</id>
     <published>2019-08-22T06:10:40.000Z</published>
-    <updated>2019-09-20T02:01:37.919Z</updated>
+    <updated>2019-11-19T06:38:29.828Z</updated>
     
     <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#1-insecure-randomness">1、Insecure Randomness</a><ul><li><a href="#11-描述">1.1、描述：</a></li><li><a href="#12-审计方法">1.2、审计方法：</a></li><li><a href="#13-漏洞示例">1.3、漏洞示例:</a></li><li><a href="#14-漏洞危害">1.4、漏洞危害：</a></li><li><a href="#15-修复方案">1.5、修复方案：</a></li></ul></li></ul><!-- tocstop --><h1><span id="1-insecure-randomness">1、Insecure Randomness</span></h1><h2><span id="11-描述">1.1、描述：</span></h2><ul><li><font face="微软雅黑">伪随机数生成器（PRNG）使用确定性数学算法来产生具有良好统计属性的数字序列。但是这种数字序列并不具有真正的随机特性。伪随机数生成器通常以一个算术种子值为起始。算法使用该种子值生成一个输出以及一个新的种子，这个种子又被用来生成下一个随机值，以此类推。<br>Java API 提供了伪随机数生成器（PRNG）—— java.util.Random类。这个伪随机数生成器具有可移植性和可重复性。因此，如果两个java.util.Random类的实例创建时使用的是相同的种子值，那么对于所有的Java实现，它们将生成相同的数字序列。在系统重启或应用程序初始化时，Seed值总是被重复使用。在一些其他情况下，seed值来自系统时钟的当前时间。攻击者可以在系统的一些安全脆弱点上监听，并构建相应的查询表预测将要使用的seed值。</font></li></ul><h2><span id="12-审计方法">1.2、审计方法：</span></h2><ul><li><p><font face="微软雅黑">全局搜索以下关键词</font></p><p>  <font face="微软雅黑">“random”</font></p></li></ul><h2><span id="13-漏洞示例">1.3、漏洞示例:</span></h2><ul><li><font face="微软雅黑">例如在易于猜测的密码、可预测的加密密钥、验证码生成、抽奖活动、UUID生成、SessionID生成、Token生成、CSRF Token、找回密码Token、游戏（随机元素的生成）、密码应用场景、生成密钥：对称密码，消息认证、生成密钥对：公钥密码，数字签名、生成IV： 用于分组密码的CBC，CFB和OFB模式、生成nonce: 用于防御重放攻击; 分组密码的CTR模式、生成盐：用于基于口令的密码PBE等，可能会降低系统安全性。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H0a6d84344a8a4831973a1a50706be5ecy.png" style="zoom:30%"></center></font></font></li></ul><p><font face="微软雅黑"><center>图1：漏洞代码</center></font></p><h2><span id="14-漏洞危害">1.4、漏洞危害：</span></h2><ul><li><font face="微软雅黑">生成的随机数很容易预测，可能会降低系统安全性。</font></li></ul><h2><span id="15-修复方案">1.5、修复方案：</span></h2><ul><li><font face="微软雅黑">因此，java.util.Random类不能用于安全敏感应用或者敏感数据保护。应使用更加安全的随机数生成器，例如java.security.SecureRandom类。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H828ae4843a814538b5321ebcc13276f1N.png" style="zoom:30%"></center></font></font></li></ul><p><font face="微软雅黑"><center>图2：修复代码</center></font></p>]]></content>
     
@@ -537,7 +563,7 @@
     </summary>
     
     
-      <category term="代码审计" scheme="http://www.vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="JAVA" scheme="http://www.vkxss.top/categories/JAVA/"/>
     
     
       <category term="Java代码审计" scheme="http://www.vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
@@ -549,7 +575,7 @@
     <link href="http://www.vkxss.top/2019/08/22/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E7%A1%AC%E7%BC%96%E7%A0%81%E5%9C%A8%E7%A8%8B%E5%BA%8F%E4%B8%AD/"/>
     <id>http://www.vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/</id>
     <published>2019-08-22T04:25:40.000Z</published>
-    <updated>2019-09-20T02:01:39.853Z</updated>
+    <updated>2019-11-19T06:38:22.192Z</updated>
     
     <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#1-敏感信息硬编码在程序中">1、敏感信息硬编码在程序中</a><ul><li><a href="#11-描述">1.1、描述：</a></li><li><a href="#12-审计方法">1.2、审计方法：</a></li><li><a href="#13-漏洞示例">1.3、漏洞示例:</a></li><li><a href="#14-漏洞危害">1.4、漏洞危害：</a></li><li><a href="#15-修复方案">1.5、修复方案：</a></li></ul></li></ul><!-- tocstop --><h1><span id="1-敏感信息硬编码在程序中">1、敏感信息硬编码在程序中</span></h1><h2><span id="11-描述">1.1、描述：</span></h2><ul><li><font face="微软雅黑">如果将敏感信息（包括口令和加密密钥）硬编码在程序中，可能会将敏感信息暴露给攻击者。任何能够访问到class文件的人都可以反编译class文件并发现这些敏感信息。因此，不能将信息硬编码在程序中。同时，硬编码敏感信息会增加代码管理和维护的难度。</font></li></ul><h2><span id="12-审计方法">1.2、审计方法：</span></h2><ul><li><p><font face="微软雅黑">全局搜索以下关键词</font></p><p>  <font face="微软雅黑">“password”</font></p></li></ul><h2><span id="13-漏洞示例">1.3、漏洞示例:</span></h2><ul><li><font face="微软雅黑">恶意用户可以使用javap -c IPaddress命令来反编译class来发现其中硬编码的服务器IP地址。反编译器的输出信息透露了服务器的明文IP地址：172.16.254.1。</font><br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H275d6113fe3d434284c6321eb4f9bf92C.png" style="zoom:30%"></center></font></li></ul><p><font face="微软雅黑"><center>图1：错误代码</center></font></p><h2><span id="14-漏洞危害">1.4、漏洞危害：</span></h2><ul><li><font face="微软雅黑">很容易被攻击者利用，导致系统敏感信息泄露。</font></li></ul><h2><span id="15-修复方案">1.5、修复方案：</span></h2><ul><li><font face="微软雅黑">敏感信息存放在配置文件或数据库中并加密存储。(金融行业安全系数更高)</font></li><li><font face="微软雅黑">这个正确代码示例从一个安全目录下的外部文件获取服务器IP地址。并在其使用完后立即从内存中将其清除可以防止后续的信息泄露。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H3ccd8617113b4a349c96030085c23212T.png" style="zoom:30%"></center></font></font></li></ul><p><font face="微软雅黑"><center>图2：正确代码</center></font></p>]]></content>
     
@@ -568,7 +594,7 @@
     </summary>
     
     
-      <category term="代码审计" scheme="http://www.vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="JAVA" scheme="http://www.vkxss.top/categories/JAVA/"/>
     
     
       <category term="Java代码审计" scheme="http://www.vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
@@ -576,13 +602,13 @@
   </entry>
   
   <entry>
-    <title>Null Dereference</title>
-    <link href="http://www.vkxss.top/2019/08/20/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Null%20Dereference/"/>
-    <id>http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/</id>
-    <published>2019-08-20T07:23:43.000Z</published>
-    <updated>2019-09-20T02:01:46.172Z</updated>
+    <title>e.printStackTrace</title>
+    <link href="http://www.vkxss.top/2019/08/21/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-e.printStackTrace()%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
+    <id>http://www.vkxss.top/2019/08/21/代码审计-e.printStackTrace()的使用/</id>
+    <published>2019-08-21T07:23:43.000Z</published>
+    <updated>2019-11-21T09:54:37.659Z</updated>
     
-    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#1-null-dereference空指针异常">1、Null Dereference（空指针异常）</a><ul><li><a href="#11-产生原因">1.1、产生原因：</a></li><li><a href="#22-修复方案">2.2、修复方案：</a></li></ul></li></ul><!-- tocstop --><h1><span id="1-null-dereference空指针异常">1、Null Dereference（空指针异常）</span></h1><h2><span id="11-产生原因">1.1、产生原因：</span></h2><ul><li><p><font face="微软雅黑">当违反程序员的一个或多个假设时，通常会出现 null 指针异常。如果程序明确将对象设置为null，但稍后却间接引用该对象，则将出现 dereference-after-store 错误。此错误通常是因为程序员在声明变量时将变量初始化为 null。<br>大部分空指针问题只会引起一般的软件可靠性问题，但如果攻击者能够故意触发空指针间接引用，攻击者就有可能利用引发的异常绕过安全逻辑，或致使应用程序泄漏调试信息，这些信息对于规划随后的攻击十分有用。</font></p></li><li><p><font face="微软雅黑">示例：在下列代码中，程序员将变量 foo 明确设置为 null。稍后，程序员间接引用 foo，而未检查对象是否为 null 值。</font><br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H08f4d65504114216b3e145c0aade8e95w.png" style="zoom:50%"></center></font></p></li></ul><p><font face="微软雅黑"><center>图1：引起Null Dereference漏洞的代码</center></font></p><h2><span id="22-修复方案">2.2、修复方案：</span></h2><ul><li><font face="微软雅黑">在间接引用可能为 null 值的对象之前，请务必仔细检查。如有可能，在处理资源的代码周围的包装器中纳入 null 检查，确保在所有情况下均会执行 null 检查，并最大限度地减少出错的地方。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H36460ed505d046b085a00ee8fd339827Y.png" style="zoom:50%"></center></font></font></li></ul><p><font face="微软雅黑"><center>图2：修复Null Dereference漏洞后的代码</center></font></p>]]></content>
+    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#一-eprintstacktrace">一 、e.printStackTrace()</a><ul><li><a href="#1-eprintstacktrace打印在哪里">1、e.printStackTrace()打印在哪里</a></li><li><a href="#2-eprintstacktrace打印的内容是什么">2、e.printStackTrace()打印的内容是什么</a></li><li><a href="#3-如果将eprintstacktrace的信息打印在日志里应该怎么做呢">3、如果将e.printStackTrace()的信息打印在日志里应该怎么做呢？</a></li></ul><ul><li><a href="#22-修复方案">2.2、修复方案：</a></li></ul></li></ul><!-- tocstop --><h3><span id="一-eprintstacktrace">一 、e.printStackTrace()</span></h3><ul><li>e.printStackTrace()打印在哪里以及如何e.printStackTrace()的内容打印在日志中</li></ul><h4><span id="1-eprintstacktrace打印在哪里">1、e.printStackTrace()打印在哪里</span></h4><ul><li>在catch中的e.printStackTrace()将打印到控制台</li></ul><h4><span id="2-eprintstacktrace打印的内容是什么">2、e.printStackTrace()打印的内容是什么</span></h4><ul><li>如下代码：</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.logging.log4j.Logger;</span><br><span class="line"></span><br><span class="line">public class ExceptionTest &#123;</span><br><span class="line">    private static final Logger logger=LogManager.getLogger(); </span><br><span class="line">    public void  test() &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            int i=1/0;</span><br><span class="line">            </span><br><span class="line">        &#125;catch(Exception e)&#123;    </span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ExceptionTest test= new ExceptionTest();</span><br><span class="line">        test.test();</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>输出结果如下：</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">java.lang.ArithmeticException: / by zero</span><br><span class="line">    at myProject.ExceptionTest.test(ExceptionTest.java:10)</span><br><span class="line">    at myProject.ExceptionTest.main(ExceptionTest.java:18)</span><br><span class="line">可见，e.printStackTrace()打印了错误的具体信息，即这个错误出现的位置，便于查找错误源</span><br></pre></td></tr></table></figure><h4><span id="3-如果将eprintstacktrace的信息打印在日志里应该怎么做呢">3、如果将e.printStackTrace()的信息打印在日志里应该怎么做呢？</span></h4><ul><li>见如下代码：</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package myProject;</span><br><span class="line"></span><br><span class="line">import org.apache.logging.log4j.LogManager;</span><br><span class="line">import org.apache.logging.log4j.Logger;</span><br><span class="line"></span><br><span class="line">public class ExceptionTest &#123;</span><br><span class="line">    private static final Logger logger=LogManager.getLogger(); </span><br><span class="line">    public void  test() &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            int i=1/0;</span><br><span class="line">            </span><br><span class="line">        &#125;catch(Exception e)&#123;    </span><br><span class="line">            logger.error(e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ExceptionTest test= new ExceptionTest();</span><br><span class="line">        test.test();</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>复制代码</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">用logger.error(e);打印日志，输出结果如下：</span><br><span class="line"></span><br><span class="line">19:17:39.753 [main] ERROR myProject.ExceptionTest - java.lang.ArithmeticException: / by zero</span><br><span class="line">可见，用这种方法打印的日志，只有大概的错误信息，并没有指出报错的代码位置，不便于查找错误。用logger.error(e.getMessage());也是输出这种大概的错误信息。</span><br></pre></td></tr></table></figure><ul><li>再见如下代码：</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">package myProject;</span><br><span class="line"></span><br><span class="line">import org.apache.logging.log4j.LogManager;</span><br><span class="line">import org.apache.logging.log4j.Logger;</span><br><span class="line"></span><br><span class="line">public class ExceptionTest &#123;</span><br><span class="line">    private static final Logger logger=LogManager.getLogger(); </span><br><span class="line">    public void  test() &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            int i=1/0;</span><br><span class="line">            </span><br><span class="line">        &#125;catch(Exception e)&#123;    </span><br><span class="line">            logger.error(&quot;ExceptionTest Exception:&quot;,e);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        ExceptionTest test= new ExceptionTest();</span><br><span class="line">        test.test();</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><ul><li>复制代码<br>用logger.error(“ExceptionTest Exception:”,e);，则输出结果如下：</li></ul><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">19:20:32.948 [main] ERROR myProject.ExceptionTest - ExceptionTest Exception:</span><br><span class="line">java.lang.ArithmeticException: / by zero</span><br><span class="line">    at myProject.ExceptionTest.test(ExceptionTest.java:10) [classes/:?]</span><br><span class="line">    at myProject.ExceptionTest.main(ExceptionTest.java:18) [classes/:?]</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">这和e.printStackTrace()打印的内容大致是相同的。</span><br></pre></td></tr></table></figure><h2><span id="22-修复方案">2.2、修复方案：</span></h2><ul><li>java中e.printStackTrace()不要使用，请使用logger记录</li></ul>]]></content>
     
     <summary type="html">
     
@@ -591,46 +617,14 @@
         &lt;!-- toc --&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#1-null-dereference空指针异常&quot;&gt;1、Null Dereference（空指针异常）&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#11-产生原因&quot;&gt;1.1、产生原因：&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a
+&lt;li&gt;&lt;a href=&quot;#一-eprintstacktrace&quot;&gt;一 、e.printStackTrace()&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-eprintstacktrace打印在哪里&quot;&gt;1、e.printStackTra
       
     
     </summary>
     
     
-      <category term="代码审计" scheme="http://www.vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    
-    
-      <category term="Java代码审计" scheme="http://www.vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>任意文件读取</title>
-    <link href="http://www.vkxss.top/2019/08/19/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-%E4%BB%BB%E6%84%8F%E6%96%87%E4%BB%B6%E8%AF%BB%E5%8F%96/"/>
-    <id>http://www.vkxss.top/2019/08/19/代码审计-任意文件读取/</id>
-    <published>2019-08-19T06:13:12.000Z</published>
-    <updated>2019-09-20T02:01:42.114Z</updated>
-    
-    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#1-any-file-read任意文件读取">1、Any File Read（任意文件读取）</a><ul><li><a href="#11-描述">1.1、描述：</a></li><li><a href="#12-审计方法">1.2、审计方法：</a></li><li><a href="#13-漏洞示例">1.3、漏洞示例:</a></li><li><a href="#13-漏洞危害">1.3、漏洞危害:</a></li><li><a href="#14-修复方案">1.4、修复方案：</a></li></ul></li></ul><!-- tocstop --><h1><span id="1-any-file-read任意文件读取">1、Any File Read（任意文件读取）</span></h1><h2><span id="11-描述">1.1、描述：</span></h2><ul><li><font face="微软雅黑">任意文件读取漏洞（Unrestricted File Upload），是一种常见的Web安全漏洞，因Web程序提供的文件查看下载、附件下载等功能存在安全缺陷，导致通过修改文件路径就能够查看和下载任意文件，这些文件包括：源代码文件、系统文件（/etc/passwd、C:/boot.ini等）、配置文件（config.php、/WEB-INF/web.xml、web.config等），造成网站敏感信息泄露，严重危害网站安全。</font></li></ul><h2><span id="12-审计方法">1.2、审计方法：</span></h2><ul><li><p><font face="微软雅黑">全局搜索以下关键词:</font></p><p>  <font face="微软雅黑">“fileName”,<br>  <font face="微软雅黑">“filePath”,<br>  <font face="微软雅黑">“getFile”,<br>  <font face="微软雅黑">“getWriter”,<br>  <font face="微软雅黑">“MultipartFile”,<br>  <font face="微软雅黑">“createNewFile”,<br>  <font face="微软雅黑">“FileInputStream”</font></font></font></font></font></font></font></p></li></ul><h2><span id="13-漏洞示例">1.3、漏洞示例:</span></h2><ul><li><font face="微软雅黑">代码在 downloadFile()函数中获取请求参数中的affixalName的值，然后赋值给 FileName 变量，接着在 196 行处通过拼接字符串赋值给downPath 变量，然后在 198 行处调用 download 函数并把 downPath 的值传进函数，download 函数的代码如下:<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H9f9396106a6c41b39c4174b28d2a06a47.jpg" style="zoom:30%"></center></font></font></li></ul><p><font face="微软雅黑"><center>图1：漏洞代码</center></font></p><ul><li><font face="微软雅黑">download 函数把 filePath 处的文件写到 http 响应中，在整个流程中并没有对文件名的合法 性进行检查，存在任意文件下载漏洞，如通过把 affixalName 的值设置 为../../../WEB-INF/web.xml 可以下载网站的 web.xml 文件。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/Hfe0e4a99a5ae474190c9cf983dd8385f8.jpg" style="zoom:30%"></center></font></font></li></ul><p><font face="微软雅黑"><center>图2：漏洞代码</center></font><br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H17db51d7689144138769210fb9fcd6478.png" style="zoom:30%"></center></font></p><p><font face="微软雅黑"><center>图3：漏洞代码</center></font></p><h2><span id="13-漏洞危害">1.3、漏洞危害:</span></h2><ul><li><font face="微软雅黑">任意文件读取是属于文件操作漏洞的一种，一般任意文件读取漏洞可以读取的配置信息甚至系统重要文件。严重的话，就可能导致SSRF，进而漫游至内网。</font></li></ul><h2><span id="14-修复方案">1.4、修复方案：</span></h2><ul><li><font face="微软雅黑">指定下载路径以防止用户读取和下载指定目录以外的文件。</font></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;!-- toc --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#1-any-file-read任意文件读取&quot;&gt;1、Any File Read（任意文件读取）&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#11-描述&quot;&gt;1.1、描述：&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#
-      
-    
-    </summary>
-    
-    
-      <category term="代码审计" scheme="http://www.vkxss.top/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="JAVA" scheme="http://www.vkxss.top/categories/JAVA/"/>
     
     
       <category term="Java代码审计" scheme="http://www.vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
