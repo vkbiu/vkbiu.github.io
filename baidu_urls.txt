@@ -21,6 +21,8 @@ http://www.vkxss.top/2019/08/21/代码审计-e.printStackTrace()的使用/
 http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/
 http://www.vkxss.top/2019/08/19/代码审计-任意文件读取/
 http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/
+http://www.vkxss.top/2019/08/15/代码审计-使用Mybatis框架下的sql注入/
+http://www.vkxss.top/2019/08/14/代码审计-JDBC连接下的Sql注入/
 http://www.vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/
 http://www.vkxss.top/2019/07/19/渗透测试-SSRF绕过的方法/
 http://www.vkxss.top/2019/06/12/应急-日志分析神器_Splunk/

@@ -17,24 +17,19 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>Mybatis检查SQL注入 | VK&#39;Blog|博客</title>
-  <meta name="description" content="Mybatis检查SQL注入总结 Mybatis的#{ }和${ }的由来# 如何排查 为什么#{ }就安全 什么情况下用不了#{} 如何解决： 总结：      Mybatis检查SQL注入总结Mybatis的#{ }和${ }的由来 Mybatis的Mapper.xml语句中parameterType向SQL语句传参有两种方式：#{ }和${ }。  使用#{ }来防止SQL注入，使用$">
+  <title>Mybatis-Order By下的SQL注入 | VK&#39;Blog|博客</title>
+  <meta name="description" content="这是一篇加密文章。如果你确实想看，请留言。">
 <meta name="keywords" content="Java代码审计">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mybatis检查SQL注入">
+<meta property="og:title" content="Mybatis-Order By下的SQL注入">
 <meta property="og:url" content="http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
-<meta property="og:description" content="Mybatis检查SQL注入总结 Mybatis的#{ }和${ }的由来# 如何排查 为什么#{ }就安全 什么情况下用不了#{} 如何解决： 总结：      Mybatis检查SQL注入总结Mybatis的#{ }和${ }的由来 Mybatis的Mapper.xml语句中parameterType向SQL语句传参有两种方式：#{ }和${ }。  使用#{ }来防止SQL注入，使用$">
+<meta property="og:description" content="这是一篇加密文章。如果你确实想看，请留言。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://s2.ax1x.com/2019/11/07/MiODTe.jpg">
-<meta property="og:image" content="https://s2.ax1x.com/2019/11/07/MiOdOK.jpg">
-<meta property="og:image" content="https://s2.ax1x.com/2019/11/07/MiOBwD.jpg">
-<meta property="og:image" content="https://s2.ax1x.com/2019/11/07/MiO0eO.jpg">
-<meta property="og:updated_time" content="2019-11-19T06:38:33.975Z">
+<meta property="og:updated_time" content="2019-12-02T09:23:11.143Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mybatis检查SQL注入">
-<meta name="twitter:description" content="Mybatis检查SQL注入总结 Mybatis的#{ }和${ }的由来# 如何排查 为什么#{ }就安全 什么情况下用不了#{} 如何解决： 总结：      Mybatis检查SQL注入总结Mybatis的#{ }和${ }的由来 Mybatis的Mapper.xml语句中parameterType向SQL语句传参有两种方式：#{ }和${ }。  使用#{ }来防止SQL注入，使用$">
-<meta name="twitter:image" content="https://s2.ax1x.com/2019/11/07/MiODTe.jpg">
+<meta name="twitter:title" content="Mybatis-Order By下的SQL注入">
+<meta name="twitter:description" content="这是一篇加密文章。如果你确实想看，请留言。">
   <!-- Canonical links -->
   <link rel="canonical" href="http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/index.html">
   
@@ -200,7 +195,7 @@
   <div class="widget">
     <h3 class="widget-title">分类</h3>
     <div class="widget-body">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2017/">CVE-2017</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2018/">CVE-2018</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">8</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端安全/">前端安全</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2017/">CVE-2017</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2018/">CVE-2018</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">14</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端安全/">前端安全</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -210,7 +205,7 @@
   <div class="widget">
     <h3 class="widget-title">标签</h3>
     <div class="widget-body">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2017-11882/">CVE-2017-11882</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2018-1273/">CVE-2018-1273</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16278/">CVE-2019-16278</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16759/">CVE-2019-16759</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA代码审计/">JAVA代码审计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux本地提取/">Linux本地提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端知识/">前端知识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/加解密集合/">加解密集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反弹Shell/">反弹Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2017-11882/">CVE-2017-11882</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2018-1273/">CVE-2018-1273</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16278/">CVE-2019-16278</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16759/">CVE-2019-16759</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JAVA代码审计/">JAVA代码审计</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">8</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux本地提取/">Linux本地提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">16</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端知识/">前端知识</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/加解密集合/">加解密集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反弹Shell/">反弹Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -229,7 +224,7 @@
   <div class="widget">
     <h3 class="widget-title">归档</h3>
     <div class="widget-body">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -336,7 +331,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Mybatis检查SQL注入
+      Mybatis-Order By下的SQL注入
     </h1>
   
 
@@ -366,86 +361,25 @@
         <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/15/代码审计-Mybatis检查SQL注入/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 738(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 10(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
 	
 
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <!-- toc -->
-
-<ul>
-<li><a href="#mybatis检查sql注入总结">Mybatis检查SQL注入总结</a><ul>
-<li><a href="#mybatis的-和-的由来">Mybatis的#{ }和${ }的由来#</a></li>
-<li><a href="#如何排查">如何排查</a></li>
-<li><a href="#为什么-就安全">为什么#{ }就安全</a></li>
-<li><a href="#什么情况下用不了">什么情况下用不了#{}</a></li>
-<li><a href="#如何解决">如何解决：</a></li>
-<li><a href="#总结">总结：</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-
-<h2><span id="mybatis检查sql注入总结">Mybatis检查SQL注入总结</span></h2><h3><span id="mybatis的-和-的由来">Mybatis的#{ }和${ }的由来</span></h3><ul>
-<li><p>Mybatis的Mapper.xml语句中parameterType向SQL语句传参有两种方式：#{ }和${ }。</p>
-</li>
-<li><p>使用#{ }来防止SQL注入，使用${ }来动态拼接参数。</p>
-</li>
-</ul>
-<h3><span id="如何排查">如何排查</span></h3><ul>
-<li><p>检查是否有$号</p>
-<ul>
-<li>如果你使用的是IDEA，那么通过快捷键Ctrl+Shift+R打开窗口，通过全局搜索${ , 快速定位到使用${ }拼接SQL的语句，在去找到外部传入参数的入口，闭合sql证明即可。</li>
-</ul>
-</li>
-<li><p>检查是否有order by</p>
-<ul>
-<li>同样的在搜索是否使用order by 排序语句，如果有一步一步追踪是否有外部参数，未过滤就直接传递到order by语句里面来。</li>
-</ul>
-</li>
-</ul>
-<h3><span id="为什么-就安全">为什么#{ }就安全</span></h3><ul>
-<li><p>因为”#{}”采用JDBC预编译模式，这种写法可以很好地避免SQL注入漏洞的产生。类似如下SQL语句，</p>
-</li>
-<li><p>使用 ${ }效果是:</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from testtable where id=&quot;1&quot; or true or id  # 1后面就是被攻击者恶意构造的字符</span><br></pre></td></tr></table></figure>
-
-<p>  <a href="https://imgchr.com/i/MiODTe" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiODTe.jpg" alt="MiODTe.jpg"></a></p>
-</li>
-<li><p>而使用 #{ } 的效果是:</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * from testtable where id=&quot;1\&quot; or true or id\&quot;&quot;   # 1后面就是被攻击者恶意构造的字符</span><br></pre></td></tr></table></figure>
-
-<p>  <a href="https://imgchr.com/i/MiOdOK" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiOdOK.jpg" alt="MiOdOK.jpg"></a></p>
-</li>
-</ul>
-<h3><span id="什么情况下用不了">什么情况下用不了#{}</span></h3><ul>
-<li><p>order by 排序情况不行。为什么？</p>
-</li>
-<li><p>先复习一下order by的用法：#<br>order by就是一个排序的工具，跟我读一遍：“order by就是一个排序的工具”。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 这个1就是指第一个列索引，也可以写id （列索引）</span><br><span class="line">select * from testtable ORDER BY 1 ASC #ASC表示按升序排序,DESC表示按降序排序</span><br><span class="line"># 两个代码是一样的</span><br><span class="line">select * from testtable ORDER BY id ASC #ASC表示按升序排序,DESC表示按降序排序</span><br></pre></td></tr></table></figure>
-
-<p>  <a href="https://imgchr.com/i/MiOBwD" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiOBwD.jpg" alt="MiOBwD.jpg"></a></p>
-</li>
-<li><p>对于order by 我们是用不了#{}的，因为用了这个就会被自动转换成字符串，自动加引号，这样语句就不生效了。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectStudentsByName&quot; resultType=&quot;Student&quot;&gt;</span><br><span class="line">    select id,name,age,score from student order by #&#123;column&#125;</span><br><span class="line">&lt;/select&gt;</span><br><span class="line">&lt;!--编译出来的结果如下：--&gt;</span><br><span class="line">select * from table order by &apos;column&apos;</span><br></pre></td></tr></table></figure>
-
-<p>  <a href="https://imgchr.com/i/MiO0eO" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/11/07/MiO0eO.jpg" alt="MiO0eO.jpg"></a></p>
-</li>
-<li><p>会发现加上“” 双引号符号后，就没法正常排序了。</p>
-</li>
-</ul>
-<h3><span id="如何解决">如何解决：</span></h3><ul>
-<li>使用${}，MyBatis就不会修改或转义改字符串。但是这样又不安全，会导致潜在的SQL注入攻击。所以我们需要自己去限制，不允许用户输入一些非法字段，或者通常自行转义并检查。所以这必须过滤输入的内容。</li>
-</ul>
-<h3><span id="总结">总结：</span></h3><ul>
-<li>即使是安全的sql预编译技术，也是有适用范围的，一些应用场景也是不适用的。当我们在做黑盒或者审计的时候，碰到了预编译处理不了的场景，比如说排序功能的时候就得格外注意，因为这里不仔细审查，日后就是一个祸端。</li>
-</ul>
-
+        <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="请输入密码，查看文章。">
+    <label for="hbePass">请输入密码，查看文章。</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="864691a50f68582ceaa8d720ca1fbde98f415bdcdcd55d762e0951438dd1d918">76760efb605ae7b67ff0b1c74290c85c72dba857931c4ee2e6d0b05e15f0120495a4b7865df77b15f397d9d2d68e42db5f9d5e4738fe69355706b87bb70cd84c287038f83a51f9ca0a9b379f8ba1c30cb0c29ca0d76c9528b452ba9f18509c9496950c3ede2d17646a35519c72193d547028483a6eaeba048b0571818257c356d408e9f2a20fa4df94f601cd51b6ba85b9b303227318a9049a31d83ec0081a3514907d7e8c48faf60501c5a29f3dd44c8199c10e156bfdb9e3942c8c929598bf104539fb260b81c21b04bf004b08b5083ccc92d8e3af458484e7d81a888dfe86145c5cffd5f0b888725bcfd7c8d3eafde9cac89e6574976c000ec075260a922871f37b3115d9ed90a87b65f198785aa8bcf4d245a04af9e8afd262de2ce60e967b425106ec614133379fde93acef2c16829ad87b9bc23cd7ccd947bcf05b2640326c70ff089b5d27899d8a9fb9c454e4fb57503b3a796ff942a304aaa21685276ef147f89eccbb3f2bb5f2d59208b41e715c4ca35407b5eea7825a34fe419a7eeeddbb5b92c88f11f9a5e00c166335cf5c692499d453c46e20c810b34a51bbb9199fe8608f8228e887028dfb83f7ef4e1a0072cf8b8de7f1cd3fd36479c5709f60b3869bdaa4413ec4d2c45952be0f5a9002fd3d267f83580fbc1be50cb2f27f920b95e8063837bb8dddda856c7e31f088df04b7bf46769044b3aa9cca190f1d946ab3f51e2e2e08ae66c38f25d1ae022321dd757d954ab073c89e5f50b0e4146491b13d261ac749f4b345a12ec5a4bd435c3ca43fe24b043231d948e4c68fc9e50738cab95364e85c70ab7df673b3a8ff36efdecc235d96ee376f1f2857f139d94e3d6a9c20373760cb55ce971e0ed96ededc520f4e5a56cf83c04885306211573d906b89033ae39ce091fbcda9ce0d8c34f963eac714321abade3069eda48aef28d2d3b1afd57ebf29859856713735d4e5121392f71130d8f82cba1b5583e986907e9ceace0dd4cfc3e6a56d64ef6e69b1ea4de8501a8619a8facb7369a70816376952348ec987f147cf9b35727dcb6ddeb9644be594f6e7da1b34d4e3a5a5ef133731ca8d5e0e973b27bab0ed3c98fa09f1a5ec8b48fe97345baa4e43d8f9a60a9050f1a11a127d2b0c6ea66ab8e9ae8df3a2462405f6eafbd016edd8d6aba0808fb56c403765e79cd0c61b36ea52b8d12a1f06d706bf742e3e5bd9e2dfa231bc8aff54bbac8ed94d5b71f62c86db8c8cfb73eb89143b30687114d17fe08b5474d2a1e13c4cc4a76ec37ad6a8644e19da63a143d9410b0c3d75de0662e0695fdb63a7e9fb15e896baa02d836f07c26f59749b3e9e1b05e177797db6a3c0985cafbd9f3f6bb1eb134662f7d76620fa0cb5e0430b2bca265262322689f263e5815869e8d868fda9670954a38ce5aa71953fbb1de2b3e94f83458eb0dd26eb77390afb7e3f7d370f1e76dc2bb5404bcb63b14f1c0c7cf03494bdebfdb6c13420809fcef37ef0599a5c00cf00ea78e1a8c79bfafae11f2d7600392426f0b791fe7bfcc8b2b6daa98f9f6dc90d01eeee8e78302ac6580b3ded8afaa7e38bfed9bd6316fabef0227b73b46b6a15441298c20919f2b5c4dd57f87c96083c5f19101d7af9e5d3756953d14ebb82ef67e50e277a517135d75b2411f9799437027ff5ef7e9d75b0afe897b899b002f4de1928d4d921b8cce90d4acae92152b1c7ab13a085e9c14ed24f4771f1bec5722b2bd2ee74c8789197d704f16267b5e7efa18fa32761ea4d5c126f62de927bad3e49960960c0e42100c3b05246994b6f424909e1a10f8a3742a183a379ead94b629276602191371686b62178677a72f202b236d30ad9882a5c88bedcc685dc6fdb1a539591de9e7f157552466b9f09cbfbec2275f461ef6c6a13f63669aad109993245650a6685b1bcb2ac9f536368391fff0cb55d05e902501bbe45aee7862488f127dfa30269c146fc7ec9a68a560894f9f19490e96882187259d24a5a5a13a554cbf33fa7c62a9b4fd79035e70886ca705bc4bbe4276df16415404eb82031625e85b84eb30900b95caddf980be1bd60d90ade9fb6c0daa12d42ce3021e7e54364f88b19d7dca2913bf2093e2af2d1c004dfa218839b82aa0965994b3c6a8fc4bae7e265196aef0ad0851820aa3f3f1e44f916e4735713cb9128bc95df483105e8c57121ef88f1fe150782b3a679788374f86e4a7d4ffe5126f0ce741ae3efb1faea0b177f7699f0ee7592f308167520459cbf77c884e766f5051b56f701449bf685808b07e5d46b459e07472c7caac0310988e11e496c8577c77522bc4573125caa89d9b7445e918a2659aaf075bdd004a2c51d969b816ffb85944fbd79026810b9bedb7af190a6e07c80479a4c2b6dddb28583dc8c5ba36e86bd82536ffc7c627dc8545115a3ee41bd8429db12d55a74dd492b1695a9860c079aa1eb09defb7077103d78759529722c90813f120e6c13538d0fab75a00ed63082f8e224df06157ace52a01bddb4ff9304d17f3eac4c026921c627dd7d0920d51e8ccff488a14485dc12f3e442a78d72a636a282477de9c5a64ad04833b784623ba900ee4270eb7ee77ef8a74ff174e05e9d1e258dde3ed35c474173ece667dc1e5643f6b5473528d33f1bb2481a670076d10ecb7a093e3636b9160d145e78a08cefc9866909a8fa6c07e69265d750de0d8379391f59e6f974277252f28076e86d8c1f0ebcf47be4700687f10fd1da42d7bce18412e5a1ac8ce760b4de034cffff03fd4c1adc61d182bf08920a406bc03feb42821d504c26d358b188f65f893f33152391b309abde8ef5776182f901fab9201d8f05fa2c71e8c02e7e8894097bdfe195deebfabbafd5e863963368f72fe69980f33b53acf7894e9e2badc872970e9efde3eb1d332edf9a321b1bba83e31960bf4bac51b5d8565de2e9d6a40ade9c25fdc3a55b29b3eb2222e28dfa23857cf29815911c792b11d7594401c98cd0784b9e00b8d00422647fada2a75ac1d8d4e15655f9c4e9394e7cfa8e65eb068dcb6e076487b25cd10e4e6333757af4b389541549aa167c19e820ca1b1521ed6aa3e47af3c970c23fc06a36bfd00c5e4b2e85d623899376120084c1c73f33a411dd026f1df08b03120eeef5c966f9e67f6c81c2840f54e1e3063d7b439f0e301d619277a021121da1cd0a73a4a084ca01eb1969ce6d73c33591d7699c87a2e91bc8d14b4a28b11f809c4513543457393af10a968a7f0768877b02eb9a56d90a02c0db421ccb6e87df0752f792918dc005bc9eacf3a428fd1aaa877b257ecb32685b6d577b9cb4b503d8f5cc77bce325e24eee09bec0fd86b792b9c0f8d5b8ce348a824e7a99bae5b79bb28c7b5b7636b21690445fd1328e333a6baf1ede1daee1ecc10a2712790eddc38e47afbcc2fd3e843a54ec5d4a232755ac293ef4f23cc234cde5170a1fafffcba46650779ee1d48d16d594c0c89e5a914a9f1c2365a38eb9387274ebd3b45345f35bcf1856706aae916c3dbea9373be66700c7541d45ae98c2b17035acc9d1fcf84f47d50924ef40fe4b2b5d734d709a2975efc38e33dc7059ab665128054904f259132a22b250149b29c55c07e05b8833e678e1ca62feecee20b6ee220640d84cbc9ccb1243406a446b457b792593917010507439d83c5c8c18dff2036e1118405c5e9bcef230e8745d55d5902359eb5082bbd3509658f112e7eacc69ac404e47a56c5648c8c32720b8044f6b2743bdf2bcb592c3cd48f58b71960641b552927da99b7f6d0a6819827952b914338f11681d7cd79697c67a02381eaf5c6869e5db38040f64869966c6c2c41c98508f8a3d221b39402a4835bd48d332edc82fe91f92706a0e0bb46e87429e1ed060480cf42e5abd9da9501bf386700fa4e011da27c99e80a9147b772603be7ed83d8c99a301a630980e236b69a13cb7e7b04cb2dc557ba66dc8d5b96a0eb355a960a3494d712eb972fdb3774b0f419619dc011d51293026396fbb09174ef03b04aff78c790ad48ace08ea4ccc8594eeaa23ba4062965dac289d95a5a0a625761fce900975a0f412787dc2ba60e52706b66e9baeebffd827aa90031ca4e92466af32e2a7d65965bfefb682613c927ccffe65314ac2d82d4ecc0cdda01fbfea85cca44497e8be3a9767a3cefab44c392ef039214680858ada1f10b8b7189efdc6c262d488b32456e1778afd90088b6f3cd8fc9c18e347c29efc198e24264c765f64d844a97e29c782c37b6b359febc7ae87f6a84de88ce72cc2cab9b03d627ae5fb81fe522084abee46f3c051fc2d13c3cf487e78b092557e9264fe58f15480eabfce2f7f9705e41d2e15e75a1564f0a13248d91a0dbaabf3fd8681ae1c4b29ae362d364e21a958cf80cd3b7368339d2c1bdd5d2f9686abcacb155fca700c7844102e32574bd84047a71c0b9e66952659001da590ea2f9e8ad9f7f71a72e51f9587363b2b29ccd20611daa45c32a10abbb897efb0f1d9bc8dd0555a902d1560fa79e847bb20f86b2e6e0a642320ee6a31d6da9eda9944d09fc294864e6c619c5f77f205efa1fe2e7f2dd1d7a90b60f075549a24d2b042730dd213d5c581d5ae45ecd2ad759059800acef37ef61af6504c4f971e5b66f0b2f39937d7c9d24154bbfc1048f4a4db237db43f37801c408de7a3e41394274ea640878488eb1cc71cd2cd045448d18252a204dabf7536a5f5df2a8546e9a37feb57d0bb1bbf77b7c16573e4f45d3fa7616f9b360cd3c02d8e4ebeb85e1a684c8bb1dc3b4485a019a86968c3459dd4954a18807283466a46843d3e9fcb1bdfba68756ae265756f99e22b262ff585796382a8f4494b535d9ddc94da36c76fba448900c83e4ea193d1b5aafa94274b919c8dc83e8728d524ba22934b31cdd3e211dbf3edf068c120825dd697ffffb22608f42644279dd2dea80962aeb05ae0a2b79776c0e4ac23a3a0dbc9dbdc3a1ca25b624bdb822832ff30ea52937573cfc950dec9b3678c6d2f46ea1c86184703b720f48998abcb928905531cabf932505e18e468a5da6c8536fa91d156972996ff37bc728501168906d42dd5bb22c099525f3cab4b2f74c49cff36f66fd0e66905c5d09114ba5eb25439f0ccaac7fcf9468176a2253408c1250b3b87ccaec384ff92ca55ece44f1d0e3c46c4915fa17f2716ff7aefcccdcbb880f0329ef00324a2ee570b76c2d0aec342e7bd8fb7bc91fdbb9c28cec773e08e6b3cb70d9a0a8575e0c90a0079a6f9a6c070cefe21f03791741da2b2dad12c9a78310ae42ee40c7c932e20d59c55518c717ff4e34d66f6353e6451135f91845311f388529d97d9be1159724f11fa99effbab41c043936b84f53fd020358a59475a64093c526f44dc6ede40481514168c66b3ff9f70bebbaf8b770f490191d6e14cc38524b45286f9c264772f29297c2ce685000efe09426dd10c46b08e7db2e49dde76c57d802932e4b9225633640f1cd549f70965f0409eae4b93a78bb4f6829d78982ccc14360853bc49a5a8d4bc7613620532a957a2e1ee7d69c4032da07e9f4fe280cda3db84bc31694467bdc904d2bd90a96b63fa4f1781f15cf62bd0b4f6244086fe0a042c081bb40389a8f654703d004f680b42382686de87b29646e03a96e03c36dd78d0cdceb21c40f0905570263b69f1fea9180740894f86718f13d94a1eb55af426ceeafff4ac9f2e533aba90823d70b6b723fb3a9b808c8efa4293526f7a7a69eb4357c0eaae5dc81e21b0e22074902e6eb141f04d5926e6fd62dee51250420934a3f7cf89e5a41c5aa00051aa45b408de2d8f95d41d8f49ea91e45c88e7bb38dde7280e135533f3320daa60489fd7f477e3762bb249eb613ed7387ea8ddefe925c895cbbfeb6e752c70de2df375f387e918857233468199bb3e82c79b6e7eba7c92566a6d9e8acf29c490a6fa02505dd55411daeecfc3ef27a42a1d7f0b285991162be1cd7bcc278235cbf75489697a9c1478e37cfaa2c991e3c1cc6a02c7eb4ae7ef532f68b96bccd8994df06647cf75470bbaec9dd1f30e4b926712219d06593e035ca1c4131bce4f49ac249d6f58039857ca9552d2903a5898393ae2d12401f78d9e45297fc404a934da1caf756a092eb06cfb42f4c9a04e19dc845db7ad023b1a64b5be833b10a16e921d4ded6fa2890e9bcb931acbb1ecadd684b9ad66df4292734b3b42269c7ee20fe64ece416b37422d8cc0dc3b7bfae092d82d2f4cdc34167f8fa74543e3a0d046b474f5f8b04d4ebcc2f3f5a247385e1b37cd4487800f354b1d2ab19e8095b55c88b3e106b7b73addee1163d3add5d2d729d43edf22b03529173e5059829992679704810d1265824374e2a26ae2c06d9badaa44380f59a0ae68cc9460061cc1aa48da0718d64f14493660211d19a87f75781f8b9fa793f9923c91e91d44d2ada932b2d014d92fd161ff90e33198b752a11bebfac7a79eedc49ba9d53de689abcf0cd25db6d3e55807970e950dd519c66e79a780c5b08b77b01cdaa1b14ade26307e95b2294fd841ffca0a4e998654e9efeca79121ed2ae8f5f8279fc1250ae3d3752a791c0cb0dc25bc282ef7bd0a4458393ab3b31316dcbfa4a46190e71bd262d87430b1bc3b68c256082744a93c98ea2a42aa2a12324667b77e10371a979fa680581b6f960367316499c543da5a9fe8b517b9c8e8cbf9e3afdfd8d67707e618a5a7408bcb37d949d7c9095c16aeaac7dba176190797dfce6b8aae1d3fe2898246e7a3456cd02b4d320bd7e87e1c52ec932cc8a312c87b1e7c7d372012a5e5f66a74887e9e9c08496733b04fb8bd46f890772dbd9e856171bccb977474d506a73db12d86aaf9756110429066c7c2a012bf3e2488e0649d6d3d47cb84b946b14d87ec1927538c4c1ade8c3374d43a69f67f7fd14876e0e2ed87ceccd7d5181c08443df9fa6a38f95d85becf38aeaa313c62a2fce5f8caf31020a3046459403c84578f3af1913d749a3775bd2014277ba6803b5988eea6a3ac5a49c558587ea83d251d082bb4d54a4f6f97f1955f3717928b149bbee125d400bfe24cd3e22afd561bdc8473e957d46fb15c565b2f3176f14cdbb4077555a05480574a3b59440a410d2f79ac30b5618e93d05588f3f24af1cd1aad1fff2f61626b62023db086b22db1154697cac0bee5ee2106bb36402f04131d8a2ef51bb22187ff9f5d9a42b2eae022fa03973b9f89e117efa52677bff0775e02a70d1e46fd546335a4250ba02ddaefa294fea2d7102fb8dbe1edd26a05fdc05cc22149e63ffafd4ea0e7a403d3a304e0f6db295acea50df2af7f42c9ce72f41e42bcc7e7eac610f886b03519ef14aa8761cce608f70fa9d3f7e5fcf12cd78f247fe3d7d3dc1e61e9aeab65b4c498d7c426517497c70f21289192fd5eb2d56e754a5e44bedc827d399120bf75f818f8780ff2be977a6cf05403c63bb599c092f4ec6f657a77ebfb7ef887ce8250bf3896a01135e7584681d1a54495241468e1c3f040e030a9eaeb97f0fb95d99b149a44b590d61c25f6e6f26a08d234984dec439180e6ac81f9ff8fbff0286796858c68c2ae71557b5341da9a4a5e3232765e7805c4bda83a1a7d41513615d10dc8231fd9725f405e0ad68cbf8d349b313ef175aec673cdc2461125e10048e03e8727d04b738be4df81b4da360c1dcff7cc1be3dc2986f44597192f6f51ff580f7dbaf7c672c14c9f398ccf1ed1c360f52b15efed1565f0bf98607a4dee59fa882fec0bd4c34455b38ee296bf32b606971c52c519f28401db2e479dcf3f048c4c3028154d2f6a1017358ea9589298b9d4c4794dcd14cf2b8bbfaf87673620cf9d895569efeaa7fc4dedf80c080215a7d1d056aa5da8dfabf95e270600bb63c19d5bd4d070deb64dfff11fce25cb809c0472cdfd6a26ee9a0cc8006fe22cf793a339dcfd0ff08ce1a66846b7135401b1d51faff2ff2dbff28783d5e6788e3cfdcfa4ad74503df305838210b0a0790f90c51e598f04560dbcaf1859977a403a65815f236962d544a69a585d22886ed2f198424c431a46092d9115055c1e7ad098dcda75d49df4907a30a7d83dfb9d8e971c1235147d09e7dd8df0b110ac43823bf3d68ae114058aa275ba021579736ad3d18b46ec466cf28f05f212c8ff28916ef4863dcc803711f167472ed7b978a0f131a6977f07c1a3c024ae1a3241ceea0a5190c91971632551ad0ab99dd53aabb96e0f46c5a59910a88690b64337fc0a1da9ba41e2b8dfa768b063449f766dd8daf00f86dad630cd85eaafd570975200883db6cfc2e3f01d38a9f94cc3aa68d4f359fb0ff1bfcec932a0cd793db107e235862e7b74d0fdad11d05c83de5d0953f61251d19e194135fed6351c04ba3b5e4feabc67be480560fa0f0d5c807b0b17aa3defad8d5c2cb5d4218e8b40fa07091ab54643d4cc76d29e9998548d8fe00d5f759fca55e1cbd750a9fdb30bc64fe04d82dc9dc7e543052fb8435725144144dbe66cf8f6e6eb42c8606f8031114cdb0a6473f0e8011240e19033986086351969877134933ded0e2a29e05d305ba0dab165b2a41063ef19ff6cb6759f330b46d8dc16c8f59497ad3febcfacddf00f899b4e5ff0985b18d783e71ceadb157c2f64232d932577e70024a3cbab675121ba754ab3d7e20307</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
       
     </div>
     <div class="article-footer">
@@ -454,7 +388,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/" title="Mybatis检查SQL注入" target="_blank" rel="external">http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/</a>
+      <a href="http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/" title="Mybatis-Order By下的SQL注入" target="_blank" rel="external">http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -506,7 +440,7 @@
     
     
     <li class="next">
-      <a href="/2019/07/20/渗透测试-如何绕过URL限制/" title="如何绕过URL限制"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/08/15/代码审计-使用Mybatis框架下的sql注入/" title="使用Mybatis框架下的sql注入"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
