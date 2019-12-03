@@ -20,8 +20,10 @@ http://www.vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/
 http://www.vkxss.top/2019/08/21/代码审计-e.printStackTrace()的使用/
 http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/
 http://www.vkxss.top/2019/08/19/代码审计-任意文件读取/
+http://www.vkxss.top/2019/08/17/代码审计-Hibernate框架下的sql注入学习笔记/
+http://www.vkxss.top/2019/08/16/代码审计-Mybatis框架下的sql注入学习笔记总结/
+http://www.vkxss.top/2019/08/15/代码审计-Mybatis框架下的sql注入分析/
 http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/
-http://www.vkxss.top/2019/08/15/代码审计-使用Mybatis框架下的sql注入/
 http://www.vkxss.top/2019/08/14/代码审计-JDBC连接下的Sql注入/
 http://www.vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/
 http://www.vkxss.top/2019/07/19/渗透测试-SSRF绕过的方法/
@@ -32,6 +34,7 @@ http://www.vkxss.top/2019/02/22/Jar第三方组件漏洞检查工具/
 http://www.vkxss.top/2019/02/07/前端知识-什么是AJAX/
 http://www.vkxss.top/2019/01/08/CTF-常见的加解密集合/
 http://www.vkxss.top/2018/12/19/APP-Mac下使用夜神模拟器调试/
+http://www.vkxss.top/2018/10/12/CVE-2016–3714/
 http://www.vkxss.top/2018/10/12/Python-短信轰炸脚本/
 http://www.vkxss.top/2018/07/28/渗透测试-DOCX文件弹出XSS/
 http://www.vkxss.top/2018/06/17/渗透测试-PhpMyadmin_Getshell/
