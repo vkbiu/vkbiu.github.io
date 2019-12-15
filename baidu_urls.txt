@@ -8,8 +8,8 @@ http://www.vkxss.top/2019/10/25/CVE-2019-11043/
 http://www.vkxss.top/2019/10/24/渗透测试-google_hack语法/
 http://www.vkxss.top/2019/10/21/渗透测试-Mysql-Dnslog盲注/
 http://www.vkxss.top/2019/10/17/CVE-2019-16278/
-http://www.vkxss.top/2019/10/11/渗透测试-SVG-XSS/
 http://www.vkxss.top/2019/10/11/Python-接口快速测试小技巧(Python)/
+http://www.vkxss.top/2019/10/11/渗透测试-SVG-XSS/
 http://www.vkxss.top/2019/10/08/CVE-2019-13272/
 http://www.vkxss.top/2019/09/25/CVE-2019-16759/
 http://www.vkxss.top/2019/09/19/渗透测试-绕过CSRF防御总结/
@@ -22,8 +22,8 @@ http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/
 http://www.vkxss.top/2019/08/19/代码审计-任意文件读取/
 http://www.vkxss.top/2019/08/17/代码审计-Hibernate框架下的sql注入学习笔记/
 http://www.vkxss.top/2019/08/16/代码审计-Mybatis框架下的sql注入学习笔记总结/
-http://www.vkxss.top/2019/08/15/代码审计-Mybatis框架下的sql注入分析/
 http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/
+http://www.vkxss.top/2019/08/15/代码审计-Mybatis框架下的sql注入分析/
 http://www.vkxss.top/2019/08/14/代码审计-JDBC连接下的Sql注入/
 http://www.vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/
 http://www.vkxss.top/2019/07/19/渗透测试-SSRF绕过的方法/

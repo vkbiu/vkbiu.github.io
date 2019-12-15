@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.vkxss.top/"/>
-  <updated>2019-11-19T06:39:00.683Z</updated>
+  <updated>2019-12-15T15:33:59.674Z</updated>
   <id>http://www.vkxss.top/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://www.vkxss.top/2019/11/19/SpringCloud%E4%B8%8B%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3%E9%85%8D%E7%BD%AECors%E8%B7%A8%E5%9F%9F%E8%AF%B7%E6%B1%82/"/>
     <id>http://www.vkxss.top/2019/11/19/SpringCloud下微服务网关配置Cors跨域请求/</id>
     <published>2019-11-19T06:37:28.718Z</published>
-    <updated>2019-11-19T06:39:00.683Z</updated>
+    <updated>2019-12-15T15:33:59.674Z</updated>
     
     <content type="html"><![CDATA[<h2><span id="一-问题背景">一、 问题背景</span></h2><pre><code>公司的项目需要前后端分离，vue+java，这时候就需要支持Cors跨域请求了.</code></pre><h3><span id="11-什么是cors">1.1 什么是Cors?</span></h3><pre><code>CORS 全称是跨域资源共享（Cross-Origin Resource Sharing），是一种 AJAX 跨域请求资源的方式，支持现代浏览器，IE支持10以上。CORS与JSONP的使用目的相同，但是比JSONP更强大。JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。简单来说Cors就是用来解决跨域问题的。此外解决的方式还有：Nginx反向代理，Jsoup等方式。不过Nginx不符合Devops理念，不易维护，而Jsoup支持的请求类型只支持Get请求。Cors更为适合；</code></pre><h2><span id="12-什么是跨域">1.2 什么是跨域？</span></h2><pre><code>同源就是指：域名，协议，端口 均相同跨域就是指： 域名，协议，端口 其中至少有一个是不同的；当前端请求后端接口的时候，当端口号，ip地址等不一致的时候，为了安全性考量，请求所响应的数据不会被前端展示。等于请求的数据没有被标识为友军，没有被证明是敌是友；ajax请求才会出现跨域</code></pre><h3><span id="13-cors能解决什么问题">1.3 Cors能解决什么问题？</span></h3><pre><code>通过在服务端配置Cors相关的东西，能识别是否给予跨域权限，然后给予能跨域的标识，通过此标识，浏览器就可以渲染返回来的数据啦~~</code></pre><h2><span id="二-cors在springcloud微服务中的使用">二. Cors在SpringCloud微服务中的使用；</span></h2><h3><span id="21-环境">2.1 环境：</span></h3><pre><code>JDK1.8 IDEA SpringCloud微服务 网关使用Zuul</code></pre><h3><span id="22-代码">2.2 代码：</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package com.leyou.gateway.config;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.web.cors.CorsConfiguration;</span><br><span class="line">import org.springframework.web.cors.UrlBasedCorsConfigurationSource;</span><br><span class="line">import org.springframework.web.filter.CorsFilter;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class CorsConfiguration &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public CorsFilter corsFilter()&#123;</span><br><span class="line">        //配置初始化对象</span><br><span class="line">        CorsConfiguration configuration=new CorsConfiguration();</span><br><span class="line">        //允许跨域的域名，如果要携带cookie，不能写* 。  *：代表所有的域名都可以访问</span><br><span class="line">        configuration.addAllowedOrigin(&quot;http://localhost:9001&quot;);</span><br><span class="line">        configuration.setAllowCredentials(true);</span><br><span class="line">        configuration.addAllowedMethod(&quot;*&quot;);            //代表所有的请求方法</span><br><span class="line">        configuration.addAllowedHeader(&quot;*&quot;);        //允许携带任何头信息</span><br><span class="line"></span><br><span class="line">        //初始化cors配置源对象</span><br><span class="line">        UrlBasedCorsConfigurationSource configurationSource=new UrlBasedCorsConfigurationSource();</span><br><span class="line">        configurationSource.registerCorsConfiguration(&quot;/**&quot;,configuration);</span><br><span class="line"></span><br><span class="line">        //返回corsFilter实例，参数:cors配置源对象</span><br><span class="line">        return new CorsFilter(configurationSource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3><span id="23-什么是zuul微服务网关">2.3 什么是zuul微服务网关：</span></h3><ul><li><a href="https://www.jianshu.com/p/29e9c91e3f3e" target="_blank" rel="noopener">https://www.jianshu.com/p/29e9c91e3f3e</a></li><li><a href="https://www.jianshu.com/p/7bc06a64519b" target="_blank" rel="noopener">https://www.jianshu.com/p/7bc06a64519b</a></li></ul>]]></content>
     
@@ -38,7 +38,7 @@
       <category term="JAVA" scheme="http://www.vkxss.top/categories/JAVA/"/>
     
     
-      <category term="JAVA代码审计" scheme="http://www.vkxss.top/tags/JAVA%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
+      <category term="Java代码审计" scheme="http://www.vkxss.top/tags/Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/"/>
     
   </entry>
   
@@ -323,6 +323,33 @@
   </entry>
   
   <entry>
+    <title>接口快速测试小技巧(Python)</title>
+    <link href="http://www.vkxss.top/2019/10/11/Python-%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)/"/>
+    <id>http://www.vkxss.top/2019/10/11/Python-接口快速测试小技巧(Python)/</id>
+    <published>2019-10-11T07:30:08.000Z</published>
+    <updated>2019-11-15T09:10:30.260Z</updated>
+    
+    <content type="html"><![CDATA[<h2><span id="接口快速测试小技巧python">接口快速测试小技巧(Python)</span></h2><ul><li><p><font face="微软雅黑">终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺</font></p></li><li><p><font face="微软雅黑">网站：<a href="https://curl.trillworks.com" target="_blank" rel="noopener">https://curl.trillworks.com</a></font></p><p>  <a href="https://imgchr.com/i/KieFSA" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieFSA.png" alt="KieFSA.png"></a></p><p>  <a href="https://imgchr.com/i/KieEOP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieEOP.png" alt="KieEOP.png"></a></p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2&gt;&lt;span id=&quot;接口快速测试小技巧python&quot;&gt;接口快速测试小技巧(Python)&lt;/span&gt;&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;font face=&quot;微软雅黑&quot;&gt;终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，
+      
+    
+    </summary>
+    
+    
+      <category term="Python" scheme="http://www.vkxss.top/categories/Python/"/>
+    
+    
+      <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>SVG-XSS</title>
     <link href="http://www.vkxss.top/2019/10/11/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-SVG-XSS/"/>
     <id>http://www.vkxss.top/2019/10/11/渗透测试-SVG-XSS/</id>
@@ -348,33 +375,6 @@
     
     
       <category term="WEB安全" scheme="http://www.vkxss.top/categories/WEB%E5%AE%89%E5%85%A8/"/>
-    
-    
-      <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>接口快速测试小技巧(Python)</title>
-    <link href="http://www.vkxss.top/2019/10/11/Python-%E6%8E%A5%E5%8F%A3%E5%BF%AB%E9%80%9F%E6%B5%8B%E8%AF%95%E5%B0%8F%E6%8A%80%E5%B7%A7(Python)/"/>
-    <id>http://www.vkxss.top/2019/10/11/Python-接口快速测试小技巧(Python)/</id>
-    <published>2019-10-11T07:30:08.000Z</published>
-    <updated>2019-11-15T09:10:30.260Z</updated>
-    
-    <content type="html"><![CDATA[<h2><span id="接口快速测试小技巧python">接口快速测试小技巧(Python)</span></h2><ul><li><p><font face="微软雅黑">终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，不只是支持python，而且还支持多种编程语言转换。🐂🍺</font></p></li><li><p><font face="微软雅黑">网站：<a href="https://curl.trillworks.com" target="_blank" rel="noopener">https://curl.trillworks.com</a></font></p><p>  <a href="https://imgchr.com/i/KieFSA" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieFSA.png" alt="KieFSA.png"></a></p><p>  <a href="https://imgchr.com/i/KieEOP" target="_blank" rel="noopener"><img src="https://s2.ax1x.com/2019/10/16/KieEOP.png" alt="KieEOP.png"></a></p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2&gt;&lt;span id=&quot;接口快速测试小技巧python&quot;&gt;接口快速测试小技巧(Python)&lt;/span&gt;&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;&lt;font face=&quot;微软雅黑&quot;&gt;终于找到解决我每次写请求头不停复制粘贴，改格式。之后我们可以这样，提高了测试的效率，免得重复造轮子，
-      
-    
-    </summary>
-    
-    
-      <category term="Python" scheme="http://www.vkxss.top/categories/Python/"/>
     
     
       <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
