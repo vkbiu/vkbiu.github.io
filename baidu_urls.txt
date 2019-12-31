@@ -1,3 +1,4 @@
+http://www.vkxss.top/2019/12/10/渗透测试-漏洞挖掘的组合拳/
 http://www.vkxss.top/2019/11/19/SpringCloud下微服务网关配置Cors跨域请求/
 http://www.vkxss.top/2019/11/13/Python-多线程测试并发漏洞测试/
 http://www.vkxss.top/2019/11/12/渗透测试-条件竞争漏洞总结/
@@ -15,15 +16,16 @@ http://www.vkxss.top/2019/09/25/CVE-2019-16759/
 http://www.vkxss.top/2019/09/19/渗透测试-绕过CSRF防御总结/
 http://www.vkxss.top/2019/09/10/渗透测试-路径遍历的RCE/
 http://www.vkxss.top/2019/09/07/CVE-2019-0708/
+http://www.vkxss.top/2019/08/24/代码审计-Java代码审计XSS总结/
 http://www.vkxss.top/2019/08/22/代码审计-Insecure Randomness/
 http://www.vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/
 http://www.vkxss.top/2019/08/21/代码审计-e.printStackTrace()的使用/
 http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/
 http://www.vkxss.top/2019/08/19/代码审计-任意文件读取/
-http://www.vkxss.top/2019/08/17/代码审计-Hibernate框架下的sql注入学习笔记/
-http://www.vkxss.top/2019/08/16/代码审计-Mybatis框架下的sql注入学习笔记总结/
+http://www.vkxss.top/2019/08/19/代码审计-Hibernate框架下的sql注入学习笔记/
+http://www.vkxss.top/2019/08/18/代码审计-Mybatis框架下的sql注入学习笔记总结/
+http://www.vkxss.top/2019/08/16/代码审计-Mybatis框架下的sql注入分析/
 http://www.vkxss.top/2019/08/15/代码审计-Mybatis检查SQL注入/
-http://www.vkxss.top/2019/08/15/代码审计-Mybatis框架下的sql注入分析/
 http://www.vkxss.top/2019/08/14/代码审计-JDBC连接下的Sql注入/
 http://www.vkxss.top/2019/07/20/渗透测试-如何绕过URL限制/
 http://www.vkxss.top/2019/07/19/渗透测试-SSRF绕过的方法/
