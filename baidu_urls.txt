@@ -9,14 +9,15 @@ http://www.vkxss.top/2019/10/25/CVE-2019-11043/
 http://www.vkxss.top/2019/10/24/渗透测试-google_hack语法/
 http://www.vkxss.top/2019/10/21/渗透测试-Mysql-Dnslog盲注/
 http://www.vkxss.top/2019/10/17/CVE-2019-16278/
-http://www.vkxss.top/2019/10/11/Python-接口快速测试小技巧(Python)/
 http://www.vkxss.top/2019/10/11/渗透测试-SVG-XSS/
+http://www.vkxss.top/2019/10/11/Python-接口快速测试小技巧(Python)/
 http://www.vkxss.top/2019/10/08/CVE-2019-13272/
 http://www.vkxss.top/2019/09/25/CVE-2019-16759/
 http://www.vkxss.top/2019/09/19/渗透测试-绕过CSRF防御总结/
 http://www.vkxss.top/2019/09/10/渗透测试-路径遍历的RCE/
 http://www.vkxss.top/2019/09/07/CVE-2019-0708/
 http://www.vkxss.top/2019/08/24/代码审计-Java代码审计XSS总结/
+http://www.vkxss.top/2019/08/24/代码审计-Java代码审计CSRF总结/
 http://www.vkxss.top/2019/08/22/代码审计-Insecure Randomness/
 http://www.vkxss.top/2019/08/22/代码审计-敏感信息硬编码在程序中/
 http://www.vkxss.top/2019/08/21/代码审计-e.printStackTrace()的使用/
