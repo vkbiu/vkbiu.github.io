@@ -17,24 +17,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>Null Dereference | VK&#39;Blog|博客</title>
-  <meta name="description" content="1、Null Dereference（空指针异常） 1.1、产生原因： 2.2、修复方案：      1、Null Dereference（空指针异常）1.1、产生原因： 当违反程序员的一个或多个假设时，通常会出现 null 指针异常。如果程序明确将对象设置为null，但稍后却间接引用该对象，则将出现 dereference-after-store 错误。此错误通常是因为程序员在声明变量时将">
+  <title>Java代码审计-越权 | VK&#39;Blog|博客</title>
+  <meta name="description" content="这是一篇加密文章。如果你确实想看，请留言。">
 <meta name="keywords" content="Java代码审计">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Null Dereference">
-<meta property="og:url" content="http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/index.html">
+<meta property="og:title" content="Java代码审计-越权">
+<meta property="og:url" content="http://www.vkxss.top/2019/12/10/代码审计-Java代码审计授权管理总结/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
-<meta property="og:description" content="1、Null Dereference（空指针异常） 1.1、产生原因： 2.2、修复方案：      1、Null Dereference（空指针异常）1.1、产生原因： 当违反程序员的一个或多个假设时，通常会出现 null 指针异常。如果程序明确将对象设置为null，但稍后却间接引用该对象，则将出现 dereference-after-store 错误。此错误通常是因为程序员在声明变量时将">
+<meta property="og:description" content="这是一篇加密文章。如果你确实想看，请留言。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ae01.alicdn.com/kf/H08f4d65504114216b3e145c0aade8e95w.png">
-<meta property="og:image" content="https://ae01.alicdn.com/kf/H36460ed505d046b085a00ee8fd339827Y.png">
-<meta property="og:updated_time" content="2019-11-19T06:38:38.248Z">
+<meta property="og:updated_time" content="2020-01-09T07:31:56.392Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Null Dereference">
-<meta name="twitter:description" content="1、Null Dereference（空指针异常） 1.1、产生原因： 2.2、修复方案：      1、Null Dereference（空指针异常）1.1、产生原因： 当违反程序员的一个或多个假设时，通常会出现 null 指针异常。如果程序明确将对象设置为null，但稍后却间接引用该对象，则将出现 dereference-after-store 错误。此错误通常是因为程序员在声明变量时将">
-<meta name="twitter:image" content="https://ae01.alicdn.com/kf/H08f4d65504114216b3e145c0aade8e95w.png">
+<meta name="twitter:title" content="Java代码审计-越权">
+<meta name="twitter:description" content="这是一篇加密文章。如果你确实想看，请留言。">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/index.html">
+  <link rel="canonical" href="http://www.vkxss.top/2019/12/10/代码审计-Java代码审计授权管理总结/index.html">
   
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
@@ -327,14 +324,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-代码审计-Null Dereference" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-代码审计-Java代码审计授权管理总结" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      Null Dereference
+      Java代码审计-越权
     </h1>
   
 
@@ -342,8 +339,8 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2019/08/20/代码审计-Null Dereference/" class="article-date">
-	  <time datetime="2019-08-20T07:23:43.000Z" itemprop="datePublished">2019-08-20</time>
+	<a href="/2019/12/10/代码审计-Java代码审计授权管理总结/" class="article-date">
+	  <time datetime="2019-12-10T06:10:40.000Z" itemprop="datePublished">2019-12-10</time>
 	</a>
 </span>
         
@@ -361,10 +358,10 @@
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/20/代码审计-Null Dereference/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/12/10/代码审计-Java代码审计授权管理总结/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 353(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 10(字)</span>
 	
 	
 		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
@@ -374,29 +371,15 @@
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <!-- toc -->
-
-<ul>
-<li><a href="#1-null-dereference空指针异常">1、Null Dereference（空指针异常）</a><ul>
-<li><a href="#11-产生原因">1.1、产生原因：</a></li>
-<li><a href="#22-修复方案">2.2、修复方案：</a></li>
-</ul>
-</li>
-</ul>
-<!-- tocstop -->
-
-<h1><span id="1-null-dereference空指针异常">1、Null Dereference（空指针异常）</span></h1><h2><span id="11-产生原因">1.1、产生原因：</span></h2><ul>
-<li><p><font face="微软雅黑">当违反程序员的一个或多个假设时，通常会出现 null 指针异常。如果程序明确将对象设置为null，但稍后却间接引用该对象，则将出现 dereference-after-store 错误。此错误通常是因为程序员在声明变量时将变量初始化为 null。<br>大部分空指针问题只会引起一般的软件可靠性问题，但如果攻击者能够故意触发空指针间接引用，攻击者就有可能利用引发的异常绕过安全逻辑，或致使应用程序泄漏调试信息，这些信息对于规划随后的攻击十分有用。</font></p>
-</li>
-<li><p><font face="微软雅黑">示例：在下列代码中，程序员将变量 foo 明确设置为 null。稍后，程序员间接引用 foo，而未检查对象是否为 null 值。</font><br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H08f4d65504114216b3e145c0aade8e95w.png" style="zoom:50%"></center></font></p>
-</li>
-</ul>
-<p><font face="微软雅黑"><center>图1：引起Null Dereference漏洞的代码</center></font></p>
-<h2><span id="22-修复方案">2.2、修复方案：</span></h2><ul>
-<li><font face="微软雅黑">在间接引用可能为 null 值的对象之前，请务必仔细检查。如有可能，在处理资源的代码周围的包装器中纳入 null 检查，确保在所有情况下均会执行 null 检查，并最大限度地减少出错的地方。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H36460ed505d046b085a00ee8fd339827Y.png" style="zoom:50%"></center></font></font></li>
-</ul>
-<p><font face="微软雅黑"><center>图2：修复Null Dereference漏洞后的代码</center></font></p>
-
+        <div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">
+  <div class="hbe-input-container">
+  <input type="password" id="hbePass" placeholder="请输入密码，查看文章。">
+    <label for="hbePass">请输入密码，查看文章。</label>
+    <div class="bottom-line"></div>
+  </div>
+  <script id="hbeData" type="hbeData" data-hmacdigest="0951c47b49d50c002d83a6f059cfb6490a56136de120e391f0dfe7eeca52e0bc">12a47a0517c30a9054a8a751a1efdb027433a73e28c365278702b54018a9874e99d945af0d7635b3ad8fa64a31bc1df0</script>
+</div>
+<script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">
       
     </div>
     <div class="article-footer">
@@ -405,7 +388,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/" title="Null Dereference" target="_blank" rel="external">http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/</a>
+      <a href="http://www.vkxss.top/2019/12/10/代码审计-Java代码审计授权管理总结/" title="Java代码审计-越权" target="_blank" rel="external">http://www.vkxss.top/2019/12/10/代码审计-Java代码审计授权管理总结/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -451,13 +434,9 @@
   
   <ul class="pager pull-left">
     
-    <li class="prev">
-      <a href="/2019/08/21/代码审计-e.printStackTrace()的使用/" title="e.printStackTrace"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
-    </li>
-    
     
     <li class="next">
-      <a href="/2019/08/19/代码审计-任意文件读取/" title="任意文件读取"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/11/25/代码审计-Java代码审计CSRF总结/" title="Java代码审计-CSRF"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     

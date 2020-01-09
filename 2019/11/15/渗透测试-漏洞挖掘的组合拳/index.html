@@ -17,24 +17,21 @@
   <meta http-equiv="window-target" content="_top">
   
   
-  <title>Null Dereference | VK&#39;Blog|博客</title>
-  <meta name="description" content="1、Null Dereference（空指针异常） 1.1、产生原因： 2.2、修复方案：      1、Null Dereference（空指针异常）1.1、产生原因： 当违反程序员的一个或多个假设时，通常会出现 null 指针异常。如果程序明确将对象设置为null，但稍后却间接引用该对象，则将出现 dereference-after-store 错误。此错误通常是因为程序员在声明变量时将">
-<meta name="keywords" content="Java代码审计">
+  <title>漏洞挖掘的组合拳 | VK&#39;Blog|博客</title>
+  <meta name="description" content="漏洞挖掘的组合拳案例一  URL跳转+CSRF漏洞 条件：校验referer值、存在URL跳转漏洞、存在CSRF漏洞 当网站校验Referer值，无CSRG_token,的时候。我们配合URL跳转完成攻击。来提升漏洞危害性      案例二    SELF-XSS+CSRF漏洞 条件：存在CSRF漏洞 可以利用csrf写入型篡改他人信息。例如利用csrf做个钓鱼界面，来修改他人的信息，比如修改备注">
+<meta name="keywords" content="WEB渗透测试">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Null Dereference">
-<meta property="og:url" content="http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/index.html">
+<meta property="og:title" content="漏洞挖掘的组合拳">
+<meta property="og:url" content="http://www.vkxss.top/2019/11/15/渗透测试-漏洞挖掘的组合拳/index.html">
 <meta property="og:site_name" content="VK&#39;s blog">
-<meta property="og:description" content="1、Null Dereference（空指针异常） 1.1、产生原因： 2.2、修复方案：      1、Null Dereference（空指针异常）1.1、产生原因： 当违反程序员的一个或多个假设时，通常会出现 null 指针异常。如果程序明确将对象设置为null，但稍后却间接引用该对象，则将出现 dereference-after-store 错误。此错误通常是因为程序员在声明变量时将">
+<meta property="og:description" content="漏洞挖掘的组合拳案例一  URL跳转+CSRF漏洞 条件：校验referer值、存在URL跳转漏洞、存在CSRF漏洞 当网站校验Referer值，无CSRG_token,的时候。我们配合URL跳转完成攻击。来提升漏洞危害性      案例二    SELF-XSS+CSRF漏洞 条件：存在CSRF漏洞 可以利用csrf写入型篡改他人信息。例如利用csrf做个钓鱼界面，来修改他人的信息，比如修改备注">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://ae01.alicdn.com/kf/H08f4d65504114216b3e145c0aade8e95w.png">
-<meta property="og:image" content="https://ae01.alicdn.com/kf/H36460ed505d046b085a00ee8fd339827Y.png">
-<meta property="og:updated_time" content="2019-11-19T06:38:38.248Z">
+<meta property="og:updated_time" content="2020-01-09T09:25:59.973Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Null Dereference">
-<meta name="twitter:description" content="1、Null Dereference（空指针异常） 1.1、产生原因： 2.2、修复方案：      1、Null Dereference（空指针异常）1.1、产生原因： 当违反程序员的一个或多个假设时，通常会出现 null 指针异常。如果程序明确将对象设置为null，但稍后却间接引用该对象，则将出现 dereference-after-store 错误。此错误通常是因为程序员在声明变量时将">
-<meta name="twitter:image" content="https://ae01.alicdn.com/kf/H08f4d65504114216b3e145c0aade8e95w.png">
+<meta name="twitter:title" content="漏洞挖掘的组合拳">
+<meta name="twitter:description" content="漏洞挖掘的组合拳案例一  URL跳转+CSRF漏洞 条件：校验referer值、存在URL跳转漏洞、存在CSRF漏洞 当网站校验Referer值，无CSRG_token,的时候。我们配合URL跳转完成攻击。来提升漏洞危害性      案例二    SELF-XSS+CSRF漏洞 条件：存在CSRF漏洞 可以利用csrf写入型篡改他人信息。例如利用csrf做个钓鱼界面，来修改他人的信息，比如修改备注">
   <!-- Canonical links -->
-  <link rel="canonical" href="http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/index.html">
+  <link rel="canonical" href="http://www.vkxss.top/2019/11/15/渗透测试-漏洞挖掘的组合拳/index.html">
   
   
     <link rel="icon" href="/favicon.png" type="image/x-icon">
@@ -327,14 +324,14 @@
   
 <main class="main" role="main">
   <div class="content">
-  <article id="post-代码审计-Null Dereference" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+  <article id="post-渗透测试-漏洞挖掘的组合拳" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
     
     <div class="article-header">
       
         
   
     <h1 class="article-title" itemprop="name">
-      Null Dereference
+      漏洞挖掘的组合拳
     </h1>
   
 
@@ -342,60 +339,119 @@
       <div class="article-meta">
         <span class="article-date">
     <i class="icon icon-calendar-check"></i>
-	<a href="/2019/08/20/代码审计-Null Dereference/" class="article-date">
-	  <time datetime="2019-08-20T07:23:43.000Z" itemprop="datePublished">2019-08-20</time>
+	<a href="/2019/11/15/渗透测试-漏洞挖掘的组合拳/" class="article-date">
+	  <time datetime="2019-11-15T07:30:08.000Z" itemprop="datePublished">2019-11-15</time>
 	</a>
 </span>
         
   <span class="article-category">
     <i class="icon icon-folder"></i>
-    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+    <a class="article-category-link" href="/categories/WEB安全/">WEB安全</a>
   </span>
 
         
   <span class="article-tag">
     <i class="icon icon-tags"></i>
-	<a class="article-tag-link" href="/tags/Java代码审计/">Java代码审计</a>
+	<a class="article-tag-link" href="/tags/WEB渗透测试/">WEB渗透测试</a>
   </span>
 
 
         
 
-        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/08/20/代码审计-Null Dereference/#comments" class="article-comment-link">评论</a></span>
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/11/15/渗透测试-漏洞挖掘的组合拳/#comments" class="article-comment-link">评论</a></span>
         
 	
-		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 353(字)</span>
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 579(字)</span>
 	
 	
-		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 1(分)</span>
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 2(分)</span>
 	
 
       </div>
     </div>
     <div class="article-entry marked-body" itemprop="articleBody">
       
-        <!-- toc -->
-
+        <h2><span id="漏洞挖掘的组合拳">漏洞挖掘的组合拳</span></h2><p><strong>案例一</strong></p>
 <ul>
-<li><a href="#1-null-dereference空指针异常">1、Null Dereference（空指针异常）</a><ul>
-<li><a href="#11-产生原因">1.1、产生原因：</a></li>
-<li><a href="#22-修复方案">2.2、修复方案：</a></li>
+<li>URL跳转+CSRF漏洞<ul>
+<li>条件：校验referer值、存在URL跳转漏洞、存在CSRF漏洞<ul>
+<li>当网站校验Referer值，无CSRG_token,的时候。我们配合URL跳转完成攻击。来提升漏洞危害性</li>
 </ul>
 </li>
 </ul>
-<!-- tocstop -->
-
-<h1><span id="1-null-dereference空指针异常">1、Null Dereference（空指针异常）</span></h1><h2><span id="11-产生原因">1.1、产生原因：</span></h2><ul>
-<li><p><font face="微软雅黑">当违反程序员的一个或多个假设时，通常会出现 null 指针异常。如果程序明确将对象设置为null，但稍后却间接引用该对象，则将出现 dereference-after-store 错误。此错误通常是因为程序员在声明变量时将变量初始化为 null。<br>大部分空指针问题只会引起一般的软件可靠性问题，但如果攻击者能够故意触发空指针间接引用，攻击者就有可能利用引发的异常绕过安全逻辑，或致使应用程序泄漏调试信息，这些信息对于规划随后的攻击十分有用。</font></p>
-</li>
-<li><p><font face="微软雅黑">示例：在下列代码中，程序员将变量 foo 明确设置为 null。稍后，程序员间接引用 foo，而未检查对象是否为 null 值。</font><br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H08f4d65504114216b3e145c0aade8e95w.png" style="zoom:50%"></center></font></p>
 </li>
 </ul>
-<p><font face="微软雅黑"><center>图1：引起Null Dereference漏洞的代码</center></font></p>
-<h2><span id="22-修复方案">2.2、修复方案：</span></h2><ul>
-<li><font face="微软雅黑">在间接引用可能为 null 值的对象之前，请务必仔细检查。如有可能，在处理资源的代码周围的包装器中纳入 null 检查，确保在所有情况下均会执行 null 检查，并最大限度地减少出错的地方。<br><font face="微软雅黑"><center><img src="https://ae01.alicdn.com/kf/H36460ed505d046b085a00ee8fd339827Y.png" style="zoom:50%"></center></font></font></li>
+<p><strong>案例二</strong>  </p>
+<ul>
+<li>SELF-XSS+CSRF漏洞<ul>
+<li>条件：存在CSRF漏洞<ul>
+<li>可以利用csrf写入型篡改他人信息。例如利用csrf做个钓鱼界面，来修改他人的信息，比如修改备注名、邮箱、手机号。有的业务需要二次验证。当我们修改用户手机号或邮箱后。导致用户无法登陆。来提升漏洞危害性。</li>
 </ul>
-<p><font face="微软雅黑"><center>图2：修复Null Dereference漏洞后的代码</center></font></p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>案例三</strong>  </p>
+<ul>
+<li>SELF-XSS+越权漏洞<ul>
+<li>条件：通过篡改ID，可以越权。<ul>
+<li>当我们的xss只能自己触发的时候，他会有点鸡肋，所以配合越权获取其他人的cookie。我们越权修改他人信息后，触发代码。我们收到的cookie信息就是其他人的啦。来提升漏洞危害性。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>案例四</strong>  </p>
+<ul>
+<li>URL跳转+DOMXSS<ul>
+<li>我们在测试的时候总会遇到类似returnurl这样的参数，后边的值是跳转的地址，当开发没有做白名单的时候，我们就实现任意URL跳转，或者有的触发条件是需要用户登陆后进行跳转的。但我们有时候会疏忽另一个测试点，就是DOM型XSS：“JavaScript：alert（/xss/）//”。开发同样没有对用户输入的字符进行过滤。</li>
+</ul>
+</li>
+</ul>
+<p><strong>案例五</strong></p>
+<ul>
+<li>文件上传+条件竞争=RCE<ul>
+<li>现在大部分厂商都喜欢把业务中上传的图片，存储在云上。有遮样一个案例，当把上传的图片先传到服务器，服务器再传到云上，这样就可以利用条件竞争进行RCE攻击。</li>
+</ul>
+</li>
+</ul>
+<p><strong>案例六</strong></p>
+<ul>
+<li>目录遍历+文件上传=RCE</li>
+</ul>
+<p><strong>案例七</strong></p>
+<ul>
+<li>文件上传+文件名XSS<ul>
+<li><a href="https://cloud.tencent.com/developer/article/1165636" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1165636</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>案例八</strong></p>
+<ul>
+<li>文件上传+文件内容XSS<ul>
+<li><a href="https://xz.aliyun.com/t/6362" target="_blank" rel="noopener">https://xz.aliyun.com/t/6362</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>案例九</strong></p>
+<ul>
+<li>文件上传+文件名注入<ul>
+<li><a href="http://kfbiji.com/article/d7e00b56df31a053" target="_blank" rel="noopener">http://kfbiji.com/article/d7e00b56df31a053</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>案例十</strong></p>
+<ul>
+<li>文件上传+文件内容注入<ul>
+<li><a href="https://paper.seebug.org/256/#sql-ii" target="_blank" rel="noopener">https://paper.seebug.org/256/#sql-ii</a></li>
+</ul>
+</li>
+</ul>
+<p><strong>案例十一</strong></p>
+<ul>
+<li>Self-XSS+CSRF=Reflected-XSS<br>  -例如在评论、登录、文件上传等处的Self-XSS，结合CSRF可变为反射型XSS。</li>
+</ul>
+<p>未完结。。。。。。</p>
 
       
     </div>
@@ -405,7 +461,7 @@
     
     <li class="post-copyright-link hidden-xs">
       <strong>本文链接：</strong>
-      <a href="http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/" title="Null Dereference" target="_blank" rel="external">http://www.vkxss.top/2019/08/20/代码审计-Null Dereference/</a>
+      <a href="http://www.vkxss.top/2019/11/15/渗透测试-漏洞挖掘的组合拳/" title="漏洞挖掘的组合拳" target="_blank" rel="external">http://www.vkxss.top/2019/11/15/渗透测试-漏洞挖掘的组合拳/</a>
     </li>
     
     <li class="post-copyright-license">
@@ -452,12 +508,12 @@
   <ul class="pager pull-left">
     
     <li class="prev">
-      <a href="/2019/08/21/代码审计-e.printStackTrace()的使用/" title="e.printStackTrace"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+      <a href="/2019/11/19/SpringCloud下微服务网关配置Cors跨域请求/" title="SpringCloud下微服务网关配置Cors跨域请求"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
     </li>
     
     
     <li class="next">
-      <a href="/2019/08/19/代码审计-任意文件读取/" title="任意文件读取"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+      <a href="/2019/11/13/Python-多线程测试并发漏洞测试/" title="Python多线程测试并发漏洞测试"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
     </li>
     
     
