@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.vkxss.top/2019/08/24/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1XSS%E6%80%BB%E7%BB%93/</loc>
+    
+    <lastmod>2020-01-10T03:48:14.784Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://www.vkxss.top/2019/11/25/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1CSRF%E6%80%BB%E7%BB%93/</loc>
     
     <lastmod>2020-01-09T09:26:21.679Z</lastmod>
@@ -61,13 +68,6 @@
     <loc>http://www.vkxss.top/2019/08/14/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-JDBC%E8%BF%9E%E6%8E%A5%E4%B8%8B%E7%9A%84Sql%E6%B3%A8%E5%85%A5/</loc>
     
     <lastmod>2019-12-15T16:57:02.479Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://www.vkxss.top/2019/08/24/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1-Java%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1XSS%E6%80%BB%E7%BB%93/</loc>
-    
-    <lastmod>2019-12-15T16:55:10.257Z</lastmod>
     
   </url>
   
@@ -366,14 +366,14 @@
   </url>
   
   <url>
-    <loc>http://www.vkxss.top/repository/index.html</loc>
+    <loc>http://www.vkxss.top/tags/index.html</loc>
     
     <lastmod>2019-09-06T14:06:42.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://www.vkxss.top/tags/index.html</loc>
+    <loc>http://www.vkxss.top/repository/index.html</loc>
     
     <lastmod>2019-09-06T14:06:42.000Z</lastmod>
     
