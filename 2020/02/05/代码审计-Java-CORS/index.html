@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>Java代码审计-CORS | VK&#39;Blog|博客</title>
+  <meta name="description" content="0x01、 问题背景公司的项目需要前后端分离，vue+java，这时候就需要支持Cors跨域请求了.0x001 什么是Cors?CORS 全称是跨域资源共享（Cross-Origin Resource Sharing），是一种 AJAX 跨域请求资源的方式，支持现代浏览器，IE支持10以上。 CORS与JSONP的使用目的相同，但是比JSONP更强大。JSONP只支持GET请求，CORS支持所有类">
+<meta name="keywords" content="Java代码审计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java代码审计-CORS">
+<meta property="og:url" content="http://www.vkxss.top/2020/02/05/代码审计-Java-CORS/index.html">
+<meta property="og:site_name" content="VK&#39;s blog">
+<meta property="og:description" content="0x01、 问题背景公司的项目需要前后端分离，vue+java，这时候就需要支持Cors跨域请求了.0x001 什么是Cors?CORS 全称是跨域资源共享（Cross-Origin Resource Sharing），是一种 AJAX 跨域请求资源的方式，支持现代浏览器，IE支持10以上。 CORS与JSONP的使用目的相同，但是比JSONP更强大。JSONP只支持GET请求，CORS支持所有类">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-02-08T16:20:27.608Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java代码审计-CORS">
+<meta name="twitter:description" content="0x01、 问题背景公司的项目需要前后端分离，vue+java，这时候就需要支持Cors跨域请求了.0x001 什么是Cors?CORS 全称是跨域资源共享（Cross-Origin Resource Sharing），是一种 AJAX 跨域请求资源的方式，支持现代浏览器，IE支持10以上。 CORS与JSONP的使用目的相同，但是比JSONP更强大。JSONP只支持GET请求，CORS支持所有类">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.vkxss.top/2020/02/05/代码审计-Java-CORS/index.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">VK</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">VK&#39;Blog</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2016/">CVE-2016</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2017/">CVE-2017</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2018/">CVE-2018</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">20</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">16</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端安全/">前端安全</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2016–3714/">CVE-2016–3714</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2017-11882/">CVE-2017-11882</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2018-1273/">CVE-2018-1273</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16278/">CVE-2019-16278</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16759/">CVE-2019-16759</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux本地提取/">Linux本地提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">18</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端知识/">前端知识</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/加解密集合/">加解密集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反弹Shell/">反弹Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/APP渗透测试/" style="font-size: 13.25px;">APP渗透测试</a> <a href="/tags/CVE-2016–3714/" style="font-size: 13px;">CVE-2016–3714</a> <a href="/tags/CVE-2017-11882/" style="font-size: 13px;">CVE-2017-11882</a> <a href="/tags/CVE-2018-1273/" style="font-size: 13px;">CVE-2018-1273</a> <a href="/tags/CVE-2019-0708/" style="font-size: 13px;">CVE-2019-0708</a> <a href="/tags/CVE-2019-16278/" style="font-size: 13px;">CVE-2019-16278</a> <a href="/tags/CVE-2019-16759/" style="font-size: 13.25px;">CVE-2019-16759</a> <a href="/tags/Java代码审计/" style="font-size: 14px;">Java代码审计</a> <a href="/tags/Linux本地提取/" style="font-size: 13px;">Linux本地提取</a> <a href="/tags/WEB渗透测试/" style="font-size: 13.75px;">WEB渗透测试</a> <a href="/tags/前端安全-CSRF/" style="font-size: 13px;">前端安全-CSRF</a> <a href="/tags/前端知识/" style="font-size: 13.5px;">前端知识</a> <a href="/tags/加解密集合/" style="font-size: 13px;">加解密集合</a> <a href="/tags/反弹Shell/" style="font-size: 13px;">反弹Shell</a> <a href="/tags/应急响应/" style="font-size: 13px;">应急响应</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/前端安全/">前端安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/09/前端安全-前端安全之跨域安全（上）/" class="title">前端安全之跨域安全（上）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-08T16:20:14.934Z" itemprop="datePublished">2020-02-09</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/前端安全/">前端安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/08/前端安全-理解同源策略总结/" class="title">理解同源策略总结</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-08T15:56:43.798Z" itemprop="datePublished">2020-02-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/JAVA/">JAVA</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/05/代码审计-Java-CORS/" class="title">Java代码审计-CORS</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-05T06:15:29.558Z" itemprop="datePublished">2020-02-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/01/16/APP-验签名与重放/" class="title">java通过sign签名+时间戳的方式防止rest接口被恶意抓包调用和重放（转）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-01-16T08:10:57.352Z" itemprop="datePublished">2020-01-16</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/WEB安全/">WEB安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2019/11/15/渗透测试-漏洞挖掘的组合拳/" class="title">漏洞挖掘的组合拳</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2019-11-15T07:30:08.000Z" itemprop="datePublished">2019-11-15</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-代码审计-Java-CORS" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Java代码审计-CORS
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/02/05/代码审计-Java-CORS/" class="article-date">
+	  <time datetime="2020-02-05T06:15:29.558Z" itemprop="datePublished">2020-02-05</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/Java代码审计/">Java代码审计</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/05/代码审计-Java-CORS/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.5k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 6(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <h2><span id="0x01-问题背景">0x01、 问题背景</span></h2><pre><code>公司的项目需要前后端分离，vue+java，这时候就需要支持Cors跨域请求了.</code></pre><h3><span id="0x001-什么是cors">0x001 什么是Cors?</span></h3><pre><code>CORS 全称是跨域资源共享（Cross-Origin Resource Sharing），是一种 AJAX 跨域请求资源的方式，支持现代浏览器，IE支持10以上。
+CORS与JSONP的使用目的相同，但是比JSONP更强大。JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。
+
+简单来说Cors就是用来解决跨域问题的。此外解决的方式还有：Nginx反向代理，Jsoup等方式。不过Nginx不符合Devops理念，不易维护，而Jsoup支持的请求类型只支持Get请求。Cors更为适合；</code></pre><h3><span id="0x002-什么是跨域">0x002 什么是跨域？</span></h3><pre><code>同源就是指：域名，协议，端口 均相同
+跨域就是指： 域名，协议，端口 其中至少有一个是不同的；
+当前端请求后端接口的时候，当端口号，ip地址等不一致的时候，为了安全性考量，请求所响应的数据不会被前端展示。等于请求的数据没有被标识为友军，没有被证明是敌是友；
+
+ajax请求才会出现跨域</code></pre><h3><span id="0x003-cors能解决什么问题">0x003 Cors能解决什么问题？</span></h3><pre><code>通过在服务端配置Cors相关的东西，能识别是否给予跨域权限，然后给予能跨域的标识，通过此标识，浏览器就可以渲染返回来的数据啦~~</code></pre><h2><span id="0x02案例一-cors在springcloud微服务中的使用">0x02案例一. Cors在SpringCloud微服务中的使用；</span></h2><h3><span id="0x001-环境">0x001 环境：</span></h3><pre><code>JDK1.8 IDEA SpringCloud微服务 网关使用Zuul</code></pre><h3><span id="0x002-代码">0x002 代码：</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">package com.leyou.gateway.config;</span><br><span class="line"></span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.web.cors.CorsConfiguration;</span><br><span class="line">import org.springframework.web.cors.UrlBasedCorsConfigurationSource;</span><br><span class="line">import org.springframework.web.filter.CorsFilter;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class CorsConfiguration &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public CorsFilter corsFilter()&#123;</span><br><span class="line">        //配置初始化对象</span><br><span class="line">        CorsConfiguration configuration=new CorsConfiguration();</span><br><span class="line">        //允许跨域的域名，如果要携带cookie，不能写* 。  *：代表所有的域名都可以访问</span><br><span class="line">        configuration.addAllowedOrigin(&quot;http://localhost:9001&quot;);</span><br><span class="line">        configuration.setAllowCredentials(true);</span><br><span class="line">        configuration.addAllowedMethod(&quot;*&quot;);            //代表所有的请求方法</span><br><span class="line">        configuration.addAllowedHeader(&quot;*&quot;);        //允许携带任何头信息</span><br><span class="line"></span><br><span class="line">        //初始化cors配置源对象</span><br><span class="line">        UrlBasedCorsConfigurationSource configurationSource=new UrlBasedCorsConfigurationSource();</span><br><span class="line">        configurationSource.registerCorsConfiguration(&quot;/**&quot;,configuration);</span><br><span class="line"></span><br><span class="line">        //返回corsFilter实例，参数:cors配置源对象</span><br><span class="line">        return new CorsFilter(configurationSource);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="0x003-什么是zuul微服务网关">0x003 什么是zuul微服务网关：</span></h3><ul>
+<li><a href="https://www.jianshu.com/p/29e9c91e3f3e" target="_blank" rel="noopener">https://www.jianshu.com/p/29e9c91e3f3e</a></li>
+<li><a href="https://www.jianshu.com/p/7bc06a64519b" target="_blank" rel="noopener">https://www.jianshu.com/p/7bc06a64519b</a></li>
+</ul>
+<h2><span id="0x03-http-headeraccess-control-allow-credentials跨域ajax请求时是否带cookie的设置">0x03 【HTTP header】【【Access-Control-Allow-Credentials】跨域Ajax请求时是否带Cookie的设置</span></h2><ul>
+<li><p>前端发起AJAX请求都会受到同源策略（CORS）的限制。发起AJAX请求的方法：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">第一个是原生方法 XMLHttpRequest</span><br><span class="line">第二个是jQuery封装的 JQuery的$.ajax</span><br><span class="line">第三个是fetch是专门封装的库 Fetch</span><br><span class="line">第四个是axios</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>前端在发起AJAX请求时，同域或者直接访问的情况下，因为没有跨域的需求，所以Request的Header中的Origin为空。此时，如果后端代码是response.setHeader(“Access-Control-Allow-Origin”, origin)，那么Response的header中不会出现Access-Control-Allow-Origin，因为Origin为空。</p>
+</li>
+<li><p>注意当我们的客户端和服务端交互的时候使用的是 token，通过 Authorization头发送到服务端，并没有使用到 cookie时，所以客户端没有必要设置 withCredentials: true</p>
+</li>
+</ul>
+<h3><span id="0x001-无cookie跨域ajax请求">0x001 无Cookie跨域Ajax请求</span></h3><ul>
+<li><p><strong>客户端</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- 以 jQuery 的 ajax 为例：</span><br><span class="line">$.ajax(&#123;</span><br><span class="line">        url : &apos;http://remote.domain.com/corsrequest&apos;,</span><br><span class="line">        data : data,</span><br><span class="line">        dataType: &apos;json&apos;,</span><br><span class="line">        type : &apos;POST&apos;,</span><br><span class="line">        crossDomain: true,</span><br><span class="line">        contentType: &quot;application/json&quot;, // POST时必须</span><br><span class="line">       主要注意的是参数 crossDomain: true。发送Ajax时，Request header 中会包含跨域的额外信息，但不会含cookie。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>服务器端</strong></p>
+</li>
+<li><p>跨域的允许主要由服务器端控制。服务器端通过在响应的 header 中设置 Access-Control-Allow-Origin 及相关一系列参数，提供跨域访问的允许策略。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">以Java为例：</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line">* Spring Controller中的方法：</span><br><span class="line">*/</span><br><span class="line">    @RequestMapping(value = &quot;/corsrequest&quot;)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public Map&lt;String, Object&gt; mainHeaderInfo(HttpServletResponse response) &#123;</span><br><span class="line">        response.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过在响应 header 中设置 星号 来允许来自所有域的跨域请求访问。</p>
+</li>
+</ul>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;*&quot;);</span><br></pre></td></tr></table></figure></code></pre><ul>
+<li><p>只允许来自特定域 <a href="http://my.domain.cn:8080" target="_blank" rel="noopener">http://my.domain.cn:8080</a> 的跨域访问</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.setHeader(&quot;Access-Control-Allow-Origin&quot;, &quot;http://my.domain.cn:8080&quot;);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>较灵活的设置方式，允许所有包含 mydomain.com 的域名访问.从安全的角度去考虑，并不建议使用，因为攻击者很容易绕过。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">if(request.getHeader(&quot;Origin&quot;).contains(&quot;mydomain.com&quot;)) &#123;</span><br><span class="line">    response.setHeader(&quot;Access-Control-Allow-Origin&quot;, request.getHeader(&quot;Origin&quot;));</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3><span id="0x002-带cookie的跨域ajax请求">0x002 带Cookie的跨域Ajax请求</span></h3><ul>
+<li><p><strong>客户端</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">$.ajax(&#123;</span><br><span class="line">        url : &apos;http://remote.domain.com/corsrequest&apos;,</span><br><span class="line">        data : data,</span><br><span class="line">        dataType: &apos;json&apos;,</span><br><span class="line">        type : &apos;POST&apos;,</span><br><span class="line">        xhrFields: &#123;</span><br><span class="line">            withCredentials: true</span><br><span class="line">        &#125;,</span><br><span class="line">        crossDomain: true,</span><br><span class="line">        contentType: &quot;application/json&quot;,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过设置 withCredentials: true ，发送Ajax时，Request header中便会带上 Cookie 信息。</p>
+</li>
+<li><p><strong>服务器端</strong></p>
+</li>
+<li><p>相应的，对于客户端的参数，服务器端也需要进行设置：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">* Spring Controller中的方法：</span><br><span class="line">    @RequestMapping(value = &quot;/corsrequest&quot;)</span><br><span class="line">    @ResponseBody</span><br><span class="line">    public Map&lt;String, Object&gt; getUserBaseInfo(HttpServletResponse response) &#123;</span><br><span class="line">        if(request.getHeader(&quot;Origin&quot;).contains(&quot;woego.cn&quot;)) &#123;</span><br><span class="line">            response.setHeader(&quot;Access-Control-Allow-Origin&quot;, request.getHeader(&quot;Origin&quot;));</span><br><span class="line">        &#125;</span><br><span class="line">        response.setHeader(&quot;Access-Control-Allow-Credentials&quot;, &quot;true&quot;);</span><br><span class="line">        ...</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对应客户端的 xhrFields.withCredentials: true 参数，服务器端通过在响应 header 中设置 Access-Control-Allow-Credentials = true 来运行客户端携带证书式访问。通过对 Credentials 参数的设置，就可以保持跨域 Ajax 时的 Cookie。这里需要注意的是：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">服务器端 Access-Control-Allow-Credentials = true时，</span><br><span class="line">参数Access-Control-Allow-Origin 的值不能为 &apos;*&apos; 。</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h2><span id="0x04-nginx导致cors及修复方案">0x04 Nginx导致Cors及修复方案</span></h2><ul>
+<li><p><strong>存在漏洞配置：</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">add_header  Access-Control-Allow-Origin *;</span><br><span class="line">add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;</span><br><span class="line">add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos;;</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">add_header &apos;Access-Control-Allow-Origin&apos; &quot;$http_origin&quot;;</span><br><span class="line">add_header Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS;</span><br><span class="line">add_header &apos;Access-Control-Allow-Credentials&apos; &apos;true&apos;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>修复方案需要限制origin：</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">add_header &apos;Access-Control-Allow-Origin&apos; https://test.joychou.org;</span><br><span class="line">add_header &apos;Access-Control-Allow-Origin&apos; http://test.joychou.org;</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://www.vkxss.top/2020/02/05/代码审计-Java-CORS/" title="Java代码审计-CORS" target="_blank" rel="external">http://www.vkxss.top/2020/02/05/代码审计-Java-CORS/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark">VK</span><small class="ml-1x">VK&#39;Blog</small></a></h3>
+        <div>生如蝼蚁，当立鸿鹄之志。命如薄纸，却有不屈之心。乾坤未定，你我皆是黑马，祝你我飞黄腾达前程似锦。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/02/08/前端安全-理解同源策略总结/" title="理解同源策略总结"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/01/16/APP-验签名与重放/" title="java通过sign签名+时间戳的方式防止rest接口被恶意抓包调用和重放（转）"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+    
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+	<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span >本站总访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span >本站访客数: <span id="busuanzi_value_site_uv"></span>人</span>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'PUQvavgGf7Y3FXIB68W62St5-gzGzoHsz',
+    appKey: 'OxWOQ95mJtXnKAo9rlYodq2S',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+<script type="text/javascript" src="/js/love.js"></script>
+
+</html>
