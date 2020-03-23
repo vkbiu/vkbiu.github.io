@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>APP-Android抓包技巧 | VK&#39;Blog|博客</title>
+  <meta name="description" content="抓包出错排查思路 0x01 抓取HTTPS的数据包 使用Frida绕过SSL固定 使用XPOST绕过SSL双向校验      抓包出错排查思路   上面是大概的排查思路, 具体的细节可能有些差异。如果proxy带有证书校验, 且JustTrustMe绕不过去, 可能要自己重新根据该应用定制hook模块, 去绕过其本地证书校验, 但是大部分应用都能通过将证书安装为系统证书绕过。  0x01 抓">
+<meta name="keywords" content="APP渗透测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="APP-Android抓包技巧">
+<meta property="og:url" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/index.html">
+<meta property="og:site_name" content="VK&#39;s blog">
+<meta property="og:description" content="抓包出错排查思路 0x01 抓取HTTPS的数据包 使用Frida绕过SSL固定 使用XPOST绕过SSL双向校验      抓包出错排查思路   上面是大概的排查思路, 具体的细节可能有些差异。如果proxy带有证书校验, 且JustTrustMe绕不过去, 可能要自己重新根据该应用定制hook模块, 去绕过其本地证书校验, 但是大部分应用都能通过将证书安装为系统证书绕过。  0x01 抓">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15839184306163.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15842487003891.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15842490655251.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15841148541345.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15842510355571.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15842513258063.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15842517858182.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15842519434715.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15841141639721.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15841142970226.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15841144905684.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15839389561535.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15839394057433.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15839426015966.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15839432208170.jpg">
+<meta property="og:updated_time" content="2020-03-22T16:32:00.339Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="APP-Android抓包技巧">
+<meta name="twitter:description" content="抓包出错排查思路 0x01 抓取HTTPS的数据包 使用Frida绕过SSL固定 使用XPOST绕过SSL双向校验      抓包出错排查思路   上面是大概的排查思路, 具体的细节可能有些差异。如果proxy带有证书校验, 且JustTrustMe绕不过去, 可能要自己重新根据该应用定制hook模块, 去绕过其本地证书校验, 但是大部分应用都能通过将证书安装为系统证书绕过。  0x01 抓">
+<meta name="twitter:image" content="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/15839184306163.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/index.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">VK</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">VK&#39;Blog</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2016/">CVE-2016</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2017/">CVE-2017</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2018/">CVE-2018</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">20</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端安全/">前端安全</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2016–3714/">CVE-2016–3714</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2017-11882/">CVE-2017-11882</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2018-1273/">CVE-2018-1273</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16278/">CVE-2019-16278</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16759/">CVE-2019-16759</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux本地提取/">Linux本地提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端知识/">前端知识</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/加解密集合/">加解密集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反弹Shell/">反弹Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/APP渗透测试/" style="font-size: 13.6px;">APP渗透测试</a> <a href="/tags/CVE-2016–3714/" style="font-size: 13px;">CVE-2016–3714</a> <a href="/tags/CVE-2017-11882/" style="font-size: 13px;">CVE-2017-11882</a> <a href="/tags/CVE-2018-1273/" style="font-size: 13px;">CVE-2018-1273</a> <a href="/tags/CVE-2019-0708/" style="font-size: 13px;">CVE-2019-0708</a> <a href="/tags/CVE-2019-16278/" style="font-size: 13px;">CVE-2019-16278</a> <a href="/tags/CVE-2019-16759/" style="font-size: 13.2px;">CVE-2019-16759</a> <a href="/tags/Java代码审计/" style="font-size: 14px;">Java代码审计</a> <a href="/tags/Linux本地提取/" style="font-size: 13px;">Linux本地提取</a> <a href="/tags/WEB渗透测试/" style="font-size: 13.8px;">WEB渗透测试</a> <a href="/tags/前端安全-CSRF/" style="font-size: 13px;">前端安全-CSRF</a> <a href="/tags/前端知识/" style="font-size: 13.4px;">前端知识</a> <a href="/tags/加解密集合/" style="font-size: 13px;">加解密集合</a> <a href="/tags/反弹Shell/" style="font-size: 13px;">反弹Shell</a> <a href="/tags/应急响应/" style="font-size: 13px;">应急响应</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/03/05/APP-Android脱壳的dex文件回编译APK/" class="title">APP-Android脱壳的dex文件回编译APK</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-03-05T07:20:20.000Z" itemprop="datePublished">2020-03-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/28/APP-Android脱壳-FRIDA-DEXDump/" class="title">APP-Android脱壳-FRIDA-DEXDump</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-28T07:18:29.000Z" itemprop="datePublished">2020-02-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/10/APP-Android抓包技巧/" class="title">APP-Android抓包技巧</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-10T07:30:08.000Z" itemprop="datePublished">2020-02-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/08/APP-APK签名技巧记录/" class="title">APK签名技巧记录</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-08T07:30:08.000Z" itemprop="datePublished">2020-02-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/JAVA/">JAVA</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/05/代码审计-Java-CORS/" class="title">Java代码审计-CORS</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-05T06:15:29.558Z" itemprop="datePublished">2020-02-05</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-APP-Android抓包技巧" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      APP-Android抓包技巧
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/02/10/APP-Android抓包技巧/" class="article-date">
+	  <time datetime="2020-02-10T07:30:08.000Z" itemprop="datePublished">2020-02-10</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/APP/">APP</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/APP渗透测试/">APP渗透测试</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/02/10/APP-Android抓包技巧/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 4(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <!-- toc -->
+
+<ul>
+<li><a href="#抓包出错排查思路">抓包出错排查思路</a></li>
+<li><a href="#0x01-抓取https的数据包">0x01 抓取HTTPS的数据包</a><ul>
+<li><a href="#使用frida绕过ssl固定">使用Frida绕过SSL固定</a></li>
+<li><a href="#使用xpost绕过ssl双向校验">使用XPOST绕过SSL双向校验</a></li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<h2><span id="抓包出错排查思路">抓包出错排查思路</span></h2><img src="/2020/02/10/APP-Android抓包技巧/15839184306163.jpg" width="800" height="600" alt="图片名称" align="center">
+
+<ul>
+<li>上面是大概的排查思路, 具体的细节可能有些差异。如果proxy带有证书校验, 且JustTrustMe绕不过去, 可能要自己重新根据该应用定制hook模块, 去绕过其本地证书校验, 但是大部分应用都能通过将证书安装为系统证书绕过。</li>
+</ul>
+<h2><span id="0x01-抓取https的数据包">0x01 抓取HTTPS的数据包</span></h2><h3><span id="使用frida绕过ssl固定">使用Frida绕过SSL固定</span></h3><ul>
+<li><p><strong>项目背景</strong>：适用Burp抓app的包，当未开代理，APP联网正常抓包；<br>开了代理，APP无法联网，抓包失败。</p>
+</li>
+<li><p><strong>配置环境</strong>：</p>
+<ul>
+<li>PC端：MAC</li>
+<li>Android端：基于arm64</li>
+<li>python：3.6</li>
+</ul>
+</li>
+<li><p><strong>Frida安装</strong>：<br>  Frida安装分为两部分，PC端安装客户端和Android端安装服务器。</p>
+<ul>
+<li><p><strong>客户端安装</strong>：pip3.6  install frida<br>执行frida-ps，验证是否安装成功。如下图所示，则表明frida客户端安装成功。</p>
+  <img src="/2020/02/10/APP-Android抓包技巧/15842487003891.jpg" width="800" height="600" alt="图片名称" align="center"></li>
+<li><p><strong>服务端安装</strong>：frida服务端版本应与客户端一致，因此需要先在PC中输入frida –version查看frida版本。如下图：</p>
+  <img src="/2020/02/10/APP-Android抓包技巧/15842490655251.jpg" width="800" height="600" alt="图片名称" align="center">
+
+<p>  然后在<a href="https://github.com/frida/frida/releases" target="_blank" rel="noopener">https://github.com/frida/frida/releases</a><br>  中下载对应的服务端版本。注意我们还得查看模拟器或测试机架构，下载对应的版本。命令#： adb shell getprop ro.product.cpu.abi</p>
+  <img src="/2020/02/10/APP-Android抓包技巧/15841148541345.jpg" width="500" height="300" alt="图片名称" align="center">
+
+<p>  本文环境应下载frida-server-12.8.11-android-arm64.xz，下载之后解压，并将frida-server-12.8.11-android-arm64传到Android端，命令为：adb push frida-server-12.8.11-android-arm64 /data/local/tmp/frida-server，如下图：</p>
+  <img src="/2020/02/10/APP-Android抓包技巧/15842510355571.jpg" width="500" height="300" alt="图片名称" align="center">
+
+<p>  下一步就是执行frida-server，普通用户没有权限，需要su切换到root用户，然后到/data/local/tmp/路径下，对frida-server添加执行权限，执行chmod 777 frida-server，再执行./frida-server运行服务端frida。确认是否安装成功，在PC端执行frida-ps -U，如果列出设备上所有正在运行的进程，则代表安装成功。</p>
+  <img src="/2020/02/10/APP-Android抓包技巧/15842513258063.jpg" width="500" height="300" alt="图片名称" align="center">
+
+<p>  或者查看frida对应的端口是否启动,端口 27042 命令：adb shell netstat -tulnp </p>
+  <img src="/2020/02/10/APP-Android抓包技巧/15842517858182.jpg" width="500" height="300" alt="图片名称" align="center">
+</li>
+</ul>
+</li>
+<li><p><strong>设置代理</strong>：</p>
+<ul>
+<li><p>设置模拟器代理或测试机代理</p>
+<ul>
+<li><p>设置-无线网络-wifi-修改网络-代理</p>
+</li>
+<li><p>代理一般设置为出网ip，</p>
+</li>
+<li><p>然后burp设置同样的IP和端口</p>
+<img src="/2020/02/10/APP-Android抓包技巧/15842519434715.jpg" width="500" height="300" alt="图片名称" align="center">
+
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p><strong>安装burp证书</strong>：</p>
+<ul>
+<li><p>1.启动burp，保持默认代理不变，打开浏览器，设置浏览器代理，访问</p>
+<img src="/2020/02/10/APP-Android抓包技巧/15841141639721.jpg" width="500" height="300" alt="图片名称" align="center">
+</li>
+<li><p>2.点击右上角下载证书，改名为burpca-cert-der.crt</p>
+<img src="/2020/02/10/APP-Android抓包技巧/15841142970226.jpg" width="500" height="300" alt="图片名称" align="center">
+</li>
+<li><p>3.把证书导入模拟器或测试机:</p>
+<p>命令：adb push burpca-cert-der.crt /data/local/tmp/cert-der.crt</p>
+<img src="/2020/02/10/APP-Android抓包技巧/15841144905684.jpg" width="500" height="300" alt="图片名称" align="center">
+
+<p>到模拟器或测试机文件管理的对应路径双击导入证书,安装证书时，随意命名。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>开启绕过</strong>：</p>
+<ul>
+<li>将 fridascript.js hook 到目标应用程序中<br>命令：frida -U 包名 -l frida-android-repinning.js –no-pause</li>
+</ul>
+</li>
+</ul>
+<h3><span id="使用xpost绕过ssl双向校验">使用XPOST绕过SSL双向校验</span></h3><ul>
+<li><p>项目背景：在做安卓APP抓包测试的时候，发现有些APP会对https流量做SSL证书的强校验。</p>
+</li>
+<li><p>绕过证书强校验，可以利用hook的方式，将应用及系统中验证https证书的逻辑全部hook为验证结果正确，这样无论安装的证书是否有效，皆可进行正常的https通信。这里就需要对手机安装hook框架，这里用到的hook框架为Xposed。</p>
+</li>
+</ul>
+<p>官方下载地址：<br><a href="http://repo.xposed.info/module/de.robv.android.xposed.installer" target="_blank" rel="noopener">http://repo.xposed.info/module/de.robv.android.xposed.installer</a><br>这里需要注意的是，安装Xposed，需要root权限，在Android4.0-4.4是可以直接通过安装apk的方式开刷入Xposed框架，而在Android 5.0以上则需要刷入Xposted的固件包。<br>下载地址如下：<br><a href="https://dl-xda.xposed.info/framework/" target="_blank" rel="noopener">https://dl-xda.xposed.info/framework/</a><br><img src="/2020/02/10/APP-Android抓包技巧/15839389561535.jpg" alt="-w794"><br>点击SDK23，发现有两种文件，其中.asc文件是 .zip文件的GPG签名，直接下载.zip文件安装即可。<br><img src="/2020/02/10/APP-Android抓包技巧/15839394057433.jpg" alt="-w976"></p>
+<table>
+<thead>
+<tr>
+<th>SDK</th>
+<th>—- Android固件—-</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SDK21</td>
+<td>Android 5.0</td>
+</tr>
+<tr>
+<td>SDK22</td>
+<td>Android 5.1</td>
+</tr>
+<tr>
+<td>SDK23</td>
+<td>Android 6.0</td>
+</tr>
+<tr>
+<td>SDK24</td>
+<td>Android 7.0</td>
+</tr>
+<tr>
+<td>SDK25</td>
+<td>Android 7.1</td>
+</tr>
+<tr>
+<td>SDK26</td>
+<td>Android 8.0</td>
+</tr>
+<tr>
+<td>SDK27</td>
+<td>Android 8.1</td>
+</tr>
+</tbody></table>
+<p>同时我放在了百度网盘方便下载：</p>
+<ul>
+<li><p>Xposed安装器下载地址</p>
+<ul>
+<li>安卓5.0版本以下下载地址：<ul>
+<li>链接:<a href="https://pan.baidu.com/s/163hAuiRivx7k9kBxXSV5iw" target="_blank" rel="noopener">https://pan.baidu.com/s/163hAuiRivx7k9kBxXSV5iw</a>  密码:b7j3</li>
+</ul>
+</li>
+<li>安卓5.0版本以上下载地址：<ul>
+<li>链接:<a href="https://pan.baidu.com/s/1nBLHX7fGFOgOWncPwrOd4w" target="_blank" rel="noopener">https://pan.baidu.com/s/1nBLHX7fGFOgOWncPwrOd4w</a>  密码:umpq</li>
+</ul>
+</li>
+<li>JustTrustMe Relese.2版本下载地址：<ul>
+<li>链接:<a href="https://pan.baidu.com/s/1tVDCQEPA5VH9cj-ajLOzSA" target="_blank" rel="noopener">https://pan.baidu.com/s/1tVDCQEPA5VH9cj-ajLOzSA</a>  密码:qzv5</li>
+</ul>
+</li>
+<li>JustTrustMe Relese.3版本下载地址：<ul>
+<li><a href="https://github.com/vkbiu/DroidSSLUnpinning" target="_blank" rel="noopener">https://github.com/vkbiu/DroidSSLUnpinning</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>安装完成效果如下：<br><img src="/2020/02/10/APP-Android抓包技巧/15839426015966.jpg" alt></p>
+</li>
+<li><p>想要进行https抓包的话需要安装Xposed的一个开源模块–JustTrustMe，安装进手机，在Xposted中激活并重启手机，这时就可以随意抓取手机中的流量了。<br><img src="/2020/02/10/APP-Android抓包技巧/15839432208170.jpg" alt="-w511"></p>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/" title="APP-Android抓包技巧" target="_blank" rel="external">http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark">VK</span><small class="ml-1x">VK&#39;Blog</small></a></h3>
+        <div>生如蝼蚁，当立鸿鹄之志。命如薄纸，却有不屈之心。乾坤未定，你我皆是黑马，祝你我飞黄腾达前程似锦。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/02/28/APP-Android脱壳-FRIDA-DEXDump/" title="APP-Android脱壳-FRIDA-DEXDump"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/02/08/APP-APK签名技巧记录/" title="APK签名技巧记录"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+    
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+	<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span >本站总访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span >本站访客数: <span id="busuanzi_value_site_uv"></span>人</span>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'PUQvavgGf7Y3FXIB68W62St5-gzGzoHsz',
+    appKey: 'OxWOQ95mJtXnKAo9rlYodq2S',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+<script type="text/javascript" src="/js/love.js"></script>
+
+</html>

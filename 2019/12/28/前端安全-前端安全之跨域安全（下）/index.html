@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>前端安全之跨域安全（下） | VK&#39;Blog|博客</title>
+  <meta name="description" content="0x01 WebSocket 基本概念   0x02 CSWSH漏洞 0x03 防御    alert(/来了老弟/)  0x01 WebSocket基本概念 一般的，Web应用的交互过程通常是客户端通过浏览器发出一个请求，服务器端接收请求后进行处理并返回结果给客户端，客户端浏览器将信息呈现。这种机制对于信息变化不是特别频繁的应用尚可，但却不适用于高并发与用户实时响应的场景，比如股票的实时信">
+<meta name="keywords" content="前端知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端安全之跨域安全（下）">
+<meta property="og:url" content="http://www.vkxss.top/2019/12/28/前端安全-前端安全之跨域安全（下）/index.html">
+<meta property="og:site_name" content="VK&#39;s blog">
+<meta property="og:description" content="0x01 WebSocket 基本概念   0x02 CSWSH漏洞 0x03 防御    alert(/来了老弟/)  0x01 WebSocket基本概念 一般的，Web应用的交互过程通常是客户端通过浏览器发出一个请求，服务器端接收请求后进行处理并返回结果给客户端，客户端浏览器将信息呈现。这种机制对于信息变化不是特别频繁的应用尚可，但却不适用于高并发与用户实时响应的场景，比如股票的实时信">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.vkxss.top/2019/12/28/前端安全-前端安全之跨域安全（下）/15685994573738/15815252752763.jpg">
+<meta property="og:updated_time" content="2020-02-16T16:19:05.876Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端安全之跨域安全（下）">
+<meta name="twitter:description" content="0x01 WebSocket 基本概念   0x02 CSWSH漏洞 0x03 防御    alert(/来了老弟/)  0x01 WebSocket基本概念 一般的，Web应用的交互过程通常是客户端通过浏览器发出一个请求，服务器端接收请求后进行处理并返回结果给客户端，客户端浏览器将信息呈现。这种机制对于信息变化不是特别频繁的应用尚可，但却不适用于高并发与用户实时响应的场景，比如股票的实时信">
+<meta name="twitter:image" content="http://www.vkxss.top/2019/12/28/前端安全-前端安全之跨域安全（下）/15685994573738/15815252752763.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.vkxss.top/2019/12/28/前端安全-前端安全之跨域安全（下）/index.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">VK</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">VK&#39;Blog</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2016/">CVE-2016</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2017/">CVE-2017</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2018/">CVE-2018</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">20</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端安全/">前端安全</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2016–3714/">CVE-2016–3714</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2017-11882/">CVE-2017-11882</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2018-1273/">CVE-2018-1273</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16278/">CVE-2019-16278</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16759/">CVE-2019-16759</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux本地提取/">Linux本地提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端知识/">前端知识</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/加解密集合/">加解密集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反弹Shell/">反弹Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/APP渗透测试/" style="font-size: 13.6px;">APP渗透测试</a> <a href="/tags/CVE-2016–3714/" style="font-size: 13px;">CVE-2016–3714</a> <a href="/tags/CVE-2017-11882/" style="font-size: 13px;">CVE-2017-11882</a> <a href="/tags/CVE-2018-1273/" style="font-size: 13px;">CVE-2018-1273</a> <a href="/tags/CVE-2019-0708/" style="font-size: 13px;">CVE-2019-0708</a> <a href="/tags/CVE-2019-16278/" style="font-size: 13px;">CVE-2019-16278</a> <a href="/tags/CVE-2019-16759/" style="font-size: 13.2px;">CVE-2019-16759</a> <a href="/tags/Java代码审计/" style="font-size: 14px;">Java代码审计</a> <a href="/tags/Linux本地提取/" style="font-size: 13px;">Linux本地提取</a> <a href="/tags/WEB渗透测试/" style="font-size: 13.8px;">WEB渗透测试</a> <a href="/tags/前端安全-CSRF/" style="font-size: 13px;">前端安全-CSRF</a> <a href="/tags/前端知识/" style="font-size: 13.4px;">前端知识</a> <a href="/tags/加解密集合/" style="font-size: 13px;">加解密集合</a> <a href="/tags/反弹Shell/" style="font-size: 13px;">反弹Shell</a> <a href="/tags/应急响应/" style="font-size: 13px;">应急响应</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/03/05/APP-Android脱壳的dex文件回编译APK/" class="title">APP-Android脱壳的dex文件回编译APK</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-03-05T07:20:20.000Z" itemprop="datePublished">2020-03-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/28/APP-Android脱壳-FRIDA-DEXDump/" class="title">APP-Android脱壳-FRIDA-DEXDump</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-28T07:18:29.000Z" itemprop="datePublished">2020-02-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/10/APP-Android抓包技巧/" class="title">APP-Android抓包技巧</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-10T07:30:08.000Z" itemprop="datePublished">2020-02-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/08/APP-APK签名技巧记录/" class="title">APK签名技巧记录</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-08T07:30:08.000Z" itemprop="datePublished">2020-02-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/JAVA/">JAVA</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/05/代码审计-Java-CORS/" class="title">Java代码审计-CORS</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-05T06:15:29.558Z" itemprop="datePublished">2020-02-05</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-前端安全-前端安全之跨域安全（下）" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      前端安全之跨域安全（下）
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/12/28/前端安全-前端安全之跨域安全（下）/" class="article-date">
+	  <time datetime="2019-12-28T07:30:08.000Z" itemprop="datePublished">2019-12-28</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/前端安全/">前端安全</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/前端知识/">前端知识</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/12/28/前端安全-前端安全之跨域安全（下）/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 2.3k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 8(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <!-- toc -->
+
+<ul>
+<li><a href="#0x01-websocket">0x01 WebSocket</a><ul>
+<li><a href="#基本概念">基本概念</a></li>
+</ul>
+</li>
+<li><a href="#0x02-cswsh漏洞">0x02 CSWSH漏洞</a></li>
+<li><a href="#0x03-防御">0x03 防御</a></li>
+</ul>
+<!-- tocstop -->
+
+<script>alert(/来了老弟/)</script>
+
+<h2><span id="0x01-websocket">0x01 WebSocket</span></h2><h3><span id="基本概念">基本概念</span></h3><ul>
+<li><p>一般的，Web应用的交互过程通常是客户端通过浏览器发出一个请求，服务器端接收请求后进行处理并返回结果给客户端，客户端浏览器将信息呈现。这种机制对于信息变化不是特别频繁的应用尚可，但却不适用于高并发与用户实时响应的场景，比如股票的实时信息、地图导航等。</p>
+</li>
+<li><p>于是，基于HTML5规范的、有Web TCP之称的WebSocket应运而生。</p>
+</li>
+<li><p>WebSocket是HTML5一种新的协议，它实现了浏览器和服务器全双工通信，更好地节省服务器资源和宽带并达到实时通讯，它建立在TCP之上，同HTTP一样通过TCP来传输数据，但和HTTP协议的不同点在于：</p>
+<ul>
+<li>WebSocket是持久化的协议，而HTTP是非持久连接；</li>
+<li>WebSocket是一种双向通信协议，在建立连接后，WebSocket服务器和浏览器/客户端代理都能主动地向对方发送或接收数据，就像Socket一样，而HTTP是单向通信协议；</li>
+<li>WebSocket需要类似TCP的三次握手连接，但和TCP不同的是，WebSocket是基于HTTP协议进行的握手，连接成功后才能相互通信；</li>
+<li>WebSocket具有功能强大、双向、低延迟等特征，特别是针对实时的、事件驱动的Web应用程序而言，不惜要的网络流量和延迟得以显著减少，通信效率和应用程序表现大大提升；</li>
+</ul>
+</li>
+<li><p>WebSocket定义了两种URI格式：ws://和wss://，类似于HTTP和HTTPS，ws://使用明文传输，默认端口为80，wss://使用TLS加密传输，默认端口为443。</p>
+</li>
+<li><p><strong>优点：</strong></p>
+<ul>
+<li>支持双向通信，实时性比较强</li>
+<li>更好的二进制支持</li>
+<li>较少的开销。创建连接后，数据交换时候不用携带所有的数据头部信息</li>
+<li>支持拓展</li>
+</ul>
+</li>
+<li><p><strong>缺点：</strong></p>
+<ul>
+<li>缺少认证机制</li>
+<li>存在跨站点劫持漏洞</li>
+</ul>
+</li>
+<li><p><strong>其他一些头字段解释如下：</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">HTTP头	是否必须	解释</span><br><span class="line">Host	是	服务端主机名</span><br><span class="line">Upgrade	是	固定值，”websocket”</span><br><span class="line">Connection	是	固定值，”Upgrade”</span><br><span class="line">Sec-WebSocket-Key	是	客户端临时生成的16字节随机值, base64编码</span><br><span class="line">Sec-WebSocket-Version	是	WebSocket协议版本</span><br><span class="line">Origin	否	可选, 发起连接请求的源</span><br><span class="line">Sec-WebSocket-Accept	是(服务端)	服务端识别连接生成的随机值</span><br><span class="line">Sec-WebSocket-Protocol	否	可选，客户端支持的协议</span><br><span class="line">Sec-WebSocket-Extensions	否	可选， 扩展字段</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>两个重要的安全头，Sec-WebSocket-Key与Sec-WebSocket-Accept：客户端负责生成一个Base64编码过的随机数字作为Sec-WebSocket-Key，服务器则会将一个GUID和这个客户端的随机数一起生成一个散列Key作为Sec-WebSocket-Accept返回给客户端。这个工作机制可以用来避免缓存代理（caching proxy），也可以用来避免请求重播（request replay）。</p>
+</li>
+<li><p>出于安全考虑而设计的，以“Sec-”开头的头字段可以避免被浏览器脚本读取到，这样攻击者就不能利用XHR来伪造WebSocket请求来执行跨协议攻击，因为XHR接口不允许设置Sec-开头的Header。</p>
+</li>
+<li><p><strong>WebSocket属性</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">属性	描述</span><br><span class="line">Socket.readyState	只读属性 readyState 表示连接状态，可以是以下值：0 - 表示连接尚未建立。1 - 表示连接已建立，可以进行通信。2 - 表示连接正在进行关闭。3 - 表示连接已经关闭或者连接不能打开。</span><br><span class="line">Socket.bufferedAmount	只读属性 bufferedAmount 已被 send() 放入正在队列中等待传输，但是还没有发出的 UTF-8 文本字节数。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>WebSocket事件</strong></p>
+</li>
+</ul>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">事件	事件处理程序	描述</span><br><span class="line">open	Socket.onopen	连接建立时触发</span><br><span class="line">message	Socket.onmessage	客户端接收服务端数据时触发</span><br><span class="line">error	Socket.onerror	通信发生错误时触发</span><br><span class="line">close	Socket.onclose	连接关闭时触发</span><br></pre></td></tr></table></figure></code></pre><ul>
+<li><p><strong>WebSocket方法</strong></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">方法	描述</span><br><span class="line">Socket.send()	使用连接发送数据</span><br><span class="line">Socket.close()	关闭连接</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2><span id="0x02-cswsh漏洞">0x02 CSWSH漏洞</span></h2><ul>
+<li><p>CSWSH全称Cross-site WebSocket Hijacking，跨站点WebSocket劫持漏洞。</p>
+</li>
+<li><p><strong>漏洞场景</strong></p>
+<ul>
+<li>支持WebSocket协议的Web站点如股票实时查询、地图导航等，并且未对请求的Origin头字段进行校验。</li>
+</ul>
+</li>
+<li><p><strong>漏洞原理</strong></p>
+<ul>
+<li>CSWSH漏洞类似于全能型的CSRF漏洞，可读可写。</li>
+<li>漏洞根源是WebSocket天生可跨域，不受同源策略的影响。在此基础上，若目标服务端未对WebSocket协议请求的Origin头字段进行校验，则会导致WebSocket协议请求可被攻击者劫持，从而窃取敏感信息。</li>
+</ul>
+</li>
+<li><p><strong>漏洞场景</strong></p>
+<ul>
+<li><p>目标站点存在cookie校验机制的场景<br><img src="/2019/12/28/前端安全-前端安全之跨域安全（下）/15685994573738/15815252752763.jpg" alt="-w996"></p>
+<ul>
+<li>1、用户首先登录stock.com实时查询股票信息，其中该站点支持WebSocket，需要用户携带cookie访问；</li>
+<li>2、接着用户被诱使在当前的浏览器访问beauty.com，其中加载了恶意JS代码到用户的浏览器中执行；</li>
+<li>3、恶意JS代码通过WebSocket协议向stock.com站点发起请求，此时请求是用户浏览器发起的、是自动带上cookie信息的；</li>
+<li>4、stock.com收到恶意JS发送的WebSocket请求，由于未校验ws://请求的Origin头字段，在检测cookie合法后，返回敏感信息到用户浏览器；</li>
+<li>5、用户浏览器中的恶意JS收到stock.com响应的WebSocket协议响应信息后，发往攻击者服务器，从而造成跨站点WebSocket劫持攻击； </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>检测方法</strong></p>
+<ul>
+<li><p>修改请求报文中的Origin头字段，重放该WebSocket协议升级请求，若服务器返回101响应则表示连接成功即未对源进行检测，则可能存在CSWSH漏洞。</p>
+</li>
+<li><p>最好是进一步测试是否可以发送WebSocket消息，若这个WebSocket连接能够发送/接受消息的话，则完全证明CSWSH漏洞的存在。</p>
+</li>
+<li><p>一般的漏洞挖掘步骤：</p>
+<ul>
+<li>找到支持WebSocket的站点；</li>
+<li>使用ZAP/BURP等代理工具重放切换WebSocket协议的报文，其中修改Origin头查看服务端是否校验Origin头；</li>
+<li>若未校验Origin头，则进一步发送WebSocket连接报文查看能否成功利用；</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>POC</strong></p>
+<ul>
+<li><p>使用JavaScript创建Websocket请求：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">      &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">function ws_attack()&#123;//自定义函数ws_attack</span><br><span class="line">   //定义函数功能</span><br><span class="line">   //创建WebSocket并赋值给ws变量</span><br><span class="line">   var ws = new WebSocket(&quot;ws://域名:端口/&quot;);//如果请求的Websocket服务仅支持HTTP就写成ws://，如果请求的Websocket服务支持HTTPs就写成wss://</span><br><span class="line">   ws.onopen = function(evt) &#123; </span><br><span class="line">       //当ws(WebSocket)处于连接状态时执行</span><br><span class="line">       ws.send(&quot;来了老弟&quot;);</span><br><span class="line">  &#125;;</span><br><span class="line">   ws.onmessage = function(evt) &#123;</span><br><span class="line">       //当ws(WebSocket)请求有响应信息时执行</span><br><span class="line">       //注意：响应的信息可以通过evt.data获取！例如：alert(evt.data);</span><br><span class="line">       ws.close();</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br><span class="line">ws_attack();//执行ws_attact函数</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>漏洞挖掘</strong></p>
+<ul>
+<li><p>进行CSWSH漏洞挖掘前需要准备好一款可以重放WebSocket协议报文的代理工具，Burp是做不到的，但是我们可以选择OWASP ZAP来实现。</p>
+</li>
+<li><p>一般的漏洞挖掘步骤：</p>
+<ul>
+<li>找到支持WebSocket的站点；</li>
+<li>使用ZAP等代理工具重放切换WebSocket协议的报文，其中修改Origin头查看服务端是否校验Origin头；</li>
+<li>若未校验Origin头，则进一步发送WebSocket连接报文查看能否成功利用；</li>
+</ul>
+</li>
+<li><p>当然，切换协议的请求报文依然是可以使用Burp来完成的，这里修改Origin头之后再重放报文，发现成功响应101报文，证明该站点未校验Origin，可能存在CSWSH漏洞：</p>
+</li>
+</ul>
+</li>
+<li><p><strong>案例</strong></p>
+<ul>
+<li><p>1、如下请求：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">GET / HTTP/1.1</span><br><span class="line">Host: localhost:8080</span><br><span class="line">Origin: http://127.0.0.1:3000</span><br><span class="line">Connection: Upgrade</span><br><span class="line">Upgrade: websocket</span><br><span class="line">Sec-WebSocket-Version: 13</span><br><span class="line">Sec-WebSocket-Key:w4v7O6xFTi36lq3RNcgctw==</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>2、篡改Origin，发现没有对Origin进行验证</p>
+</li>
+<li><p>3、验证发现可以请求并成功进行重放，存在Websocket跨域劫持（这里只是简单的评论请求，危害就是：点我链接让你评论我想评论的，试想：如果是修改密码的WebSocket请求存在劫持那么问题就大了～）</p>
+</li>
+</ul>
+</li>
+<li><p><strong>漏洞利用</strong></p>
+<ul>
+<li>攻击流程跟以往的交互类漏洞没什么区别（点我链接读取你XXX、点我链接让你XXX）：    </li>
+</ul>
+</li>
+</ul>
+<h2><span id="0x03-防御">0x03 防御</span></h2><ul>
+<li><p><strong>防御方法</strong></p>
+<ul>
+<li><p>WebSocket 令牌机制</p>
+<ul>
+<li>服务器端为每个 WebSocket 客户端生成唯一的一次性 Token；客户端将 Token 作为 WebSocket 连接 URL 的参数（譬如 ws://<a href="http://echo.websocket.org/?token＝randomOneTimeToken），发送到服务器端进行" target="_blank" rel="noopener">http://echo.websocket.org/?token＝randomOneTimeToken），发送到服务器端进行</a> WebSocket 握手连接；服务器端验证 Token 是否正确，一旦正确则将这个 Token 标示为废弃不再重用，同时确认 WebSocket 握手连接成功；如果 Token 验证失败或者身份认证失败，则返回 403 错误。</li>
+</ul>
+</li>
+<li><p>使用白名单校验请求报文的Origin头字段；</p>
+<ul>
+<li><p>在服务器端的代码中增加 Origin 检查，如果客户端发来的 Origin 信息来自不同域，建议服务器端拒绝这个请求，发回 403 错误响应拒绝连接</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">实例代码：</span><br><span class="line">public class CustomConfigurator extends ServerEndpointConfig.Configurator &#123;</span><br><span class="line"> </span><br><span class="line"> private static final String ORIGIN = &quot;http://jeremy.laptop:8080&quot;;</span><br><span class="line"> @Override</span><br><span class="line"> public boolean checkOrigin(String originHeaderValue) &#123;</span><br><span class="line"> if(originHeaderValue==null || originHeaderValue.trim().length()==0)</span><br><span class="line"> return true;</span><br><span class="line"> return ORIGIN.equals(originHeaderValue);</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://www.vkxss.top/2019/12/28/前端安全-前端安全之跨域安全（下）/" title="前端安全之跨域安全（下）" target="_blank" rel="external">http://www.vkxss.top/2019/12/28/前端安全-前端安全之跨域安全（下）/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark">VK</span><small class="ml-1x">VK&#39;Blog</small></a></h3>
+        <div>生如蝼蚁，当立鸿鹄之志。命如薄纸，却有不屈之心。乾坤未定，你我皆是黑马，祝你我飞黄腾达前程似锦。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/01/05/渗透测试-MYSQL注入总结/" title="MYSQL注入总结"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/12/15/前端安全-前端安全之跨域安全（中）/" title="前端安全之跨域安全（中）"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+    
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+	<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span >本站总访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span >本站访客数: <span id="busuanzi_value_site_uv"></span>人</span>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'PUQvavgGf7Y3FXIB68W62St5-gzGzoHsz',
+    appKey: 'OxWOQ95mJtXnKAo9rlYodq2S',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+<script type="text/javascript" src="/js/love.js"></script>
+
+</html>

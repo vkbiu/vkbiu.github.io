@@ -1,5 +1,12 @@
+http://www.vkxss.top/2020/03/05/APP-Android脱壳的dex文件回编译APK/
+http://www.vkxss.top/2020/02/28/APP-Android脱壳-FRIDA-DEXDump/
+http://www.vkxss.top/2020/02/10/APP-Android抓包技巧/
+http://www.vkxss.top/2020/02/08/APP-APK签名技巧记录/
 http://www.vkxss.top/2020/02/05/代码审计-Java-CORS/
 http://www.vkxss.top/2020/01/16/APP-验签名与重放/
+http://www.vkxss.top/2020/01/05/渗透测试-MYSQL注入总结/
+http://www.vkxss.top/2019/12/28/前端安全-前端安全之跨域安全（下）/
+http://www.vkxss.top/2019/12/15/前端安全-前端安全之跨域安全（中）/
 http://www.vkxss.top/2019/12/09/前端安全-前端安全之跨域安全（上）/
 http://www.vkxss.top/2019/11/15/渗透测试-漏洞挖掘的组合拳/
 http://www.vkxss.top/2019/11/13/Python-多线程测试并发漏洞测试/
@@ -13,11 +20,11 @@ http://www.vkxss.top/2019/10/24/渗透测试-google_hack语法/
 http://www.vkxss.top/2019/10/21/渗透测试-Mysql-Dnslog盲注/
 http://www.vkxss.top/2019/10/18/代码审计-Java-RCE/
 http://www.vkxss.top/2019/10/17/CVE-2019-16278/
+http://www.vkxss.top/2019/10/13/Python-接口快速测试小技巧(Python)/
 http://www.vkxss.top/2019/10/11/渗透测试-SVG-XSS/
-http://www.vkxss.top/2019/10/11/Python-接口快速测试小技巧(Python)/
 http://www.vkxss.top/2019/10/08/CVE-2019-13272/
 http://www.vkxss.top/2019/10/03/代码审计-Java-授权管理总结/
-http://www.vkxss.top/2019/09/29/代码审计-Java-SSRF/
+http://www.vkxss.top/2019/09/30/代码审计-Java-SSRF/
 http://www.vkxss.top/2019/09/28/代码审计-Java-XXE总结/
 http://www.vkxss.top/2019/09/25/CVE-2019-16759/
 http://www.vkxss.top/2019/09/19/渗透测试-绕过CSRF防御总结/
