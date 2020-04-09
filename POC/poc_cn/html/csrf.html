@@ -1,0 +1,43 @@
+<html>
+<body>
+<div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">POC</li>
+    <li>漏洞案例</li>
+  </ul>
+<div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+    <center>
+        <h3 id = "title">CSRF写入型漏洞</h3>
+        <hr>
+        <input type="text" name="title" required lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input" id="input" style="width: 500px;"><br>
+        <input type="hidden" name="title" required lay-verify="required" placeholder="请输入非JSON格式的POST数据" autocomplete="off" class="layui-input" id="data" style="width: 500px;"><br>
+        <input name="method" type="radio" value="GET" onclick="document.getElementById('data').type='hidden'" checked= "null"> GET 
+        <input name="method" type="radio" value="POST" onclick="document.getElementById('data').type='text'"> POST<br><br>
+        <button class="layui-btn layui-btn-fluid" onclick="getPoC('csrf');" style="width: 100px;">生成</button><br><br><hr><h3>PoC Code</h3><br>
+        <textarea placeholder="Code" class="layui-textarea" id="pocText" style="width: 1160px; height: 300px;"></textarea><br>
+        <button class="layui-btn layui-btn-fluid" onclick="funDownload()" style="width: 100px;">下载</button>
+    </center>
+</div>
+    <div class="layui-tab-item">
+    <div class="layui-collapse" lay-accordion>
+      <div class="layui-colla-item">
+        <h2 class="layui-colla-title">案例一</h2>
+        <div class="layui-colla-content layui-show">
+        
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+ 
+<script>
+//注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+layui.use('element', function(){
+  var element = layui.element;
+  
+  //…
+});
+</script>
+</body>
+</html>

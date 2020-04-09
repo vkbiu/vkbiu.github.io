@@ -1,0 +1,113 @@
+<html>
+<body>
+<div class="layui-tab">
+  <ul class="layui-tab-title">
+<!--     <li>语法生成</li> -->
+    <li>搜索语法</li>
+    <li>搜索引擎</li>
+  </ul>
+  <div class="layui-tab-content">
+<!--     <div class="layui-tab-item">
+    <center>
+    <h3>GoogleHack 语法生成</h3>
+      <hr>
+      <input type="text" name="title" required lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input" id="input" style="width: 500px;"><br>
+      <button class="layui-btn layui-btn-fluid" onclick="getPoC('googlehack');" style="width: 100px;">生成</button><br><br><hr><h3>PoC Code</h3><br>
+      <textarea placeholder="Code" class="layui-textarea" id="pocText" style="width: 1160px; height: 300px;"></textarea><br>
+    </center>
+    </div> -->
+
+    <div class="layui-tab-item">
+    
+    <div class="layui-collapse" lay-accordion>
+      <div class="layui-colla-item">
+        <h2 class="layui-colla-title">初级语法表</h2>
+        <div class="layui-colla-content layui-show">
+          模糊搜索-例如：卢本伟<br>
+          精确搜索-例如："卢本伟"<br>
+          通配符*-例如：何安圻*<br>
+          通配符.-例如：大岭山中学.   PS:.的通配符用于匹配字符<br>
+          布尔逻辑-例如：大岭山中学 and 何安圻<br>
+          逻辑或|-例如：绿盟 (郑州)<br>
+          逻辑非-例如：何安圻 -博客园<br>
+          约束条件-例如：黎颖希 +获奖<br>
+          数字范围-例如：绿盟+2009年 2015年<br>
+        </div>
+      </div>
+      <div class="layui-colla-item">
+        <h2 class="layui-colla-title">高级语法表</h2>
+        <div class="layui-colla-content layui-show">
+          访问基本信息-例如：info:baidu.com<br>
+          标题搜索-例如：intitle:后台登录<br>
+          正文搜索-例如：intext:身份证大全<br>
+          url搜索-例如：inurl:google.com<br>
+          锚链链接搜索-例如：inanchor:google<br>
+          文档类型限定搜索-例如：intext:身份证大全 filetype:xls<br>
+          缓存搜索-l例如：cache:secqun.org<br>
+          相关网址搜索-例如：related:google hacking<br>
+          相关连接搜索-例如：link:baidu.com<br>
+          与指定域名相关的搜索：site:baidu.com<br>
+        </div>
+      </div>
+      <div class="layui-colla-item">
+        <h2 class="layui-colla-title">高级利用</h2>
+        <div class="layui-colla-content layui-show">
+          inurl:robots.txt<br>
+          intitle:登录 intext:username inurl:login.jsp<br>
+          inurl:8080 inurl:jsp<br>
+          filetype:sql site:com and "insert into admin 2014"<br>
+          inurl:jsp/demo.jsp<br>
+          inurl:update set inurl:where<br>
+        </div>
+      </div>
+      <div class="layui-colla-item">
+        <h2 class="layui-colla-title">渗透利用</h2>
+        <div class="layui-colla-content layui-show">
+          “Login: ” “password =” filetype: xls ( 搜索存储在excel文件中含有password的数据)。<br>
+          allinurl: auth_user_file.txt (搜索包含在服务器上的 auth_user_file.txt 的文件）。<br>
+          filetype: xls inurl: “password.xls” (查找 用户名和密码以excel格式）这个命令可以变为“admin.xls”.<br>
+          intitle: login password (获取登陆页面的连接，登陆关键词在标题中。)<br>
+          intitle: “Index of” master.passwd (密码页面索引)<br>
+          index of / backup ( 搜索服务器上的备份文件）<br>
+          intitle: index.of people.lst (包含people.list的网页）<br>
+          intitle: index.of passwd.bak ( 密码备份文件)<br>
+          intitle: “Index of” pwd.db (搜索数据库密码文件).<br>
+          intitle: “Index of .. etc” passwd (安装密码建立页面索引）.<br>
+          index.of passlist.txt (以纯文本的形式加载包含passlist.txt的页面).<br>
+          index.of.secret (显示包含机密的文档，.gov类型的网站除外) 还可以使用: index.of.private<br>
+          filetype: xls username password email (查找表格中含有username和password的列的xls文件).<br>
+          ”# PhpMyAdmin MySQL-Dump” filetype: txt (列出包含敏感数据的基于php的页面)
+          inurl: ipsec.secrets-history-bugs (包含只有超级用户才有的敏感数据). 还有一种旧的用法 inurl: ipsec.secrets “holds shared secrets”
+          inurl: ipsec.conf-intitle: manpage<br>
+          inurl: “wvdial.conf” intext: “password” (显示包含电话号码，用户名和密码的连接。）<br>
+          inurl: “user.xls” intext: “password” (显示用户名和密码存储在xls的链接。)<br>
+          filetype: ldb admin (web服务器查找存储在数据库中没有呗googledork删去的密码。）<br>
+          inurl: search / admin.php (查找admin登陆的php页面). 如果幸运的话，还可以找到一个管理员配置界面创建一个新用户。<br>
+          inurl: password.log filetype:log (查找特定链接的日志文件。)<br>
+          filetype: reg HKEY_CURRENT_USER username (在HCU (Hkey_Current_User)路径中查找注册表文件(registyry)。)<br>
+          “Http://username: password @ www …” filetype: bak inurl: “htaccess | passwd | shadow | ht users”(查找备份文件中的用户名和密码。)
+          filetype:ini ws_ftp pwd (通过ws_ftp.ini 文件查找admin用户的密码)<br>
+          intitle: “Index of” pwd.db (查找加密的用户名和密码）<br>
+          inurl:admin inurl:backup intitle:index.of (查找关键词包含admin和backup的目录。)<br>
+          “Index of/” “Parent Directory” “WS _ FTP.ini” filetype:ini WS _ FTP PWD (WS_FTP 配置文件， 可以获取FTP服务器的进入权限)
+          ext:pwd inurl:(service|authors|administrators|users) “# -FrontPage-”
+          filetype: sql ( “passwd values *” |” password values *” | “pass values **“) 查找存储在数据库中的sql代码和密码。 )<br>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="layui-tab-item"><iframe src="https://baidu.com/search?q=" style="width: 1000px; height: 800px;"></iframe></div>
+    <!-- <div class="layui-tab-item">内容添加</div> -->
+  </div>
+</div>
+ 
+<script>
+//注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+layui.use('element', function(){
+  var element = layui.element;
+  
+  //…
+});
+</script>
+</body>
+</html>

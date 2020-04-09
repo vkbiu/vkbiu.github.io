@@ -1,0 +1,40 @@
+<div class="layui-tab">
+  <ul class="layui-tab-title">
+<!--     <li class="layui-this">网站设置</li> -->
+    <li>搜索语法</li>
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+    <div class="layui-collapse" lay-accordion>  
+      <div class="layui-colla-item">
+        <h2 class="layui-colla-title">使用 Github 进行邮件配置信息收集</h2>
+        <div class="layui-colla-content layui-show">
+          
+          - 很多网站及系统都会使用 pop3 和 smtp 发送来邮件，不少开发者由于安全意识不足会把相关的配置信息也放到Github上，所以如果这时候我们动用一下google搜索命令语句，构造一下关键字，就能把这些信息给找出来了。<br>
+          ……<br>
+          site:Github.com smtp<br>
+          site:Github.com smtp @qq.com<br>
+          site:Github.com smtp @126.com<br>
+          site:Github.com smtp @163.com<br>
+          site:Github.com smtp @sina.com.cn<br>
+          site:Github.com smtp password<br>
+          site:Github.com String password smtp<br>
+          ……<br>
+          我们也可以锁定域名搜索结合厂商域名 灵活运用例如搜百度的<br>
+          site:Github.com smtp @baidu.com<br>
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div>
+</div>
+ 
+<script>
+//注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+layui.use('element', function(){
+  var element = layui.element;
+  
+  //…
+});
+</script>
