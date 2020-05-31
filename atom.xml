@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.vkxss.top/"/>
-  <updated>2020-05-31T02:17:26.400Z</updated>
+  <updated>2020-05-31T02:30:32.625Z</updated>
   <id>http://www.vkxss.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>渗透测试-JsFuck_Xss绕过</title>
+    <link href="http://www.vkxss.top/2020/05/31/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-JsFuck-Xss%E7%BB%95%E8%BF%87/"/>
+    <id>http://www.vkxss.top/2020/05/31/渗透测试-JsFuck-Xss绕过/</id>
+    <published>2020-05-31T02:28:50.000Z</published>
+    <updated>2020-05-31T02:30:32.625Z</updated>
+    
+    <content type="html"><![CDATA[<div id="hexo-blog-encrypt" data-wpm="Oh, this is an invalid password. Check and try again, please." data-whm="OOPS, these decrypted content may changed, but you can still have a look.">  <div class="hbe-input-container">  <input type="password" id="hbePass" placeholder="请输入密码，查看文章。">    <label for="hbePass">请输入密码，查看文章。</label>    <div class="bottom-line"></div>  </div>  <script id="hbeData" type="hbeData" data-hmacdigest="46b9fba8e71ad5f04c47ef0caf78ee609c7f9b56ad113a2a6029c1a06e8bdb2a">501308f7fe8944c58c6dd8e939c06d0e6710dea7c8c53f3796e68ffd9acab7d5fea246247ef198d43f4aa6c2d5335d7fa398d320e08a02413fb00cacf464ae3c300a89b03861c46f76f15c7eae35b1caabbd053752ca14b73c556e3879455d55542703a359079f3d75123d57744b4a8356a6602db8f789501320ba0978dae7e7</script></div><script src="/lib/blog-encrypt.js"></script><link href="/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+    
+    <summary type="html">
+    
+      这是一篇加密文章。如果你确实想看，请留言。
+    
+    </summary>
+    
+    
+      <category term="WEB安全" scheme="http://www.vkxss.top/categories/WEB%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="WEB渗透测试" scheme="http://www.vkxss.top/tags/WEB%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
+    
+  </entry>
   
   <entry>
     <title>前端安全-突破前端js加密</title>
@@ -34,36 +57,6 @@
     
       <category term="前端安全" scheme="http://www.vkxss.top/categories/%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>小程序-获取小程序源码（Alipay）</title>
-    <link href="http://www.vkxss.top/2020/05/18/%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E8%8E%B7%E5%8F%96%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%BA%90%E7%A0%81(%E6%94%AF%E4%BB%98%E5%AE%9D)/"/>
-    <id>http://www.vkxss.top/2020/05/18/小程序-获取小程序源码(支付宝)/</id>
-    <published>2020-05-18T08:58:37.000Z</published>
-    <updated>2020-05-19T10:01:08.784Z</updated>
-    
-    <content type="html"><![CDATA[<div class="row">    <embed src="/PDF/programer/Wechat&amp;Alipay小程序源码反编译.pdf" width="100%" height="550" type="application/pdf"></div>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        
-
-	&lt;div class=&quot;row&quot;&gt;
-    &lt;embed src=&quot;/PDF/programer/Wechat&amp;amp;Alipay小程序源码反编译.pdf&quot; width=&quot;100%&quot; height=&quot;550&quot; type=&quot;application/pdf&quot;&gt;
-	&lt;/div&gt;
-      
-    
-    </summary>
-    
-    
-      <category term="WEB安全" scheme="http://www.vkxss.top/categories/WEB%E5%AE%89%E5%85%A8/"/>
-    
-    
-      <category term="小程序" scheme="http://www.vkxss.top/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
     
   </entry>
   
@@ -90,6 +83,36 @@
 
 
 
+      
+    
+    </summary>
+    
+    
+      <category term="WEB安全" scheme="http://www.vkxss.top/categories/WEB%E5%AE%89%E5%85%A8/"/>
+    
+    
+      <category term="小程序" scheme="http://www.vkxss.top/tags/%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>小程序-获取小程序源码（Alipay）</title>
+    <link href="http://www.vkxss.top/2020/05/18/%E5%B0%8F%E7%A8%8B%E5%BA%8F-%E8%8E%B7%E5%8F%96%E5%B0%8F%E7%A8%8B%E5%BA%8F%E6%BA%90%E7%A0%81(%E6%94%AF%E4%BB%98%E5%AE%9D)/"/>
+    <id>http://www.vkxss.top/2020/05/18/小程序-获取小程序源码(支付宝)/</id>
+    <published>2020-05-18T08:58:37.000Z</published>
+    <updated>2020-05-19T10:01:08.784Z</updated>
+    
+    <content type="html"><![CDATA[<div class="row">    <embed src="/PDF/programer/Wechat&amp;Alipay小程序源码反编译.pdf" width="100%" height="550" type="application/pdf"></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        
+
+	&lt;div class=&quot;row&quot;&gt;
+    &lt;embed src=&quot;/PDF/programer/Wechat&amp;amp;Alipay小程序源码反编译.pdf&quot; width=&quot;100%&quot; height=&quot;550&quot; type=&quot;application/pdf&quot;&gt;
+	&lt;/div&gt;
       
     
     </summary>
@@ -531,38 +554,6 @@
 &lt;li&gt;&lt;a href=&quot;#抓包出错排查思路&quot;&gt;抓包出错排查思路&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#0x01-抓取https的数据包&quot;&gt;0x01 抓取HTTPS的数据包&lt;/a&gt;&lt;ul&gt;
 &lt;li&gt;&lt;a href=&quot;#使用frida绕
-      
-    
-    </summary>
-    
-    
-      <category term="APP" scheme="http://www.vkxss.top/categories/APP/"/>
-    
-    
-      <category term="APP渗透测试" scheme="http://www.vkxss.top/tags/APP%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>APK签名技巧记录</title>
-    <link href="http://www.vkxss.top/2020/02/08/APP-APK%E7%AD%BE%E5%90%8D%E6%8A%80%E5%B7%A7%E8%AE%B0%E5%BD%95/"/>
-    <id>http://www.vkxss.top/2020/02/08/APP-APK签名技巧记录/</id>
-    <published>2020-02-08T07:30:08.000Z</published>
-    <updated>2020-03-22T16:28:46.602Z</updated>
-    
-    <content type="html"><![CDATA[<!-- toc --><ul><li><a href="#0x01-apk签名工具">0X01 APK签名工具</a></li><li><a href="#0x02-apk如何签名">0X02 APK如何签名</a></li></ul><!-- tocstop --><h3><span id="0x01-apk签名工具">0X01 APK签名工具</span></h3><ul><li><p>传统签名工具：jarsigner、apksigner</p></li><li><p>推荐一个非常nice的工具：<a href="https://github.com/vkbiu/uber-apk-signer" target="_blank" rel="noopener">https://github.com/vkbiu/uber-apk-signer</a></p></li><li><p>优点：</p><ul><li>支持一键新签名、重签名</li><li>支持一键批量签名</li><li>支持 v1, v2, v3 签名</li></ul></li></ul><h3><span id="0x02-apk如何签名">0X02 APK如何签名</span></h3><ul><li><p>命令：java -jar uber-apk-signer-1.1.0.jar -a ../path/rxt_debug.apk -o ../path/rxt_debug_1.apk –allowResign<br><img src="/2020/02/08/APP-APK签名技巧记录/15831291840485.jpg" alt="-w974"></p></li><li><p>签名结束， rxt_debug_1.apk目录下生成rxt_debug-aligned后缀的apk，就是使用默认签名签名后的文件，已经可以正常安装了。</p></li><li><p>我们再次验证下签名<br><img src="/2020/02/08/APP-APK签名技巧记录/15831197414830.jpg" alt="-w891"></p></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;!-- toc --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#0x01-apk签名工具&quot;&gt;0X01 APK签名工具&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#0x02-apk如何签名&quot;&gt;0X02 APK如何签名&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- tocstop --
       
     
     </summary>

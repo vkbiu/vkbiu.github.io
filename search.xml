@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[渗透测试-JsFuck_Xss绕过]]></title>
+    <url>%2F2020%2F05%2F31%2F%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95-JsFuck-Xss%E7%BB%95%E8%BF%87%2F</url>
+    <content type="text"><![CDATA[请输入密码，查看文章。 501308f7fe8944c58c6dd8e939c06d0e6710dea7c8c53f3796e68ffd9acab7d5fea246247ef198d43f4aa6c2d5335d7fa398d320e08a02413fb00cacf464ae3c300a89b03861c46f76f15c7eae35b1caabbd053752ca14b73c556e3879455d55542703a359079f3d75123d57744b4a8356a6602db8f789501320ba0978dae7e7]]></content>
+      <categories>
+        <category>WEB安全</category>
+      </categories>
+      <tags>
+        <tag>WEB渗透测试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[前端安全-突破前端js加密]]></title>
     <url>%2F2020%2F05%2F19%2F%E5%89%8D%E7%AB%AF%E5%AE%89%E5%85%A8-%E7%AA%81%E7%A0%B4%E5%89%8D%E7%AB%AFjs%E5%8A%A0%E5%AF%86%2F</url>
     <content type="text"><![CDATA[请输入密码，查看文章。 501308f7fe8944c58c6dd8e939c06d0e6710dea7c8c53f3796e68ffd9acab7d57118db64913c7574bf11decc966b0568473164063a9a64c1cefa5d9a30630ea3ca04afc5a4aca6d8c0e5a9c2d4a31436ae257c286e80d024da52a5b8ab0a5d17268ac51b71c4d8abc44786a23d786b654b9edc342c48806bdb8f367725093da1d0b687dceb3da9c113bc89468d3229f2]]></content>
