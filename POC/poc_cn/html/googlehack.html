@@ -2,24 +2,15 @@
 <body>
 <div class="layui-tab">
   <ul class="layui-tab-title">
-<!--     <li>语法生成</li> -->
-    <li>搜索语法</li>
+  <li class="layui-this">搜索语法</li> 
+    <!-- <li>搜索语法</li> -->
     <li>搜索引擎</li>
   </ul>
-  <div class="layui-tab-content">
-<!--     <div class="layui-tab-item">
-    <center>
-    <h3>GoogleHack 语法生成</h3>
-      <hr>
-      <input type="text" name="title" required lay-verify="required" placeholder="请输入地址" autocomplete="off" class="layui-input" id="input" style="width: 500px;"><br>
-      <button class="layui-btn layui-btn-fluid" onclick="getPoC('googlehack');" style="width: 100px;">生成</button><br><br><hr><h3>PoC Code</h3><br>
-      <textarea placeholder="Code" class="layui-textarea" id="pocText" style="width: 1160px; height: 300px;"></textarea><br>
-    </center>
-    </div> -->
 
-    <div class="layui-tab-item">
-    
-    <div class="layui-collapse" lay-accordion>
+<div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+   
+    <div class="layui-collapse" lay-accordion>  
       <div class="layui-colla-item">
         <h2 class="layui-colla-title">初级语法表</h2>
         <div class="layui-colla-content layui-show">
@@ -96,8 +87,15 @@
       </div>
     </div>
     </div>
-    <div class="layui-tab-item"><iframe src="https://baidu.com/search?q=" style="width: 1000px; height: 800px;"></iframe></div>
-    <!-- <div class="layui-tab-item">内容添加</div> -->
+    
+    <div class="layui-tab-item">
+        <!-- <div class="layui-colla-content layui-show"> -->
+        <!-- <dl class="layui-nav-child"> -->
+        <a href="//www.baidu.com/">百度一下</a>
+        <!-- </dl> -->
+
+
+    </div>
   </div>
 </div>
  

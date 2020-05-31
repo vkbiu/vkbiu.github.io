@@ -141,6 +141,8 @@ function getPoC(par){
 		} else {
 			pocTextEle.value = '参数输入错误，请重新输入！！！'
 		}
+	}else if (par == "clickjacking") {
+			pocTextEle.value = '<html>\n<head>\n<title>Clickjacking</title>\n</head>\n<body>\n<iframe src="'+ input + '" width="800" height="400" />\n</iframe>\n</body>\n</html>'
 	}
 }
 

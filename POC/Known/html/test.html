@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <link rel="stylesheet" href="//res.layui.com/layui/dist/css/layui.css?t=1586046995308" media="all">
+<!--   <style>
+    body{margin: 10px;}
+    .demo-carousel{height: 200px; line-height: 200px; text-align: center;}
+  </style> -->
+</head>
+<body>
+
+<table class="layui-hide" id="demo" lay-filter="test"></table>
+<div id="isShow" style="width:60%; height: 50%;background: #4E5465; position: absolute;top: 28%;left: 20%;display: none;">
+  <form class="layui-form" action="" style="padding-top: 5%;padding-right: 5%;">
+    <div class="layui-form-item">
+      <label class="layui-form-label" style="color: white;">标题</label>
+      <div class="layui-input-block">
+        <input type="text" name="title" required  lay-verify="required" placeholder="请输入标题" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label" style="color: white;">作者</label>
+      <div class="layui-input-inline">
+        <input type="text" name="autor" required lay-verify="required" placeholder="请输入作者" autocomplete="off" class="layui-input">
+      </div>
+    </div>
+
+    <div class="layui-form-item ">
+      <label class="layui-form-label" style="color: white;">分类</label>
+      <div class="layui-input-inline" >
+        <select name="tags" lay-verify="required">
+          <option value=""></option>
+          <option value="0">APP</option>
+          <option value="1">WEB</option>
+          <option value="2">JAVA</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="layui-form-item layui-form-text">
+      <label class="layui-form-label" style="color: white;">文章链接</label>
+      <div class="layui-input-block">
+        <textarea name="url" placeholder="请输入URL" class="layui-textarea"></textarea>
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <div class="layui-input-block">
+        <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+        <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+      </div>
+    </div>
+  </form>
+</div>
+<script type="text/html" id="barDemo">
+  <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>
+  <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+  <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+</script>
+  
+<script src="//res.layui.com/layui/dist/layui.js?t=1586046995308"></script>
+<script>
+layui.config({
+  version: '1586046995308' //为了更新 js 缓存，可忽略
+});
+ 
+  //执行一个 table 实例
+
+layui.use('table', function(){
+  var table = layui.table;
+
+  table.render({
+    elem: '#demo'
+    ,height: 420
+    ,url: './Known/html/user.json' //数据接口
+    ,title: '用户表'
+    ,page: true //开启分页
+    ,toolbar: 'default' //开启工具栏，此处显示默认图标，可以自定义模板，详见文档
+    ,totalRow: false //开启合计行
+    ,cols: [[ //表头
+      {type: 'checkbox', fixed: 'left'}
+      // ,{field: 'id', title: 'ID', width:100, sort: true, fixed: 'left', totalRowText: '合计：'}
+      ,{field: 'id', title: 'ID', width:100, sort: true}
+      ,{field: 'title', title: '标题', width:100}
+      ,{field: 'autor', title: '作者', width: 100, sort: true, totalRow: true}
+      ,{field: 'tags', title: '类别', width:100, sort: true}
+      ,{field: 'url', title: '文章链接', width:1000, sort: true}
+      ,{fixed: 'right', width: 165, align:'center', toolbar: '#barDemo'}
+    ]]
+  });
+
+
+
+  
+  //监听头工具栏事件
+  table.on('toolbar(test)', function(obj){
+    var checkStatus = table.checkStatus(obj.config.id)
+    ,data = checkStatus.data; //获取选中的数据
+    switch(obj.event){
+      case 'add':
+        // layer.msg('添加');
+        document.getElementById('isShow').style.display = 'block'
+
+        // console.log(document.getElementById('isShow'))
+      break;
+      case 'update':
+        if(data.length === 0){
+          layer.msg('请选择一行');
+        } else if(data.length > 1){
+          layer.msg('只能同时编辑一个');
+        } else {
+          layer.alert('编辑 [id]：'+ checkStatus.data[0].id);
+        }
+      break;
+      case 'delete':
+        if(data.length === 0){
+          layer.msg('请选择一行');
+        } else {
+          layer.msg('删除');
+        }
+      break;
+    };
+  });
+  
+  //监听行工具事件
+  table.on('tool(test)', function(obj){ //注：tool 是工具条事件名，test 是 table 原始容器的属性 lay-filter="对应的值"
+    var data = obj.data //获得当前行数据
+    ,layEvent = obj.event; //获得 lay-event 对应的值
+    if(layEvent === 'detail'){
+      layer.msg('查看操作');
+    } else if(layEvent === 'del'){
+      layer.confirm('真的删除行么', function(index){
+        obj.del(); //删除对应行（tr）的DOM结构
+        layer.close(index);
+        //向服务端发送删除指令
+      });
+    } else if(layEvent === 'edit'){
+      layer.msg('编辑操作');
+    }
+  });
+  
+  
+
+});
+
+//Demo
+layui.use('form', function(){
+  var form = layui.form;
+  
+  //监听提交
+  form.on('submit(formDemo)', function(data){
+    layer.msg(JSON.stringify(data.field));
+    document.getElementById('isShow').style.display = 'none'
+    json_value = JSON.stringify(data.field)
+    
+    var arr = []
+    arr.push(json_value)
+    console.log(arr)
+    return false;
+  });
+});
+
+
+</script>
+</body>
+</html>        
+        

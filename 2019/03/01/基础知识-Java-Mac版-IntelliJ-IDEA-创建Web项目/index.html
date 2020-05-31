@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="Cache-Control" content="no-transform">
+  <meta http-equiv="Cache-Control" content="no-siteapp">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="format-detection" content="telephone=no,email=no,adress=no">
+  <!-- Color theme for statusbar -->
+  <meta name="theme-color" content="#000000">
+  <!-- 强制页面在当前窗口以独立页面显示,防止别人在框架里调用页面 -->
+  <meta http-equiv="window-target" content="_top">
+  
+  
+  <title>基础知识-Java-Mac版_IntelliJ_IDEA_创建Web项目 | VK&#39;Blog|博客</title>
+  <meta name="description" content="创建一个web项目 创建一个Module 新建完成的web项目 在web/WEB-INF下创建两个文件夹：classes和lib 配置文件夹路径 配置Tomcat容器 在Tomcat中部署并运行项目 编辑index.jsp文件 Servlet简单实现 部署servlet    创建一个web项目 File -&amp;gt; New Project -&amp;gt; 选择Project SDK为1.8 -">
+<meta name="keywords" content="基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础知识-Java-Mac版_IntelliJ_IDEA_创建Web项目">
+<meta property="og:url" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/index.html">
+<meta property="og:site_name" content="VK&#39;s blog">
+<meta property="og:description" content="创建一个web项目 创建一个Module 新建完成的web项目 在web/WEB-INF下创建两个文件夹：classes和lib 配置文件夹路径 配置Tomcat容器 在Tomcat中部署并运行项目 编辑index.jsp文件 Servlet简单实现 部署servlet    创建一个web项目 File -&amp;gt; New Project -&amp;gt; 选择Project SDK为1.8 -">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874678775781.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874679292444.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874679535571.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874679819369.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874681647810.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874681973028.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874682303548.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874683013576.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874683291381.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874683477839.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874683607655.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874683750667.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874690360684.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874690696415.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874690851550.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874691245775.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874692084516.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874692240232.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874692506554.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874692652494.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874702206898.jpg">
+<meta property="og:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874702063964.jpg">
+<meta property="og:updated_time" content="2020-04-21T12:03:48.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基础知识-Java-Mac版_IntelliJ_IDEA_创建Web项目">
+<meta name="twitter:description" content="创建一个web项目 创建一个Module 新建完成的web项目 在web/WEB-INF下创建两个文件夹：classes和lib 配置文件夹路径 配置Tomcat容器 在Tomcat中部署并运行项目 编辑index.jsp文件 Servlet简单实现 部署servlet    创建一个web项目 File -&amp;gt; New Project -&amp;gt; 选择Project SDK为1.8 -">
+<meta name="twitter:image" content="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874678775781.jpg">
+  <!-- Canonical links -->
+  <link rel="canonical" href="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/index.html">
+  
+  
+    <link rel="icon" href="/favicon.png" type="image/x-icon">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+  
+  
+</head>
+
+
+<body class="main-center theme-purple" itemscope itemtype="http://schema.org/WebPage">
+  <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+  <div class="slimContent">
+    <div class="navbar-header">
+      
+      
+      <div class="profile-block text-center">
+        <a id="avatar" href="" target="_blank">
+          <img class="img-circle img-rotate" src="/images/avatar.jpg" width="200" height="200">
+        </a>
+        <h2 id="name" class="hidden-xs hidden-sm">VK</h2>
+        <h3 id="title" class="hidden-xs hidden-sm hidden-md">VK&#39;Blog</h3>
+        <small id="location" class="text-muted hidden-xs hidden-sm"><i class="icon icon-map-marker"></i> Beijing, China</small>
+      </div>
+      
+      <div class="search" id="search-form-wrap">
+
+    <form class="search-form sidebar-form">
+        <div class="input-group">
+            <input type="text" class="search-form-input form-control" placeholder="搜索" />
+            <span class="input-group-btn">
+                <button type="submit" class="search-form-submit btn btn-flat" onclick="return false;"><i class="icon icon-search"></i></button>
+            </span>
+        </div>
+    </form>
+    <div class="ins-search">
+  <div class="ins-search-mask"></div>
+  <div class="ins-search-container">
+    <div class="ins-input-wrapper">
+      <input type="text" class="ins-search-input" placeholder="想要查找什么..." x-webkit-speech />
+      <button type="button" class="close ins-close ins-selectable" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+    </div>
+    <div class="ins-section-wrapper">
+      <div class="ins-section-container"></div>
+    </div>
+  </div>
+</div>
+
+
+</div>
+      <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <nav id="main-navbar" class="collapse navbar-collapse" itemscope itemtype="http://schema.org/SiteNavigationElement" role="navigation">
+      <ul class="nav navbar-nav main-nav menu-highlight">
+        
+        
+        <li class="menu-item menu-item-home">
+          <a href="/.">
+            
+            <i class="icon icon-home-fill"></i>
+            
+            <span class="menu-title">首页</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives">
+            
+            <i class="icon icon-archives-fill"></i>
+            
+            <span class="menu-title">归档</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories">
+            
+            <i class="icon icon-folder"></i>
+            
+            <span class="menu-title">分类</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags">
+            
+            <i class="icon icon-tags"></i>
+            
+            <span class="menu-title">标签</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-links">
+          <a href="/links">
+            
+            <i class="icon icon-friendship"></i>
+            
+            <span class="menu-title">友链</span>
+          </a>
+        </li>
+        
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about">
+            
+            <i class="icon icon-cup-fill"></i>
+            
+            <span class="menu-title">关于</span>
+          </a>
+        </li>
+        
+      </ul>
+      
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    </nav>
+  </div>
+</header>
+
+  
+    <aside class="sidebar" itemscope itemtype="http://schema.org/WPSideBar">
+  <div class="slimContent">
+    
+      <div class="widget">
+    <h3 class="widget-title">公告</h3>
+    <div class="widget-body">
+        <div id="board">
+            <div class="content">
+                <p>欢迎交流与分享经验!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget-body">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/APP/">APP</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CTF/">CTF</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2016/">CVE-2016</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2017/">CVE-2017</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2018/">CVE-2018</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/CVE-2019/">CVE-2019</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">23</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/WEB安全/">WEB安全</a><span class="category-list-count">24</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/内网/">内网</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/前端安全/">前端安全</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/安全工具/">安全工具</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/应急响应/">应急响应</a><span class="category-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget-body">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/APP渗透测试/">APP渗透测试</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2016–3714/">CVE-2016–3714</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2017-11882/">CVE-2017-11882</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2018-1273/">CVE-2018-1273</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-0708/">CVE-2019-0708</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16278/">CVE-2019-16278</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/CVE-2019-16759/">CVE-2019-16759</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Java代码审计/">Java代码审计</a><span class="tag-list-count">20</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Linux本地提取/">Linux本地提取</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WEB渗透测试/">WEB渗透测试</a><span class="tag-list-count">25</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/内网渗透/">内网渗透</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端安全-CSRF/">前端安全-CSRF</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/前端知识/">前端知识</a><span class="tag-list-count">5</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/加解密集合/">加解密集合</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/反弹Shell/">反弹Shell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/基础知识/">基础知识</a><span class="tag-list-count">3</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/小程序/">小程序</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/应急响应/">应急响应</a><span class="tag-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget-body tagcloud">
+      <a href="/tags/APP渗透测试/" style="font-size: 13.57px;">APP渗透测试</a> <a href="/tags/CVE-2016–3714/" style="font-size: 13px;">CVE-2016–3714</a> <a href="/tags/CVE-2017-11882/" style="font-size: 13px;">CVE-2017-11882</a> <a href="/tags/CVE-2018-1273/" style="font-size: 13px;">CVE-2018-1273</a> <a href="/tags/CVE-2019-0708/" style="font-size: 13px;">CVE-2019-0708</a> <a href="/tags/CVE-2019-16278/" style="font-size: 13px;">CVE-2019-16278</a> <a href="/tags/CVE-2019-16759/" style="font-size: 13.14px;">CVE-2019-16759</a> <a href="/tags/Java代码审计/" style="font-size: 13.86px;">Java代码审计</a> <a href="/tags/Linux本地提取/" style="font-size: 13px;">Linux本地提取</a> <a href="/tags/WEB渗透测试/" style="font-size: 14px;">WEB渗透测试</a> <a href="/tags/内网渗透/" style="font-size: 13.71px;">内网渗透</a> <a href="/tags/前端安全-CSRF/" style="font-size: 13px;">前端安全-CSRF</a> <a href="/tags/前端知识/" style="font-size: 13.43px;">前端知识</a> <a href="/tags/加解密集合/" style="font-size: 13px;">加解密集合</a> <a href="/tags/反弹Shell/" style="font-size: 13px;">反弹Shell</a> <a href="/tags/基础知识/" style="font-size: 13.29px;">基础知识</a> <a href="/tags/小程序/" style="font-size: 13.14px;">小程序</a> <a href="/tags/应急响应/" style="font-size: 13px;">应急响应</a>
+    </div>
+  </div>
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget-body">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/05/">五月 2020</a><span class="archive-list-count">7</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/04/">四月 2020</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/03/">三月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">二月 2020</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">一月 2020</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">十二月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">十一月 2019</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">十月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">九月 2019</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">七月 2019</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">六月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">五月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">二月 2019</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">六月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+
+    
+      
+  <div class="widget">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget-body">
+      <ul class="recent-post-list list-unstyled no-thumbnail">
+        
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/前端安全/">前端安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/05/19/前端安全-突破前端js加密/" class="title">前端安全-突破前端js加密</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-19T05:06:50.000Z" itemprop="datePublished">2020-05-19</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/WEB安全/">WEB安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/05/18/小程序-获取小程序源码(支付宝)/" class="title">小程序-获取小程序源码（Alipay）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-18T08:58:37.000Z" itemprop="datePublished">2020-05-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/WEB安全/">WEB安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/05/18/小程序-获取小程序源码(微信)/" class="title">小程序-获取小程序源码（Wechat）</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-18T08:58:37.000Z" itemprop="datePublished">2020-05-18</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/WEB安全/">WEB安全</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/05/13/渗透测试-XSS姿势小集/" class="title">渗透测试-XSS姿势小集</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-13T03:38:45.000Z" itemprop="datePublished">2020-05-13</time>
+              </p>
+            </div>
+          </li>
+          
+          <li>
+            
+            <div class="item-inner">
+              <p class="item-category">
+                <a class="category-link" href="/categories/内网/">内网</a>
+              </p>
+              <p class="item-title">
+                <a href="/2020/05/03/内网渗透-信息搜集-windows篇/" class="title">内网渗透-信息搜集-windows篇</a>
+              </p>
+              <p class="item-date">
+                <time datetime="2020-05-02T17:14:22.000Z" itemprop="datePublished">2020-05-03</time>
+              </p>
+            </div>
+          </li>
+          
+      </ul>
+    </div>
+  </div>
+  
+
+    
+  </div>
+</aside>
+
+  
+  
+<main class="main" role="main">
+  <div class="content">
+  <article id="post-基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目" class="article article-type-post" itemscope itemtype="http://schema.org/BlogPosting">
+    
+    <div class="article-header">
+      
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基础知识-Java-Mac版_IntelliJ_IDEA_创建Web项目
+    </h1>
+  
+
+      
+      <div class="article-meta">
+        <span class="article-date">
+    <i class="icon icon-calendar-check"></i>
+	<a href="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/" class="article-date">
+	  <time datetime="2019-03-01T06:10:40.000Z" itemprop="datePublished">2019-03-01</time>
+	</a>
+</span>
+        
+  <span class="article-category">
+    <i class="icon icon-folder"></i>
+    <a class="article-category-link" href="/categories/JAVA/">JAVA</a>
+  </span>
+
+        
+  <span class="article-tag">
+    <i class="icon icon-tags"></i>
+	<a class="article-tag-link" href="/tags/基础知识/">基础知识</a>
+  </span>
+
+
+        
+
+        <span class="post-comment"><i class="icon icon-comment"></i> <a href="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/#comments" class="article-comment-link">评论</a></span>
+        
+	
+		<span class="post-wordcount hidden-xs" itemprop="wordCount">字数统计: 1.1k(字)</span>
+	
+	
+		<span class="post-readcount hidden-xs" itemprop="timeRequired">阅读时长: 5(分)</span>
+	
+
+      </div>
+    </div>
+    <div class="article-entry marked-body" itemprop="articleBody">
+      
+        <!-- toc -->
+
+<ul>
+<li><a href="#创建一个web项目">创建一个web项目</a></li>
+<li><a href="#创建一个module">创建一个Module</a></li>
+<li><a href="#新建完成的web项目">新建完成的web项目</a></li>
+<li><a href="#在webweb-inf下创建两个文件夹classes和lib">在web/WEB-INF下创建两个文件夹：classes和lib</a></li>
+<li><a href="#配置文件夹路径">配置文件夹路径</a></li>
+<li><a href="#配置tomcat容器">配置Tomcat容器</a></li>
+<li><a href="#在tomcat中部署并运行项目">在Tomcat中部署并运行项目</a></li>
+<li><a href="#编辑indexjsp文件">编辑index.jsp文件</a></li>
+<li><a href="#servlet简单实现">Servlet简单实现</a></li>
+<li><a href="#部署servlet">部署servlet</a></li>
+</ul>
+<!-- tocstop -->
+
+<h3><span id="创建一个web项目">创建一个web项目</span></h3><ul>
+<li>File -&gt; New Project -&gt; 选择Project SDK为1.8 -&gt; Next <ul>
+<li>新建一个web项目<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874678775781.jpg" alt></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>在Project name中输入项目名称“Demos” ，Project location选择项目要存放的位置，可以默认 -&gt;Finish <ul>
+<li>输入项目名称<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874679292444.jpg" alt></li>
+</ul>
+</li>
+</ul>
+<h3><span id="创建一个module">创建一个Module</span></h3><ul>
+<li><p>鼠标点中项目名称demos -&gt; 右键选择New，选择Module</p>
+<ul>
+<li>新建一个Module<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874679535571.jpg" alt></li>
+</ul>
+</li>
+<li><p>勾选Web Application-&gt; 确认已勾选Create web.xml</p>
+<ul>
+<li>勾选Web Application<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874679819369.jpg" alt></li>
+</ul>
+</li>
+<li><p>输入Module名称firstweb-&gt; 点击Finish</p>
+<ul>
+<li>输入Module名称<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874681647810.jpg" alt></li>
+</ul>
+</li>
+</ul>
+<h3><span id="新建完成的web项目">新建完成的web项目</span></h3><ul>
+<li><p>新建完web项目后的提示</p>
+<p>  <img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874681973028.jpg" alt></p>
+</li>
+<li><p>新建完成后的目录结构</p>
+<p>  <img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874682303548.jpg" alt></p>
+</li>
+</ul>
+<h3><span id="在webweb-inf下创建两个文件夹classes和lib">在web/WEB-INF下创建两个文件夹：classes和lib</span></h3><ul>
+<li>classes用来存放编译后输出的class文件，lib用于存放第三方jar包。<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874683013576.jpg" alt></li>
+</ul>
+<h3><span id="配置文件夹路径">配置文件夹路径</span></h3><ul>
+<li><p>File -&gt; Project Structure(快捷键：cmd + ;) -&gt; 选择Module ：<br>选择Paths -&gt; 选择Use module compile output path -&gt; 将Output path和Test output path都选择刚刚创建的classes文件夹。<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874683291381.jpg" alt></p>
+</li>
+<li><p>接着选择Dependencies -&gt; 将Module SDK选择为1.8 -&gt; 点击下面的“+”号 -&gt; 选择1 Jars or Directories<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874683477839.jpg" alt></p>
+</li>
+<li><p>选择刚刚创建的lib文件夹<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874683607655.jpg" alt></p>
+</li>
+<li><p>选择jar directory -&gt; 接着返回一路OK就行了~~<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874683750667.jpg" alt></p>
+</li>
+</ul>
+<h3><span id="配置tomcat容器">配置Tomcat容器</span></h3><ul>
+<li><p>打开菜单Run -&gt; 选择Edit Configuration<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874690360684.jpg" alt></p>
+</li>
+<li><p>点击“+”号 -&gt; 选择Tomcat Server -&gt; 选择Local<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874690696415.jpg" alt></p>
+</li>
+<li><p>点击Application server后面的Configure…，弹出Tomcat Server窗口，选择本地安装的Tomcat目录 -&gt; OK<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874690851550.jpg" alt></p>
+</li>
+</ul>
+<ul>
+<li>在Run/Debug Configurations窗口的Server选项板中，取消勾选After launch，设置HTTP port和JMX port（默认值即可），点击 Apply -&gt; OK， 至此Tomcat配置完成。<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874691245775.jpg" alt></li>
+</ul>
+<h3><span id="在tomcat中部署并运行项目">在Tomcat中部署并运行项目</span></h3><ul>
+<li>Run -&gt;Edit Configurations，进入Run/Debug Configurations窗口 -&gt; 选择刚刚建立的Tomcat容器 -&gt; 选择Deployment -&gt; 点击下面的“+”号 -&gt; 选择Artifact</li>
+</ul>
+<p><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874692084516.jpg" alt></p>
+<ul>
+<li>选择web项目 -&gt;Application context可以填/hello(其实也可以不填的~~) -&gt; OK<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874692240232.jpg" alt></li>
+</ul>
+<h3><span id="编辑indexjsp文件">编辑index.jsp文件</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;%--</span><br><span class="line">  Created by IntelliJ IDEA.</span><br><span class="line">  User: guoyanjun</span><br><span class="line">  Date: 2017/5/26</span><br><span class="line">  Time: 下午2:59</span><br><span class="line">  To change this template use File | Settings | File Templates.</span><br><span class="line">--%&gt;</span><br><span class="line">&lt;%@ page contentType=&quot;text/html;charset=UTF-8&quot; language=&quot;java&quot; %&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;head&gt;</span><br><span class="line">    &lt;title&gt;这是第一个web项目&lt;/title&gt;</span><br><span class="line">  &lt;/head&gt;</span><br><span class="line">  &lt;body&gt;</span><br><span class="line">  &lt;p&gt;hello world&lt;/p&gt;</span><br><span class="line">  &lt;p&gt;第一个项目运行成功啦！&lt;/p&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874692506554.jpg" alt></p>
+<ul>
+<li>运行Tomcat,在浏览器中查看运行结果<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874692652494.jpg" alt></li>
+</ul>
+<h3><span id="servlet简单实现">Servlet简单实现</span></h3><ul>
+<li><p>编写servlet源文件</p>
+</li>
+<li><p>在src目录下新建HelloWorld.Java，并编写一下代码并进行编译：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * Created by guoyanjun on 2017/5/26.</span><br><span class="line"> */</span><br><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.io.PrintWriter;</span><br><span class="line">public class HelloWorld extends HttpServlet &#123;</span><br><span class="line">    private String message;</span><br><span class="line">    @Override</span><br><span class="line">    public void init()throws ServletException &#123;</span><br><span class="line">        message = &quot;Hello World, This message is from Servlet!&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException &#123;</span><br><span class="line">        //设置响应内容类型</span><br><span class="line">        resp.setContentType(&quot;text/html&quot;);</span><br><span class="line">        //设置逻辑实现</span><br><span class="line">        PrintWriter out = resp.getWriter();</span><br><span class="line">        out.println(&quot;&lt;h3&gt;&quot; + message + &quot;&lt;/h3&gt;&quot;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void destroy() &#123;</span><br><span class="line">        super.destroy();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p>编译后会发现在classes目录下生成了HelloWorld.class文件</p>
+<ul>
+<li><p>IDEA创建servlet时找不到import javax.servlet…相关类包的问题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">import javax.servlet.ServletException;</span><br><span class="line">import javax.servlet.http.HttpServlet;</span><br><span class="line">import javax.servlet.http.HttpServletRequest;</span><br><span class="line">import javax.servlet.http.HttpServletResponse;</span><br><span class="line">import javax.servlet.http.HttpSession;</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>- 会提示你，程序包javax.servlet和程序包javax.servlet.http不存在的错误</code></pre><p>原因在于Java编译器没有找到软件包javax.servelt</p>
+<pre><code>- 解决的方法：把tomcat安装包里的lib目录下的servlet-api.jar拷贝一份到工程文件夹下的web目录下的WEB-INF目录下lib子文件下的,即 web—&gt;WEB-INF–lib
+![](./基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874701407240.jpg)</code></pre><h3><span id="部署servlet">部署servlet</span></h3><ul>
+<li><p>方法一：在WEB-INF目录下web.xml文件的标签中添加如下内容：</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;web-app xmlns=&quot;http://xmlns.jcp.org/xml/ns/javaee&quot;</span><br><span class="line">         xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation=&quot;http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd&quot;</span><br><span class="line">         version=&quot;3.1&quot;&gt;</span><br><span class="line">    &lt;servlet&gt;</span><br><span class="line">        &lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;</span><br><span class="line">        &lt;servlet-class&gt;HelloWorld&lt;/servlet-class&gt;</span><br><span class="line">    &lt;/servlet&gt;</span><br><span class="line">    &lt;servlet-mapping&gt;</span><br><span class="line">        &lt;servlet-name&gt;HelloWorld&lt;/servlet-name&gt;</span><br><span class="line">        &lt;url-pattern&gt;/HelloWorld&lt;/url-pattern&gt;</span><br><span class="line">    &lt;/servlet-mapping&gt;</span><br><span class="line">&lt;/web-app&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>方法二：在HelloWorld文件的类前面加上@WebServlet(“/HelloWorld”)</p>
+</li>
+<li><p>运行servlet</p>
+<ul>
+<li>点击运行按钮<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874702206898.jpg" alt></li>
+</ul>
+</li>
+</ul>
+<p>运行成功</p>
+<ul>
+<li>控制台出现successfully则tomcat服务启动成功！<br>打开浏览器输入：localhost:8080/hello/HelloWorld即可查看servlet运行状态了。<br><img src="/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/15874702063964.jpg" alt></li>
+</ul>
+
+      
+    </div>
+    <div class="article-footer">
+      <blockquote class="mt-2x">
+  <ul class="post-copyright list-unstyled">
+    
+    <li class="post-copyright-link hidden-xs">
+      <strong>本文链接：</strong>
+      <a href="http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/" title="基础知识-Java-Mac版_IntelliJ_IDEA_创建Web项目" target="_blank" rel="external">http://www.vkxss.top/2019/03/01/基础知识-Java-Mac版-IntelliJ-IDEA-创建Web项目/</a>
+    </li>
+    
+    <li class="post-copyright-license">
+      <strong>版权声明： </strong> 本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by/4.0/deed.zh" target="_blank" rel="external">CC BY 4.0 CN协议</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+</blockquote>
+
+
+<div class="panel panel-default panel-badger">
+  <div class="panel-body">
+    <figure class="media">
+      <div class="media-left">
+        <a href="" target="_blank" class="img-burn thumb-sm visible-lg">
+          <img src="/images/avatar.jpg" class="img-rounded w-full" alt="">
+        </a>
+      </div>
+      <div class="media-body">
+        <h3 class="media-heading"><a href="" target="_blank"><span class="text-dark">VK</span><small class="ml-1x">VK&#39;Blog</small></a></h3>
+        <div>生如蝼蚁，当立鸿鹄之志。命如薄纸，却有不屈之心。乾坤未定，你我皆是黑马，祝你我飞黄腾达前程似锦。</div>
+      </div>
+    </figure>
+  </div>
+</div>
+
+
+    </div>
+  </article>
+  
+    
+  <section id="comments">
+  	
+      <div id="vcomments"></div>
+    
+  </section>
+
+
+  
+</div>
+
+  <nav class="bar bar-footer clearfix" data-stick-bottom>
+  <div class="bar-inner">
+  
+  <ul class="pager pull-left">
+    
+    <li class="prev">
+      <a href="/2019/03/02/基础知识-Java-使用IDEA开发遇到的问题/" title="基础知识-使用IDEA开发遇到的问题"><i class="icon icon-angle-left" aria-hidden="true"></i><span>&nbsp;&nbsp;上一篇</span></a>
+    </li>
+    
+    
+    <li class="next">
+      <a href="/2019/02/28/工具-Burp插件-reCAPTCHA/" title="工具-Burp插件_reCAPTCHA"><span>下一篇&nbsp;&nbsp;</span><i class="icon icon-angle-right" aria-hidden="true"></i></a>
+    </li>
+    
+    
+  </ul>
+  
+  
+  <!-- Button trigger modal -->
+  <button type="button" class="btn btn-fancy btn-donate pop-onhover bg-gradient-warning" data-toggle="modal" data-target="#donateModal"><span>赏</span></button>
+  <!-- <div class="wave-icon wave-icon-danger btn-donate" data-toggle="modal" data-target="#donateModal">
+    <div class="wave-circle"><span class="icon"><i class="icon icon-bill"></i></span></div>
+  </div> -->
+  
+  
+  <div class="bar-right">
+    
+    <div class="share-component" data-sites="weibo,qq,wechat,facebook,twitter" data-mobile-sites="weibo,qq,qzone"></div>
+    
+  </div>
+  </div>
+</nav>
+  
+<!-- Modal -->
+<div class="modal modal-center modal-small modal-xs-full fade" id="donateModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content donate">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <div class="modal-body">
+        <div class="donate-box">
+          <div class="donate-head">
+            <p>感谢您的支持，我会继续努力的!</p>
+          </div>
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane fade active in" id="alipay">
+              <div class="donate-payimg">
+                <img src="/images/donate/alipayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开支付宝扫一扫，即可进行扫码打赏哦</p>
+            </div>
+            <div role="tabpanel" class="tab-pane fade" id="wechatpay">
+              <div class="donate-payimg">
+                <img src="/images/donate/wechatpayimg.png" alt="扫码支持" title="扫一扫" />
+              </div>
+              <p class="text-muted mv">扫码打赏，你说多少就多少</p>
+              <p class="text-grey">打开微信扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+          <div class="donate-footer">
+            <ul class="nav nav-tabs nav-justified" role="tablist">
+              <li role="presentation" class="active">
+                <a href="#alipay" id="alipay-tab" role="tab" data-toggle="tab" aria-controls="alipay" aria-expanded="true"><i class="icon icon-alipay"></i> 支付宝</a>
+              </li>
+              <li role="presentation" class="">
+                <a href="#wechatpay" role="tab" id="wechatpay-tab" data-toggle="tab" aria-controls="wechatpay" aria-expanded="false"><i class="icon icon-wepay"></i> 微信支付</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+</main>
+
+  <footer class="footer" itemscope itemtype="http://schema.org/WPFooter">
+    
+	
+    <ul class="social-links">
+    	
+        <li><a href="http://www.vkxss.top" target="_blank" title="Github" data-toggle=tooltip data-placement=top><i class="icon icon-github"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Weibo" data-toggle=tooltip data-placement=top><i class="icon icon-weibo"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Twitter" data-toggle=tooltip data-placement=top><i class="icon icon-twitter"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top" target="_blank" title="Behance" data-toggle=tooltip data-placement=top><i class="icon icon-behance"></i></a></li>
+        
+        <li><a href="http://www.vkxss.top/atom.xml" target="_blank" title="Rss" data-toggle=tooltip data-placement=top><i class="icon icon-rss"></i></a></li>
+        
+    </ul>
+
+    <div class="copyright">
+        
+        <div class="publishby">
+        	Theme by <a href="https://github.com/cofess" target="_blank"> cofess </a>base on <a href="https://github.com/cofess/hexo-theme-pure" target="_blank">pure</a>.
+        </div>
+    </div>
+	<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span >本站总访问量: <span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span >本站访客数: <span id="busuanzi_value_site_uv"></span>人</span>
+</footer>
+  <script src="//cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+<script>
+window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>')
+</script>
+<script src="/js/plugin.min.js"></script>
+<script src="/js/application.js"></script>
+
+    <script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+
+
+
+
+   
+
+
+
+
+   
+    
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/valine"></script>
+  <script type="text/javascript">
+  var GUEST = ['nick', 'mail', 'link'];
+  var meta = 'nick,mail,link';
+  meta = meta.split(',').filter(function(item) {
+    return GUEST.indexOf(item) > -1;
+  });
+  new Valine({
+    el: '#vcomments',
+    verify: false,
+    notify: false,
+    appId: 'PUQvavgGf7Y3FXIB68W62St5-gzGzoHsz',
+    appKey: 'OxWOQ95mJtXnKAo9rlYodq2S',
+    placeholder: 'Just go go',
+    avatar: 'mm',
+    meta: meta,
+    pageSize: '10' || 10,
+    visitor: false
+  });
+  </script>
+
+     
+
+
+
+
+
+
+
+</body>
+<script type="text/javascript" src="/js/love.js"></script>
+
+</html>

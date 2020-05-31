@@ -1,0 +1,968 @@
+<html>
+<body>
+<div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">Encode/Decode</li>
+    <!-- <li>漏洞案例</li> -->
+  </ul>
+<div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="stylesheet" type="text/css" href="./tools/css/base.css" />
+</head>
+<body>
+<div class="bot">
+ 
+</div>
+<div class="top">
+<div class="head">
+</div>
+</div>
+<script> 
+function Encrypt()
+{
+var monyer = new Array();
+var i, s;
+ 
+for (i = 0; i < txt.value.length; i++)
+{
+s = txt.value.charCodeAt(i).toString(16);
+ 
+if (Decimal1.checked)
+monyer += "&#" + txt.value.charCodeAt(i) + ";";
+ 
+else if (Decimal2.checked)
+monyer += "&#" + new Array(7 - String(s).length).join("0") + txt.value.charCodeAt(i);
+ 
+else
+monyer += txt.value.charCodeAt(i) + ","
+}
+ 
+txt.value = monyer
+}
+ 
+function Decrypt()
+{
+var monyer = new Array();
+var i;
+ 
+if (Decimal1.checked)
+{
+var s = txt.value.split(";");
+ 
+for (i = 0; i < s.length; i++)
+{
+s[i] = s[i].replace('&#', '');
+monyer += String.fromCharCode(s[i])
+}
+}
+ 
+else if (Decimal2.checked)
+{
+var s = txt.value.split("&");
+ 
+for (i = 1; i < s.length; i++)
+{
+s[i] = s[i].replace('#', '');
+monyer += String.fromCharCode(s[i])
+}
+}
+ 
+else
+{
+var s = txt.value.split(",");
+ 
+for (i = 0; i < s.length; i++)
+monyer += String.fromCharCode(s[i])
+}
+ 
+txt.value = monyer
+}
+ 
+function JavaEn()
+{
+var monyer = new Array();
+var i, s;
+ 
+for (i = 0; i < txt.value.length; i++)
+{
+s = txt.value.charCodeAt(i).toString(16);
+ 
+if (hex1.checked)
+    monyer += "\\u" + new Array(5 - String(s).length).join("0") + s;
+ 
+else if (hex2.checked)
+    monyer += "&#x" + new Array(5 - String(s).length).join("0") + s + ";";
+ 
+else if (hex3.checked)
+    monyer += "\\x" + new Array(5 - String(s).length).join("0") + s;
+ 
+else
+    monyer += "\\" + new Array(5 - String(s).length).join("0") + s
+}
+ 
+txt.value = monyer
+}
+ 
+var p = document.documentElement.outerHTML.length;
+ 
+function JavaDe()
+{
+if (hex1.checked)
+{
+var monyer = new Array();
+var i;
+var s = txt.value.split("\\");
+ 
+for (i = 1; i < s.length; i++)
+    {
+    s[i] = s[i].replace('u', '');
+    monyer += String.fromCharCode(parseInt(s[i], 16))
+    }
+}
+ 
+else if (hex2.checked)
+{
+var monyer = new Array();
+var i;
+var s = txt.value.split(";");
+ 
+for (i = 0; i < s.length; i++)
+    {
+    s[i] = s[i].replace('&#x', '');
+    monyer += String.fromCharCode(parseInt(s[i], 16))
+    }
+}
+ 
+else if (hex3.checked)
+{
+var monyer = new Array();
+var i;
+var s = txt.value.split("\\");
+ 
+for (i = 1; i < s.length; i++)
+    {
+    s[i] = s[i].replace('x', '');
+    monyer += String.fromCharCode(parseInt(s[i], 16))
+    }
+}
+ 
+else
+{
+var monyer = new Array();
+var i;
+var s = txt.value.split("\\");
+ 
+for (i = 1; i < s.length; i++)
+    monyer += String.fromCharCode(parseInt(s[i], 16))
+}
+ 
+txt.value = monyer
+}
+ 
+function EnEight()
+{
+var monyer = new Array();
+var i, s;
+ 
+for (i = 0; i < txt.value.length; i++)
+monyer += "\\" + txt.value.charCodeAt(i).toString(8);
+ 
+txt.value = monyer
+}
+ 
+function DeEight()
+{
+var monyer = new Array();
+var i;
+var s = txt.value.split("\\");
+ 
+for (i = 1; i < s.length; i++)
+monyer += String.fromCharCode(parseInt(s[i], 8));
+ 
+txt.value = monyer
+}
+ 
+function EnChTo(h)
+{
+var monyer = new Array();
+var i, s;
+ 
+for (i = 0; i < txt.value.length; i++)
+monyer += txt.value.charCodeAt(i).toString(h) + " ";
+ 
+txt.value = monyer
+}
+ 
+function DeChTo(h)
+{
+var monyer = new Array();
+var i;
+var s = txt.value.split(" ");
+ 
+for (i = 0; i < s.length; i++)
+monyer += String.fromCharCode(parseInt(s[i], h));
+ 
+txt.value = monyer
+}
+ 
+function DelSpace()
+{
+var monyer = new Array();
+var i;
+var s = txt.value.split(" ");
+ 
+for (i = 0; i < s.length; i++)
+monyer += s[i];
+ 
+txt.value = monyer
+}
+ 
+function ChSpace()
+{
+var monyer = new Array();
+var i;
+var s = txt.value.split(front1.value);
+ 
+for (i = 0; i < s.length; i++)
+monyer += behind1.value + s[i] + behind2.value;
+ 
+txt.value = monyer
+}
+ 
+  function printit()
+      {
+      document.write('<select id="family" size="1" onChange="JavaScript:chgFont();" style="color:red;"><option selected value="Webdings">Webdings</option><option value="Wingdings">Wingdings</option><option value="Wingdings 2">Wingdings 2</option><option value="Wingdings 3">Wingdings 3</option><option value="Symbol">Symbol</option></select><a href="javascript:history.go(-1);">返回</a><table border="1" width="100%" cellspacing="0" cellpadding="2">\n');
+ 
+      for (j = 0; j < 4; j++)
+          document.write('<td width="7%" align="center" style="font-size:14px;color:red;background:#D4D0C8">代码</td>\n<td width="11%" align="center" id="F'
+          + j
+          + '" style="font-size:14px;color:red;;background:#D4D0C8">Webdings</td>\n<td width="7%" align="center" style="font-size:14px;color:red;;background:#D4D0C8">常规</td>\n');
+ 
+      for (i = 32; i < 256; i++)
+          {
+          if (i % 4 == 0)
+              document.write('<tr align="center">\n');
+ 
+          document.write('<td align="center" style="font-size:14px;background:#D4D0C8; color:blue; font-family: fixedsys"><a>&#</a>'
+                             + i + ';</td>\n<td id="f' + i
+                             + '" align="center" style="font-size:14px;background:#FFFFFF; color:#CC5800; font-family: Webdings">&#'
+                             + i
+                             + ';</td>\n<td align="center" style="font-size:14px;background:#FFFFFF;font-family: Arial black">&#'
+                             + i + ';</td>\n');
+ 
+          if (i % 4 == 3)
+              document.write('</tr>\n')
+          }
+ 
+      document.write('</table>\n<script language="JavaScript">function chgFont(){fontIndex=document.getElementById("family").selectedIndex;fontValue=document.getElementById("family").options[fontIndex].value;for(m=0;m<4;m++){eval(\'F\'+m+\'.innerHTML="\'+fontValue+\'";\');}for(n=32;n<256;n++){eval(\'f\'+n+\'.style.fontFamily="\'+fontValue+\'";\');}}chgFont();<\/script>\n')
+      }
+ 
+  function press()
+      {
+      document.write("<a href=\"javascript:history.go(-1);\">返回</a>  请注意：您的代码不要过长，否则你的电脑会吃不消！<SCRIPT type=text\/javascript>var literalStrings;function crunch(f){var input,output;var i;f.elements.codeOut.value=\"\";f.elements.statusMsg.value=\"Working...\";input=f.elements.codeIn.value;output=input;f.elements.statusMsg.value=\"Replacing literal strings...\";output=replaceLiteralStrings(output);f.elements.statusMsg.value=\"Removing comments...\";output=removeComments(output);f.elements.statusMsg.value=\"Compressing white space...\";output=compressWhiteSpace(output);f.elements.statusMsg.value=\"Combining literal strings...\";output=combineLiteralStrings(output);f.elements.statusMsg.value=\"Restoring literal strings...\";output=restoreLiteralStrings(output);f.elements.statusMsg.value=\"Done.\";f.elements.codeOut.value=output;f.elements.sizeIn.value=input.length;f.elements.sizeOut.value=output.length;f.elements.sizeDiff.value=input.length-output.length;if(input.length>0)f.elements.pctOut.value=100-Math.round(output.length\/input.length*10000)\/100;return false;}function replaceLiteralStrings(s){var i,c,t,lines,escaped,quoteChar,inQuote,literal;literalStrings=new Array();t=\"\";lines=s.split(\"\\n\");for(i=0;i<lines.length;i++){j=0;inQuote=false;while(j<=lines[i].length){c=lines[i].charAt(j);if(!inQuote){if(c==\'\"\'||c==\"\'\"){inQuote=true;escaped=false;quoteChar=c;literal=c;}else t+=c;}else{if(c==quoteChar&&!escaped){inQuote=false;literal+=quoteChar;t+=\"__\"+literalStrings.length+\"__\";literalStrings[literalStrings.length]=literal;}else if(c==\"\\\\\"&&!escaped)escaped=true;else escaped=false;literal+=c;}j++;}t+=\"\\n\";}return t;}function removeComments(s){var lines,i,t;lines=s.split(\"\\n\");t=\"\";for(i=0;i<lines.length;i++)t+=lines[i].replace(\/([^\\x2f]*)\\x2f\\x2f.*$\/,\"$1\");t=t.replace(\/(.*)\\n(.*)\/g,\"$1 $2\");lines=t.split(\"*\/\");t=\"\";for(i=0;i<lines.length;i++)t+=lines[i].replace(\/(.*)\\x2f\\x2a(.*)$\/g,\"$1 \");return t;}function compressWhiteSpace(s){s=s.replace(\/\\s+\/g,\" \");s=s.replace(\/^\\s(.*)\/,\"$1\");s=s.replace(\/(.*)\\s$\/,\"$1\");s=s.replace(\/\\s([\\x21\\x25\\x26\\x28\\x29\\x2a\\x2b\\x2c\\x2d\\x2f\\x3a\\x3b\\x3c\\x3d\\x3e\\x3f\\x5b\\x5d\\x5c\\x7b\\x7c\\x7d\\x7e])\/g,\"$1\");s=s.replace(\/([\\x21\\x25\\x26\\x28\\x29\\x2a\\x2b\\x2c\\x2d\\x2f\\x3a\\x3b\\x3c\\x3d\\x3e\\x3f\\x5b\\x5d\\x5c\\x7b\\x7c\\x7d\\x7e])\\s\/g,\"$1\");return s;}function combineLiteralStrings(s){var i;s=s.replace(\/\"\\+\"\/g,\"\");s=s.replace(\/\'\\+\'\/g,\"\");return s;}function restoreLiteralStrings(s){var i;for(i=0;i<literalStrings.length;i++)s=s.replace(new RegExp(\"__\"+i+\"__\"),literalStrings[i]);return s;}<\/SCRIPT><FORM onsubmit=\"return crunch(this)\" action=\"\"><TABLE border=0><TBODY><TR><TH colSpan=3>Input<\/TH><\/TR><TR><TD colSpan=3><TEXTAREA name=codeIn rows=10 cols=80><\/TEXTAREA><\/TD><\/TR><TR><TD><B>Bytes:<\/B><INPUT disabled size=10 name=sizeIn><\/TD><TD><B>Status:<\/B><INPUT disabled size=30 name=statusMsg><\/TD><TD style=\"TEXT-ALIGN: right\"><INPUT type=submit value=Crunch><INPUT type=reset value=Clear><\/TD><\/TR><\/TBODY><\/TABLE><P><\/P><TABLE border=0><TBODY><TR><TH colSpan=4>Output<\/TH><\/TR><TR><TD colSpan=4><TEXTAREA name=codeOut rows=10 cols=80><\/TEXTAREA><\/TD><\/TR><TR><TD><B>Bytes:<\/B><INPUT disabled size=10 name=sizeOut><\/TD><TD><B>Saved:<\/B><INPUT disabled size=10 name=sizeDiff><\/TD><TD><B>%Saved:<\/B><INPUT disabled size=10 name=pctOut><\/TD><TD style=\"TEXT-ALIGN: right\"><INPUT onclick=\"this.form.codeOut.select();this.form.codeOut.focus();\" type=button value=Select><\/TD><\/TR><\/TBODY><\/TABLE><\/FORM>")
+      }
+ 
+ 
+ 
+  function copyCode(monyer)
+      {
+      if (monyer.value == "")
+          {
+          alert("请输入要复制的代码内容");
+          return false
+          }
+ 
+      var rng = document.body.createTextRange();
+      rng.moveToElementText(monyer);
+      rng.scrollIntoView();
+      rng.select();
+      rng.execCommand("Copy");
+      rng.collapse(false);
+      alert("已经复制到剪贴板！")
+      }
+ 
+  function runCode(monyer)
+      {
+      if (monyer.value == "")
+          {
+          alert("请输入要运行的代码内容");
+          return false
+          }
+ 
+      var winname = window.open('', "_blank", '');
+      winname.document.open('text/html', 'replace');
+      winname.document.writeln(monyer.value);
+      winname.document.close()
+      }
+ 
+  function saveCode(monyer)
+      {
+      if (monyer.value == "")
+          {
+          alert("请输入要保存的代码内容");
+          return false
+          }
+ 
+      var winname = window.open('', '_blank', '');
+      winname.document.open('text/html', 'replace');
+      winname.document.writeln(monyer.value);
+      winname.document.close();
+      winname.document.execCommand('saveas', '', 'Monyer.html');
+      winname.close()
+      }
+ 
+  function colorpicker()
+      {
+      var monyer = dlgHelper.ChooseColorDlg();
+      document.bgColor = monyer;
+      txt.value = "#" + monyer.toString(16) + new Array(7 - monyer.toString(16).length).join(0)
+      }
+ 
+  function msg(i)
+      {
+      if (i == 10)
+          {
+          if (Decimal1.checked)
+              remark.value
+                  = '示例代码：\n<IMG SRC=&#106;&#97;&#118;&#97;&#115;&#99;&#114;&#105;&#112;&#116;&#58;&#97;&#108;&#101;&#114;&#116;&#40;&#39;&#88;&#83;&#83;&#39;&#41;>';
+ 
+          else if (Decimal2.checked)
+              remark.value
+                  = '示例代码：\n<IMG SRC=&#0000106&#0000097&#0000118&#0000097&#0000115&#0000099&#0000114&#0000105&#0000112&#0000116&#0000058&#0000097&#0000108&#0000101&#0000114&#0000116&#0000040&#0000039&#0000088&#0000083&#0000083&#0000039&#0000041>';
+ 
+          else
+              remark.value
+                  = '示例代码：\n<div style="background-image:url(javascript:eval(String.fromCharCode(97,108,101,114,116,40,39,120,115,115,39,41,59)))">'
+          }
+ 
+      else if (i == 16)
+          {
+          if (hex1.checked)
+              remark.value
+                  = '示例代码：\n<SCRIPT LANGUAGE=\"JavaScript\">\n\neval(\"\\x61\\x6C\\x65\\x72\\x74\\x28\\x22\\u4ee3\\u7801\\u6d4b\\u8bd5\\x22\\x29\\x3B\")\n\n<\/SCRIPT>';
+ 
+          else if (hex2.checked)
+              remark.value
+                  = '示例代码：\n<IMG SRC=&#x006a;&#x0061;&#x0076;&#x0061;&#x0073;&#x0063;&#x0072;&#x0069;&#x0070;&#x0074;&#x003a;&#x0061;&#x006c;&#x0065;&#x0072;&#x0074;&#x0028;&#x0027;&#x0078;&#x0073;&#x0073;&#x0027;&#x0029;&#x003b;>';
+ 
+          else if (hex3.checked)
+              remark.value
+                  = '示例代码：\n<SCRIPT LANGUAGE=\"JavaScript\">\neval(\"\\x61\\x6C\\x65\\x72\\x74\\x28\\x22\\u4ee3\\u7801\\u6d4b\\u8bd5\\x22\\x29\\x3B\")\n<\/SCRIPT>';
+ 
+          else
+              remark.value
+                  = '示例代码：\n<DIV STYLE=\"background-image:\\0075\\0072\\006C\\0028\\006A\\0061\\0076\\0061\\0073\\0063\\0072\\0069\\0070\\0074\\003A\\0061\\006C\\0065\\0072\\0074\\0028\\0027\\0058\\0053\\0053\\0027\\0029\\0029\">'
+          }
+ 
+      else if (i == 8)
+          {
+          remark.value
+              = '示例代码：\n<SCRIPT LANGUAGE=\"JavaScript\">\neval(\"\\141\\154\\145\\162\\164\\50\\42\\u4ee3\\u7801\\u6d4b\\u8bd5\\42\\51\\73\")\n<\/SCRIPT>'
+          }
+ 
+      else if (i == 20)
+          {
+          remark.value = '示例代码：\neval(unescape("alert%28%27xss%27%29%3B"));'
+          }
+ 
+      else if (i == 21)
+          {
+          remark.value = '注意：该编码会同时给所有的代码编码，包括html标签和javascript中的代码'
+          }
+ 
+      else
+          {
+          remark.value = '0'
+          }
+      }
+ 
+  function HtmlToJs(i)
+      {
+      if (i == 1)
+          txt.value
+              = "document.writeln(\""
+                    + txt.value.replace(/\\/g, "\\\\").replace(/\//g, "\\/").replace(/\'/g,
+                                                                                     "\\\'").replace(/\"/g,
+                                                                                                     "\\\"").split('\r\n').join("\");\ndocument.writeln(\"")
+                    + "\");";
+ 
+      if (i == 2)
+          txt.value = txt.value.replace(/document.writeln\("/g, "").replace(/"\);/g, "").replace(/\\\"/g,
+                                                                                                 "\"").replace(/\\\'/g,
+                                                                                                               "\'").replace(/\\\//g,
+                                                                                                                             "\/").replace(/\\\\/g,
+                                                                                                                                           "\\")
+      }
+ 
+  var NS4 = (document.layers);
+  var IE4 = (document.all);
+  var win = this;
+  var n = 0;
+ 
+  function search(str)
+      {
+      var txt, i, found;
+ 
+      if (str == "")
+          return false;
+ 
+      if (NS4)
+          {
+          if (!win.find(str))
+              while (win.find(str, false, true))
+                  n++;
+ 
+          else
+              n++;
+ 
+          if (n == 0)
+              alert(str + " ...   没有找到")
+          }
+ 
+      if (IE4)
+          {
+          txt = win.document.body.createTextRange();
+ 
+          for (i = 0; i <= n && (found = txt.findText(str)) != false; i++)
+              {
+              txt.moveStart("character", 1);
+              txt.moveEnd("textedit")
+              }
+ 
+          if (found)
+              {
+              txt.moveStart("character", -1);
+              txt.findText(str);
+              txt.select();
+              txt.scrollIntoView();
+              n++
+              }
+ 
+          else
+              {
+              if (n > 0)
+                  {
+                  n = 0;
+                  search(str)
+                  }
+ 
+              else
+                  alert(str + "...   没有找到")
+              }
+          }
+ 
+      return false
+      }
+ 
+  function keydown()
+      {
+      document.write("<a href=\"javascript:history.go(-1);\">返回</a><br><script type=\"text\/javascript\">function $(s){return document.getElementById(s)?document.getElementById(s):s;}function viewKeyInfo(e){var currKey=0,CapsLock=0;var e=e||event;currKey=e.keyCode||e.which||e.charCode;CapsLock=currKey>=65&&currKey<=90;$(\"type\").innerHTML=e[\'type\'];$(\"currKey\").innerHTML=String.fromCharCode(currKey);$(\"Decimal\").innerHTML=currKey;$(\"keyCode\").innerHTML=e[\'keyCode\'];$(\"charCode\").innerHTML=e[\'charCode\'];$(\"caps\").innerHTML=CapsLock;$(\"shiftKey\").innerHTML=e[\'shiftKey\'];$(\"ctrlKey\").innerHTML=e[\'ctrlKey\'];$(\"repeat\").innerHTML=e[\'repeat\'];$(\"which\").innerHTML=e[\'which\'];}document.onkeypress=viewKeyInfo;<\/script>请按下任意键查看键盘响应键值： type:<span id=\"type\"><\/span>当前Key:<span id=\"currKey\"><\/span>Decimal:<span id=\"Decimal\"><\/span>keyCode:<span id=\"keyCode\"><\/span><strong>注：在FF下,keyCode始终为0<\/strong>which:<span id=\"which\"><\/span><strong>注：在IE下,which始终为undefined ； 在Opera下，keyCode和charCode二者的值相同<\/strong>charCode:<span id=\"charCode\"><\/span><strong>注：在IE、Opera下,charCode始终为undefined;在FF下，which和charCode二者的值相同<\/strong>大写:<span id=\"caps\"><\/span>altKey:<span id=\"altKey\"><\/span>ctrlKey:<span id=\"ctrlKey\"><\/span>shiftKey:<span id=\"shiftKey\"><\/span>repeat:<span id=\"repeat\"><\/span><style type=\"text\/css\" media=\"all\">body{color:#999;font:normal 14px tahoma,宋体,Geneva,Arial,sans-serif;}span{color:#f00;font-weight:bold;padding:0 5px;}strong{color:#090;font-weight:normal;padding:0 5px;}<\/style>")
+      }
+ 
+  function HtmlEncode(i)
+      {
+      if (i == 1)
+          txt.value
+              = txt.value.replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g,
+                                                                                                        '&gt;');
+ 
+      if (i == 2)
+          txt.value
+              = txt.value.replace(/&amp;/g, '&').replace(/&quot;/g, '\"').replace(/&lt;/g,
+                                                                                  '<').replace(/&gt;/g, '>')
+      }
+ 
+  var hex_chr = "0123456789abcdef";
+ 
+  function rhex(num)
+      {
+      str = "";
+ 
+      for (j = 0; j <= 3; j++)
+          str += hex_chr.charAt((num >> (j * 8 + 4)) & 0x0F) + hex_chr.charAt((num >> (j * 8)) & 0x0F);
+ 
+      return str
+      }
+ 
+  function str2blks_MD5(str)
+      {
+      nblk = ((str.length + 8) >> 6) + 1;
+      blks = new Array(nblk * 16);
+ 
+      for (i = 0; i < nblk * 16; i++)
+          blks[i] = 0;
+ 
+      for (i = 0; i < str.length; i++)
+          blks[i >> 2] |= str.charCodeAt(i) << ((i % 4) * 8);
+ 
+      blks[i >> 2] |= 0x80 << ((i % 4) * 8);
+      blks[nblk * 16 - 2] = str.length * 8;
+      return blks
+      }
+ 
+  function add(x, y)
+      {
+      var lsw = (x & 0xFFFF) + (y & 0xFFFF);
+      var msw = (x >> 16) + (y >> 16) + (lsw >> 16);
+      return (msw << 16) | (lsw & 0xFFFF)
+      }
+ 
+  function rol(num, cnt)
+      {
+      return (num << cnt) | (num >>> (32 - cnt))
+      }
+ 
+  function cmn(q, a, b, x, s, t)
+      {
+      return add(rol(add(add(a, q), add(x, t)), s), b)
+      }
+ 
+  function ff(a, b, c, d, x, s, t)
+      {
+      return cmn((b & c) | ((~b) & d), a, b, x, s, t)
+      }
+ 
+  function gg(a, b, c, d, x, s, t)
+      {
+      return cmn((b & d) | (c & (~d)), a, b, x, s, t)
+      }
+ 
+  function hh(a, b, c, d, x, s, t)
+      {
+      return cmn(b ^ c ^ d, a, b, x, s, t)
+      }
+ 
+  function ii(a, b, c, d, x, s, t)
+      {
+      return cmn(c ^ (b | (~d)), a, b, x, s, t)
+      }
+ 
+  function calcMD5(str)
+      {
+      x = str2blks_MD5(str);
+      a = 1732584193;
+      b = -271733879;
+      c = -1732584194;
+      d = 271733878;
+ 
+      for (i = 0; i < x.length; i += 16)
+          {
+          olda = a;
+          oldb = b;
+          oldc = c;
+          oldd = d;
+          a = ff(a, b, c, d, x[i + 0], 7, -680876936);
+          d = ff(d, a, b, c, x[i + 1], 12, -389564586);
+          c = ff(c, d, a, b, x[i + 2], 17, 606105819);
+          b = ff(b, c, d, a, x[i + 3], 22, -1044525330);
+          a = ff(a, b, c, d, x[i + 4], 7, -176418897);
+          d = ff(d, a, b, c, x[i + 5], 12, 1200080426);
+          c = ff(c, d, a, b, x[i + 6], 17, -1473231341);
+          b = ff(b, c, d, a, x[i + 7], 22, -45705983);
+          a = ff(a, b, c, d, x[i + 8], 7, 1770035416);
+          d = ff(d, a, b, c, x[i + 9], 12, -1958414417);
+          c = ff(c, d, a, b, x[i + 10], 17, -42063);
+          b = ff(b, c, d, a, x[i + 11], 22, -1990404162);
+          a = ff(a, b, c, d, x[i + 12], 7, 1804603682);
+          d = ff(d, a, b, c, x[i + 13], 12, -40341101);
+          c = ff(c, d, a, b, x[i + 14], 17, -1502002290);
+          b = ff(b, c, d, a, x[i + 15], 22, 1236535329);
+          a = gg(a, b, c, d, x[i + 1], 5, -165796510);
+          d = gg(d, a, b, c, x[i + 6], 9, -1069501632);
+          c = gg(c, d, a, b, x[i + 11], 14, 643717713);
+          b = gg(b, c, d, a, x[i + 0], 20, -373897302);
+          a = gg(a, b, c, d, x[i + 5], 5, -701558691);
+          d = gg(d, a, b, c, x[i + 10], 9, 38016083);
+          c = gg(c, d, a, b, x[i + 15], 14, -660478335);
+          b = gg(b, c, d, a, x[i + 4], 20, -405537848);
+          a = gg(a, b, c, d, x[i + 9], 5, 568446438);
+          d = gg(d, a, b, c, x[i + 14], 9, -1019803690);
+          c = gg(c, d, a, b, x[i + 3], 14, -187363961);
+          b = gg(b, c, d, a, x[i + 8], 20, 1163531501);
+          a = gg(a, b, c, d, x[i + 13], 5, -1444681467);
+          d = gg(d, a, b, c, x[i + 2], 9, -51403784);
+          c = gg(c, d, a, b, x[i + 7], 14, 1735328473);
+          b = gg(b, c, d, a, x[i + 12], 20, -1926607734);
+          a = hh(a, b, c, d, x[i + 5], 4, -378558);
+          d = hh(d, a, b, c, x[i + 8], 11, -2022574463);
+          c = hh(c, d, a, b, x[i + 11], 16, 1839030562);
+          b = hh(b, c, d, a, x[i + 14], 23, -35309556);
+          a = hh(a, b, c, d, x[i + 1], 4, -1530992060);
+          d = hh(d, a, b, c, x[i + 4], 11, 1272893353);
+          c = hh(c, d, a, b, x[i + 7], 16, -155497632);
+          b = hh(b, c, d, a, x[i + 10], 23, -1094730640);
+          a = hh(a, b, c, d, x[i + 13], 4, 681279174);
+          d = hh(d, a, b, c, x[i + 0], 11, -358537222);
+          c = hh(c, d, a, b, x[i + 3], 16, -722521979);
+          b = hh(b, c, d, a, x[i + 6], 23, 76029189);
+          a = hh(a, b, c, d, x[i + 9], 4, -640364487);
+          d = hh(d, a, b, c, x[i + 12], 11, -421815835);
+          c = hh(c, d, a, b, x[i + 15], 16, 530742520);
+          b = hh(b, c, d, a, x[i + 2], 23, -995338651);
+          a = ii(a, b, c, d, x[i + 0], 6, -198630844);
+          d = ii(d, a, b, c, x[i + 7], 10, 1126891415);
+          c = ii(c, d, a, b, x[i + 14], 15, -1416354905);
+          b = ii(b, c, d, a, x[i + 5], 21, -57434055);
+          a = ii(a, b, c, d, x[i + 12], 6, 1700485571);
+          d = ii(d, a, b, c, x[i + 3], 10, -1894986606);
+          c = ii(c, d, a, b, x[i + 10], 15, -1051523);
+          b = ii(b, c, d, a, x[i + 1], 21, -2054922799);
+          a = ii(a, b, c, d, x[i + 8], 6, 1873313359);
+          d = ii(d, a, b, c, x[i + 15], 10, -30611744);
+          c = ii(c, d, a, b, x[i + 6], 15, -1560198380);
+          b = ii(b, c, d, a, x[i + 13], 21, 1309151649);
+          a = ii(a, b, c, d, x[i + 4], 6, -145523070);
+          d = ii(d, a, b, c, x[i + 11], 10, -1120210379);
+          c = ii(c, d, a, b, x[i + 2], 15, 718787259);
+          b = ii(b, c, d, a, x[i + 9], 21, -343485551);
+          a = add(a, olda);
+          b = add(b, oldb);
+          c = add(c, oldc);
+          d = add(d, oldd)
+          }
+ 
+      return rhex(a) + rhex(b) + rhex(c) + rhex(d)
+      }
+ 
+  var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+  var base64DecodeChars = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+                                    -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57,
+                                    58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0,  1,  2,  3,  4,  5,  6,
+                                    7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
+                                    25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36,
+                                    37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1,
+                                    -1, -1);
+ 
+  function base64encode(str)
+      {
+      var out, i, len;
+      var c1, c2, c3;
+      len = str.length;
+      i = 0;
+      out = "";
+ 
+      while (i < len)
+          {
+          c1 = str.charCodeAt(i++) & 0xff;
+ 
+          if (i == len)
+              {
+              out += base64EncodeChars.charAt(c1 >> 2);
+              out += base64EncodeChars.charAt((c1 & 0x3) << 4);
+              out += "==";
+              break
+              }
+ 
+          c2 = str.charCodeAt(i++);
+ 
+          if (i == len)
+              {
+              out += base64EncodeChars.charAt(c1 >> 2);
+              out += base64EncodeChars.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
+              out += base64EncodeChars.charAt((c2 & 0xF) << 2);
+              out += "=";
+              break
+              }
+ 
+          c3 = str.charCodeAt(i++);
+          out += base64EncodeChars.charAt(c1 >> 2);
+          out += base64EncodeChars.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
+          out += base64EncodeChars.charAt(((c2 & 0xF) << 2) | ((c3 & 0xC0) >> 6));
+          out += base64EncodeChars.charAt(c3 & 0x3F)
+          }
+ 
+      return out
+      }
+ 
+  function base64decode(str)
+      {
+      var c1, c2, c3, c4;
+      var i, len, out;
+      len = str.length;
+      i = 0;
+      out = "";
+ 
+      while (i < len)
+          {
+          do
+              {
+              c1 = base64DecodeChars[str.charCodeAt(i++) & 0xff]
+              } while (i < len && c1 == -1);
+ 
+          if (c1 == -1)
+              break;
+ 
+          do
+              {
+              c2 = base64DecodeChars[str.charCodeAt(i++) & 0xff]
+              } while (i < len && c2 == -1);
+ 
+          if (c2 == -1)
+              break;
+ 
+          out += String.fromCharCode((c1 << 2) | ((c2 & 0x30) >> 4));
+ 
+          do
+              {
+              c3 = str.charCodeAt(i++) & 0xff;
+ 
+              if (c3 == 61)
+                  return out;
+ 
+              c3 = base64DecodeChars[c3]
+              } while (i < len && c3 == -1);
+ 
+          if (c3 == -1)
+              break;
+ 
+          out += String.fromCharCode(((c2 & 0XF) << 4) | ((c3 & 0x3C) >> 2));
+ 
+          do
+              {
+              c4 = str.charCodeAt(i++) & 0xff;
+ 
+              if (c4 == 61)
+                  return out;
+ 
+              c4 = base64DecodeChars[c4]
+              } while (i < len && c4 == -1);
+ 
+          if (c4 == -1)
+              break;
+ 
+          out += String.fromCharCode(((c3 & 0x03) << 6) | c4)
+          }
+ 
+      return out
+      }
+ 
+  function utf16to8(str)
+      {
+      var out, i, len, c;
+      out = "";
+      len = str.length;
+ 
+      for (i = 0; i < len; i++)
+          {
+          c = str.charCodeAt(i);
+ 
+          if ((c >= 0x0001) && (c <= 0x007F))
+              {
+              out += str.charAt(i)
+              }
+ 
+          else if (c > 0x07FF)
+              {
+              out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+              out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+              out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F))
+              }
+ 
+          else
+              {
+              out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+              out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F))
+              }
+          }
+ 
+      return out
+      }
+ 
+  function utf8to16(str)
+      {
+      var out, i, len, c;
+      var char2, char3;
+      out = "";
+      len = str.length;
+      i = 0;
+ 
+      while (i < len)
+          {
+          c = str.charCodeAt(i++);
+ 
+          switch (c >> 4)
+              {
+              case 0:
+              case 1:
+              case 2:
+              case 3:
+              case 4:
+              case 5:
+              case 6:
+              case 7:
+                  out += str.charAt(i - 1);
+ 
+                  break;
+ 
+              case 12:
+              case 13:
+                  char2 = str.charCodeAt(i++);
+ 
+                  out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+                  break;
+ 
+              case 14:
+                  char2 = str.charCodeAt(i++);
+ 
+                  char3 = str.charCodeAt(i++);
+                  out += String.fromCharCode(((c & 0x0F) << 12) | ((char2 & 0x3F) << 6)
+                                                 | ((char3 & 0x3F) << 0));
+                  break
+              }
+          }
+ 
+      return out
+      }
+</script>
+<object id = dlgHelper classid = "clsid:3050f819-98b5-11cf-bb82-00aa00bdce0b" width = "0px" height = "0px"></object>
+<div class="mid">
+  <div id="monyer">
+    <div class="t">
+      <div class="bt">
+        <ul>
+          <li><input class="input1" type = "button" value = "颜色选择" onClick = "colorpicker()"></li>
+          <li><input type = "button" value = "代码缩进" onClick = "press()"></li>
+          <li><input type = "button" value = "ASCII码" onclick = "printit()"></li>
+          <li><input type = "button" value = "键值响应" onClick = "keydown()"></li>
+          <li><input type = "button" value = "运行代码" onClick = "runCode(txt)"></li>
+          <li><input type = "button" value = "复制代码" onClick = "copyCode(txt)"></li>
+          <li><input type = "button" value = "另存代码" onClick = "saveCode(txt)"></li>
+          <li><input type = "button" value = "内容清空" onClick = "txt.value=''"></li>
+          <li><input type = "button" value = "去除空格" onclick = "DelSpace()"></li>
+          <li><input type = "button" value = "字数统计" onclick = "alert(txt.value.length)"></li>
+          <li><input type = "button" value = "计 算 器" onclick = "try{txt.value=txt.value+'='+eval(txt.value)}catch(e){alert('公式错误')}"></li>
+        </ul>
+      </div>
+    </div>
+    <div class="m">
+      <div class="l">
+        <textarea id = "txt" name = "txt" cols = "70" rows = "28" ></textarea>
+      </div>
+      <div class="r">
+        <ul>
+        <li>
+          <input type = "button" value = "10进制加密" onclick = "Encrypt()" onmousedown = "msg(10)" />&lt;=&gt;
+          <input type = "button" value = "10进制解密" onclick = "Decrypt()" onmousedown = "msg(10)" />
+        </li>
+        <li>
+          <input name = "Decimal1" type = "checkbox" value = "checkbox" />选中“&amp;#;”；默认“,”
+        </li>
+        <li>
+          <input name = "Decimal2" type = "checkbox" value = "checkbox" />选中“&amp;#”
+        </li>
+        <li>
+          <input type = "button" value = "16进制加密" onclick = "JavaEn()" onmousedown = "msg(16)" />&lt;=&gt;
+          <input type = "button" value = "16进制解密" onclick = "JavaDe()" onmousedown = "msg(16)" />
+        </li>
+        <li>
+          <input name = "hex1" type = "checkbox" value = "checkbox" />选中&quot;\u&quot;(双字节)；默认&quot;\&quot;(单字节)
+        </li>
+        <li>
+          <input name = "hex2" type = "checkbox" value = "checkbox" />选中&quot;&amp;#x;&quot;
+        </li>
+        <li>
+          <input name = "hex3" type = "checkbox" value = "checkbox" />选中&quot;\x&quot;
+        </li>
+        <li>
+          <input type = "button" value = "8进制加密" onclick = "EnEight()" onmousedown = "msg(8)" />&lt;=&gt;
+          <input type = "button" value = "8进制解密" onclick = "DeEight()" onmousedown = "msg(8)" />
+        </li>
+        <li>
+          <input type = "button" value = "任意转16进制" onclick = "EnChTo(16)" />
+          <input type = "button" value = "解" onclick = "DeChTo(16)" /> |
+          <input type = "button" value = "任意转10进制" onclick = "EnChTo(10)" />
+          <input type = "button" value = "解" onclick = "DeChTo(10)" />
+        </li>
+        <li>
+          <input type = "button" value = "任意转 8进制" onclick = "EnChTo(8)" />
+          <input type = "button" value = "解" onclick = "DeChTo(8)" /> |
+          <input type = "button" value = "任意转 2进制" onclick = "EnChTo(2)" />
+          <input type = "button" value = "解" onclick = "DeChTo(2)" />
+        </li>
+        <li>
+          <input type = "button" value = "替换字符" onclick = "ChSpace()" />替换
+          <input name = "front1" type = "text" value = "" size = "2" />为
+          <input name = "behind1" type = "text" value = "" size = "2" />(前)字符(后)
+          <input name = "behind2" type = "text" value = "" size = "2" />
+        </li>
+        <li>
+          <input type = "button" value = "Escape加密" onclick = "txt.value=escape(txt.value)" onmousedown = "msg(20)" />&lt;=&gt;
+          <input type = "button" value = "Unescape解密" onclick = "txt.value=unescape(txt.value)" onmousedown = "msg(20)" />
+        </li>
+        <li>
+          <input type = "button" value = "UrlEncode加密" onClick = "txt.value=encodeURI(txt.value)" />&lt;=&gt;
+          <input type = "button" value = "UrlDecode解密" onClick = "txt.value=decodeURI(txt.value)" />
+        </li>
+        <li>
+          <input type = "button" value = "HtmlToJs" onClick = "HtmlToJs(1)" />&lt;=&gt;
+          <input type = "button" value = "JsToHtml" onClick = "HtmlToJs(2)" />
+        </li>
+        <li>
+          <input type = "button" value = "HtmlEncode" onClick = "HtmlEncode(1)" onmousedown = "msg(21)" />&lt;=&gt;
+          <input type = "button" value = "HtmlDecode" onClick = "HtmlEncode(2)" onmousedown = "msg(21)" />
+        </li>
+        <li>
+          <input type = "button" value = "小写转大写" onClick = "txt.value=txt.value.toUpperCase()" />
+          <input type = "button" value = "大写转小写" onClick = "txt.value=txt.value.toLowerCase()" />
+        </li>
+        <li>
+          <input type = "button" value = "MD5加密"onclick = "txt.value=calcMD5(txt.value)" />
+          <input name = "search1" type = "text" value = "" size = "10" onFocus = "this.value=''" />
+          <input type = "button" value = "搜索" onClick = "search(search1.value)" />
+        </li>
+        <li>
+          <input type = "button" value = "base64encode" onClick = "txt.value=base64encode(utf16to8(txt.value))" />
+          <input type = "button" value = "base64decode" onClick = "txt.value=utf8to16(base64decode(txt.value))" />
+        </li>
+        </ul>
+      </div>
+      <div class="clear"></div>
+    </div>
+  </div>
+</div>
+ 
+<div class="bot">
+
+  <SCRIPT language=javascript> 
+  <!-- 
+  function show_date_time(){ 
+    window.setTimeout("show_date_time()", 1000); 
+    BirthDay=new Date("11/29/2012 20:00:00");
+    today=new Date(); 
+    timeold=(today.getTime() - BirthDay.getTime()); 
+    sectimeold=timeold/1000 
+    secondsold=Math.floor(sectimeold); 
+    msPerDay=24*60*60*1000 
+    e_daysold=timeold/msPerDay 
+    daysold=Math.floor(e_daysold); 
+    e_hrsold=(e_daysold-daysold)*24; 
+    hrsold=Math.floor(e_hrsold); 
+    e_minsold=(e_hrsold-hrsold)*60; 
+    minsold=Math.floor((e_hrsold-hrsold)*60); 
+    seconds=Math.floor((e_minsold-minsold)*60); 
+    //times = document.getElementById("times");
+    times.innerHTML="<span>"+daysold+ "days" +hrsold+"hours"+minsold+"minute"+seconds+"seconds"+"</span>" ; 
+  } 
+  show_date_time(); 
+  //--> 
+  </SCRIPT>
+
+
+
+
+</div>
+</div>
+ 
+<script>
+//注意：选项卡 依赖 element 模块，否则无法进行功能性操作
+layui.use('element', function(){
+  var element = layui.element;
+  
+  //…
+});
+</script>
+</body>
+</html>
